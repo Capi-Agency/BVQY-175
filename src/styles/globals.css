@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --text-heading: #000;
+  --text-body: #000;
+
+  --color-primary: #000;
+  --color-secondary: #000;
+
+}
+
+body {}
