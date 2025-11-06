@@ -1,55 +1,60 @@
 'use client';
 import { useState } from 'react';
-import Image from 'next/image';
-import { SETTINGS } from '@/src/utils/const';
+import Image from 'next/legacy/image';
 
 interface NextImgProps {
   id?: string;
   src: string;
   alt: string;
-  wrapperClassName?: string;
-  imageClassName?: string;
+  className?: string;
+  width?: number;
+  height?: number;
+  objectFit?: 'cover' | 'contain' | 'none';
   quality?: number;
-  fill?: boolean;
-  loading?: 'lazy' | 'eager' | undefined;
-  priority?: boolean;
+  loading?: 'lazy' | 'eager';
   [key: string]: any;
 }
+
+const srcDefault = '/assets/images/unavailable.png';
 
 const NextImg = ({
   id,
   src,
   alt,
-  wrapperClassName,
-  imageClassName,
-  fill = true,
-  quality = 80,
+  className,
+  width,
+  height,
+  objectFit = 'contain',
   loading = 'lazy',
-  priority = false,
+  quality = 100,
   ...props
 }: NextImgProps) => {
-  const [fallbackSrc, setFallbackSrc] = useState('');
+  const [fallback, setFallback] = useState('');
   const handleError = () => {
-    setFallbackSrc(SETTINGS.DEFAULT_UNAVAILABLE_IMAGE_URL);
+    setFallback(srcDefault);
   };
 
   return (
-    <div className={`relative ${wrapperClassName}`}>
-      <Image
-        id={id}
-        src={src || fallbackSrc}
-        blurDataURL={src || fallbackSrc}
-        alt={alt}
-        className={imageClassName}
-        onError={handleError}
-        loading={loading}
-        priority={priority}
-        quality={quality}
-        placeholder="blur"
-        fill={fill}
-        {...props}
-      />
-    </div>
+    <Image
+      id={id}
+      src={src + '?format=webp' || fallback}
+      blurDataURL={src || fallback}
+      alt={alt}
+      className={
+        className
+          ? `${className} lazyload h-full w-full`
+          : `lazyload h-full w-full`
+      }
+      onError={handleError}
+      width={width}
+      height={height}
+      loading={loading}
+      quality={quality}
+      objectFit={objectFit}
+      layout="fill"
+      placeholder="blur"
+      {...props}
+    />
   );
 };
 

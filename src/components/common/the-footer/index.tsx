@@ -1,7 +1,14 @@
-type Props = {};
+'use client';
+import React from 'react';
+import NextImg from '@/src/components/common/next-img';
 
-const TheFooter = (props: Props) => {
-  return <div>TheFooter</div>;
+
+const TheFooter = () => {
+  return (
+    <footer>
+      
+    </footer>
+  );
 };
 
 export default TheFooter;

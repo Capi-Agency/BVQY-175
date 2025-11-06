@@ -268,6 +268,20 @@ const getScrollbarWidth = () => {
 	return window.innerWidth - document.documentElement.clientWidth
 }
 
+const parseFilterString = (filter: string) => {
+	// "[title][_eq]=baiviet"
+	const match = filter.match(/\[(.*?)\]\[(.*?)\]=(.*)/);
+	if (!match) return '';
+	const [, field, operator, value] = match;
+	return `{ ${field}: { ${operator}: "${value}" } }`;
+}
+
+const checkValueNull = <T>(value: T, fallback: T extends string ? string : any = ""): any => {
+  if (value === null || value === undefined) return fallback;
+  return value;
+};
+
+
 export {
 	isEmail,
 	isMobilePhone,
@@ -292,5 +306,7 @@ export {
 	isValidURL,
 	required,
 	isNumeric,
-	getScrollbarWidth
+	getScrollbarWidth,
+	parseFilterString,
+	checkValueNull
 };

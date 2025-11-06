@@ -11,11 +11,10 @@ const config = {
   prefix: '',
   theme: {
     screens: {
-      '5xl': '1920px',
-      '4xl': '1760px',
-      '3xl': '1600px',
-      '2xl': '1440px',
-      xl: '1366px',
+      '4xl': '1920px',
+      '3xl': '1760px',
+      '2xl': '1600px',
+      'xl': '1440px',
       '2lg': '1280px',
       lg: '1024px',
       md: '768px',
@@ -24,21 +23,25 @@ const config = {
       center: true,
       padding: {
         DEFAULT: '24px',
-        '5xl': '130px',
-        '4xl': '130px',
-        '3xl': '130px',
-        '2xl': '80px',
-        'xl': '80px',
-        '2lg': '80px',
-        'lg': '40px',
-        'md': '24px'
+        '3xl': '160px',
+        '2xl': '120px',
+        '2lg': '100px',
+        'lg': '60px',
+        'md': '40px'
       },
     },
     extend: {
+      fontFamily: {
+        plusJakartaSans: ['var(--font-plus-jakarta-san)'],
+      },
       colors: {
-        primary: "#000",
-        secondary: "#000",
-        title: "#000"
+        primary: "#F9FAFB",
+        brand: "#0046FF",
+        neutral: {
+          "100": '#F3F4F6',
+          "500": "#6B7280",
+          "700": '#374151'
+        }
       },
       borderRadius: {},
       keyframes: {

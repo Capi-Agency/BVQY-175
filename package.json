@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
@@ -43,6 +44,7 @@
     "react": "^19.0.0",
     "react-day-picker": "^9.0.6",
     "react-dom": "^19.0.0",
+    "react-fast-marquee": "^1.6.5",
     "react-google-recaptcha": "^3.1.0",
     "react-hook-form": "^7.54.2",
     "react-toastify": "^11.0.5",
@@ -52,7 +54,7 @@
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "yup": "^1.6.1",
-    "zustand": "^4.5.2"
+    "zustand": "^4.5.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
