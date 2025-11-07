@@ -1,17 +1,22 @@
 'use client';
-import { CommonSection, PageContent, SectionMap } from '@/src/types/pageBuilder';
-
-
+import {
+  CommonSection,
+  PageContent,
+  SectionMap,
+} from '@/src/types/pageBuilder';
+import TheHeader from '../components/common/the-header';
+import TheFooter from '../components/common/the-footer';
 
 const headerMap: SectionMap = {
+  'top-nav': TheHeader,
 };
 
 const footerMap: SectionMap = {
+  'bottom-nav': TheFooter
 };
 
 const sectionMap: SectionMap = {
   // Home page
-
 };
 
 type PageBuilderProps = {
@@ -19,7 +24,6 @@ type PageBuilderProps = {
 };
 
 const PageBuilder = ({ pageContent }: PageBuilderProps) => {
-
   if (
     !pageContent ||
     !pageContent?.sections ||

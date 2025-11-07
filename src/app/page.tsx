@@ -5,7 +5,6 @@ import { Metadata, ResolvingMetadata } from 'next';
 import JsonLDProvider from '../components/common/the-json-ld';
 import { checkValueNull } from '../utils/validate';
 
-
 async function getLangSlugHome(): Promise<string> {
   const cookieStore = await cookies();
   const lang = cookieStore.get('language')?.value ?? 'vi';

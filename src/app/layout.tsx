@@ -10,6 +10,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import TheHeader from '@/src/components/common/the-header';
 import TheFooter from '@/src/components/common/the-footer';
 import { Plus_Jakarta_Sans } from 'next/font/google';
+import { GsapMatchMediaProvider } from '../providers/GsapMatchMediaProvider';
+import { ScrollSmootherProvider } from '../providers/ScrollSmootherProvider';
+import ScrollSmoothWrapper from '../components/animation/ScrollSmoothWrapper';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['vietnamese', 'latin'],
@@ -78,7 +81,11 @@ export default async function RootLayout({
         />
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <MetadataProvider value={metadata}>
-            {children}
+            <GsapMatchMediaProvider>
+              <ScrollSmootherProvider>
+                <ScrollSmoothWrapper>{children}</ScrollSmoothWrapper>
+              </ScrollSmootherProvider>
+            </GsapMatchMediaProvider>
           </MetadataProvider>
         </ThemeProvider>
       </body>

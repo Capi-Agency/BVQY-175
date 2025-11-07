@@ -22,6 +22,6 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-export default function TheHeader() {
-  return <header></header>;
+export default function TheHeader({ data }: any) {
+  return <header className='h-[100px] bg-red-500 w-full'></header>;
 }
