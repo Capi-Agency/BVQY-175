@@ -3,6 +3,8 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata, ResolvingMetadata } from 'next';
 import { checkValueNull } from '@/src/utils/validate';
+import TheHeader from '@/src/components/common/the-header';
+import TheFooter from '@/src/components/common/the-footer';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -27,6 +29,9 @@ export async function generateMetadata(
     keywords: 'Bệnh viện Quân Y 175',
     description: checkValueNull(data?.blurb, ''),
     openGraph: {
+      locale: 'vi_VN',
+      alternateLocale: 'en_US',
+      siteName: checkValueNull(data?.title, ''),
       title: checkValueNull(data?.title, ''),
       description: checkValueNull(data?.blurb, ''),
       images: [imageUrl],
@@ -53,11 +58,9 @@ export default async function NewsDetailPage({ params }: Props) {
   }
   return (
     <div className="relative">
-      {/* <Header1
-        data={{ default: true, slug: 'top-nav' }}
-      />
+      <TheHeader data={{ default: true, slug: 'top-nav' }} />
 
-      <Footer1 data={{ default: true, slug: 'bottom-nav' }} /> */}
+      <TheFooter data={{ default: true, slug: 'bottom-nav' }} />
     </div>
   );
 }

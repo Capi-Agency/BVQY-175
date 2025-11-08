@@ -1,20 +1,22 @@
 import { directusClient } from "@/src/lib/directus";
 
 export interface ContactInfo {
+  title?: string | null
   name: string;
-  email?: string | null;
+  email: string;
   phone: string;
   message: string;
 }
 
-export const fnSendContact = async ({ name, email, phone, message }: ContactInfo) => {
+export const fnSendContact = async ({ title, name, email, phone, message }: ContactInfo) => {
   try {
     const query = `
         mutation {
             create_contact_tickets_item (data: {
-              full_name: "${name}",
-              email: "${email}",
-              phone_number: "${phone}",
+              title: "${title?.trim()}",
+              full_name: "${name?.trim()}",
+              email: "${email?.trim()}",
+              phone_number: "${phone?.trim()}",
               message: "${message?.trim()}",
             })
         }

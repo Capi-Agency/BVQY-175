@@ -13,11 +13,56 @@
 /* ==================================================================================== */
 body {}
 
+@font-face {
+  font-family: 'PlusJakartaSans';
+  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PlusJakartaSans';
+  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PlusJakartaSans';
+  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PlusJakartaSans';
+  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PlusJakartaSans';
+  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
 @layer base {
   * {
-    font-family: 'Plus_Jakarta_Sans', sans-serif;
+    font-family: 'PlusJakartaSans', sans-serif;
+    letter-spacing: 0.02em;
+    font-kerning: none;
+    -webkit-text-rendering: optimizeSpeed;
+    text-rendering: optimizeSpeed;
+    -webkit-font-feature-settings: normal;
+    font-feature-settings: normal;
   }
 
+  .font-plusJakartaSans * {
+    font-family: 'PlusJakartaSans', sans-serif;
+    letter-spacing: 0.02em;
+  }
 
   .content-wrapper h1,
   .content-wrapper h2,

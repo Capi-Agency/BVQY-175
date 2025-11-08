@@ -32,7 +32,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        plusJakartaSans: ['var(--font-plus-jakarta-san)'],
+        PlusJakartaSans: ['PlusJakartaSans'],
       },
       colors: {
         primary: "#009850",

@@ -26,6 +26,9 @@ export async function generateMetadata(
       : '',
     description: checkValueNull(seo?.meta_description, ''),
     openGraph: {
+      locale: "vi_VN",
+      alternateLocale: "en_US",
+      siteName: checkValueNull(seo?.meta_title, ''),
       title: checkValueNull(seo?.meta_title, ''),
       description: checkValueNull(seo?.meta_description, ''),
       images: seo?.meta_cover?.id
@@ -36,7 +39,12 @@ export async function generateMetadata(
     },
     alternates: {
       canonical: process.env.SITE_URL ?? '',
+      languages: {
+        vi: `${process.env.SITE_URL}/vi`,
+        en: `${process.env.SITE_URL}/en`
+      }
     },
+    
   };
 }
 
