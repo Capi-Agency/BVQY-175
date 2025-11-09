@@ -1,9 +1,6 @@
 'use client';
 
 import React from 'react';
-
-import Link from 'next/link';
-
 import { DialogDescription } from '@radix-ui/react-dialog';
 import { useScrollSmoother } from '@/src/providers/ScrollSmootherProvider';
 import useStoreLanguage from '@/src/store/store';
@@ -92,11 +89,11 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
 
               <button
                 onClick={() =>
-                  changeLanguage(`${language === 'en' ? 'en' : 'vi'}`)
+                  changeLanguage(`${language === 'en' ? 'vi' : 'en'}`)
                 }
                 className="relative hidden h-9 w-[52px] overflow-hidden rounded-[6px] md:block 2xl:h-10 2xl:w-[60px]"
               >
-                {language === 'en' ? (
+                {language && language === 'en' ? (
                   <NextImg
                     src="/assets/images/flag_en.png"
                     alt="English"
@@ -170,7 +167,9 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                       >
                         <AccordionTrigger className="flex w-fit items-center gap-[2px]">
                           <div className="text-sm font-bold uppercase text-white">
-                            {item?.title}
+                            {language === 'en'
+                              ? `${item?.title_en}`
+                              : `${item?.title}`}{' '}
                           </div>
 
                           <div className="relative size-5 origin-center transition-all duration-300 ease-in group-data-[state=open]:-rotate-180">
@@ -193,9 +192,11 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                                 >
                                   <AnimatedLink
                                     href={`/${language}${related_item?.url || ''}`}
-                                    className="text-sm text-white font-medium"
+                                    className="text-sm font-medium text-white"
                                   >
-                                    {related_item?.title}
+                                    {language === 'en'
+                                      ? `${related_item?.title_en}`
+                                      : `${related_item?.title}`}{' '}
                                   </AnimatedLink>
                                 </DialogClose>
                               ),
@@ -213,7 +214,9 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                             href={`/${language}${item?.url || ''}`}
                             className="text-sm font-bold uppercase text-white"
                           >
-                            {item?.title}
+                            {language === 'en'
+                              ? `${item?.title_en}`
+                              : `${item?.title}`}
                           </AnimatedLink>
                         </DialogClose>
                       </AccordionItem>
@@ -239,11 +242,11 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
 
                 <button
                   onClick={() =>
-                    changeLanguage(`${language === 'en' ? 'en' : 'vi'}`)
+                    changeLanguage(`${language === 'en' ? 'vi' : 'en'}`)
                   }
                   className="relative h-9 w-[52px] overflow-hidden rounded-[6px] 2xl:h-10 2xl:w-[60px]"
                 >
-                  {language === 'en' ? (
+                  {language && language === 'en' ? (
                     <NextImg
                       src="/assets/images/flag_en.png"
                       alt="English"

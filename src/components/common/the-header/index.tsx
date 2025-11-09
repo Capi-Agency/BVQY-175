@@ -152,11 +152,11 @@ export default function TheHeader({ data }: Props) {
 
                   <button
                     onClick={() =>
-                      changeLanguage(`${language === 'en' ? 'en' : 'vi'}`)
+                      changeLanguage(`${language === 'en' ? 'vi' : 'en'}`)
                     }
                     className="relative hidden h-9 w-[52px] overflow-hidden rounded-[6px] xl:flex 2xl:h-10 2xl:w-[60px]"
                   >
-                    {language === 'en' ? (
+                    {language && language === 'en' ? (
                       <NextImg
                         src="/assets/images/flag_en.png"
                         alt="English"

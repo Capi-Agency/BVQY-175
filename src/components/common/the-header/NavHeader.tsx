@@ -48,7 +48,9 @@ export default function NavHeader() {
                       }}
                       className="relative flex items-center gap-[2px] whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:gap-1 3xl:text-base"
                     >
-                      {item?.title}
+                      {language === 'en'
+                        ? `${item?.title_en}`
+                        : `${item?.title}`}
                       <div className="relative size-5 origin-center duration-200 group-data-[state=open]:-rotate-180 3xl:size-6">
                         <NextImg
                           src="/assets/icons/arrow_down_white.svg"
@@ -63,7 +65,9 @@ export default function NavHeader() {
                       }}
                       className="relative flex items-center gap-[2px] whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:gap-1 3xl:text-base"
                     >
-                      {item?.title}
+                      {language === 'en'
+                        ? `${item?.title_en}`
+                        : `${item?.title}`}{' '}
                       <div className="relative size-5 origin-center duration-200 group-data-[state=open]:-rotate-180 3xl:size-6">
                         <NextImg
                           src="/assets/icons/arrow_down_white.svg"
@@ -83,7 +87,9 @@ export default function NavHeader() {
                         href={`/${language}${related_item?.url || ''}`}
                         className="block whitespace-nowrap text-nowrap p-[8px_16px] text-sm font-medium text-[#FAFAFA]"
                       >
-                        {related_item?.title}
+                        {language === 'en'
+                          ? `${related_item?.title_en}`
+                          : `${related_item?.title}`}
                       </AnimatedLink>
                     ),
                   )}
@@ -95,7 +101,9 @@ export default function NavHeader() {
                   href={`/${language}${item?.url || ''}`}
                   className="relative block whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:text-base"
                 >
-                  {item?.title}
+                  {language === 'en'
+                    ? `${item?.title_en}`
+                    : `${item?.title}`}{' '}
                 </AnimatedLink>
               </NavigationMenu.Item>
             );

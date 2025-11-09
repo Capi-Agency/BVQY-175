@@ -49,7 +49,7 @@ export default function TheFooter({ data }: any) {
 
         <div className="flex flex-col gap-6 md:flex-row md:flex-wrap md:gap-x-4 md:gap-y-6 xl:flex-nowrap xl:justify-between">
           {/* Start: contact info */}
-          <div className="w-full md:w-[256px] lg:w-[432px] xl:w-[308px]">
+          <div className="w-full md:w-[256px] lg:w-[432px] xl:w-[320px] 3xl:w-[352px]">
             <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
               {trans('contact-label')}
             </h2>
@@ -119,7 +119,9 @@ export default function TheFooter({ data }: any) {
                         href={`${language}${sub_item?.url}`}
                         className="block w-fit text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base"
                       >
-                        {sub_item?.title}
+                        {language === 'en'
+                          ? `${sub_item?.title_en}`
+                          : `${sub_item?.title}`}
                       </Link>
                     ),
                   )}
