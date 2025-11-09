@@ -13,11 +13,18 @@ export default function TheFooter({ data }: any) {
   const { contact_information, bottom_navigation } = useMetadata();
   return (
     <footer className="relative bg-secondary py-6 xl:py-8 3xl:py-10">
-      <div className="pointer-events-none absolute inset-0 size-full select-none ">
+      <div className="pointer-events-none absolute inset-0 size-full select-none">
         <NextImg
           src="/assets/images/footer_bg.png"
           alt="footer background"
           objectFit="cover"
+          className="hidden md:block"
+        />
+        <NextImg
+          src="/assets/images/footer_bg_mb.png"
+          alt="footer background"
+          objectFit="cover"
+          className="md:hidden"
         />
       </div>
       <div className="container space-y-6 xl:space-y-8 3xl:space-y-10 4xl:!px-[320px]">
@@ -162,8 +169,8 @@ export default function TheFooter({ data }: any) {
             </div>
           </div>
 
-          <div className="flex items-center gap-6 md:gap-8 md:px-3 xl:flex-col 2xl:px-4 3xl:px-6">
-            <div className="relative h-[48px] w-[122px] md:h-[60px] md:w-[152px]">
+          <div className="flex items-center gap-6 md:px-3 xl:flex-col xl:items-start xl:gap-4 2xl:gap-5 2xl:px-4 3xl:px-6 4xl:gap-6">
+            <div className="relative h-[50px] w-[126px] 2xl:h-[58px] 2xl:w-[147px] 4xl:h-[66px] 4xl:w-[167px]">
               <NextImg
                 src="/assets/images/bo_cong_thuong.png"
                 alt="Bộ công thương"
@@ -174,7 +181,7 @@ export default function TheFooter({ data }: any) {
               target="_blank"
               rel="noopener"
               href={`${contact_information?.dmca_url || '/'}`}
-              className="relative h-[24px] w-[121px]"
+              className="relative h-[50px] w-[100px] 2xl:h-[58px] 2xl:w-[116px] 4xl:h-[66px] 4xl:w-[132px]"
             >
               <NextImg src="/assets/images/dmca.png" alt="DMCA protected" />
             </Link>
@@ -213,7 +220,7 @@ export default function TheFooter({ data }: any) {
 
           <div className="mb-3 mt-4 h-[1px] w-full bg-[#00A032] xl:mt-6"></div>
 
-          <div className="text-center text-sm font-normal tracking-normal md:tracking-wider text-white">
+          <div className="text-center text-sm font-normal tracking-normal text-white md:tracking-wider">
             {trans('copy-right-label')}
           </div>
         </div>

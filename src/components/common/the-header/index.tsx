@@ -12,6 +12,10 @@ import { fnGetMetadata } from '@/src/services/metadata';
 import { fnGetTopNavBySlug } from '@/src/services/page';
 import NextImg from '../next-img';
 import { AnimatedLink } from '../../animation/LinkAnimated';
+import { useMetadata } from '@/src/providers/MetadataProvider';
+import { getAssetUrlById } from '@/src/utils/image';
+import NavHeader from './NavHeader';
+import MobileMenu from './MenuMobile';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -20,237 +24,176 @@ type Props = {
 };
 
 export default function TheHeader({ data }: Props) {
-  // const language = useStoreLanguage((state: any) => state.language);
-  // const updateLanguage = useStoreLanguage((state: any) => state.updateLanguage);
-  // const pathname = usePathname();
-  // const router = useRouter();
+  const { contact_information } = useMetadata();
+  const language = useStoreLanguage((state: any) => state.language);
+  const updateLanguage = useStoreLanguage((state: any) => state.updateLanguage);
+  const pathname = usePathname();
+  const router = useRouter();
 
-  // const [leftPosition, setLeftPosition] = useState(0);
-  // const menuItemsRef = useRef<(HTMLElement | null)[]>([]);
-  // const [dataTopNav, setDataTopNav] = useState<any>(null);
+  const headerRef = useRef<any>(null);
+  const selector = gsap.utils.selector(headerRef);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const response = await fnGetTopNavBySlug(data?.slug);
-  //       setDataTopNav(response);
-  //     } catch (error) {
-  //       console.log('Error:', error);
-  //     }
-  //   })();
-  // }, []);
+  const changeLanguage = (value: string) => {
+    const segments = pathname.split('/');
 
-  // const headerRef = useRef<any>(null);
-  // const selector = gsap.utils.selector(headerRef);
+    segments[1] = value;
 
-  // const handleMouseEnter = (index: number) => {
-  //   const item = menuItemsRef.current[index];
-  //   if (item) {
-  //     const rect = item.getBoundingClientRect();
-  //     setLeftPosition(rect.left);
-  //   }
-  // };
+    if (segments[2]) {
+      const slugParts = segments[2].split('-');
+      const lastPart = slugParts[slugParts.length - 1];
 
-  // const changeLanguage = (value: string) => {
-  //   const segments = pathname.split('/');
+      if (lastPart === 'en' || lastPart === 'vi') {
+        if (value === 'vi') {
+          slugParts.pop();
+          segments[2] = slugParts.join('-');
+        } else {
+          slugParts[slugParts.length - 1] = 'en';
+          segments[2] = slugParts.join('-');
+        }
+      }
+    }
+    const newPath = segments.join('/') || '/';
+    router.push(newPath);
+    updateLanguage(value);
+  };
 
-  //   segments[1] = value;
+  useGSAP(
+    () => {
+      gsap.to(selector('.header-primary'), {
+        yPercent: 0,
+        opacity: 1,
+        duration: 0.3,
+        ease: 'power1.out',
+        delay: 0.2,
+      });
 
-  //   if (segments[2]) {
-  //     const slugParts = segments[2].split('-');
-  //     const lastPart = slugParts[slugParts.length - 1];
-
-  //     if (lastPart === 'en' || lastPart === 'vi') {
-  //       if (value === 'vi') {
-  //         slugParts.pop();
-  //         segments[2] = slugParts.join('-');
-  //       } else {
-  //         slugParts[slugParts.length - 1] = 'en';
-  //         segments[2] = slugParts.join('-');
-  //       }
-  //     }
-  //   }
-  //   const newPath = segments.join('/') || '/';
-  //   router.push(newPath);
-  //   updateLanguage(value);
-  // };
-
-  // useGSAP(
-  //   () => {
-  //     if (!dataTopNav) return;
-
-  //     gsap.to(selector('.header-primary'), {
-  //       yPercent: 0,
-  //       opacity: 1,
-  //       duration: 0.3,
-  //       ease: 'power1.out',
-  //       delay: 0.2,
-  //     });
-
-  //     ScrollTrigger.create({
-  //       trigger: selector('.header-primary'),
-  //       start: () => 'top top',
-  //       end: 'max',
-  //       pin: true,
-  //       pinSpacing: false,
-  //       onUpdate: (self) => {
-  //         if (self.direction === 1) {
-  //           gsap.to(selector('.header-primary'), {
-  //             yPercent: -100,
-  //             duration: 0.4,
-  //             ease: 'power1.out',
-  //           });
-  //         } else {
-  //           gsap.to(selector('.header-primary'), {
-  //             yPercent: 0,
-  //             duration: 0.4,
-  //             ease: 'power1.out',
-  //           });
-  //         }
-  //       },
-  //     });
-  //   },
-  //   { scope: headerRef, dependencies: [dataTopNav] },
-  // );
+      ScrollTrigger.create({
+        trigger: selector('.header-primary'),
+        start: () => 'top top',
+        end: 'max',
+        pin: true,
+        pinSpacing: false,
+        // onUpdate: (self) => {
+        //   if (self.direction === 1) {
+        //     gsap.to(selector('.header-primary'), {
+        //       yPercent: -100,
+        //       duration: 0.4,
+        //       ease: 'power1.out',
+        //     });
+        //   } else {
+        //     gsap.to(selector('.header-primary'), {
+        //       yPercent: 0,
+        //       duration: 0.4,
+        //       ease: 'power1.out',
+        //     });
+        //   }
+        // },
+      });
+    },
+    { scope: headerRef },
+  );
 
   return (
-    // <header ref={headerRef}>
-    //   <div
-    //     className={` header-primary absolute left-0 top-0 z-[100] w-full -translate-y-full opacity-0`}
-    //   >
-    //     <NavigationMenu.Root className="relative w-full">
-    //       <div className="header-container">
-    //         <div className="flex h-[56px] w-full items-center justify-between 2lg:h-[64px] xl:h-[72px] 2xl:h-[76px]">
-         
+    <header ref={headerRef}>
+      <div
+        className={`header-primary absolute left-0 top-0 z-[100] w-full -translate-y-full opacity-0`}
+      >
+        <div className="bg-white py-[6px] xl:py-2 2xl:py-[10px] 4xl:py-3 shadow-md">
+          <div className="container relative flex items-center justify-between">
+            <AnimatedLink
+              href="/"
+              className="relative h-[52px] w-[214px] md:h-[56px] md:w-[230px] lg:h-[64px] lg:w-[262px] 2xl:h-[72px] 2xl:w-[296px] 4xl:h-[80px] 4xl:w-[328px]"
+            >
+              <NextImg
+                src="/assets/logo/primary_logo.svg"
+                alt="Military hospital logo"
+              />
+            </AnimatedLink>
 
-    //           <div className="flex items-center 2lg:gap-2 xl:gap-3 2xl:gap-4">
-    //             <NavigationMenu.List className="hidden w-fit items-center 2lg:flex">
-    //               {dataTopNav?.length > 0 &&
-    //                 dataTopNav?.map((item: any, index: any) => {
-    //                   return item?.sub_items ? (
-    //                     <NavigationMenu.Item key={index}>
-    //                       <NavigationMenu.Trigger
-    //                         className="group select-none"
-    //                         onMouseEnter={(e) => handleMouseEnter(index)}
-    //                       >
-    //                         {item?.url ? (
-    //                           <AnimatedLink
-    //                             target={
-    //                               item?.url?.startsWith('http')
-    //                                 ? '_blank'
-    //                                 : '_parent'
-    //                             }
-    //                             href={
-    //                               item?.url?.startsWith('http')
-    //                                 ? item.url
-    //                                 : `/${language}${item?.url || ''}`
-    //                             }
-    //                             ref={(el: any) => {
-    //                               menuItemsRef.current[index] = el;
-    //                             }}
-    //                             className="relative block font-manche text-sm font-medium uppercase text-white 2lg:p-[12px_16px] xl:p-[12px_20px] 2xl:p-[12px_24px]"
-    //                           >
-    //                             {item?.title}
-    //                           </AnimatedLink>
-    //                         ) : (
-    //                           <div
-    //                             ref={(el: any) => {
-    //                               menuItemsRef.current[index] = el;
-    //                             }}
-    //                             className="relative block font-manche text-sm font-medium uppercase text-white 2lg:p-[12px_16px] xl:p-[12px_20px] 2xl:p-[12px_24px]"
-    //                           >
-    //                             {item?.title}
-    //                           </div>
-    //                         )}
-    //                       </NavigationMenu.Trigger>
+            <div className="flex items-center gap-3 md:gap-4 lg:gap-6 2xl:gap-8 4xl:gap-10">
+              {/* Start: medal*/}
+              <div className="hidden items-center gap-3 md:flex xl:gap-4 2xl:gap-5 4xl:gap-6">
+                {contact_information?.files?.length > 0 &&
+                  contact_information?.files?.map(
+                    (file: any, index: number) => (
+                      <div
+                        className="relative h-[44px] w-[30px] lg:h-[52px] lg:w-[36px] xl:h-[56px] xl:w-[39px] 2xl:h-[64px] 2xl:w-[44px] 4xl:h-[72px] 4xl:w-[50px]"
+                        key={index}
+                      >
+                        <NextImg
+                          src={getAssetUrlById(file?.directus_files_id)}
+                          alt="Military hospital"
+                        />
+                      </div>
+                    ),
+                  )}
+              </div>
+              {/* End: medal*/}
 
-    //                       <NavigationMenu.Content className="w-fit data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft 2lg:space-y-2 2lg:p-[8px_16px_16px] xl:space-y-3 xl:p-[12px_20px_20px] 2xl:p-[16px_24px_24px] 3xl:space-y-4">
-    //                         {item?.sub_items?.map(
-    //                           (related_item: any, index: any) => (
-    //                             <AnimatedLink
-    //                               key={index}
-    //                               target={
-    //                                 related_item?.url?.startsWith('http')
-    //                                   ? '_blank'
-    //                                   : '_parent'
-    //                               }
-    //                               href={
-    //                                 related_item?.url?.startsWith('http')
-    //                                   ? related_item.url
-    //                                   : `/${language}${related_item?.url || ''}`
-    //                               }
-    //                               className="flex h-[28px] items-center whitespace-nowrap text-nowrap border-b-[1px] border-white font-manche text-xs font-medium text-white"
-    //                             >
-    //                               {related_item?.title}
-    //                             </AnimatedLink>
-    //                           ),
-    //                         )}
-    //                       </NavigationMenu.Content>
-    //                     </NavigationMenu.Item>
-    //                   ) : (
-    //                     <NavigationMenu.Item key={index}>
-    //                       <AnimatedLink
-    //                         target={
-    //                           item?.url?.startsWith('http')
-    //                             ? '_blank'
-    //                             : '_parent'
-    //                         }
-    //                         href={
-    //                           item?.url?.startsWith('http')
-    //                             ? item.url
-    //                             : `/${language}${item?.url || ''}`
-    //                         }
-    //                         className="relative block font-manche text-sm font-medium uppercase text-white 2lg:p-[12px_16px] xl:p-[12px_20px] 2xl:p-[12px_24px]"
-    //                       >
-    //                         {item?.title}
-    //                       </AnimatedLink>
-    //                     </NavigationMenu.Item>
-    //                   );
-    //                 })}
-    //             </NavigationMenu.List>
+              {/* Start: location + search + language */}
+              <div className="flex flex-col items-center gap-[6px] 4xl:gap-2">
+                <div className="flex items-center gap-2 2xl:gap-3">
+                  <button className="hidden h-9 w-[52px] items-center justify-center rounded-[6px] bg-secondary md:flex 2xl:h-10 2xl:w-[60px]">
+                    <div className="relative size-5 2xl:size-6">
+                      <NextImg
+                        src="/assets/icons/hospital_location.svg"
+                        alt="hospital location"
+                      />
+                    </div>
+                  </button>
 
-    //             <div className="flex items-center gap-5 2lg:gap-0">
-    //               <button className="relative size-6 2lg:mx-4 xl:mx-5 2xl:mx-6">
-    //                 <NextImg
-    //                   src="/assets/icons/search.svg"
-    //                   alt="search icon"
-    //                   objectFit="contain"
-    //                 />
-    //               </button>
+                  <button className="hidden h-9 w-[52px] items-center justify-center rounded-[6px] bg-secondary md:flex 2xl:h-10 2xl:w-[60px]">
+                    <div className="relative size-5 2xl:size-6">
+                      <NextImg
+                        src="/assets/icons/search_white.svg"
+                        alt="search icon"
+                      />
+                    </div>
+                  </button>
 
-    //               <div className="hidden items-center 2lg:flex">
-    //                 <div className="h-9 w-[1px] bg-white"></div>
-    //                 <button
-    //                   onClick={() => changeLanguage('vi')}
-    //                   className={`${language == 'vi' ? 'text-white' : 'text-white/60'} font-manche text-sm font-medium uppercase 2lg:p-[12px_16px] xl:p-[12px_20px] 2xl:p-[12px_24px]`}
-    //                 >
-    //                   VN
-    //                 </button>
-    //                 <div className="h-4 w-[1px] bg-white"></div>
-    //                 <button
-    //                   // onClick={() => changeLanguage('en')}
-    //                   className={`${language == 'en' ? 'text-white' : 'text-white/60'} cursor-not-allowed font-manche text-sm font-medium uppercase 2lg:p-[12px_16px] xl:p-[12px_20px] 2xl:p-[12px_24px]`}
-    //                 >
-    //                   EN
-    //                 </button>
-    //               </div>
+                  <MobileMenu changeLanguage={changeLanguage} />
 
-                  
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
+                  <button
+                    onClick={() =>
+                      changeLanguage(`${language === 'en' ? 'en' : 'vi'}`)
+                    }
+                    className="relative hidden h-9 w-[52px] overflow-hidden rounded-[6px] xl:flex 2xl:h-10 2xl:w-[60px]"
+                  >
+                    {language === 'en' ? (
+                      <NextImg
+                        src="/assets/images/flag_en.png"
+                        alt="English"
+                        objectFit="cover"
+                      />
+                    ) : (
+                      <NextImg
+                        src="/assets/images/flag_vi.png"
+                        alt="Vietnamese"
+                        objectFit="cover"
+                      />
+                    )}
+                  </button>
+                </div>
 
-    //       <div
-    //         className="perspective-[2000px] absolute left-0 top-[54px] w-full transition-all duration-300 2lg:top-[58px] 2xl:top-[60px]"
-    //         style={{ left: `${leftPosition}px` }}
-    //       >
-    //         <NavigationMenu.Viewport className="relative h-[var(--radix-navigation-menu-viewport-height)] w-[var(--radix-navigation-menu-viewport-width)] origin-[top_center] overflow-hidden rounded-[6px] border-[1px] border-[rgba(171,130,62,0.40)] bg-[rgba(171,130,62,0.80)] transition-all duration-100 data-[state=closed]:animate-scaleOut data-[state=open]:animate-scaleIn" />
-    //       </div>
-    //     </NavigationMenu.Root>
-    //   </div>
-    // </header>
-    <></>
+                <a
+                  href={`${contact_information?.hot_line_url || '/'}`}
+                  className="hidden text-lg font-medium text-secondary xl:block 2xl:text-xl 2xl:!leading-[1.6] 4xl:text-[22px] 4xl:!leading-[1.55]"
+                >
+                  Hotline:{' '}
+                  <span className="text-[#E11E30]">
+                    {contact_information?.hot_line}
+                  </span>
+                </a>
+              </div>
+              {/* End: location + search + language */}
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden w-full xl:block">
+          <NavHeader />
+        </div>
+      </div>
+    </header>
   );
-};
-
+}

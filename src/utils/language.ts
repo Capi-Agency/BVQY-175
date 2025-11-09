@@ -59,4 +59,8 @@ export const locales: any = {
         vi: "Xảy ra lỗi, xin vui lòng thử lại!",
         en: "An error occurred, please try again!"
     },
+    "search-placeholder": {
+        vi: "Tìm kiếm",
+        en: "Search"
+    }
 };
