@@ -13,29 +13,33 @@ export default function TheFooter({ data }: any) {
   const { contact_information, bottom_navigation } = useMetadata();
   return (
     <footer className="relative bg-secondary py-6 xl:py-8 3xl:py-10">
-      <div className="pointer-events-none absolute inset-0 size-full select-none">
+      <div className="pointer-events-none absolute inset-0 hidden size-full select-none md:block">
         <NextImg
           src="/assets/images/footer_bg.png"
           alt="footer background"
           objectFit="cover"
-          className="hidden md:block"
+          className=""
         />
+      </div>
+      <div className="pointer-events-none absolute inset-0 size-full select-none md:hidden">
         <NextImg
           src="/assets/images/footer_bg_mb.png"
           alt="footer background"
           objectFit="cover"
-          className="md:hidden"
         />
       </div>
-      <div className="container space-y-6 xl:space-y-8 3xl:space-y-10 4xl:!px-[320px]">
+      <div className="container space-y-6 xl:space-y-8 3xl:space-y-10">
         {/* Start: logo and form */}
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between md:gap-0">
-          <div className="relative h-[72px] w-[295px] 3xl:h-[88px] 3xl:w-[361px]">
+          <Link
+            href={'/'}
+            className="relative h-[72px] w-[295px] 3xl:h-[88px] 3xl:w-[361px]"
+          >
             <NextImg
               src="/assets/logo/secondary_logo.svg"
               alt="175 hospital logo"
             />
-          </div>
+          </Link>
 
           <RegisterFormFooter />
         </div>
@@ -46,7 +50,7 @@ export default function TheFooter({ data }: any) {
         <div className="flex flex-col gap-6 md:flex-row md:flex-wrap md:gap-x-4 md:gap-y-6 xl:flex-nowrap xl:justify-between">
           {/* Start: contact info */}
           <div className="w-full md:w-[256px] lg:w-[432px] xl:w-[308px]">
-            <h2 className="text-base font-bold tracking-wider text-white">
+            <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
               {trans('contact-label')}
             </h2>
             <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
@@ -59,7 +63,7 @@ export default function TheFooter({ data }: any) {
                 <div className="relative size-5">
                   <NextImg src="/assets/icons/phone.svg" alt="phone icon" />
                 </div>
-                <span className="flex-1 text-sm font-normal tracking-wider text-[#FAFAFA]">
+                <span className="flex-1 text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base">
                   {contact_information?.hot_line}
                 </span>
               </a>
@@ -71,7 +75,7 @@ export default function TheFooter({ data }: any) {
                 <div className="relative size-5">
                   <NextImg src="/assets/icons/mail.svg" alt="mail icon" />
                 </div>
-                <span className="flex-1 text-sm font-normal tracking-wider text-[#FAFAFA]">
+                <span className="flex-1 text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base">
                   {contact_information?.email}
                 </span>
               </a>
@@ -88,7 +92,7 @@ export default function TheFooter({ data }: any) {
                     alt="location icon"
                   />
                 </div>
-                <span className="flex-1 text-sm font-normal tracking-wider text-[#FAFAFA]">
+                <span className="flex-1 text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base">
                   {contact_information?.address}
                 </span>
               </a>
@@ -103,7 +107,7 @@ export default function TheFooter({ data }: any) {
                 key={index}
                 className="w-full md:w-[200px] xl:w-[172px] 3xl:w-[200px]"
               >
-                <h2 className="text-base font-bold tracking-wider text-white">
+                <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
                   {language === 'en' ? `${item?.title_en}` : `${item?.title}`}
                 </h2>
                 <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
@@ -113,7 +117,7 @@ export default function TheFooter({ data }: any) {
                       <Link
                         key={sub_item_index}
                         href={`${language}${sub_item?.url}`}
-                        className="block w-fit text-sm font-normal tracking-wider text-[#FAFAFA]"
+                        className="block w-fit text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base"
                       >
                         {sub_item?.title}
                       </Link>
@@ -126,12 +130,12 @@ export default function TheFooter({ data }: any) {
 
           {/* Start: social network */}
           <div className="md:pr-5 xl:px-3 2xl:px-4 3xl:px-6">
-            <h2 className="text-base font-bold tracking-wider text-white">
+            <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
               {trans('social-network-label')}
             </h2>
             <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
 
-            <div className="mt-3 flex gap-3">
+            <div className="mt-5 flex gap-3">
               {contact_information.facebook_url && (
                 <Link
                   href={`${contact_information?.facebook_url}`}
@@ -191,7 +195,7 @@ export default function TheFooter({ data }: any) {
 
         {/* Start: policy */}
         <div>
-          <div className="flex w-full items-stretch justify-center gap-3 text-xs font-medium text-white md:text-nowrap">
+          <div className="flex w-full items-stretch justify-center gap-3 text-xs font-medium text-white md:text-nowrap 3xl:text-sm">
             {contact_information?.security_url && (
               <>
                 <Link

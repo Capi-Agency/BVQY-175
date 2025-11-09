@@ -51,7 +51,7 @@ body {}
 @layer base {
   * {
     font-family: 'PlusJakartaSans', sans-serif;
-    letter-spacing: 0.02em;
+    /* letter-spacing: 0.02em; */
     font-kerning: none;
     -webkit-text-rendering: optimizeSpeed;
     text-rendering: optimizeSpeed;
@@ -202,6 +202,10 @@ body {}
   }
 }
 
-@layer components {}
+@layer components {
+  .padding-top-body {
+    @apply pt-[64px] md:pt-[68px] lg:pt-[76px] xl:pt-[130px] 2xl:pt-[142px] 3xl:pt-[146px] 4xl:pt-[154px]
+  }
+}
 
 @layer utilities {}

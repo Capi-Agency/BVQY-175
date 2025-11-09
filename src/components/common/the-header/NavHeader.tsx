@@ -30,14 +30,14 @@ export default function NavHeader() {
   };
 
   return (
-    <NavigationMenu.Root className="relative w-full bg-secondary">
+    <NavigationMenu.Root className="relative w-full bg-secondary shadow-md">
       <NavigationMenu.List className="container flex justify-center gap-5 2xl:gap-6 3xl:gap-8 4xl:gap-10">
         {top_navigation?.length > 0 &&
           top_navigation?.map((item: any, index: any) => {
             return item?.sub_items ? (
               <NavigationMenu.Item key={index}>
                 <NavigationMenu.Trigger
-                  className="group select-none"
+                  className="group relative select-none"
                   onMouseEnter={(e) => handleMouseEnter(index)}
                 >
                   {item?.url ? (
@@ -72,9 +72,10 @@ export default function NavHeader() {
                       </div>
                     </div>
                   )}
+                  <div className="absolute bottom-0 left-0 hidden h-[8px] w-full translate-y-full cursor-default group-data-[state=open]:block 2xl:h-[10px]"></div>
                 </NavigationMenu.Trigger>
 
-                <NavigationMenu.Content className="w-fit overflow-hidden py-2 data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft">
+                <NavigationMenu.Content className="relative w-fit overflow-hidden py-2 data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft">
                   {item?.sub_items?.map(
                     (related_item: any, related_item_index: any) => (
                       <AnimatedLink
@@ -104,7 +105,7 @@ export default function NavHeader() {
         className="perspective-[2000px] absolute left-0 top-[50px] w-full transition-all duration-300 2xl:top-[54px] 3xl:top-[58px]"
         style={{ left: `${leftPosition}px` }}
       >
-        <NavigationMenu.Viewport className="relative h-[var(--radix-navigation-menu-viewport-height)] w-[var(--radix-navigation-menu-viewport-width)] origin-[top_center] overflow-visible rounded-[6px] bg-secondary/90 shadow-[0_4px_12px_0_rgba(0,0,0,0.07)] transition-all duration-100 after:absolute after:left-0 after:top-0 after:h-[8px] after:w-full after:-translate-y-full data-[state=closed]:animate-scaleOut data-[state=open]:animate-scaleIn 2xl:after:h-[10px]" />
+        <NavigationMenu.Viewport className="relative h-[var(--radix-navigation-menu-viewport-height)] w-[var(--radix-navigation-menu-viewport-width)] origin-[top_center] overflow-hidden rounded-[6px] bg-secondary/90 shadow-[0_4px_12px_0_rgba(0,0,0,0.07)] transition-all duration-100 data-[state=closed]:animate-scaleOut data-[state=open]:animate-scaleIn" />
       </div>
     </NavigationMenu.Root>
   );
