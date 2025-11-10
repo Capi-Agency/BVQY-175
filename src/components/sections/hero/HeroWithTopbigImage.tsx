@@ -12,7 +12,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 export default function HeroWithTopBigImage({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
   return (
-    <div className="padding-top-body">
+    <section className="padding-top-body">
       <div className="relative h-[720px] w-full overflow-hidden md:hidden">
         <NextImg
           src={getAssetUrlById(data?.cover?.[0]?.id)}
@@ -35,7 +35,7 @@ export default function HeroWithTopBigImage({ data }: CommonSection) {
             <Link
               key={index}
               href={`/${language}${button?.url}`}
-              className="group flex items-center gap-3 bg-white p-[12px_24px] shadow-[0_1px_2px_0_rgba(18,26,43,0.10),_0_1px_2px_-1px_rgba(18,26,43,0.06)] transition-colors duration-200 hover:bg-primary md:p-[12px_40px] lg:p-[12px_80px] xl:p-[12px_120px] 2xl:flex-1 2xl:p-[12px_16px] 3xl:gap-4 3xl:p-[12px_20px] 4xl:p-[12px_32px]"
+              className="group flex items-center gap-3 bg-white p-[12px_24px] shadow-[0_1px_2px_0_rgba(18,26,43,0.10),_0_1px_2px_-1px_rgba(18,26,43,0.06)] transition-colors duration-200 hover:bg-secondary md:p-[12px_40px] lg:p-[12px_80px] xl:p-[12px_120px] 2xl:flex-1 2xl:p-[12px_16px] 3xl:gap-4 3xl:p-[12px_20px] 4xl:p-[12px_32px]"
             >
               <div className="relative size-9 duration-200 group-hover:brightness-[0] group-hover:invert group-hover:saturate-[100%] md:size-8 xl:size-9 3xl:size-11 4xl:size-12">
                 <NextImg src={getAssetUrlById(button?.icon?.id)} alt="icon" />
@@ -54,26 +54,30 @@ export default function HeroWithTopBigImage({ data }: CommonSection) {
         </div>
       </div>
 
-      <div className="py-6 lg:py-9 xl:py-11 2xl:py-[52px] 4xl:py-[60px]">
+      <div className="pb-8 md:py-8 lg:py-9 xl:py-11 2xl:py-[52px] 4xl:py-[60px]">
         <div className="container hidden gap-4 md:grid md:grid-cols-3 xl:flex xl:items-stretch 3xl:gap-6">
           {data?.items?.map((item: any, index: number) => (
             <div
               key={index}
-              className="group flex flex-col items-center gap-5 bg-white p-5 duration-200 hover:bg-primary xl:flex-1"
+              className="group relative flex flex-col items-center gap-3 bg-white p-3 duration-200 hover:bg-secondary xl:flex-1 xl:p-[16px_12px] 3xl:gap-4 3xl:p-4 4xl:gap-5 4xl:p-5"
               style={{
                 boxShadow:
-                  '0 12px 15px -3px rgba(18, 26, 43, 0.05), 0 4px 6px -3px rgba(18, 26, 43, 0.05)',
+                  '0 20px 25px -4px rgba(18, 26, 43, 0.10), 0 8px 8px -6px rgba(18, 26, 43, 0.04)',
               }}
             >
-              <div className="relative size-12 duration-200 group-hover:brightness-[0] group-hover:invert group-hover:saturate-[100%]">
+              <div className="relative size-8 duration-200 group-hover:brightness-[0] group-hover:invert group-hover:saturate-[100%] lg:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
                 <NextImg src={getAssetUrlById(item?.cover?.id)} alt="icon" />
               </div>
               <div
-                className="w-full text-center text-base font-medium text-[#71717A] duration-200 group-hover:text-white"
+                className="w-full text-center text-sm font-medium text-[#71717A] duration-200 group-hover:text-white 3xl:text-base"
                 dangerouslySetInnerHTML={{
                   __html: item?.title as string,
                 }}
               ></div>
+
+              <div className="absolute left-0 top-1/2 hidden aspect-[204/136] w-[90%] -translate-y-1/2 group-hover:block">
+                <NextImg src="/assets/images/arrow_bg.png" alt="icon" />
+              </div>
             </div>
           ))}
         </div>
@@ -88,33 +92,40 @@ export default function HeroWithTopBigImage({ data }: CommonSection) {
             className="w-full !px-6"
           >
             {data?.items?.map((item: any, index: number) => (
-              <SwiperSlide key={index} className='!w-[220px]'>
+              <SwiperSlide
+                key={index}
+                className="!w-[220px] !overflow-visible"
+                style={{
+                  boxShadow:
+                    '0 12px 15px -3px rgba(18, 26, 43, 0.05), 0 4px 6px -3px rgba(18, 26, 43, 0.05)',
+                }}
+              >
                 <div
                   key={index}
-                  className="group flex flex-col items-center gap-5 bg-white p-5 duration-200 hover:bg-primary xl:flex-1"
-                  style={{
-                    boxShadow:
-                      '0 12px 15px -3px rgba(18, 26, 43, 0.05), 0 4px 6px -3px rgba(18, 26, 43, 0.05)',
-                  }}
+                  className="group relative flex flex-col items-center gap-3 bg-white p-3 duration-200 hover:bg-secondary xl:flex-1 xl:p-[16px_12px] 3xl:gap-4 3xl:p-4 4xl:gap-5 4xl:p-5"
                 >
-                  <div className="relative size-12 duration-200 group-hover:brightness-[0] group-hover:invert group-hover:saturate-[100%]">
+                  <div className="relative size-8 duration-200 group-hover:brightness-[0] group-hover:invert group-hover:saturate-[100%] xl:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
                     <NextImg
                       src={getAssetUrlById(item?.cover?.id)}
                       alt="icon"
                     />
                   </div>
                   <div
-                    className="w-full text-center text-base font-medium text-[#71717A] duration-200 group-hover:text-white"
+                    className="w-full text-center text-sm font-medium text-[#71717A] duration-200 group-hover:text-white 3xl:text-base"
                     dangerouslySetInnerHTML={{
                       __html: item?.title as string,
                     }}
                   ></div>
+
+                  <div className="absolute left-0 top-1/2 hidden aspect-[204/136] w-[90%] -translate-y-1/2 group-hover:block">
+                    <NextImg src="/assets/images/arrow_bg.png" alt="icon" />
+                  </div>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

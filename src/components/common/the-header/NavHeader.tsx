@@ -30,7 +30,7 @@ export default function NavHeader() {
   };
 
   return (
-    <NavigationMenu.Root className="relative w-full bg-secondary shadow-md">
+    <NavigationMenu.Root className="relative w-full bg-primary-600 shadow-md">
       <NavigationMenu.List className="container flex justify-center gap-5 2xl:gap-6 3xl:gap-8 4xl:gap-10">
         {top_navigation?.length > 0 &&
           top_navigation?.map((item: any, index: any) => {
@@ -113,7 +113,7 @@ export default function NavHeader() {
         className="perspective-[2000px] absolute left-0 top-[50px] w-full transition-all duration-300 2xl:top-[54px] 3xl:top-[58px]"
         style={{ left: `${leftPosition}px` }}
       >
-        <NavigationMenu.Viewport className="relative h-[var(--radix-navigation-menu-viewport-height)] w-[var(--radix-navigation-menu-viewport-width)] origin-[top_center] overflow-hidden rounded-[6px] bg-secondary/90 shadow-[0_4px_12px_0_rgba(0,0,0,0.07)] transition-all duration-100 data-[state=closed]:animate-scaleOut data-[state=open]:animate-scaleIn" />
+        <NavigationMenu.Viewport className="relative h-[var(--radix-navigation-menu-viewport-height)] w-[var(--radix-navigation-menu-viewport-width)] origin-[top_center] overflow-hidden rounded-[6px] bg-primary-600/90 shadow-[0_4px_12px_0_rgba(0,0,0,0.07)] transition-all duration-100 data-[state=closed]:animate-scaleOut data-[state=open]:animate-scaleIn" />
       </div>
     </NavigationMenu.Root>
   );

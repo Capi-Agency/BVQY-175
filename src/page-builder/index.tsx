@@ -7,9 +7,12 @@ import {
 import TheHeader from '../components/common/the-header';
 import TheFooter from '../components/common/the-footer';
 import TeamSlider5Col from '../components/sections/team/TeamSlider5Col';
-import HeroWithTopBigImage from '../components/sections/hero/HeroWithTopBigImage';
 import LogoSlider from '@/src/components/sections/slider/LogoSlider';
 import Posts3Col from '@/src/components/sections/post-grid/Posts3Col';
+import Feature4Col from '../components/sections/feature/Feature4Col';
+import NumberNone from '../components/sections/number/NumberNone';
+import GalleryWithText from '../components/sections/gallery/GalleryWithText';
+import HeroWithTopBigImage from '../components/sections/hero/HeroWithTopbigImage';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
@@ -25,6 +28,9 @@ const sectionMap: SectionMap = {
   'team-slider-5-col': TeamSlider5Col,
   'logo-slider': LogoSlider,
   'posts-3-col': Posts3Col,
+  'feature-4-col': Feature4Col,
+  'number-none': NumberNone,
+  'gallery-with-text': GalleryWithText
 };
 
 type PageBuilderProps = {

@@ -109,7 +109,7 @@ export default function RegisterFormFooter() {
           <button
             disabled={loading}
             type="submit"
-            className="relative flex items-center gap-[6px] overflow-hidden rounded-[4px] bg-secondary p-[4px_12px] xl:p-[8px_16px]"
+            className="relative flex items-center gap-[6px] overflow-hidden rounded-[4px] bg-primary-600 p-[4px_12px] xl:p-[8px_16px]"
           >
             <h3 className="text-xs font-medium text-white 3xl:text-sm">
               {trans('register-label')}
@@ -122,7 +122,7 @@ export default function RegisterFormFooter() {
             </div>
 
             <div
-              className={`absolute inset-0 z-[1] flex size-full items-center justify-center bg-secondary ${loading ? 'block' : 'hidden'}`}
+              className={`absolute inset-0 z-[1] flex size-full items-center justify-center bg-primary-600 ${loading ? 'block' : 'hidden'}`}
             >
               <div className="relative size-5 animate-spin">
                 <NextImg

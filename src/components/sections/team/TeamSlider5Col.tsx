@@ -14,7 +14,7 @@ export default function TeamSlider5Col({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
 
   return (
-    <div className="bg-primary-50 py-10 md:py-6 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
+    <section className="bg-primary-50 py-10 md:py-6 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
       <div className="container">
         <div className="section-sub-title text-center">{data?.subtitle}</div>
         <h1 className="section-title text-center">{data?.title}</h1>
@@ -56,10 +56,11 @@ export default function TeamSlider5Col({ data }: CommonSection) {
                   key={index}
                   className="space-y-3 2xl:space-y-[14px] 3xl:space-y-4"
                 >
-                  <div className="relative aspect-[2/3] w-full overflow-hidden">
+                  <div className="relative aspect-[2/3] w-full ">
                     <NextImg
                       src={getAssetUrlById(item?.cover?.id)}
                       alt="Doctor image"
+                      objectFit='cover'
                     />
                   </div>
 
@@ -113,6 +114,6 @@ export default function TeamSlider5Col({ data }: CommonSection) {
           </Link>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

@@ -56,7 +56,7 @@ export default function DialogVideo({
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative aspect-video w-[90%] rounded-[2px] border-[2px] border-secondary bg-black md:w-[80%] 2lg:w-[70%]"
+            className="relative aspect-video w-[90%] rounded-[2px] border-[2px] border-primary-600 bg-black md:w-[80%] 2lg:w-[70%]"
           >
             <iframe
               title="Film tập đoàn Tân Hoàng Minh"
@@ -69,7 +69,7 @@ export default function DialogVideo({
 
             <DialogClose
               onClick={() => smoother?.paused(false)}
-              className="data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-0 top-0 -translate-y-1/2 translate-x-1/2 rounded-full bg-secondary p-[6px] focus:outline-none disabled:pointer-events-none md:p-2"
+              className="data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-0 top-0 -translate-y-1/2 translate-x-1/2 rounded-full bg-primary-600 p-[6px] focus:outline-none disabled:pointer-events-none md:p-2"
             >
               <X className="h-4 w-4 invert" />
             </DialogClose>

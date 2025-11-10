@@ -42,7 +42,7 @@ const Posts3Col = ({ data }: CommonSection) => {
                 return (
                   <SwiperSlide
                     key={'post_' + index}
-                    className="bg-primary-50 group space-y-4 p-3 text-start transition-all duration-300 hover:bg-secondary"
+                    className="bg-primary-50 group space-y-4 p-3 text-start transition-all duration-300 hover:bg-primary-600"
                   >
                     {/* cover */}
                     <div className="relative aspect-video">

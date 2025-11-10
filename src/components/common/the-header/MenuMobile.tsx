@@ -40,7 +40,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
         asChild
         className="block"
       >
-        <button className="flex h-9 w-[52px] items-center justify-center rounded-[6px] bg-secondary xl:hidden 2xl:h-10 2xl:w-[60px]">
+        <button className="flex h-9 w-[52px] items-center justify-center rounded-[6px] bg-primary-600 xl:hidden 2xl:h-10 2xl:w-[60px]">
           <div className="relative size-5 2xl:size-6">
             <NextImg src="/assets/icons/ham_menu.svg" alt="menu icon" />
           </div>
@@ -53,7 +53,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
           <DialogDescription>Mobile menu</DialogDescription>
         </div>
 
-        <div className="container flex h-full flex-col items-stretch bg-secondary">
+        <div className="container flex h-full flex-col items-stretch bg-primary-600">
           <div className="flex items-center justify-between py-[6px]">
             <DialogClose
               onClick={() => smoother?.paused(false)}
@@ -142,7 +142,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                   className="flex-1 border-none bg-transparent text-xs font-normal text-white outline-none placeholder:text-white/50"
                   placeholder={trans('search-placeholder')}
                 />
-                <button className="flex items-center justify-center rounded-[4px] bg-secondary px-3">
+                <button className="flex items-center justify-center rounded-[4px] bg-primary-600 px-3">
                   <div className="relative size-5">
                     <NextImg
                       src="/assets/icons/search_white.svg"
