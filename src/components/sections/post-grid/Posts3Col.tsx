@@ -8,7 +8,6 @@ import useStoreLanguage from '@/src/store/store';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
 import CalendarIcon from '@/src/components/common/icons/Calendar';
 import RightArrowIcon from '@/src/components/common/icons/RightArrowIcon';
 
@@ -27,7 +26,6 @@ const Posts3Col = ({ data }: CommonSection) => {
             loop={false}
             spaceBetween={16}
             speed={700}
-            modules={[Navigation]}
             breakpoints={{
               768: {
                 slidesPerView: 2.4,
@@ -57,7 +55,7 @@ const Posts3Col = ({ data }: CommonSection) => {
                 return (
                   <SwiperSlide
                     key={'post_' + index}
-                    className="bg-primary-50 hover:bg-primary-600 group relative space-y-4 p-3 text-start transition-all duration-300 xl:p-4"
+                    className="bg-primary-50 hover:bg-primary-600 group relative cursor-pointer space-y-4 p-3 text-start transition-all duration-200 xl:p-4"
                   >
                     {/* cover */}
                     <div className="relative aspect-video">

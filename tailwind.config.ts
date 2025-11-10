@@ -53,7 +53,7 @@ const config = {
           700: '#3F3F46',
           950: '#09090B'
         },
-        secondary: "#198039",
+        secondary: "#009850",
         title: "#092E15",
         subTitle: "#3E9459"
       },

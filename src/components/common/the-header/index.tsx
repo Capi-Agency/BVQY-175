@@ -130,7 +130,7 @@ export default function TheHeader({ data }: Props) {
               {/* Start: location + search + language */}
               <div className="flex flex-col items-center gap-[6px] 4xl:gap-2">
                 <div className="flex items-center gap-2 2xl:gap-3">
-                  <button className="hidden h-9 w-[52px] items-center justify-center rounded-[6px] bg-secondary md:flex 2xl:h-10 2xl:w-[60px]">
+                  <button className="hidden h-9 w-[52px] items-center justify-center rounded-[6px] bg-primary-600 md:flex 2xl:h-10 2xl:w-[60px]">
                     <div className="relative size-5 2xl:size-6">
                       <NextImg
                         src="/assets/icons/hospital_location.svg"
@@ -139,7 +139,7 @@ export default function TheHeader({ data }: Props) {
                     </div>
                   </button>
 
-                  <button className="hidden h-9 w-[52px] items-center justify-center rounded-[6px] bg-secondary md:flex 2xl:h-10 2xl:w-[60px]">
+                  <button className="hidden h-9 w-[52px] items-center justify-center rounded-[6px] bg-primary-600 md:flex 2xl:h-10 2xl:w-[60px]">
                     <div className="relative size-5 2xl:size-6">
                       <NextImg
                         src="/assets/icons/search_white.svg"
@@ -174,7 +174,7 @@ export default function TheHeader({ data }: Props) {
 
                 <a
                   href={`${contact_information?.hot_line_url || '/'}`}
-                  className="hidden text-lg font-medium text-secondary xl:block 2xl:text-xl 2xl:!leading-[1.6] 4xl:text-[22px] 4xl:!leading-[1.55]"
+                  className="hidden text-lg font-medium text-primary-600 xl:block 2xl:text-xl 2xl:!leading-[1.6] 4xl:text-[22px] 4xl:!leading-[1.55]"
                 >
                   Hotline:{' '}
                   <span className="text-[#E11E30]">
