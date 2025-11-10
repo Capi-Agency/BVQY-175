@@ -8,19 +8,23 @@ import TheHeader from '../components/common/the-header';
 import TheFooter from '../components/common/the-footer';
 import TeamSlider5Col from '../components/sections/team/TeamSlider5Col';
 import HeroWithTopBigImage from '../components/sections/hero/HeroWithTopBigImage';
+import LogoSlider from '@/src/components/sections/slider/LogoSlider';
+import Posts3Col from '@/src/components/sections/post-grid/Posts3Col';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
 };
 
 const footerMap: SectionMap = {
-  'bottom-nav': TheFooter
+  'bottom-nav': TheFooter,
 };
 
 const sectionMap: SectionMap = {
   // Home page
   'hero-with-top-big-image': HeroWithTopBigImage,
-  'team-slider-5-col': TeamSlider5Col
+  'team-slider-5-col': TeamSlider5Col,
+  'logo-slider': LogoSlider,
+  'posts-3-col': Posts3Col,
 };
 
 type PageBuilderProps = {

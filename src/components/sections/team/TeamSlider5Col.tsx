@@ -14,7 +14,7 @@ export default function TeamSlider5Col({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
 
   return (
-    <div className="bg-[#F6FAF7] py-10 md:py-6 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
+    <div className="bg-primary-50 py-10 md:py-6 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
       <div className="container">
         <div className="section-sub-title text-center">{data?.subtitle}</div>
         <h1 className="section-title text-center">{data?.title}</h1>
@@ -70,7 +70,7 @@ export default function TeamSlider5Col({ data }: CommonSection) {
                     <div className="text-lg font-bold text-[#010502] xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
                       {item?.title}
                     </div>
-                    <div className="text-subTitle text-xs font-medium xl:text-sm 3xl:text-base">
+                    <div className="text-xs font-medium text-subTitle xl:text-sm 3xl:text-base">
                       {item?.blurb}
                     </div>
                   </div>
@@ -98,7 +98,7 @@ export default function TeamSlider5Col({ data }: CommonSection) {
           </div>
         </div>
 
-        <div className="justify-center flex pt-5 xl:pt-6 2xl:pt-7 3xl:pt-8 4xl:pt-10">
+        <div className="flex justify-center pt-5 xl:pt-6 2xl:pt-7 3xl:pt-8 4xl:pt-10">
           <Link
             href={`/${language}${data?.buttons?.[0]?.url}`}
             className="btn-danger"

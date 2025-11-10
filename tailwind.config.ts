@@ -35,7 +35,20 @@ const config = {
         PlusJakartaSans: ['PlusJakartaSans'],
       },
       colors: {
-        primary: "#009850",
+        primary: {
+          50: '#F6FAF7',
+          100: '#D1E6D7',
+          200: '#ACD1B8',
+          300: '#87BD98',
+          400: '#63A978',
+          500: '#3E9459',
+          600: '#198039',
+          700: '#156C30',
+          800: '#115727',
+          900: '#0D431E',
+          950: '#092E15',
+          1000: '#010502'
+        },
         secondary: "#198039",
         title: "#092E15",
         subTitle: "#3E9459"
