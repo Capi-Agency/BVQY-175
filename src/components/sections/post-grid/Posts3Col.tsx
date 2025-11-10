@@ -9,6 +9,8 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
+import CalendarIcon from '@/src/components/common/icons/Calendar';
+import RightArrowIcon from '@/src/components/common/icons/RightArrowIcon';
 
 const Posts3Col = ({ data }: CommonSection) => {
   return (
@@ -16,8 +18,8 @@ const Posts3Col = ({ data }: CommonSection) => {
       <div className="section-sub-title">{data?.subtitle}</div>
       <h1 className="section-title">{data?.title}</h1>
 
-      <div className="md:container">
-        <div className="relative pt-6 2xl:pt-8 3xl:pt-10">
+      <div className="lg:container">
+        <div className="relative pt-6 xl:pt-7 2xl:pt-8 4xl:pt-10">
           <Swiper
             touchEventsTarget="container"
             grabCursor={true}
@@ -32,9 +34,22 @@ const Posts3Col = ({ data }: CommonSection) => {
               },
               1024: {
                 slidesPerView: 3,
+                spaceBetween: 24,
+              },
+              1280: {
+                slidesPerView: 3,
+                spaceBetween: 28,
+              },
+              1440: {
+                slidesPerView: 3,
+                spaceBetween: 32,
+              },
+              1920: {
+                slidesPerView: 3,
+                spaceBetween: 40,
               },
             }}
-            className="w-full !px-6 md:!px-0"
+            className="w-full !px-6 md:!px-10 lg:!px-0"
           >
             {Array(3)
               .fill(null)
@@ -42,7 +57,7 @@ const Posts3Col = ({ data }: CommonSection) => {
                 return (
                   <SwiperSlide
                     key={'post_' + index}
-                    className="bg-primary-50 group space-y-4 p-3 text-start transition-all duration-300 hover:bg-secondary"
+                    className="bg-primary-50 hover:bg-primary-600 group relative space-y-4 p-3 text-start transition-all duration-300 xl:p-4"
                   >
                     {/* cover */}
                     <div className="relative aspect-video">
@@ -52,24 +67,45 @@ const Posts3Col = ({ data }: CommonSection) => {
                         objectFit="cover"
                       />
                     </div>
-                    <h4 className="text-semibold group-hover:text-primary-50 text-primary-1000 line-clamp-2 text-lg">
-                      HAI PHẪU THUẬT NỘI SOI LẤY TẠNG GHÉP ĐƯỢC TIẾN HÀNH ĐỒNG
-                      THỜI TRONG CHƯƠNG TRÌNH PHẪU THUẬT THỊ PHẠM GHÉP THẬN,
-                      GHÉP GAN CỦA HỘI NGHỊ KHOA HỌC VSOT LẦN THỨ 10 – 2025 ĐƯỢC
-                      TỔ CHỨC TẠI BỆNH VIỆN QUÂN Y 175
-                    </h4>
-                    <p className="text-thin group-hover:text-primary-100 line-clamp-3 text-sm text-[#03110899]">
-                      Ngày 04/11/2025, tại Bệnh viện Quân y 175 đã chính thức
-                      khai mạc Tuần lễ Hiến và Ghép mô, tạng Việt Nam 2025.
-                      Trong khuôn khổ Tuần lễ chương trình tiền hội nghị được
-                      diễn ra từ ngày 4 – 6/11/2025 với ba chương trình đào tạo
-                      liên tục cấp CME gồm: Đào tạo điều phối viên hiến mô,
-                      tạng; Đào tạo chẩn đoán và hồi sức chết não và đào tạo
-                      điều phối viên ghép tạng.
-                    </p>
+                    <div className="space-y-1">
+                      <h4 className="group-hover:text-primary-50 text-primary-1000 line-clamp-2 text-lg font-semibold xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
+                        HAI PHẪU THUẬT NỘI SOI LẤY TẠNG GHÉP ĐƯỢC TIẾN HÀNH ĐỒNG
+                        THỜI TRONG CHƯƠNG TRÌNH PHẪU THUẬT THỊ PHẠM GHÉP THẬN,
+                        GHÉP GAN CỦA HỘI NGHỊ KHOA HỌC VSOT LẦN THỨ 10 – 2025
+                        ĐƯỢC TỔ CHỨC TẠI BỆNH VIỆN QUÂN Y 175
+                      </h4>
+                      <p className="group-hover:text-primary-100 line-clamp-3 text-sm font-thin text-[#03110899]">
+                        Ngày 04/11/2025, tại Bệnh viện Quân y 175 đã chính thức
+                        khai mạc Tuần lễ Hiến và Ghép mô, tạng Việt Nam 2025.
+                        Trong khuôn khổ Tuần lễ chương trình tiền hội nghị được
+                        diễn ra từ ngày 4 – 6/11/2025 với ba chương trình đào
+                        tạo liên tục cấp CME gồm: Đào tạo điều phối viên hiến
+                        mô, tạng; Đào tạo chẩn đoán và hồi sức chết não và đào
+                        tạo điều phối viên ghép tạng.
+                      </p>
+                    </div>
 
                     {/* date published */}
-                    <div className="flex justify-between"></div>
+                    <div className="flex justify-between">
+                      <div className="group-hover:text-primary-50 flex items-center gap-1.5">
+                        <CalendarIcon className="size-5 2xl:size-6" />
+                        <p className="group-hover:text-primary-50 text-sm font-medium text-gray-700 2xl:text-base">
+                          5/11/2025
+                        </p>
+                      </div>
+                      <Link
+                        href={'#'}
+                        className="group-hover:text-primary-50 flex items-center gap-1.5 text-gray-950"
+                      >
+                        <span className="text-sm font-medium 2xl:text-base 3xl:text-lg">
+                          Xem chi tiết
+                        </span>
+                        <RightArrowIcon className="mx-1 w-[14px] xl:w-[18px]" />
+                      </Link>
+                    </div>
+
+                    {/* Appear on hover */}
+                    <BgHiddenShape />
                   </SwiperSlide>
                 );
               })}
@@ -81,3 +117,31 @@ const Posts3Col = ({ data }: CommonSection) => {
 };
 
 export default Posts3Col;
+
+const BgHiddenShape = () => (
+  <svg
+    className="pointer-events-none absolute bottom-4 left-1/2 w-[90%] -translate-x-1/2"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 273 136"
+    fill="none"
+  >
+    <path
+      opacity="0.05"
+      d="M22.1612 0L249.474 0L272.268 67.2283L250.301 136H22.7936L0 68.7717L22.1612 0Z"
+      fill="url(#paint0_linear_473_8867)"
+    />
+    <defs>
+      <linearGradient
+        id="paint0_linear_473_8867"
+        x1="148.511"
+        y1="12.4313"
+        x2="17.9858"
+        y2="31.515"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stop-color="white" />
+        <stop offset="1" stopColor="#07A438" stopOpacity="0" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
