@@ -12,7 +12,7 @@ import Posts3Col from '@/src/components/sections/post-grid/Posts3Col';
 import Feature4Col from '../components/sections/feature/Feature4Col';
 import NumberNone from '../components/sections/number/NumberNone';
 import GalleryWithText from '../components/sections/gallery/GalleryWithText';
-import HeroWithTopBigImage from '../components/sections/hero/HeroWithTopbigImage';
+import HeroWithTopImage from '../components/sections/hero/HeroWithTopImage';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
@@ -24,7 +24,7 @@ const footerMap: SectionMap = {
 
 const sectionMap: SectionMap = {
   // Home page
-  'hero-with-top-big-image': HeroWithTopBigImage,
+  'hero-with-top-big-image': HeroWithTopImage,
   'team-slider-5-col': TeamSlider5Col,
   'logo-slider': LogoSlider,
   'posts-3-col': Posts3Col,
