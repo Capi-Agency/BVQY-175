@@ -6,7 +6,8 @@ import {
 } from '@/src/types/pageBuilder';
 import TheHeader from '../components/common/the-header';
 import TheFooter from '../components/common/the-footer';
-import HeroWithTopbigImage from '../components/sections/hero/HeroWithTopbigImage';
+import TeamSlider5Col from '../components/sections/team/TeamSlider5Col';
+import HeroWithTopBigImage from '../components/sections/hero/HeroWithTopBigImage';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
@@ -18,7 +19,8 @@ const footerMap: SectionMap = {
 
 const sectionMap: SectionMap = {
   // Home page
-  'hero-with-top-big-image': HeroWithTopbigImage
+  'hero-with-top-big-image': HeroWithTopBigImage,
+  'team-slider-5-col': TeamSlider5Col
 };
 
 type PageBuilderProps = {

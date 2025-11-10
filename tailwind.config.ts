@@ -26,7 +26,7 @@ const config = {
         '3xl': '160px',
         '2xl': '140px',
         'xl': '100px',
-        'lg': '80px',
+        'lg': '40px',
         'md': '40px'
       },
     },
@@ -37,7 +37,8 @@ const config = {
       colors: {
         primary: "#009850",
         secondary: "#198039",
-        title: "#031108",
+        title: "#092E15",
+        subTitle: "#3E9459"
       },
       borderRadius: {},
       keyframes: {

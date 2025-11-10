@@ -9,7 +9,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-export default function HeroWithTopbigImage({ data }: CommonSection) {
+export default function HeroWithTopBigImage({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
   return (
     <div className="padding-top-body">
