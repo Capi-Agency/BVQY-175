@@ -14,6 +14,8 @@ import NumberNone from '../components/sections/number/NumberNone';
 import GalleryWithText from '../components/sections/gallery/GalleryWithText';
 import HeroWithTopImage from '../components/sections/hero/HeroWithTopImage';
 import HeroBackgroundsFocus from '../components/sections/hero/HeroBackgroundsFocus';
+import InfoBasic from '../components/sections/information/InfoBasic';
+import Card2Col from '../components/sections/card/Card2Col';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
@@ -34,7 +36,9 @@ const sectionMap: SectionMap = {
   'gallery-with-text': GalleryWithText,
 
   // About us
-  'hero-background-focus': HeroBackgroundsFocus
+  'hero-background-focus': HeroBackgroundsFocus,
+  'info-basic': InfoBasic,
+  'card-2-col': Card2Col
 };
 
 type PageBuilderProps = {
@@ -61,12 +65,14 @@ const PageBuilder = ({ pageContent }: PageBuilderProps) => {
     <>
       {HeaderComp && <HeaderComp data={pageContent?.top_navigation} />}
 
-      {sections.map((section: CommonSection, index: number) => {
-        const SectionComp = sectionMap[section.type];
-        if (!SectionComp) return null;
+      <div className='padding-top-body'>
+        {sections.map((section: CommonSection, index: number) => {
+          const SectionComp = sectionMap[section.type];
+          if (!SectionComp) return null;
 
-        return <SectionComp key={'section_' + index} data={section} />;
-      })}
+          return <SectionComp key={'section_' + index} data={section} />;
+        })}
+      </div>
 
       {FooterComp && <FooterComp data={pageContent?.bottom_navigation} />}
     </>

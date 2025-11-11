@@ -222,6 +222,10 @@ body {
     @apply text-subTitle font-semibold text-sm 2xl:text-base
   }
 
+  .section-content {
+    @apply text-gray-700 font-normal text-sm xl:text-base 3xl:text-lg 4xl:text-xl
+  }
+
   .btn-danger {
     @apply w-fit bg-[#E50000] rounded-[6px] flex items-center gap-[6px] text-white text-sm 2xl:text-base 2xl:gap-2 font-medium p-[10px_8px_10px_12px] 2xl:p-[10px_12px_10px_16px]
   }

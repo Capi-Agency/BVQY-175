@@ -27,7 +27,7 @@ export default function GalleryWithText({ data }: CommonSection) {
             <div className="section-title mt-1">{data?.title}</div>
           </div>
 
-          <div className="relative md:w-[250px] lg:w-[340px] xl:w-full aspect-video w-full overflow-hidden">
+          <div className="relative aspect-video w-full overflow-hidden md:w-[250px] lg:w-[340px] xl:w-full">
             <iframe
               onClick={(e) => e.stopPropagation()}
               title="Video giới thiệu Bệnh Viện Quân Y 175"
@@ -63,7 +63,7 @@ export default function GalleryWithText({ data }: CommonSection) {
                       e.stopPropagation();
                       setCurrentTab(index);
                     }}
-                    className={`${currentTab === index ? 'text-primary-600' : 'text-[#71717A]'} relative cursor-pointer pb-2 text-sm font-normal uppercase transition-colors duration-200 2xl:pb-3 2xl:text-base`}
+                    className={`${currentTab === index ? 'text-primary-600' : 'text-[#71717A]'} relative cursor-pointer pb-2 text-sm font-medium uppercase transition-colors duration-200 2xl:pb-3 2xl:text-base`}
                   >
                     {item?.title}
                   </div>
@@ -86,14 +86,14 @@ export default function GalleryWithText({ data }: CommonSection) {
                 </div>
 
                 <div
-                  className="text-sm font-normal text-[#3F3F46] 2xl:text-base"
+                  className="text-sm font-normal text-[#3F3F46] 3xl:text-base"
                   dangerouslySetInnerHTML={{
                     __html: item?.blurb as string,
                   }}
                 ></div>
 
                 {item?.cover?.length > 0 && (
-                  <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+                  <div className="grid grid-cols-2 gap-3 pt-1 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-4">
                     {item?.cover?.map((itemCover: any, coverIndex: number) => (
                       <div key={coverIndex} className="relative aspect-square">
                         <NextImg
@@ -105,20 +105,22 @@ export default function GalleryWithText({ data }: CommonSection) {
                   </div>
                 )}
 
-                <div className="pt-2 lg:pt-4 2xl:pt-5">
-                  <Link
-                    href={`/${language}${data?.buttons?.[0]?.url}`}
-                    className="btn-danger"
-                  >
-                    {data?.buttons?.[0]?.title}
-                    <div className="relative size-5 2xl:size-6">
-                      <NextImg
-                        src={getAssetUrlById(data?.buttons?.[0]?.icon?.id)}
-                        alt="icon"
-                      />
-                    </div>
-                  </Link>
-                </div>
+                {data?.buttons?.[0]?.url && (
+                  <div className="pt-2 lg:pt-4 2xl:pt-5">
+                    <Link
+                      href={`/${language}${data?.buttons?.[0]?.url}`}
+                      className="btn-danger"
+                    >
+                      {data?.buttons?.[0]?.title}
+                      <div className="relative size-5 2xl:size-6">
+                        <NextImg
+                          src={getAssetUrlById(data?.buttons?.[0]?.icon?.id)}
+                          alt="icon"
+                        />
+                      </div>
+                    </Link>
+                  </div>
+                )}
               </div>
             ))}
           </div>

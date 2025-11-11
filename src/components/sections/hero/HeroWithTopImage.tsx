@@ -11,7 +11,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 export default function HeroWithTopImage({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
   return (
-    <section className="padding-top-body">
+    <section>
       <div className="relative h-[720px] w-full overflow-hidden md:hidden">
         <NextImg
           src={getAssetUrlById(data?.cover?.[0]?.id)}
