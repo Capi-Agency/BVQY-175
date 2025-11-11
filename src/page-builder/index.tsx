@@ -13,6 +13,7 @@ import Feature4Col from '../components/sections/feature/Feature4Col';
 import NumberNone from '../components/sections/number/NumberNone';
 import GalleryWithText from '../components/sections/gallery/GalleryWithText';
 import HeroWithTopImage from '../components/sections/hero/HeroWithTopImage';
+import HeroBackgroundsFocus from '../components/sections/hero/HeroBackgroundsFocus';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
@@ -30,7 +31,10 @@ const sectionMap: SectionMap = {
   'posts-3-col': Posts3Col,
   'feature-4-col': Feature4Col,
   'number-none': NumberNone,
-  'gallery-with-text': GalleryWithText
+  'gallery-with-text': GalleryWithText,
+
+  // About us
+  'hero-background-focus': HeroBackgroundsFocus
 };
 
 type PageBuilderProps = {

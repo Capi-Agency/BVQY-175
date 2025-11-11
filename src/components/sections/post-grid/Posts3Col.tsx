@@ -47,7 +47,7 @@ const Posts3Col = ({ data }: CommonSection) => {
                 spaceBetween: 40,
               },
             }}
-            className="w-full !px-6 md:!px-10 lg:!px-0"
+            className="w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-0"
           >
             {Array(3)
               .fill(null)
@@ -136,7 +136,7 @@ const BgHiddenShape = () => (
         y2="31.515"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="white" />
+        <stop stopColor="white" />
         <stop offset="1" stopColor="#07A438" stopOpacity="0" />
       </linearGradient>
     </defs>
