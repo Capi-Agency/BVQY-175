@@ -81,7 +81,7 @@ const DialogContentMenuMobile = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed bottom-0 left-0 top-0 z-[9999] h-screen w-full bg-primary-600 !duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-top-full data-[state=open]:slide-in-from-top-full',
+        'fixed bottom-0 left-0 top-0 z-[9999] h-screen w-full bg-primary-600 !duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:slide-out-to-left-full data-[state=open]:slide-in-from-left-full',
         className,
       )}
       {...props}

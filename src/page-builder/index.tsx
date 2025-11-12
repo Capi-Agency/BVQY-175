@@ -17,6 +17,9 @@ import HeroBackgroundsFocus from '../components/sections/hero/HeroBackgroundsFoc
 import InfoBasic from '../components/sections/information/InfoBasic';
 import Card2Col from '../components/sections/card/Card2Col';
 import EmptySection from '../components/sections/custom/EmptySection';
+import InfoCenterBlock from '../components/sections/information/InfoCenterBlock';
+import InfoBasicR from '../components/sections/information/InfoBasicR';
+import Team4Col from '../components/sections/team/Team4Col';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
@@ -39,7 +42,10 @@ const sectionMap: SectionMap = {
   // About us
   'hero-background-focus': HeroBackgroundsFocus,
   'info-basic': InfoBasic,
-  'card-2-col': Card2Col
+  'card-2-col': Card2Col,
+  'info-center-block': InfoCenterBlock,
+  'info-basic-r': InfoBasicR,
+  'team-4-col': Team4Col
 };
 
 type PageBuilderProps = {

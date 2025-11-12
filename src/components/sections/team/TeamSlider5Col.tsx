@@ -9,6 +9,7 @@ import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
+import DoctorCard from '../../common/doctor-card';
 
 export default function TeamSlider5Col({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
@@ -51,29 +52,8 @@ export default function TeamSlider5Col({ data }: CommonSection) {
             className="w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-0"
           >
             {data?.items?.map((item: any, index: number) => (
-              <SwiperSlide
-                key={index}
-                className="space-y-3 2xl:space-y-[14px] 3xl:space-y-4"
-              >
-                <div className="relative aspect-[2/3] w-full">
-                  <NextImg
-                    src={getAssetUrlById(item?.cover?.id)}
-                    alt="Doctor image"
-                    objectFit="cover"
-                  />
-                </div>
-
-                <div className="text-center xl:space-y-[2px] 3xl:space-y-1">
-                  <div className="text-xs font-normal text-[#3F3F46] xl:text-sm 3xl:text-base">
-                    {item?.subtitle}
-                  </div>
-                  <div className="text-lg font-bold text-[#010502] xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
-                    {item?.title}
-                  </div>
-                  <div className="text-xs font-medium text-subTitle xl:text-sm 3xl:text-base">
-                    {item?.blurb}
-                  </div>
-                </div>
+              <SwiperSlide key={index}>
+                <DoctorCard item={item} />
               </SwiperSlide>
             ))}
           </Swiper>
