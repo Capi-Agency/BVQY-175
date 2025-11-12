@@ -19,6 +19,9 @@ import Card2Col from '../components/sections/card/Card2Col';
 import EmptySection from '../components/sections/custom/EmptySection';
 import CardSlider from '@/src/components/sections/card/CardSlider';
 import InforWIthFeatureImage from '@/src/components/sections/information/InforWIthFeatureImage';
+import InfoCenterBlock from '../components/sections/information/InfoCenterBlock';
+import InfoBasicR from '../components/sections/information/InfoBasicR';
+import Team4Col from '../components/sections/team/Team4Col';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
@@ -44,6 +47,9 @@ const sectionMap: SectionMap = {
   'card-2-col': Card2Col,
   'card-slider': CardSlider,
   'info-split-with-features-image': InforWIthFeatureImage,
+  'info-center-block': InfoCenterBlock,
+  'info-basic-r': InfoBasicR,
+  'team-4-col': Team4Col,
 };
 
 type PageBuilderProps = {
