@@ -1,18 +1,9 @@
 'use client';
-'use client';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
-import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { CommonSection } from '@/src/types/pageBuilder';
-import { fnGetMetadata } from '@/src/services/metadata';
-import { fnGetTopNavBySlug } from '@/src/services/page';
 import NextImg from '../next-img';
-import { AnimatedLink } from '../../animation/LinkAnimated';
 import { useMetadata } from '@/src/providers/MetadataProvider';
 
 export default function NavHeader() {
@@ -20,6 +11,7 @@ export default function NavHeader() {
   const language = useStoreLanguage((state: any) => state.language);
 
   const [leftPosition, setLeftPosition] = useState(0);
+
   const menuItemsRef = useRef<(HTMLElement | null)[]>([]);
   const handleMouseEnter = (index: number) => {
     const item = menuItemsRef.current[index];
@@ -41,7 +33,7 @@ export default function NavHeader() {
                   onMouseEnter={(e) => handleMouseEnter(index)}
                 >
                   {item?.url ? (
-                    <AnimatedLink
+                    <Link
                       href={`/${language}${item?.url || ''}`}
                       ref={(el: any) => {
                         menuItemsRef.current[index] = el;
@@ -57,7 +49,7 @@ export default function NavHeader() {
                           alt="arrow down icon"
                         />
                       </div>
-                    </AnimatedLink>
+                    </Link>
                   ) : (
                     <div
                       ref={(el: any) => {
@@ -82,7 +74,7 @@ export default function NavHeader() {
                 <NavigationMenu.Content className="relative w-fit overflow-hidden py-2 data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft">
                   {item?.sub_items?.map(
                     (related_item: any, related_item_index: any) => (
-                      <AnimatedLink
+                      <Link
                         key={related_item_index}
                         href={`/${language}${related_item?.url || ''}`}
                         className="block whitespace-nowrap text-nowrap p-[8px_16px] text-sm font-medium text-[#FAFAFA]"
@@ -90,21 +82,21 @@ export default function NavHeader() {
                         {language === 'en'
                           ? `${related_item?.title_en}`
                           : `${related_item?.title}`}
-                      </AnimatedLink>
+                      </Link>
                     ),
                   )}
                 </NavigationMenu.Content>
               </NavigationMenu.Item>
             ) : (
               <NavigationMenu.Item key={index}>
-                <AnimatedLink
+                <Link
                   href={`/${language}${item?.url || ''}`}
                   className="relative block whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:text-base"
                 >
                   {language === 'en'
                     ? `${item?.title_en}`
                     : `${item?.title}`}{' '}
-                </AnimatedLink>
+                </Link>
               </NavigationMenu.Item>
             );
           })}

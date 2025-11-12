@@ -1,3 +1,17 @@
+export const updateSlugLanguage = (slug: string, newLanguage: string): string => {
+  const slugParts = slug.split('-');
+  const lastPart = slugParts[slugParts.length - 1];
+
+  if (lastPart === 'en' || lastPart === 'vi') {
+    if (newLanguage === 'vi') {
+      slugParts.pop();
+    } else {
+      slugParts[slugParts.length - 1] = 'en';
+    }
+  }
+  return slugParts.join('-');
+};
+
 export const locales: any = {
     "footer-title": {
         vi: 'Theo dõi tin tức và dịch vụ mới nhất của chúng tôi',
@@ -62,5 +76,9 @@ export const locales: any = {
     "search-placeholder": {
         vi: "Tìm kiếm",
         en: "Search"
+    },
+    "empty-page": {
+        vi: "Trang không tồn tại!",
+        en: "Page not found!"
     }
 };

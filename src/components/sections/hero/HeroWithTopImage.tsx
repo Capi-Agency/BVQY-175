@@ -1,6 +1,6 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import Link from 'next/link';
@@ -10,6 +10,7 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 export default function HeroWithTopImage({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
+  
   return (
     <section>
       <div className="relative h-[720px] w-full overflow-hidden md:hidden">

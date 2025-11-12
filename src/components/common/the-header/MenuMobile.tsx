@@ -18,10 +18,10 @@ import {
   DialogClose,
   DialogTitle,
 } from '../../ui/dialog';
-import { AnimatedLink } from '../../animation/LinkAnimated';
 import { useMetadata } from '@/src/providers/MetadataProvider';
 import { getAssetUrlById } from '@/src/utils/image';
 import { useTranslate } from '@/src/hooks/useTranslate';
+import Link from 'next/link';
 
 type MobileMenuProps = {
   changeLanguage: (value: string) => void;
@@ -60,7 +60,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
               asChild
               className="border-none outline-none"
             >
-              <AnimatedLink
+              <Link
                 href="/"
                 className="relative h-[52px] w-[214px] md:h-[56px] md:w-[230px] lg:h-[64px] lg:w-[262px] 2xl:h-[72px] 2xl:w-[296px] 4xl:h-[80px] 4xl:w-[328px]"
               >
@@ -68,7 +68,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                   src="/assets/logo/secondary_logo.svg"
                   alt="Military hospital logo"
                 />
-              </AnimatedLink>
+              </Link>
             </DialogClose>
 
             <div className="flex items-center gap-2">
@@ -190,14 +190,14 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                                   key={itemIndex}
                                   className="w-fit"
                                 >
-                                  <AnimatedLink
+                                  <Link
                                     href={`/${language}${related_item?.url || ''}`}
                                     className="text-sm font-medium text-white"
                                   >
                                     {language === 'en'
                                       ? `${related_item?.title_en}`
                                       : `${related_item?.title}`}{' '}
-                                  </AnimatedLink>
+                                  </Link>
                                 </DialogClose>
                               ),
                             )}
@@ -210,14 +210,14 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                           onClick={() => smoother?.paused(false)}
                           asChild
                         >
-                          <AnimatedLink
+                          <Link
                             href={`/${language}${item?.url || ''}`}
                             className="text-sm font-bold uppercase text-white"
                           >
                             {language === 'en'
                               ? `${item?.title_en}`
                               : `${item?.title}`}
-                          </AnimatedLink>
+                          </Link>
                         </DialogClose>
                       </AccordionItem>
                     );

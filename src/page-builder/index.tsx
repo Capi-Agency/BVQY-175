@@ -16,6 +16,7 @@ import HeroWithTopImage from '../components/sections/hero/HeroWithTopImage';
 import HeroBackgroundsFocus from '../components/sections/hero/HeroBackgroundsFocus';
 import InfoBasic from '../components/sections/information/InfoBasic';
 import Card2Col from '../components/sections/card/Card2Col';
+import EmptySection from '../components/sections/custom/EmptySection';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
@@ -51,19 +52,19 @@ const PageBuilder = ({ pageContent }: PageBuilderProps) => {
     !pageContent?.sections ||
     pageContent.sections.length === 0
   ) {
-    return null;
+    return <EmptySection />;
   }
   const sections = pageContent.sections;
 
-  const headerSlug = pageContent?.top_navigation?.slug;
-  const HeaderComp = headerSlug ? headerMap[headerSlug] : null;
+  // const headerSlug = pageContent?.top_navigation?.slug;
+  // const HeaderComp = headerSlug ? headerMap[headerSlug] : null;
 
-  const footerSlug = pageContent?.bottom_navigation?.slug;
-  const FooterComp = footerSlug ? footerMap[footerSlug] : null;
+  // const footerSlug = pageContent?.bottom_navigation?.slug;
+  // const FooterComp = footerSlug ? footerMap[footerSlug] : null;
 
   return (
     <>
-      {HeaderComp && <HeaderComp data={pageContent?.top_navigation} />}
+      {/* {HeaderComp && <HeaderComp data={pageContent?.top_navigation} />} */}
 
       <div className='padding-top-body'>
         {sections.map((section: CommonSection, index: number) => {
@@ -74,7 +75,7 @@ const PageBuilder = ({ pageContent }: PageBuilderProps) => {
         })}
       </div>
 
-      {FooterComp && <FooterComp data={pageContent?.bottom_navigation} />}
+      {/* {FooterComp && <FooterComp data={pageContent?.bottom_navigation} />} */}
     </>
   );
 };

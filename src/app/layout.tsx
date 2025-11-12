@@ -1,7 +1,6 @@
 import React from 'react';
 import '../styles/globals.css';
 import '../styles/swiper-custom.css';
-
 import { ToastContainer } from 'react-toastify';
 import { ThemeProvider } from '../providers/theme-provider';
 import { fnGetMetadata } from '../services/metadata';
@@ -10,16 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { GsapMatchMediaProvider } from '../providers/GsapMatchMediaProvider';
 import { ScrollSmootherProvider } from '../providers/ScrollSmootherProvider';
 import ScrollSmoothWrapper from '../components/animation/ScrollSmoothWrapper';
-// import { Plus_Jakarta_Sans } from 'next/font/google';
-
-// const plusJakartaSans = Plus_Jakarta_Sans({
-//   subsets: ['vietnamese', 'latin'],
-//   display: 'swap',
-//   preload: true,
-//   style: ['normal', 'italic'],
-//   variable: '--font-plus-jakarta-san',
-//   weight: ['300', '400', '500', '600', '700', '800'],
-// });
+import TheHeader from '../components/common/the-header';
+import TheFooter from '../components/common/the-footer';
 
 export default async function RootLayout({
   children,
@@ -32,7 +23,6 @@ export default async function RootLayout({
     <html
       lang="vi"
       suppressHydrationWarning
-      // className={plusJakartaSans.className}
     >
       <head>
         <link rel="icon" href="/assets/logo/favicon.ico" sizes="any" />
@@ -87,7 +77,11 @@ export default async function RootLayout({
           <MetadataProvider value={metadata}>
             <GsapMatchMediaProvider>
               <ScrollSmootherProvider>
-                <ScrollSmoothWrapper>{children}</ScrollSmoothWrapper>
+                <TheHeader data={{ default: true, slug: 'top-nav' }} />
+                <ScrollSmoothWrapper>
+                  {children}
+                  <TheFooter data={{ default: true, slug: 'bottom-nav' }} />
+                </ScrollSmoothWrapper>
               </ScrollSmootherProvider>
             </GsapMatchMediaProvider>
           </MetadataProvider>
