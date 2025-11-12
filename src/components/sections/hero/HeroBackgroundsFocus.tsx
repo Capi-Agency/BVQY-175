@@ -5,7 +5,7 @@ import { getAssetUrlById } from '@/src/utils/image';
 
 export default function HeroBackgroundsFocus({ data }: CommonSection) {
   return (
-    <section className="relative flex h-[720px] w-full items-end overflow-hidden py-[120px] md:h-[308px] md:py-6 lg:h-[410px] lg:py-8 xl:h-[512px] xl:py-10 2xl:h-[576px] 2xl:py-12 3xl:h-[640px] 3xl:py-[60px] 4xl:h-[768px]">
+    <section className="relative flex h-[calc(100vh-64px)] w-full items-end overflow-hidden py-[120px] md:h-[308px] md:py-6 lg:h-[410px] lg:py-8 xl:h-[512px] xl:py-10 2xl:h-[576px] 2xl:py-12 3xl:h-[640px] 3xl:py-[60px] 4xl:h-[768px]">
       <div className="absolute inset-0 size-full md:hidden">
         <NextImg
           src={getAssetUrlById(data?.cover?.[0]?.id)}
