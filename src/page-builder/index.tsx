@@ -17,6 +17,8 @@ import HeroBackgroundsFocus from '../components/sections/hero/HeroBackgroundsFoc
 import InfoBasic from '../components/sections/information/InfoBasic';
 import Card2Col from '../components/sections/card/Card2Col';
 import EmptySection from '../components/sections/custom/EmptySection';
+import CardSlider from '@/src/components/sections/card/CardSlider';
+import InforWIthFeatureImage from '@/src/components/sections/information/InforWIthFeatureImage';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
@@ -39,7 +41,9 @@ const sectionMap: SectionMap = {
   // About us
   'hero-background-focus': HeroBackgroundsFocus,
   'info-basic': InfoBasic,
-  'card-2-col': Card2Col
+  'card-2-col': Card2Col,
+  'card-slider': CardSlider,
+  'info-split-with-features-image': InforWIthFeatureImage,
 };
 
 type PageBuilderProps = {
@@ -66,7 +70,7 @@ const PageBuilder = ({ pageContent }: PageBuilderProps) => {
     <>
       {/* {HeaderComp && <HeaderComp data={pageContent?.top_navigation} />} */}
 
-      <div className='padding-top-body'>
+      <div className="padding-top-body">
         {sections.map((section: CommonSection, index: number) => {
           const SectionComp = sectionMap[section.type];
           if (!SectionComp) return null;
