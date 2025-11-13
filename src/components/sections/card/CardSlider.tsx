@@ -44,7 +44,7 @@ const CardSlider = ({ data }: CommonSection) => {
             loop={false}
             spaceBetween={86}
             speed={700}
-            className="!w-[200%] !px-6 md:!w-full md:!px-[calc((100vw-688px)/2)] lg:!px-6 xl:!px-7 3xl:!px-8 4xl:!px-10"
+            className="!px-6 !w-full md:!px-[calc((100vw-688px)/2)] lg:!px-6 xl:!px-7 3xl:!px-8 4xl:!px-10"
           >
             {data?.items?.map((item: any, index: number) => {
               const year = new Date(item?.subtitle).getFullYear();
@@ -62,6 +62,7 @@ const CardSlider = ({ data }: CommonSection) => {
                   style={{
                     width: `${width}%`,
                   }}
+                  className='pr-[15%] md:pr-0'
                 >
                   <div
                     onClick={(e) => {
