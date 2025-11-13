@@ -1,5 +1,6 @@
+'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import clsx from 'clsx';
@@ -7,21 +8,20 @@ import clsx from 'clsx';
 type Props = {};
 
 const InforWIthFeatureImage = ({ data }: CommonSection) => {
-  const { items } = data;
   return (
     <div className="container flex flex-col gap-20 py-[60px] md:gap-40 md:py-20 lg:py-[100px] xl:flex-row xl:gap-6 xl:py-40 2xl:gap-7 3xl:py-[176px] 4xl:justify-between 4xl:py-[200px]">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 xl:flex xl:flex-1 xl:flex-col xl:justify-center xl:gap-12 2xl:gap-[52px] 3xl:gap-[60px] 4xl:max-w-[700px]">
-        {items.map((item: any, index: number) => (
+        {data?.items?.map((item: any, index: number) => (
           <div className="space-y-4" key={'i_' + index}>
             <h1 className="section-title uppercase text-primary-600">
-              {item.title}
+              {item?.title}
             </h1>
-            <p
+            <div
               className="section-content"
               dangerouslySetInnerHTML={{
-                __html: item.blurb,
+                __html: item?.blurb,
               }}
-            ></p>
+            ></div>
           </div>
         ))}
       </div>
@@ -30,13 +30,13 @@ const InforWIthFeatureImage = ({ data }: CommonSection) => {
         {/* Card Doctor */}
         <div className="relative h-[156px] w-full overflow-y-visible rounded-xl bg-primary-600 p-5 text-end md:mx-auto md:h-[264px] md:max-w-[580px] md:px-8 md:py-9 4xl:p-10">
           <div className="text-[14px] text-primary-200 md:text-[22px] 4xl:text-[24px]">
-            {data.subtitle}
+            {data?.subtitle}
           </div>
           <div className="text-[18px] text-primary-50 md:text-[30px] 4xl:text-[32px]">
-            {data.title}
+            {data?.title}
           </div>
           <div className="text-[14px] text-primary-100 md:text-[22px] 4xl:text-[24px]">
-            {data.blurb}
+            {data?.blurb}
           </div>
           <img
             src={getAssetUrlById(data?.cover?.id)}
