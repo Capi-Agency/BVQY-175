@@ -24,6 +24,7 @@ import InfoBasicR from '../components/sections/information/InfoBasicR';
 import Team4Col from '../components/sections/team/Team4Col';
 import CardSliderWithLeftRightButton from '../components/sections/card/CardSliderWithLeftRightButton';
 import CardSliderWithBlurb from '../components/sections/card/CardSliderWithBlurb';
+import TeamGrid from '@/src/components/sections/team/TeamGrid';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
@@ -55,7 +56,8 @@ const sectionMap: SectionMap = {
   'card-slider-with-l-r-button': CardSliderWithLeftRightButton,
 
   // Hospital leader
-  'card-slider-with-blurb': CardSliderWithBlurb
+  'card-slider-with-blurb': CardSliderWithBlurb,
+  'team-grid': TeamGrid,
 };
 
 type PageBuilderProps = {
