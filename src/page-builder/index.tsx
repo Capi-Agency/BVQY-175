@@ -25,6 +25,7 @@ import Team4Col from '../components/sections/team/Team4Col';
 import CardSliderWithLeftRightButton from '../components/sections/card/CardSliderWithLeftRightButton';
 import CardSliderWithBlurb from '../components/sections/card/CardSliderWithBlurb';
 import TeamGrid from '@/src/components/sections/team/TeamGrid';
+import GalleryAlternate from '../components/sections/gallery/GalleryAlternate';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
@@ -58,6 +59,7 @@ const sectionMap: SectionMap = {
   // Hospital leader
   'card-slider-with-blurb': CardSliderWithBlurb,
   'team-grid': TeamGrid,
+  'gallery-alternate': GalleryAlternate
 };
 
 type PageBuilderProps = {

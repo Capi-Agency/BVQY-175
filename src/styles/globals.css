@@ -229,6 +229,10 @@ body {
   .btn-danger {
     @apply w-fit bg-[#E50000] rounded-[6px] flex items-center gap-[6px] text-white text-sm 2xl:text-base 2xl:gap-2 font-medium p-[10px_8px_10px_12px] 2xl:p-[10px_12px_10px_16px]
   }
+
+  .btn-slider {
+    @apply flex size-8 items-center justify-center rounded-full bg-[#24422D] hover:bg-[#3E9459] xl:size-10 2xl:size-11 4xl:size-[54px]
+  }
 }
 
 @layer utilities {
