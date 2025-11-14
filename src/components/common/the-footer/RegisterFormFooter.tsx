@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { ContactInfo, fnSendContact } from '@/src/services/contact';
+import useStoreLanguage from '@/src/store/store';
 
 type Contact = {
   email: string;
@@ -19,6 +20,7 @@ const initialValue: Contact = {
 export default function RegisterFormFooter() {
   const { trans } = useTranslate();
   const [loading, setLoading] = useState<boolean>(false);
+  const language = useStoreLanguage((state: any) => state.language);
 
   const CONTACT_SCHEMA = useMemo(
     () =>
@@ -38,7 +40,7 @@ export default function RegisterFormFooter() {
             ),
         })
         .required(),
-    [],
+    [language],
   );
 
   const {

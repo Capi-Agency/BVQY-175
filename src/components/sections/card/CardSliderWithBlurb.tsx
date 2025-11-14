@@ -22,7 +22,7 @@ export default function CardSliderWithBlurb({ data }: CommonSection) {
             loop={false}
             spaceBetween={16}
             speed={700}
-            autoHeight={true}
+            // autoHeight={true}
             grid={{
               rows: 1,
             }}
@@ -42,35 +42,35 @@ export default function CardSliderWithBlurb({ data }: CommonSection) {
               },
               1280: {
                 slidesPerView: 5,
-                spaceBetween: 2,
+                spaceBetween: 24,
               },
               1440: {
                 slidesPerView: 5,
-                spaceBetween: 20,
+                spaceBetween: 24,
               },
               1600: {
                 slidesPerView: 5,
-                spaceBetween: 38,
+                spaceBetween: 40,
               },
               1920: {
                 slidesPerView: 5,
-                spaceBetween: 66,
+                spaceBetween: 60,
               },
             }}
-            className="swiper-card-slider-with-blurb lg!px-9 w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-9 2xl:!px-10 3xl:!px-[64px] 4xl:!px-[88px]"
+            className="swiper-card-slider-with-blurb lg!px-9 w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-6 2xl:!px-6 3xl:!px-10 4xl:!px-[60px]"
           >
             {data?.items?.map((item: any, index: number) => {
               const isEven = index % 2 === 0;
               return (
-                <SwiperSlide key={index} className='!h-full'>
+                <SwiperSlide key={index} className="!h-full">
                   <div
-                    className={`relative grid h-full items-center gap-3 lg:grid-rows-2 lg:items-stretch lg:gap-[78px] xl:gap-[88px] 2xl:gap-[104px] 4xl:gap-[108px]`}
+                    className={`relative flex h-full flex-col items-stretch gap-3 lg:grid lg:grid-rows-2 lg:gap-[78px] xl:gap-[88px] 2xl:gap-[104px] 4xl:gap-[108px]`}
                   >
                     <div
-                      className={`${isEven ? 'flex-col lg:order-1' : 'flex-col lg:order-2 lg:flex-col-reverse'} flex items-center justify-end`}
+                      className={`${isEven ? 'flex-col lg:order-1' : 'flex-col lg:order-2 lg:flex-col-reverse'} flex flex-1 items-center justify-start lg:justify-end`}
                     >
                       <div
-                        className="w-full space-y-[6px] rounded-md bg-white p-2 lg:p-3 xl:space-y-2 xl:p-4"
+                        className="w-full flex-1 space-y-[6px] rounded-md bg-white p-2 lg:flex-none lg:p-3 xl:space-y-2 xl:p-4"
                         style={{
                           boxShadow: '0 1px 2px 0 rgba(18, 26, 43, 0.05)',
                         }}
@@ -91,6 +91,7 @@ export default function CardSliderWithBlurb({ data }: CommonSection) {
                           </div>
                         </div>
                       </div>
+
                       <div
                         className={`${isEven ? '' : 'lg:rotate-180'} size-[2px] border-x-[6px] border-t-[6px] border-transparent border-t-white`}
                       ></div>
