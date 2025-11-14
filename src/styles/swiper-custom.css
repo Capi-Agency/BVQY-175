@@ -3,3 +3,11 @@
 @tailwind utilities;
 
 /* begin: swiper default */
+
+.swiper-card-slider-with-blurb .swiper-wrapper {
+    align-items: stretch !important;
+}
+
+.swiper-card-slider-with-blurb .swiper-slide {
+    height: unset !important;
+}

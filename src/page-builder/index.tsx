@@ -23,6 +23,7 @@ import InfoCenterBlock from '../components/sections/information/InfoCenterBlock'
 import InfoBasicR from '../components/sections/information/InfoBasicR';
 import Team4Col from '../components/sections/team/Team4Col';
 import CardSliderWithLeftRightButton from '../components/sections/card/CardSliderWithLeftRightButton';
+import CardSliderWithBlurb from '../components/sections/card/CardSliderWithBlurb';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
@@ -51,7 +52,10 @@ const sectionMap: SectionMap = {
   'info-center-block': InfoCenterBlock,
   'info-basic-r': InfoBasicR,
   'team-4-col': Team4Col,
-  'card-slider-with-l-r-button': CardSliderWithLeftRightButton
+  'card-slider-with-l-r-button': CardSliderWithLeftRightButton,
+
+  // Hospital leader
+  'card-slider-with-blurb': CardSliderWithBlurb
 };
 
 type PageBuilderProps = {
