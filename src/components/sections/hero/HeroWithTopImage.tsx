@@ -13,7 +13,7 @@ export default function HeroWithTopImage({ data }: CommonSection) {
 
   return (
     <section>
-      <div className="relative h-[calc(100dvh-64px)] w-full overflow-hidden md:hidden">
+      <div className="relative h-[calc(100vh-64px)] w-full overflow-hidden md:hidden">
         <NextImg
           src={getAssetUrlById(data?.cover?.[0]?.id)}
           objectFit="cover"
