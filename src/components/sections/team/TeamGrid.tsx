@@ -5,28 +5,73 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import NextImg from '../../common/next-img';
 import clsx from 'clsx';
 import { getAssetUrlById } from '@/src/utils/image';
+import { useTranslate } from '@/src/hooks/useTranslate';
 
 const TeamGrid = ({ data }: CommonSection) => {
   return (
-    <div className="container py-10 md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
-      <h2 className="section-title mb-4 uppercase text-primary-600">
-        {data?.title}
-      </h2>
-      <div
-        className="section-content mb-20 text-justify"
-        dangerouslySetInnerHTML={{
-          __html: data?.blurb,
-        }}
-      ></div>
-      <div className="space-y-20 lg:space-y-[100px] xl:space-y-[120px] 2xl:space-y-[140px] 3xl:space-y-40">
-        <div></div>
-        {data?.items.map((item: any, index: number) => (
-          <LeaderCard
-            key={'card_' + index}
-            item={item}
-            directionLTR={index % 2 === 0}
-          />
-        ))}
+    <div>
+      <div className="relative h-[340px] w-full overflow-hidden md:hidden">
+        <NextImg
+          src={getAssetUrlById(data?.cover?.[0]?.id)}
+          objectFit="cover"
+          alt="banner image"
+        />
+      </div>
+      <div className="relative hidden h-[174px] w-full overflow-hidden md:block lg:h-[232px] xl:h-[290px] 2xl:h-[326px] 3xl:h-[364px] 4xl:h-[436px]">
+        <NextImg
+          src={getAssetUrlById(data?.cover?.[1]?.id)}
+          objectFit="cover"
+          alt="banner image"
+        />
+      </div>
+
+      <div className="py-10 md:container md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
+        <h2
+          className="section-title px-6 uppercase text-primary-600 md:px-0"
+          dangerouslySetInnerHTML={{
+            __html: data?.title,
+          }}
+        ></h2>
+
+        <div
+          className="section-content px-6 pt-4 text-justify md:px-0 lg:pt-5 2xl:pt-6"
+          dangerouslySetInnerHTML={{
+            __html: data?.blurb,
+          }}
+        ></div>
+
+        <div className="hidden space-y-20 pt-10 md:block md:pt-[80px] lg:space-y-[100px] lg:pt-[100px] xl:space-y-[120px] xl:pt-[120px] 2xl:space-y-[140px] 2xl:pt-[140px] 3xl:space-y-[160px] 3xl:pt-[160px]">
+          {data?.items.map((item: any, index: number) => (
+            <LeaderCard
+              key={'card_' + index}
+              item={item}
+              directionLTR={index % 2 === 0}
+              data={data}
+            />
+          ))}
+        </div>
+
+        <div className="relative w-full md:hidden pt-10">
+          <Swiper
+            touchEventsTarget="container"
+            grabCursor={true}
+            slidesPerView={1.1}
+            loop={false}
+            spaceBetween={16}
+            speed={500}
+            className="!px-6 !w-full"
+          >
+            {data?.items.map((item: any, index: number) => (
+              <SwiperSlide key={'card_' + index}>
+                <LeaderCard
+                  item={item}
+                  directionLTR={index % 2 === 0}
+                  data={data}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </div>
   );
@@ -37,268 +82,272 @@ export default TeamGrid;
 const LeaderCard = ({
   directionLTR,
   item,
+  data,
 }: {
   directionLTR: boolean;
   item: any;
+  data: any;
 }) => {
+  const { trans } = useTranslate();
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="*:transition-all *:duration-300">
+    <div className="relative rounded-[6px] bg-primary-50 lg:rounded-xl 2xl:rounded-[20px] 3xl:rounded-[24px]">
       <div
+        onClick={() => setExpanded((prev) => !prev)}
         className={clsx(
-          'relative z-10 flex flex-col items-stretch justify-between rounded-[6px] bg-primary-50 lg:rounded-xl 2xl:rounded-[20px] 3xl:rounded-[24px] 4xl:gap-6',
+          'relative z-[1] flex cursor-pointer flex-col rounded-[6px] p-4 duration-200 md:p-6 lg:rounded-[16px] lg:p-10 xl:p-[52px] 2xl:rounded-[20px] 2xl:p-16 3xl:p-[72px] 4xl:rounded-[24px] 4xl:p-20',
           directionLTR ? 'md:flex-row' : 'md:flex-row-reverse',
           expanded ? 'bg-primary-600' : 'bg-primary-50',
         )}
       >
         {/* Text */}
-        <div className="space-y-3 p-6 md:w-[calc(302px+80px)] lg:w-[calc(464px+80px)] lg:p-10 xl:w-[calc(464px+104px)] xl:space-y-4 xl:p-[52px] 2xl:w-[calc(480px+64px*2)] 2xl:space-y-5 2xl:p-16 3xl:space-y-6 3xl:p-20 4xl:w-[calc(680px+160px)]">
+        <div className="space-y-3 md:basis-1/2 xl:space-y-4 2xl:space-y-5 3xl:space-y-6">
           {/* Year */}
-          <div
-            className={clsx(
-              'flex items-center gap-1.5',
-              expanded ? 'text-[#F0FDF4]' : 'text-primary-600',
-            )}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <path
-                d="M15.5303 8.00641L12.0293 2.01277C12.0255 2.00616 12.0159 2.00616 12.012 2.01277L8.50252 8.00641L2.02321 9.63266C2.01583 9.63451 2.01313 9.64358 2.01829 9.64916L6.50648 14.5009L4.8213 21.9956C4.81952 22.0035 4.8274 22.0101 4.8349 22.007L12.0221 19.0318L19.1924 22.007C19.1999 22.0101 19.2078 22.0035 19.206 21.9956L17.524 14.4897L22.0129 9.65571C22.0181 9.65014 22.0154 9.64106 22.0081 9.6392L15.5303 8.00641Z"
-                fill="currentColor"
-              />
-            </svg>
+          <div className="flex items-center gap-1 xl:gap-2">
             <div
               className={clsx(
-                'text-xl font-bold lg:text-[22px] xl:text-2xl 2xl:text-[28px] 4xl:text-[32px]',
+                'relative size-6 transition-all duration-200',
+                expanded ? 'brightness-0 invert' : 'rotate-0',
               )}
             >
-              2025
+              <NextImg src="/assets/icons/primary_star.svg" alt="star icon" />
+            </div>
+            <div
+              className={clsx(
+                'text-xl font-bold duration-200 lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]',
+                expanded ? 'text-[#F0FDF4]' : 'text-primary-600',
+              )}
+            >
+              {item?.subtitle}
             </div>
           </div>
 
           {/* title & name */}
-          <div>
-            <div
-              className={clsx(
-                'text-sm font-normal lg:text-base 2xl:text-lg 3xl:text-lg 4xl:text-xl',
-                expanded ? 'text-[#E4E4E7]' : 'text-gray-700',
-              )}
-            >
-              Thiếu tướng, TS. TTND
-            </div>
-            <div
-              className={clsx(
-                'text-[24px] font-bold leading-[1.25] lg:text-[28px] xl:text-[32px] 3xl:text-[40px]',
-                expanded ? 'text-primary-50' : 'text-primary-1000',
-              )}
-            >
-              Trần Quốc Việt
-            </div>
-            <div
-              className={clsx(
-                'text-sm font-medium lg:text-base 2xl:text-lg 4xl:text-xl',
-                expanded ? 'text-primary-100' : 'text-primary-500',
-              )}
-            >
-              Giám đốc Bệnh viện (2022 - đến nay)
-            </div>
+          <div className="space-y-[2px] lg:space-y-1">
+            {item?.title?.type === 'list' && (
+              <>
+                <div
+                  className={clsx(
+                    'text-sm font-normal duration-200 lg:text-base 2xl:text-lg 4xl:text-xl',
+                    expanded ? 'text-[#E4E4E7]' : 'text-gray-700',
+                  )}
+                >
+                  {item?.title?.contents?.[0]}
+                </div>
+
+                <div
+                  className={clsx(
+                    'text-2xl font-bold leading-[1.3] duration-200 lg:text-[28px] xl:text-[30px] 2xl:text-[32px] 3xl:text-[36px] 4xl:text-[40px]',
+                    expanded ? 'text-primary-50' : 'text-primary-1000',
+                  )}
+                >
+                  {item?.title?.contents?.[1]}
+                </div>
+                <div
+                  className={clsx(
+                    'text-sm font-medium duration-200 lg:text-base 2xl:text-lg 4xl:text-xl',
+                    expanded ? 'text-primary-100' : 'text-primary-500',
+                  )}
+                >
+                  {item?.title?.contents?.[2]}
+                </div>
+              </>
+            )}
           </div>
 
           {/* blurb */}
-          <p
+          <div
             className={clsx(
-              'text-justify text-xs font-normal !leading-normal lg:text-sm xl:text-base 3xl:text-lg 4xl:text-xl',
+              'text-justify text-sm font-normal !leading-normal duration-200 md:text-xs lg:text-sm xl:text-base 3xl:text-lg 4xl:text-xl',
               expanded ? 'text-primary-300' : 'text-gray-700',
             )}
-          >
-            Dưới sự lãnh đạo của Thiếu tướng, TS. TTND Trần Quốc Việt, Bệnh viện
-            đã đạt được nhiều thành tựu nổi bật trong công tác khám chữa bệnh,
-            nâng cao chất lượng dịch vụ y tế và phát triển đội ngũ cán bộ. Ông
-            chú trọng ứng dụng khoa học – công nghệ hiện đại vào điều trị, đồng
-            thời đẩy mạnh hợp tác trong và ngoài nước, góp phần khẳng định uy
-            tín và vị thế của bệnh viện trong ngành y tế.
-          </p>
+            dangerouslySetInnerHTML={{
+              __html: item?.blurb,
+            }}
+          ></div>
 
-          {/* see more */}
-          <button
-            onClick={() => setExpanded((prev) => !prev)}
+          {/* Avatar */}
+          <div
             className={clsx(
-              'flex items-center gap-1 text-base font-bold',
-              expanded ? 'text-primary-50' : 'text-[#092E15]',
+              'relative bottom-0 mx-auto aspect-[4/5] w-[288px] md:absolute md:mx-0 md:w-[336px] lg:w-[366px] xl:w-[416px] 2xl:w-[506px] 3xl:w-[556px] 4xl:w-[576px]',
+              directionLTR ? 'right-0' : 'left-0',
             )}
           >
-            {expanded ? 'Rút gọn' : 'Xem thêm'}
-            <DownArrowIcon
-              className={clsx('', expanded ? 'rotate-180' : 'rotate-0')}
+            <NextImg
+              src={getAssetUrlById(item?.cover?.[0]?.id)}
+              objectFit="cover"
+              alt="doctor"
             />
-          </button>
-        </div>
-
-        {/* Avatar */}
-        <div className="relative shrink-0 md:max-h-[380px] lg:max-h-[386px] xl:max-h-[440px] 2xl:max-h-[524px] 3xl:max-h-[574px] 4xl:max-h-[610px]">
-          {/* Translate Y đoạn bằng h ảnh - h của div */}
-          <div className="relative z-20 aspect-[4/5] max-w-full md:w-[338px] md:-translate-y-[calc(422px-380px)] lg:w-[365px] lg:-translate-y-[calc(456px-386px)] xl:w-[416px] xl:-translate-y-[calc(520px-440px)] 2xl:w-[506px] 2xl:-translate-y-[108px] 3xl:w-[536px] 3xl:-translate-y-[96px] 4xl:w-[576px] 4xl:-translate-y-[calc(720px-610px)]">
-            <NextImg src={getAssetUrlById(item?.cover?.id)} alt="doctor" />
           </div>
 
-          {/* trademark */}
           <img
             src="/assets/images/logo-short-form.png"
             alt="logo short form"
             className={clsx(
-              'absolute top-6 z-10 aspect-[5/4] w-20 xl:w-[120px] 2xl:w-[180px]',
+              'absolute top-6 z-10 aspect-[5/4] w-20 xl:w-[120px] 2xl:w-[203px]',
               directionLTR ? 'right-6' : 'left-6',
             )}
           />
+
+          {/* see more */}
+          <div
+            className={clsx(
+              'flex items-center gap-1 text-base font-bold duration-200',
+              expanded ? 'text-primary-50' : 'text-[#092E15]',
+            )}
+          >
+            {expanded ? data?.buttons?.[1]?.title : data?.buttons?.[0]?.title}
+            <div
+              className={clsx(
+                'relative size-5 transition-all duration-200 xl:size-6',
+                expanded ? '-rotate-180 invert' : 'rotate-0',
+              )}
+            >
+              <NextImg
+                src={getAssetUrlById(data?.buttons?.[0]?.icon?.id)}
+                alt="star icon"
+              />
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Info panel - (TODO) chưa responsive theo design */}
       <div
         className={clsx(
-          'overflow-hidden transition-all duration-500 ease-in-out',
+          'overflow-hidden transition-all duration-500 ease-out',
           expanded ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0',
         )}
       >
-        <div className="relative z-0 -mt-6 space-y-10 overflow-hidden rounded-b-[6px] bg-primary-50 p-[60px_24px_40px_24px] lg:rounded-b-xl lg:p-[80px_40px_60px_40px] 2xl:rounded-b-[20px] 3xl:rounded-b-[24px] 3xl:p-[100px_40px_60px_40px]">
-          {/* Hoc van qua trinh cong tac */}
-          <div className="flex flex-col gap-3 md:flex-row lg:gap-6">
-            <div className="relative size-8 lg:size-10 3xl:size-12">
-              <NextImg
-                src="/assets/icons/brief.svg"
-                alt="brief"
-                objectFit="cover"
-              />
+        <div className="2xl:space-8 relative z-0 space-y-6 overflow-hidden rounded-b-[6px] bg-primary-50 p-4 md:p-[32px_16px] lg:rounded-b-xl lg:p-6 xl:space-y-7 xl:p-[40px_32px] 2xl:rounded-b-[20px] 2xl:p-[48px_32px] 3xl:space-y-9 3xl:rounded-b-[24px] 3xl:p-[52px_32px] 4xl:space-y-10 4xl:p-[60px_40px]">
+          {item?.content?.contents?.[0] && (
+            <div className="space-y-2">
+              <div className="flex items-start gap-2 md:gap-3 lg:gap-4 3xl:gap-6 4xl:gap-6">
+                <div className="relative size-6 md:size-7 lg:size-8 xl:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
+                  <NextImg
+                    src="/assets/icons/brief.svg"
+                    alt="brief"
+                    objectFit="cover"
+                  />
+                </div>
+                <div className="flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
+                  <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
+                    {trans('doctor-education-label')}
+                  </h3>
+                  <div
+                    className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
+                    dangerouslySetInnerHTML={{
+                      __html: item?.content?.contents?.[0],
+                    }}
+                  ></div>
+                </div>
+              </div>
+
+              <div
+                className="text-sm font-normal text-gray-700 md:hidden lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
+                dangerouslySetInnerHTML={{
+                  __html: item?.content?.contents?.[0],
+                }}
+              ></div>
             </div>
-            <div className="flex-1 space-y-4 lg:space-y-6 4xl:space-y-8">
-              <h3 className="text-lg font-medium !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
-                Học vấn & Quá trình công tác
-              </h3>
-              <div className="text-sm text-gray-700 lg:text-base 3xl:pr-[72px] 3xl:text-lg">
-                <p>
-                  Ông có học hàm/học vị Tiến sĩ (TS.), chuyên ngành y học — tuy
-                  nhiên không tìm được nơi và năm cấp bằng rõ ràng.
-                </p>
-                <br />
-                <p>
-                  Trong quá trình công tác, dưới sự lãnh đạo của ông, bệnh viện
-                  đã: Thực hiện thành công 22 ca ghép thận chỉ trong khoảng một
-                  năm kể từ khi ca ghép thận đầu tiên vào tháng 7/2023. Thực
-                  hiện thành công ca lấy và ghép đa tạng từ người hiến chết não
-                  đầu tiên.
-                </p>
-                <p>
-                  Tổ chức và triển khai chương trình chuyển giao kỹ thuật lấy,
-                  ghép tạng giữa Bệnh viện Trung ương Quân đội 108 và Bệnh viện
-                  Quân y 175, bao gồm đào tạo chuyên môn cho đội ngũ bác sĩ, kỹ
-                  thuật viên.
-                </p>
-                <p>
-                  Chủ trì việc thành lập Trung tâm Huấn luyện cấp cứu chấn
-                  thương quốc tế (ITLS) đầu tiên tại Việt Nam trực thuộc BV Quân
-                  y 175.
-                </p>
+          )}
+
+          {item?.cover?.length > 1 && (
+            <div className="space-y-2 md:space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6">
+              <div className="flex items-start gap-2 md:gap-3 lg:gap-4 3xl:gap-6 4xl:gap-6">
+                <div className="relative size-6 md:size-7 lg:size-8 xl:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
+                  <NextImg
+                    src="/assets/icons/image.svg"
+                    alt="image"
+                    objectFit="cover"
+                  />
+                </div>
+                <div className="relative flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
+                  <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
+                    {trans('doctor-activity-label')}
+                  </h3>
+                </div>
+              </div>
+
+              <div className="relative w-full overflow-hidden">
+                <Swiper
+                  touchEventsTarget="container"
+                  grabCursor={true}
+                  slidesPerView={1.2}
+                  loop={false}
+                  spaceBetween={16}
+                  speed={700}
+                  breakpoints={{
+                    768: {
+                      slidesPerView: 2.1,
+                    },
+                    1024: {
+                      slidesPerView: 2.5,
+                      spaceBetween: 20,
+                    },
+                    1280: {
+                      slidesPerView: 3,
+                      spaceBetween: 20,
+                    },
+                    1600: {
+                      slidesPerView: 3,
+                      spaceBetween: 24,
+                    },
+                  }}
+                  className="!w-full !flex-1"
+                >
+                  {item?.cover
+                    ?.slice(1)
+                    .map((itemCover: any, indexCover: number) => (
+                      <SwiperSlide key={indexCover}>
+                        <div className="relative aspect-[4/3] overflow-hidden rounded-[6px]">
+                          <NextImg
+                            src={getAssetUrlById(itemCover?.id)}
+                            alt="image"
+                            objectFit="cover"
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                </Swiper>
               </div>
             </div>
-          </div>
+          )}
 
-          {/* Hinh anh */}
-          <div className="flex flex-col gap-3 overflow-visible md:flex-row lg:gap-6">
-            <div className="relative size-8 shrink-0 lg:size-10 3xl:size-12">
-              <NextImg
-                src="/assets/icons/image.svg"
-                alt="image"
-                objectFit="cover"
-              />
-            </div>
-            <div className="max-w-full space-y-4 lg:space-y-6 4xl:space-y-8">
-              <h3 className="text-lg font-medium !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
-                Hình ảnh hoạt động
-              </h3>
-              <Swiper
-                touchEventsTarget="container"
-                grabCursor={true}
-                slidesPerView={3.1}
-                loop={false}
-                spaceBetween={24}
-                speed={700}
-                breakpoints={{
-                  320: {
-                    slidesPerView: 1.2,
-                  },
-                  768: {
-                    slidesPerView: 2.1,
-                  },
-                  1024: {
-                    slidesPerView: 3.1,
-                  },
+          {item?.content?.contents?.[1] && (
+            <div className="space-y-2">
+              <div className="flex items-start gap-2 md:gap-3 lg:gap-4 3xl:gap-6 4xl:gap-6">
+                <div className="relative size-6 md:size-7 lg:size-8 xl:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
+                  <NextImg
+                    src="/assets/icons/medal.svg"
+                    alt="medal"
+                    objectFit="cover"
+                  />
+                </div>
+                <div className="flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
+                  <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
+                    {trans('doctor-awards-label')}
+                  </h3>
+                  <div
+                    className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
+                    dangerouslySetInnerHTML={{
+                      __html: item?.content?.contents?.[1],
+                    }}
+                  ></div>
+                </div>
+              </div>
+
+              <div
+                className="text-sm font-normal text-gray-700 md:hidden lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
+                dangerouslySetInnerHTML={{
+                  __html: item?.content?.contents?.[1],
                 }}
-              >
-                {Array(5)
-                  .fill(null)
-                  .map((_, index: number) => (
-                    <SwiperSlide key={index}>
-                      <div className="relative aspect-[4/3] overflow-hidden rounded-[6px]">
-                        <NextImg
-                          src="/assets/images/demo-image.png"
-                          alt="demo image"
-                          objectFit="cover"
-                        />
-                      </div>
-                    </SwiperSlide>
-                  ))}
-              </Swiper>
+              ></div>
             </div>
-          </div>
-
-          {/* Giải thưởng & Danh hiệu */}
-          <div className="flex flex-col gap-3 md:flex-row lg:gap-6">
-            <div className="relative size-8 lg:size-10 3xl:size-12">
-              <NextImg
-                src="/assets/icons/medal.svg"
-                alt="medal"
-                objectFit="cover"
-              />
-            </div>
-            <div className="flex-1 space-y-4 lg:space-y-6 4xl:space-y-8">
-              <h3 className="text-lg font-medium !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
-                Học vấn & Quá trình công tác
-              </h3>
-              <ul className="list-inside list-disc text-sm text-gray-700 lg:text-base 3xl:pr-[72px] 3xl:text-lg">
-                <li> Thầy thuốc Ưu tú </li>
-                <li> Thầy thuốc Nhân dân</li>
-                <li> Thầy thuốc Ưu tú </li>
-                <li>Thầy thuốc Nhân dân</li>
-                <li> Thầy thuốc Ưu tú</li>
-              </ul>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
   );
 };
-
-const DownArrowIcon = ({ className }: { className: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="14"
-    height="8"
-    viewBox="0 0 14 8"
-    fill="none"
-    className={className}
-  >
-    <path
-      d="M0.530273 0.530321L6.53032 6.53027L12.5303 0.530273"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeMiterlimit="16"
-    />
-  </svg>
-);

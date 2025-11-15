@@ -1,15 +1,15 @@
 export const updateSlugLanguage = (slug: string, newLanguage: string): string => {
-  const slugParts = slug.split('-');
-  const lastPart = slugParts[slugParts.length - 1];
+    const slugParts = slug.split('-');
+    const lastPart = slugParts[slugParts.length - 1];
 
-  if (lastPart === 'en' || lastPart === 'vi') {
-    if (newLanguage === 'vi') {
-      slugParts.pop();
-    } else {
-      slugParts[slugParts.length - 1] = 'en';
+    if (lastPart === 'en' || lastPart === 'vi') {
+        if (newLanguage === 'vi') {
+            slugParts.pop();
+        } else {
+            slugParts[slugParts.length - 1] = 'en';
+        }
     }
-  }
-  return slugParts.join('-');
+    return slugParts.join('-');
 };
 
 export const locales: any = {
@@ -80,5 +80,17 @@ export const locales: any = {
     "empty-page": {
         vi: "Trang không tồn tại!",
         en: "Page not found!"
-    }
+    },
+    "doctor-education-label": {
+        vi: "Học vấn & Quá trình công tác",
+        en: "Education & Work History"
+    },
+    "doctor-activity-label": {
+        vi: "Hình ảnh hoạt động",
+        en: "Activity images"
+    },
+    "doctor-awards-label": {
+        vi: "Giải thưởng & Danh hiệu",
+        en: "Awards & Honors"
+    },
 };
