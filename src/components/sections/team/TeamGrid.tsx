@@ -13,7 +13,7 @@ const TeamGrid = ({ data }: CommonSection) => {
         {data?.title}
       </h2>
       <div
-        className="section-content mb-20"
+        className="section-content mb-20 text-justify"
         dangerouslySetInnerHTML={{
           __html: data?.blurb,
         }}
@@ -113,7 +113,7 @@ const LeaderCard = ({
           {/* blurb */}
           <p
             className={clsx(
-              'text-xs font-normal !leading-normal lg:text-sm xl:text-base 3xl:text-lg 4xl:text-xl',
+              'text-justify text-xs font-normal !leading-normal lg:text-sm xl:text-base 3xl:text-lg 4xl:text-xl',
               expanded ? 'text-primary-300' : 'text-gray-700',
             )}
           >
