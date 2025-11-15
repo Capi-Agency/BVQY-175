@@ -163,12 +163,12 @@ const LeaderCard = ({
       <div
         className={clsx(
           'overflow-hidden transition-all duration-500 ease-in-out',
-          expanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0',
+          expanded ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0',
         )}
       >
         <div className="relative z-0 -mt-6 space-y-10 overflow-hidden rounded-b-[6px] bg-primary-50 p-[60px_24px_40px_24px] lg:rounded-b-xl lg:p-[80px_40px_60px_40px] 2xl:rounded-b-[20px] 3xl:rounded-b-[24px] 3xl:p-[100px_40px_60px_40px]">
           {/* Hoc van qua trinh cong tac */}
-          <div className="flex gap-3 3xl:gap-6">
+          <div className="flex flex-col gap-3 md:flex-row lg:gap-6">
             <div className="relative size-8 lg:size-10 3xl:size-12">
               <NextImg
                 src="/assets/icons/brief.svg"
@@ -209,7 +209,7 @@ const LeaderCard = ({
           </div>
 
           {/* Hinh anh */}
-          <div className="flex gap-6 overflow-visible">
+          <div className="flex flex-col gap-3 overflow-visible md:flex-row lg:gap-6">
             <div className="relative size-8 shrink-0 lg:size-10 3xl:size-12">
               <NextImg
                 src="/assets/icons/image.svg"
@@ -258,7 +258,7 @@ const LeaderCard = ({
           </div>
 
           {/* Giải thưởng & Danh hiệu */}
-          <div className="flex gap-6">
+          <div className="flex flex-col gap-3 md:flex-row lg:gap-6">
             <div className="relative size-8 lg:size-10 3xl:size-12">
               <NextImg
                 src="/assets/icons/medal.svg"
