@@ -185,7 +185,7 @@ const LeaderCard = ({
             src="/assets/images/logo-short-form.png"
             alt="logo short form"
             className={clsx(
-              'absolute top-6 z-10 aspect-[5/4] w-20 xl:w-[120px] 2xl:w-[203px]',
+              'absolute top-6 -z-10 aspect-[5/4] w-20 xl:w-[120px] 2xl:w-[203px]',
               directionLTR ? 'right-6' : 'left-6',
             )}
           />
