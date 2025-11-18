@@ -26,6 +26,8 @@ import CardSliderWithLeftRightButton from '../components/sections/card/CardSlide
 import CardSliderWithBlurb from '../components/sections/card/CardSliderWithBlurb';
 import TeamGrid from '@/src/components/sections/team/TeamGrid';
 import GalleryAlternate from '../components/sections/gallery/GalleryAlternate';
+import HotNewsHero from '../components/sections/news/HotNewsHero';
+import NewsListCard from '../components/sections/news/NewsListCard';
 
 const headerMap: SectionMap = {
   'top-nav': TheHeader,
@@ -59,7 +61,11 @@ const sectionMap: SectionMap = {
   // Hospital leader
   'card-slider-with-blurb': CardSliderWithBlurb,
   'team-grid': TeamGrid,
-  'gallery-alternate': GalleryAlternate
+  'gallery-alternate': GalleryAlternate,
+
+  // News
+  'info-news': HotNewsHero,
+  // 'posts-small-image-3-col': NewsListCard
 };
 
 type PageBuilderProps = {

@@ -1,6 +1,7 @@
 import { directusClient, directusClientWithRest } from '@/src/lib/directus';
 import { parseFilterString } from '../utils/validate';
 import { readItems } from '@directus/sdk';
+import { customEndpoint } from '@directus/sdk';
 
 export interface NewsFetchInfo {
   collectionString: string;
@@ -147,10 +148,21 @@ export const fnGetListVideos = async ({
 };
 
 // Theo RESTful
+export const getListItemByEndpoint = async (endpoint: string) => {
+  const data = await directusClientWithRest.request(
+    customEndpoint<any>({
+      path: `${endpoint}`,
+      method: 'GET',
+    }),
+  );
+
+  return data;
+};
+
 
 /** Lấy danh sách item - có bộ lọc/ phân trang */
 export const getListNews = async ({
-  category,
+  category = "",
   collection,
   limit = 12,
   page = 1,

@@ -2,7 +2,7 @@ import React from 'react';
 import NextImg from '../../common/next-img';
 import Link from 'next/link';
 
-export default function NewsCard() {
+export default function NewsCard({ item }: any) {
   return (
     <Link
       href={'/'}
@@ -17,7 +17,7 @@ export default function NewsCard() {
         />
       </div>
       <div className="space-y-1">
-        <h4 className="line-clamp-2 text-lg font-semibold text-primary-1000 duration-200 group-hover:text-primary-50 xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
+        <h4 className="line-clamp-2 text-lg font-semibold !leading-[1.6] text-primary-1000 duration-200 group-hover:text-primary-50 xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
           HAI PHẪU THUẬT NỘI SOI LẤY TẠNG GHÉP ĐƯỢC TIẾN HÀNH ĐỒNG THỜI TRONG
           CHƯƠNG TRÌNH PHẪU THUẬT THỊ PHẠM GHÉP THẬN, GHÉP GAN CỦA HỘI NGHỊ KHOA
           HỌC VSOT LẦN THỨ 10 – 2025 ĐƯỢC TỔ CHỨC TẠI BỆNH VIỆN QUÂN Y 175
