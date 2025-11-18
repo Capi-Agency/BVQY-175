@@ -1,5 +1,6 @@
-import { directusClient } from '@/src/lib/directus';
+import { directusClient, directusClientWithRest } from '@/src/lib/directus';
 import { parseFilterString } from '../utils/validate';
+import { readItems } from '@directus/sdk';
 
 export interface NewsFetchInfo {
   collectionString: string;
@@ -143,4 +144,125 @@ export const fnGetListVideos = async ({
         `;
   }
   return await directusClient.query(query);
+};
+
+// Theo RESTful
+
+/** Lấy danh sách item - có bộ lọc/ phân trang */
+export const getListNews = async ({
+  category,
+  collection,
+  limit = 12,
+  page = 1,
+  sort = true,
+  keyword = '',
+}: {
+  collection: string;
+  limit?: number;
+  page?: number;
+  sort?: boolean;
+  keyword?: string;
+  category?: string;
+}) => {
+  const filter: any = {};
+  if (category) {
+    filter.categories = {
+      category: {
+        slug: {
+          _eq: category,
+        },
+      },
+    };
+  }
+
+  if (keyword) {
+    filter._or = [
+      {
+        title: {
+          _icontains: keyword,
+        },
+      },
+      {
+        blurb: {
+          _icontains: keyword,
+        },
+      },
+    ];
+  }
+
+  try {
+    const res = await directusClientWithRest.request(
+      readItems(collection, {
+        page,
+        limit,
+        sort: sort ? 'date_published' : '-date_published',
+        filter,
+        fields: ['*', 'categories.title', 'categories.slug'],
+      }),
+    );
+
+    return res;
+  } catch (error) {
+    console.log('err in getListNews: ', error);
+  }
+};
+
+/** Trả về tổng số item */
+export const getTotalNewsCount = async ({
+  collection,
+  keyword,
+  category,
+}: {
+  collection: string;
+  keyword?: string;
+  category?: string;
+}) => {
+  try {
+    const filter: any = {};
+    if (category) {
+      filter.categories = {
+        category: {
+          slug: {
+            _eq: category,
+          },
+        },
+      };
+    }
+
+    if (keyword) {
+      filter._or = [
+        {
+          title: {
+            _icontains: keyword,
+          },
+        },
+        {
+          blurb: {
+            _icontains: keyword,
+          },
+        },
+      ];
+    }
+
+    if (keyword) {
+      filter._or = [
+        { title: { _icontains: keyword } },
+        { content: { _icontains: keyword } },
+      ];
+    }
+
+    // Lấy tất cả id matching filter
+    const items = await directusClientWithRest.request(
+      readItems(collection, {
+        filter,
+        fields: ['slug'],
+        limit: -1,
+      }),
+    );
+
+    return items.length;
+  } catch (error) {
+    console.log('Error fetching news count:', error);
+    return 0;
+  }
 };
