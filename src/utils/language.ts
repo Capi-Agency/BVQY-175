@@ -93,4 +93,12 @@ export const locales: any = {
         vi: "Giải thưởng & Danh hiệu",
         en: "Awards & Honors"
     },
+    "home-page-label": {
+        vi: "Trang chủ",
+        en: "Home page"
+    },
+    "news-page-label": {
+        vi: "Tin tức",
+        en: "News"
+    },
 };
