@@ -1,3 +1,4 @@
+import { readItem } from '@directus/sdk';
 import { directusClient, directusClientWithRest } from '@/src/lib/directus';
 import { parseFilterString } from '../utils/validate';
 import { readItems } from '@directus/sdk';
@@ -159,10 +160,9 @@ export const getListItemByEndpoint = async (endpoint: string) => {
   return data;
 };
 
-
 /** Lấy danh sách item - có bộ lọc/ phân trang */
 export const getListNews = async ({
-  category = "",
+  category = '',
   collection,
   limit = 12,
   page = 1,
@@ -276,5 +276,26 @@ export const getTotalNewsCount = async ({
   } catch (error) {
     console.log('Error fetching news count:', error);
     return 0;
+  }
+};
+
+/** Lấy chi tiết bài viết bằng slug */
+
+export const getNewsDetail = async ({
+  collection,
+  slug,
+}: {
+  collection: string;
+  slug: string;
+}) => {
+  try {
+    const res = await directusClientWithRest.request(
+      readItem(collection, slug, {
+        fields: ['*', 'categories.category.title', 'categories.category.slug'],
+      }),
+    );
+    return res;
+  } catch (error) {
+    console.log('err in getNewsDetail: ', error);
   }
 };
