@@ -101,4 +101,8 @@ export const locales: any = {
         vi: "Tin tức",
         en: "News"
     },
+    "view-more-label": {
+        vi: "Xem chi tiết",
+        en: "View more"
+    }
 };
