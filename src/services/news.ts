@@ -207,9 +207,9 @@ export const getListNews = async ({
       readItems(collection, {
         page,
         limit,
-        sort: sort ? 'date_published' : '-date_published',
+        sort: sort ? '-date_published' : 'date_published',
         filter,
-        fields: ['*', 'categories.title', 'categories.slug'],
+        fields: ['*', 'categories.category.title', 'categories.category.slug'],
       }),
     );
 

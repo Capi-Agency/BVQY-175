@@ -65,7 +65,7 @@ const sectionMap: SectionMap = {
 
   // News
   'info-news': HotNewsHero,
-  // 'posts-small-image-3-col': NewsListCard
+  'posts-small-image-3-col': NewsListCard
 };
 
 type PageBuilderProps = {
