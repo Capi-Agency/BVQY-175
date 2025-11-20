@@ -131,7 +131,7 @@ export default function NewsDetail({ post }: any) {
       </div>
 
       {/* Other posts */}
-      <RelatedPosts data={{}} />
+      <RelatedPosts />
     </div>
   );
 }
