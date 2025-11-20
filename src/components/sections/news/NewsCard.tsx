@@ -15,7 +15,7 @@ export default function NewsCard({ item, url }: any) {
   return (
     <Link
       href={`/${language}${url}/${short_content?.slug}`}
-      className="group relative cursor-pointer space-y-4 bg-primary-50 p-3 text-start transition-all duration-200 hover:bg-primary-600 xl:p-4"
+      className="group block relative cursor-pointer space-y-4 bg-primary-50 p-3 text-start transition-all duration-200 hover:bg-primary-600 xl:p-4"
     >
       {/* cover */}
       <div className="relative aspect-video">

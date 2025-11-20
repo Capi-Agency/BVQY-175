@@ -104,5 +104,9 @@ export const locales: any = {
     "view-more-label": {
         vi: "Xem chi tiết",
         en: "View more"
-    }
+    },
+    "no-data-label": {
+        vi: "Không có dữ liệu",
+        en: "No data available"
+    },
 };

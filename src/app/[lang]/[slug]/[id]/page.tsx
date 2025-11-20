@@ -58,9 +58,6 @@ export default async function NewsDetailPage({ params }: Props) {
   }
   return (
     <div className="relative">
-      <TheHeader data={{ default: true, slug: 'top-nav' }} />
-
-      <TheFooter data={{ default: true, slug: 'bottom-nav' }} />
     </div>
   );
 }

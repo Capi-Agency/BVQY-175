@@ -31,10 +31,9 @@ export function GsapMatchMediaProvider({
           isXS: '(max-width: 767px)',
           isMD: '(min-width: 768px) and (max-width: 1023px)',
           isLG: '(min-width: 1024px) and (max-width: 1279px)',
-          is2LG: '(min-width: 1280px) and (max-width: 1439px)',
-          isXl: '(min-width: 1440px) and (max-width: 1599px)',
-          is2XL: '(min-width: 1600px) and (max-width: 1759px)',
-          is3XL: '(min-width: 1760px) and (max-width: 1919px)',
+          isXL: '(min-width: 1280px) and (max-width: 1439px)',
+          is2XL: '(min-width: 1440px) and (max-width: 1599px)',
+          is3XL: '(min-width: 1600px) and (max-width: 1919px)',
           is4XL: '(min-width: 1920px)',
         },
         (context) => {

@@ -3,22 +3,20 @@ export function getOffsetY(conditions: gsap.Conditions | undefined): any {
     if (conditions === undefined) return
     switch (true) {
         case conditions.isXS:
-            return 112;
+            return 64;
         case conditions.isMD:
-            return 119;
+            return 68;
         case conditions.isLG:
-            return 125;
-        case conditions.is2LG:
-            return 133;
+            return 76;
         case conditions.isXl:
-            return 142;
+            return 130;
         case conditions.is2XL:
-            return 145;
+            return 142;
         case conditions.is3XL:
-            return 153;
+            return 146;
         case conditions.is4Xl:
-            return 153;
-        default: return 153
+            return 154;
+        default: return 154
     }
 };
 
