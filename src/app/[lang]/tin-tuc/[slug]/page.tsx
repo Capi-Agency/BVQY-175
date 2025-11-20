@@ -5,9 +5,9 @@ import Link from 'next/link';
 import React, { Fragment } from 'react';
 
 type Props = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 const NewsDetailPage = async ({ params }: Props) => {
@@ -152,7 +152,7 @@ const NewsDetailPage = async ({ params }: Props) => {
       </div>
 
       {/* Other posts */}
-      <RelatedPosts data={{}} />
+      <RelatedPosts />
     </div>
   );
 };
