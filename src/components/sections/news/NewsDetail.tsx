@@ -1,15 +1,16 @@
 'use client';
 import NextImg from '@/src/components/common/next-img';
 import RelatedPosts from '@/src/components/sections/post-grid/RelatedPost';
-import { getNewsDetail } from '@/src/services/news';
+import useStoreLanguage from '@/src/store/store';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
 import Link from 'next/link';
-import React, { Fragment } from 'react';
 
 export default function NewsDetail({ post }: any) {
-  console.log(post);
-  const { raw_content } = post;
+  const language = useStoreLanguage((state: any) => state.language);
+  // Helper để chọn nội dung theo ngôn ngữ
+  const t = (vi: string, en: string) => (language === 'en' ? en : vi);
+
   return (
     <div className="">
       <Breadcrumb />
@@ -18,8 +19,8 @@ export default function NewsDetail({ post }: any) {
         {/* Cover */}
         <div className="relative h-[200px] w-full md:h-[230px] lg:h-[360px] 2xl:h-[386px] 3xl:h-[426px] 4xl:h-[480px]">
           <NextImg
-            src={getAssetUrlById(raw_content?.thumbnail?.id)}
-            alt={`${raw_content?.thumbnail?.title}`}
+            src={getAssetUrlById(post?.thumbnail)}
+            alt={`${post?.title}`}
             objectFit="cover"
           />
         </div>
@@ -36,14 +37,14 @@ export default function NewsDetail({ post }: any) {
                     alt="calendar"
                   />
                 </div>
-                {formatDate(raw_content?.date_published)}
+                {formatDate(post?.date_published)}
               </div>
 
               {/* title */}
               <h1
                 className="mb-5 text-lg font-bold !leading-normal text-primary-600 lg:mb-6 lg:text-2xl xl:mb-7 xl:text-[28px] 3xl:mb-8 3xl:text-[30px] 4xl:text-[32px]"
                 dangerouslySetInnerHTML={{
-                  __html: raw_content?.title,
+                  __html: t(post?.title, post?.title_en),
                 }}
               ></h1>
             </div>
@@ -52,7 +53,7 @@ export default function NewsDetail({ post }: any) {
             <div
               className="text-sm font-bold text-gray-950 lg:text-base 3xl:text-lg"
               dangerouslySetInnerHTML={{
-                __html: raw_content?.blurb,
+                __html: t(post?.blurb, post?.blurb_en),
               }}
             ></div>
 
@@ -60,7 +61,7 @@ export default function NewsDetail({ post }: any) {
             <div
               className="content-wrapper !text-sm font-normal text-gray-950 lg:!text-base 3xl:!text-lg"
               dangerouslySetInnerHTML={{
-                __html: raw_content?.content,
+                __html: t(post?.content, post?.content_en),
               }}
             ></div>
           </div>

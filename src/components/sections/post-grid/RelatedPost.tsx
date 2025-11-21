@@ -8,9 +8,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import RightArrowIcon from '@/src/components/common/icons/RightArrowIcon';
 import NewsCard from '../news/NewsCard';
 import { getListNews } from '@/src/services/news';
+import { useTranslate } from '@/src/hooks/useTranslate';
 
 const RelatedPosts = () => {
   const language = useStoreLanguage((state: any) => state.language);
+  const { trans } = useTranslate();
 
   const [newsData, setNewsData] = useState<any>([]);
 
@@ -34,13 +36,13 @@ const RelatedPosts = () => {
   return (
     <div className="py-10 lg:py-12 xl:py-14 2xl:py-16 3xl:py-[72px] 4xl:py-20">
       <div className="container flex items-center justify-between">
-        <h1 className="section-title">Bài viết liên quan</h1>
+        <h1 className="section-title">{trans('related-posts')}</h1>
         <Link
           href={`/${language}/tin-tuc`}
           className="flex items-center gap-1.5 text-gray-950 group-hover:text-primary-50"
         >
           <span className="text-sm font-medium 2xl:text-base 3xl:text-lg">
-            Xem tất cả
+            {trans('view-all')}
           </span>
           <RightArrowIcon className="mx-1 w-[14px] xl:w-[18px]" />
         </Link>
@@ -80,12 +82,10 @@ const RelatedPosts = () => {
           >
             {newsData?.length > 0 &&
               newsData?.map((item: any, index: number) => (
-                <SwiperSlide
-                  key={'post_' + index}
-                >
+                <SwiperSlide key={'post_' + index}>
                   <NewsCard item={item} url={'/tin-tuc'} />
                 </SwiperSlide>
-            ))}
+              ))}
           </Swiper>
         </div>
       </div>

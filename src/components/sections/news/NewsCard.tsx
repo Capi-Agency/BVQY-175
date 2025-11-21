@@ -10,12 +10,13 @@ import useStoreLanguage from '@/src/store/store';
 export default function NewsCard({ item, url }: any) {
   const { trans } = useTranslate();
   const language = useStoreLanguage((state: any) => state.language);
+  const t = (vi: string, en: string) => (language === 'en' ? en : vi);
 
   const { short_content } = item;
   return (
     <Link
       href={`/${language}${url}/${short_content?.slug}`}
-      className="group block relative cursor-pointer space-y-4 bg-primary-50 p-3 text-start transition-all duration-200 hover:bg-primary-600 xl:p-4"
+      className="group relative block cursor-pointer space-y-4 bg-primary-50 p-3 text-start transition-all duration-200 hover:bg-primary-600 xl:p-4"
     >
       {/* cover */}
       <div className="relative aspect-video">
@@ -27,12 +28,12 @@ export default function NewsCard({ item, url }: any) {
       </div>
       <div className="space-y-1">
         <h4 className="line-clamp-2 text-lg font-semibold !leading-[1.6] text-primary-1000 duration-200 group-hover:text-primary-50 xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
-          {short_content?.title}
+          {t(short_content?.title, item?.title_en)}
         </h4>
         <div
           className="line-clamp-3 text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
           dangerouslySetInnerHTML={{
-            __html: short_content?.blurb,
+            __html: t(short_content?.blurb, item?.blurb_en),
           }}
         ></div>
       </div>
