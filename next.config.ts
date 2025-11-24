@@ -1,16 +1,17 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   reactStrictMode: false,
   images: {
     remotePatterns: [
       {
-        protocol: "https",
+        protocol: 'https',
         pathname: process.env.APP_API_URL,
-        hostname: "**"
-      }
+        hostname: '**',
+      },
     ],
-    dangerouslyAllowSVG: true
+    dangerouslyAllowSVG: true,
+    unoptimized: true,
   },
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,

@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss';
 
 const config = {
   darkMode: ['class'],
@@ -14,7 +14,7 @@ const config = {
       '4xl': '1920px',
       '3xl': '1600px',
       '2xl': '1440px',
-      'xl': '1280px',
+      xl: '1280px',
       lg: '1024px',
       md: '768px',
     },
@@ -25,9 +25,9 @@ const config = {
         '4xl': '240px',
         '3xl': '160px',
         '2xl': '140px',
-        'xl': '100px',
-        'lg': '40px',
-        'md': '40px'
+        xl: '100px',
+        lg: '40px',
+        md: '40px',
       },
     },
     extend: {
@@ -47,17 +47,18 @@ const config = {
           800: '#115727',
           900: '#0D431E',
           950: '#092E15',
-          1000: '#010502'
+          1000: '#010502',
         },
         gray: {
+          100: '#F4F4F5',
           200: '#E4E4E7',
           300: '#D4D4D8',
           700: '#3F3F46',
-          950: '#09090B'
+          950: '#09090B',
         },
-        secondary: "#009850",
-        title: "#092E15",
-        subTitle: "#3E9459"
+        secondary: '#009850',
+        title: '#092E15',
+        subTitle: '#3E9459',
       },
       borderRadius: {},
       keyframes: {
@@ -150,6 +151,6 @@ const config = {
   },
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require('tailwindcss-animate')],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;

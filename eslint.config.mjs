@@ -16,7 +16,7 @@ const eslintConfig = [
       "@typescript-eslint/no-empty-object-type": "off",
       "@typescript-eslint/no-explicit-any": "off",
 
-      'no-unused-vars': 'off', 
+      'no-unused-vars': 'off',
       '@typescript-eslint/no-unused-vars': ['warn', {
         argsIgnorePattern: '^_', // Nếu bạn muốn cho phép biến bắt đầu bằng `_`
         varsIgnorePattern: '^_', // Cho phép biến không dùng nhưng bắt đầu bằng `_`
