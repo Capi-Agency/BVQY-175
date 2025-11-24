@@ -13,6 +13,7 @@ export const getAllDepartmentGroups = async () => {
           'departments.code',
           'children_groups.*',
         ],
+        sort: ['sort', 'title'],
       }),
     );
     return res;
