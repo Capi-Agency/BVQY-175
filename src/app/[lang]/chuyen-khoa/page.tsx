@@ -31,7 +31,7 @@ const DepartmentListPage = (props: Props) => {
         </div>
 
         {/* Search form */}
-        <div className="mx-auto w-full bg-transparent px-6 py-8 md:absolute md:bottom-0 md:left-1/2 md:max-w-[600px] md:-translate-x-1/2 md:translate-y-1/2 md:bg-transparent md:px-0 md:py-0 lg:max-w-[800px]">
+        <div className="mx-auto hidden w-full bg-transparent md:bottom-0 md:left-1/2 md:max-w-[600px] md:-translate-x-1/2 md:translate-y-1/2 md:bg-transparent md:px-0 md:py-0 lg:max-w-[800px] 3xl:absolute 3xl:block">
           <form className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md">
             <div className="flex flex-1 flex-col text-start">
               <label
@@ -62,8 +62,7 @@ const DepartmentListPage = (props: Props) => {
       </div>
 
       {/* Slider các khối */}
-      <DepartmentSlider />
-      <div className="container hidden flex-wrap justify-center gap-6 py-[72px] lg:flex">
+      <div className="container hidden flex-wrap justify-center gap-6 3xl:flex 3xl:py-[100px]">
         {Array(5)
           .fill(null)
           .map((item, index: number) => (
@@ -81,37 +80,6 @@ const DepartmentListPage = (props: Props) => {
 };
 
 export default DepartmentListPage;
-
-const DepartmentSlider = () => {
-  return (
-    <Swiper
-      touchEventsTarget="container"
-      grabCursor={true}
-      slidesPerView={1.2}
-      loop={false}
-      spaceBetween={24}
-      speed={700}
-      breakpoints={{
-        768: {
-          slidesPerView: 2.1,
-          spaceBetween: 24,
-        },
-      }}
-      className="w-full !px-6 !py-8 md:!px-[calc((100vw-688px)/2)] md:!py-16 lg:!hidden lg:!px-0"
-    >
-      {Array(5)
-        .fill(null)
-        .map((item, index: number) => (
-          <SwiperSlide
-            key={'department_' + index}
-            className="group overflow-visible"
-          >
-            <DepartmentSlideCard />
-          </SwiperSlide>
-        ))}
-    </Swiper>
-  );
-};
 
 const DepartmentSlideCard = () => {
   return (
