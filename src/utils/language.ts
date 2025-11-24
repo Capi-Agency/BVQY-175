@@ -120,4 +120,8 @@ export const locales: any = {
     vi: 'Xem tất cả',
     en: 'View all',
   },
+  'make-an-appointment': {
+    vi: "Đặt lịch <br/> khám ngay",
+    en: "Make an <br/> appointment now"
+  }
 };
