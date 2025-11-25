@@ -95,7 +95,7 @@ export default function NavHeader() {
                       ),
                     )} */}
 
-                    <div className="flex-1">demo</div>
+                    {/* <div className="flex-1">demo</div>
 
                     <div className="relative w-[400px] rounded-[6px] bg-[#092E15] p-[40px_32px]">
                       <div
@@ -117,7 +117,7 @@ export default function NavHeader() {
                           dịch vụ khám, chữa bệnh hiện đại & cao cấp nhất.
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </NavigationMenu.Content>
                 ) : (
                   <NavigationMenu.Content className="group/nav overflow-hidde relative w-fit py-2">
