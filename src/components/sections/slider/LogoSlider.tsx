@@ -10,7 +10,8 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 
-const LogoSlider = ({ data }: CommonSection) => {
+const LogoSlider = ({ data }: Partial<CommonSection>) => {
+  console.log('🚀 ~ LogoSlider ~ data:', data);
   const language = useStoreLanguage((state: any) => state.language);
   return (
     <div className="py-10 text-center md:py-6 lg:py-8 xl:py-10 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
