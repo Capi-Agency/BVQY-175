@@ -9,13 +9,19 @@ import { useEffect, useState } from 'react';
 type Props = {
   departmentGroups: any[];
   parentGroups: any[];
+  bannerData: any;
 };
 
-const DepartmentDetailPage = ({ departmentGroups, parentGroups }: Props) => {
+const DepartmentDetailPage = ({
+  departmentGroups,
+  parentGroups,
+  bannerData,
+}: Props) => {
   const [activeChildGroup, setActiveChildGroup] = useState(null);
   const [childDepartments, setChildDepartments] = useState<any>([]);
   const [searchText, setSearchText] = useState('');
   const [debouncedText, setDebouncedText] = useState('');
+  const ctaButtonData = bannerData?.buttons[0];
 
   useEffect(() => {
     const fetchChildDepartments = async () => {
@@ -45,16 +51,16 @@ const DepartmentDetailPage = ({ departmentGroups, parentGroups }: Props) => {
         <div
           className="flex h-full flex-col items-center gap-1 py-40 text-center md:py-[100px] lg:gap-2 lg:py-[120px] 2xl:gap-4 2xl:py-[140px] 3xl:py-40"
           style={{
-            background: ` linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url("/assets/images/banner_chuyen_khoa.png") lightgray 50% / cover no-repeat`,
+            background: ` linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url("${getAssetUrlById(bannerData?.cover.id)}") lightgray 50% / cover no-repeat`,
           }}
         >
           {/* title */}
           <h1 className="text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
-            Khám và điều trị đa khoa
+            {bannerData.title}
           </h1>
           {/* subtitle */}
           <p className="text-base font-normal text-gray-200 md:text-lg lg:text-xl">
-            Chăm sóc toàn diện - Tiết kiệm thời gian
+            {bannerData.subtitle}
           </p>
         </div>
 
@@ -157,15 +163,17 @@ const DepartmentDetailPage = ({ departmentGroups, parentGroups }: Props) => {
           {/* CTA goi ngay */}
           <div className="relative mt-4 hidden rounded-[6px] bg-primary-950 px-6 py-8 3xl:block">
             <div className="relative z-10">
-              <p className="mb-5 text-[28px] font-bold text-primary-50">
-                Đặt lịch <br />
-                khám ngay!
-              </p>
+              <div
+                className="mb-5 text-[28px] font-bold text-primary-50"
+                dangerouslySetInnerHTML={{
+                  __html: ctaButtonData?.title,
+                }}
+              ></div>
               <Link
-                href={'#'}
+                href={ctaButtonData?.url}
                 className="flex w-fit items-center gap-2.5 rounded-[6px] bg-[#E50000] p-[10px_12px_10px_16px] text-lg font-medium leading-none text-white"
               >
-                Liên hệ ngay
+                {ctaButtonData?.blurb}
                 <img
                   src="/assets/icons/phone_white.svg"
                   alt="phone"
