@@ -71,7 +71,6 @@ export default function NewsListCard({ data }: CommonSection) {
   );
 
   async function fetchData() {
-    console.log("data?.collection_items_limit: " + data?.collection_items_limit)
     try {
       const response = await getListNews({
         collection: data?.collections,
@@ -180,7 +179,7 @@ export default function NewsListCard({ data }: CommonSection) {
                 dataNews?.map((item: any, index: number) => (
                   <div
                     key={item?.short_content?.slug ?? index}
-                    className="news-card col-span-1 origin-center scale-[1] opacity-0"
+                    className="news-card col-span-1 origin-center scale-[0.9] opacity-0"
                   >
                     <NewsCard item={item} url={data?.buttons?.[0]?.url} />
                   </div>
