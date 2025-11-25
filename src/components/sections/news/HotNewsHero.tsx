@@ -14,7 +14,6 @@ export default function HotNewsHero({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
   const { trans } = useTranslate();
   const [dataNews, setDataNews] = useState<any>([]);
-
   useEffect(() => {
     (async () => {
       try {

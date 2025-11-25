@@ -27,6 +27,7 @@ export default function NewsListCard({ data }: CommonSection) {
   const { trans } = useTranslate();
   const { conditions } = useGsapMatchMedia();
   const containerRef = useRef<any>(null);
+  const newsListRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
 
   const router = useRouter();
@@ -48,6 +49,8 @@ export default function NewsListCard({ data }: CommonSection) {
     () => getPaginatedPages(totalPage, currentPage),
     [totalPage, currentPage],
   );
+  
+  const offsetY = useMemo(() => getOffsetY(conditions), []);
 
   const { contextSafe } = useGSAP(
     () => {
@@ -102,7 +105,7 @@ export default function NewsListCard({ data }: CommonSection) {
     (pageNumber: number) => {
       const params = new URLSearchParams(searchParams);
       params.set('page', pageNumber.toString());
-      router.push(`?${params.toString()}`);
+      router.push(`?${params.toString()}`, { scroll: false });
     },
     [router, searchParams],
   );
@@ -111,7 +114,7 @@ export default function NewsListCard({ data }: CommonSection) {
     () =>
       debounce((page: number) => {
         handleChangePage(page);
-        handleScrollTo('#news-list');
+        handleScrollTo();
       }, 300),
     [handleChangePage],
   );
@@ -144,16 +147,16 @@ export default function NewsListCard({ data }: CommonSection) {
     { scope: containerRef, dependencies: [dataNews] },
   );
 
-  const handleScrollTo = contextSafe((sectionId: string) => {
-    const sectionScrollTo = containerRef?.current.querySelector(`${sectionId}`);
-    if (sectionScrollTo) {
+  const handleScrollTo = contextSafe(() => {
+    // const sectionScrollTo = containerRef?.current.querySelector(`${sectionId}`);
+    if (newsListRef.current) {
       gsap.to(window, {
         scrollTo: {
-          y: sectionScrollTo,
-          offsetY: getOffsetY(conditions),
+          y: newsListRef.current,
+          offsetY,
           autoKill: false,
         },
-        duration: 1.5,
+        duration: 0.7,
         ease: 'power2.out',
       });
     }
@@ -162,6 +165,7 @@ export default function NewsListCard({ data }: CommonSection) {
   return (
     <section ref={containerRef}>
       <div
+        ref={newsListRef}
         id="news-list"
         className="p-[24px_0_44px] lg:p-[28px_0_52px] xl:p-[32px_0_64px] 3xl:p-[32px_0_72px] 4xl:p-[40px_0_80px]"
       >
@@ -230,8 +234,8 @@ export default function NewsListCard({ data }: CommonSection) {
               )}
             </div>
           ) : (
-            <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-black text-sm font-medium lg:text-base xl:text-lg">
-              {trans("no-data-label")}
+            <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
+              {trans('no-data-label')}
             </div>
           )}
         </div>
