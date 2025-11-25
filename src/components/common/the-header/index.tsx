@@ -1,9 +1,8 @@
 'use client';
-import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
 import { usePathname, useRouter } from 'next/navigation';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback } from 'react';
 import NextImg from '../next-img';
 import { useMetadata } from '@/src/providers/MetadataProvider';
 import { getAssetUrlById } from '@/src/utils/image';

@@ -27,11 +27,11 @@ export default function NewsCard({ item, url }: any) {
         />
       </div>
       <div className="space-y-1">
-        <h4 className="line-clamp-2 text-lg font-semibold !leading-[1.6] text-primary-1000 duration-200 group-hover:text-primary-50 xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
+        <h4 className="line-clamp-2 md:h-[58px] xl:h-[64px] 3xl:h-[71px] 4xl:h-[77px] text-lg font-semibold !leading-[1.6] text-primary-1000 duration-200 group-hover:text-primary-50 xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
           {t(short_content?.title, item?.title_en)}
         </h4>
         <div
-          className="line-clamp-3 text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
+          className="line-clamp-3 md:h-[60px] text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
           dangerouslySetInnerHTML={{
             __html: t(short_content?.blurb, item?.blurb_en),
           }}

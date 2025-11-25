@@ -71,6 +71,7 @@ export default function NewsListCard({ data }: CommonSection) {
   );
 
   async function fetchData() {
+    console.log("data?.collection_items_limit: " + data?.collection_items_limit)
     try {
       const response = await getListNews({
         collection: data?.collections,

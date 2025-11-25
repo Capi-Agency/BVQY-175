@@ -8,6 +8,7 @@ import { CommonSection } from '@/src/types/pageBuilder';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
 import useStoreLanguage from '@/src/store/store';
+import Breadcrumb from '../../common/breadcrumb';
 
 export default function HotNewsHero({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
@@ -27,21 +28,12 @@ export default function HotNewsHero({ data }: CommonSection) {
 
   return (
     <section>
-      <div className="bg-primary-50">
-        <div className="container flex items-center gap-1 py-1.5 text-sm md:text-base lg:gap-1.5 lg:py-2 lg:text-lg xl:py-2.5 4xl:gap-2 4xl:py-3 4xl:text-xl">
-          <Link href={'/'} className="font-normal text-[#71717A]">
-            {trans('home-page-label')}
-          </Link>
-
-          <div className="relative size-4 -rotate-90">
-            <NextImg src="/assets/icons/arrow_down_gray.svg" alt="arrow icon" />
-          </div>
-
-          <div className="font-semibold text-primary-600">
-            {trans('news-page-label')}
-          </div>
-        </div>
-      </div>
+      <Breadcrumb
+        items={[
+          { title: 'home-page-label', url: '/' },
+          { title: 'news-page-label', url: '/tin-tuc' },
+        ]}
+      />
 
       <div className="p-[40px_0] md:p-[44px_0_24px] lg:p-[52px_0_28px] xl:p-[64px_0_32px] 3xl:p-[72px_0_32px] 4xl:p-[80px_0_40px]">
         <div className="container space-y-8 lg:space-y-10 xl:space-y-12 3xl:space-y-[52px] 4xl:space-y-[60px]">

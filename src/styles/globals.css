@@ -8,53 +8,46 @@
   box-sizing: border-box;
 }
 
-:root {
-}
+:root {}
 
 ::selection {
   @apply bg-primary-900 text-white;
 }
 
 /* ==================================================================================== */
-body {
-}
+body {}
 
 @font-face {
   font-family: 'PlusJakartaSans';
-  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Regular.ttf')
-    format('truetype');
+  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'PlusJakartaSans';
-  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Medium.ttf')
-    format('truetype');
+  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'PlusJakartaSans';
-  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-SemiBold.ttf')
-    format('truetype');
+  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'PlusJakartaSans';
-  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Bold.ttf')
-    format('truetype');
+  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'PlusJakartaSans';
-  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-ExtraBold.ttf')
-    format('truetype');
+  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-ExtraBold.ttf') format('truetype');
   font-weight: 800;
   font-style: normal;
 }
@@ -234,10 +227,17 @@ body {
     @apply w-fit bg-[#E50000] rounded-[6px] flex items-center gap-[6px] text-white text-sm 2xl:text-base 2xl:gap-2 font-medium p-[10px_8px_10px_12px] 2xl:p-[10px_12px_10px_16px]
   }
 
+  .btn-primary {
+    @apply w-fit bg-primary-600 rounded-[6px] flex items-center gap-[6px] text-white text-sm 2xl:text-base 2xl:gap-2 font-medium p-[10px_8px_10px_12px] 2xl:p-[10px_12px_10px_16px]
+  }
+
   .btn-slider {
     @apply flex size-8 items-center justify-center rounded-full bg-[#24422D] hover:bg-[#3E9459] xl:size-10 2xl:size-11 4xl:size-[54px]
   }
+
+  .btn-menu {
+    @apply h-9 w-[52px] items-center justify-center rounded-[6px] bg-primary-600 flex 2xl:h-10 2xl:w-[60px]
+  }
 }
 
-@layer utilities {
-}
+@layer utilities {}

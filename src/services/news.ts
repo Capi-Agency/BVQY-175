@@ -210,6 +210,7 @@ export const getListNews = async ({
         sort: sort ? '-date_published' : 'date_published',
         filter,
         fields: ['*', 'categories.category.title', 'categories.category.slug'],
+        disableCache: true
       }),
     );
 
@@ -269,6 +270,7 @@ export const getTotalNewsCount = async ({
         filter,
         fields: ['slug'],
         limit: -1,
+        disableCache: true
       }),
     );
 

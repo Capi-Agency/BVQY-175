@@ -2,17 +2,17 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import NextImg from '../next-img';
 import { useMetadata } from '@/src/providers/MetadataProvider';
-import { useTranslate } from '@/src/hooks/useTranslate';
+import MegaMenuContent from './MegaMenuContent';
 
 export default function NavHeader() {
   const { top_navigation } = useMetadata();
   const language = useStoreLanguage((state: any) => state.language);
-  const { trans } = useTranslate();
 
   const [leftPosition, setLeftPosition] = useState(0);
+  const [isSubMenuOverflow, setIsSubMenuOverflow] = useState<boolean>(false);
 
   const menuItemsRef = useRef<(HTMLElement | null)[]>([]);
   const handleMouseEnter = (index: number, isMegaMenu: boolean) => {
@@ -80,50 +80,14 @@ export default function NavHeader() {
                 </NavigationMenu.Trigger>
 
                 {item?.type === 'mega_menu' ? (
-                  <NavigationMenu.Content className="relative flex h-[200px] w-[calc(100vw*0.8)] gap-10 overflow-hidden p-[24px_32px] data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft">
-                    {/* {item?.sub_items?.map(
-                      (related_item: any, related_item_index: any) => (
-                        <Link
-                          key={related_item_index}
-                          href={`/${language}${related_item?.url || ''}`}
-                          className="block whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 hover:text-primary-600 3xl:p-[10px_16px]"
-                        >
-                          {language === 'en'
-                            ? `${related_item?.title_en}`
-                            : `${related_item?.title}`}
-                        </Link>
-                      ),
-                    )} */}
-
-                    {/* <div className="flex-1">demo</div>
-
-                    <div className="relative w-[400px] rounded-[6px] bg-[#092E15] p-[40px_32px]">
-                      <div
-                        className="text-[36px] font-bold leading-[1.3] text-[#F6FAF7]"
-                        dangerouslySetInnerHTML={{
-                          __html: trans('make-an-appointment'),
-                        }}
-                      ></div>
-
-                      <div
-                        className="absolute left-0 top-1/2 w-full -translate-y-1/2 p-[20px_32px]"
-                        style={{
-                          background:
-                            'linear-gradient(0deg, #06500D 4.41%, rgba(21, 86, 40, 0.00) 234.22%)',
-                        }}
-                      >
-                        <div className="w-[254px] text-[#F4F4F5] text-sm font-normal">
-                          Liên hệ ngay chúng tôi để được phục vụ và sử dụng các
-                          dịch vụ khám, chữa bệnh hiện đại & cao cấp nhất.
-                        </div>
-                      </div>
-                    </div> */}
-                  </NavigationMenu.Content>
+                  <MegaMenuContent item={item} />
                 ) : (
-                  <NavigationMenu.Content className="group/nav overflow-hidde relative w-fit py-2">
+                  <NavigationMenu.Content className="group/nav relative w-fit min-w-[160px] py-2">
                     {item?.sub_items?.map(
                       (item_second: any, item_second_index: any) => (
                         <div
+                          onMouseEnter={() => setIsSubMenuOverflow(true)}
+                          onMouseLeave={() => setIsSubMenuOverflow(false)}
                           key={item_second_index}
                           className="group group-data-[motion=from-end]/nav:animate-enterFromRight group-data-[motion=from-start]/nav:animate-enterFromLeft group-data-[motion=to-end]/nav:animate-exitToRight group-data-[motion=to-start]/nav:animate-exitToLeft"
                         >
@@ -131,7 +95,7 @@ export default function NavHeader() {
                           {item_second?.url ? (
                             <Link
                               href={`/${language}${item_second?.url || ''}`}
-                              className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 group-hover:text-primary-600 2xl:p-[8px_12px] 3xl:p-[10px_16px]"
+                              className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 group-hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[10px_16px]"
                             >
                               <div className="flex-1">
                                 {language === 'en'
@@ -148,7 +112,7 @@ export default function NavHeader() {
                               )}
                             </Link>
                           ) : (
-                            <div className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 group-hover:text-primary-600 2xl:p-[8px_12px] 4xl:p-[10px_16px]">
+                            <div className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 group-hover:text-primary-600 2xl:p-[6px_12px] 4xl:p-[10px_16px]">
                               <div className="flex-1">
                                 {language === 'en'
                                   ? `${item_second?.title_en}`
@@ -204,7 +168,7 @@ export default function NavHeader() {
                                             <Link
                                               key={item_fourth_index}
                                               href={`/${language}${item_fourth?.url || ''}`}
-                                              className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 2xl:py-2 3xl:py-[10px]"
+                                              className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[10px]"
                                             >
                                               {language === 'en'
                                                 ? `${item_fourth?.title_en}`
@@ -213,7 +177,7 @@ export default function NavHeader() {
                                           ) : (
                                             <div
                                               key={item_fourth_index}
-                                              className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 2xl:py-2 3xl:py-[10px]"
+                                              className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[10px]"
                                             >
                                               {language === 'en'
                                                 ? `${item_fourth?.title_en}`
@@ -239,9 +203,7 @@ export default function NavHeader() {
                   href={`/${language}${item?.url || ''}`}
                   className="relative block whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:text-base"
                 >
-                  {language === 'en'
-                    ? `${item?.title_en}`
-                    : `${item?.title}`}{' '}
+                  {language === 'en' ? `${item?.title_en}` : `${item?.title}`}
                 </Link>
               </NavigationMenu.Item>
             );
@@ -251,7 +213,9 @@ export default function NavHeader() {
         className="perspective-[2000px] absolute left-0 top-[50px] w-full transition-all duration-300 2xl:top-[54px] 3xl:top-[58px]"
         style={{ left: `${leftPosition}px` }}
       >
-        <NavigationMenu.Viewport className="overflow-hidde relative h-[var(--radix-navigation-menu-viewport-height)] w-[var(--radix-navigation-menu-viewport-width)] origin-[top_center] rounded-[6px] bg-white shadow-[0_20px_25px_-4px_rgba(18,26,43,0.1)] transition-all duration-100 data-[state=closed]:animate-scaleOut data-[state=open]:animate-scaleIn" />
+        <NavigationMenu.Viewport
+          className={`${isSubMenuOverflow ? 'overflow-visible' : 'overflow-hidden'} relative h-[var(--radix-navigation-menu-viewport-height)] w-[var(--radix-navigation-menu-viewport-width)] origin-[top_center] rounded-[6px] bg-white shadow-[0_20px_25px_-4px_rgba(18,26,43,0.1)] transition-all duration-100 data-[state=closed]:animate-scaleOut data-[state=open]:animate-scaleIn`}
+        />
       </div>
     </NavigationMenu.Root>
   );

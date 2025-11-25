@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { Metadata, ResolvingMetadata } from 'next';
 import { checkValueNull } from '@/src/utils/validate';
 import NewsDetail from '@/src/components/sections/news/NewsDetail';
+import RelatedPosts from '@/src/components/sections/post-grid/RelatedPost';
+import Breadcrumb from '@/src/components/common/breadcrumb';
 
 type Props = {
   params: Promise<{
@@ -18,7 +20,7 @@ export async function generateMetadata(
   const { slug } = await params;
   const idRegex = /^[a-zA-Z0-9-_]+$/;
   if (!slug || !idRegex.test(slug)) return notFound();
-  
+
   const data = await fnGetNewsDetailBySlug('posts_by_id', slug);
   if (!data) notFound();
 
@@ -55,8 +57,16 @@ const NewsDetailPage = async ({ params }: Props) => {
   }
 
   return (
-    <div className='padding-top-body'>
+    <div className="padding-top-body">
+      <Breadcrumb
+        items={[
+          { title: 'home-page-label', url: '/' },
+          { title: 'news-page-label', url: '/tin-tuc' },
+          { title: 'news-detail-page-label' },
+        ]}
+      />
       <NewsDetail post={post} />
+      <RelatedPosts />
     </div>
   );
 };

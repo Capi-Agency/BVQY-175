@@ -16,9 +16,13 @@ export const updateSlugLanguage = (
 };
 
 export const locales: any = {
-  'footer-title': {
+  'register-form-title': {
     vi: 'Theo dõi tin tức và dịch vụ mới nhất của chúng tôi',
     en: 'Follow our latest news and services',
+  },
+  'register-form-des': {
+    vi: 'Đăng ký nhận thêm các hướng dẫn giao dịch tuyệt vời từ bệnh viện 175 qua email của bạn',
+    en: 'Sign up to receive more great trading guides from 175 hospital via your email',
   },
   'register-label': {
     vi: 'Đăng ký',
@@ -104,6 +108,10 @@ export const locales: any = {
     vi: 'Tin tức',
     en: 'News',
   },
+  'news-detail-page-label': {
+    vi: 'Chi tiết tin tức',
+    en: 'News detail',
+  },
   'view-more-label': {
     vi: 'Xem chi tiết',
     en: 'View more',
@@ -120,8 +128,36 @@ export const locales: any = {
     vi: 'Xem tất cả',
     en: 'View all',
   },
-  'make-an-appointment': {
+  'make-an-appointment-title': {
     vi: "Đặt lịch <br/> khám ngay",
     en: "Make an <br/> appointment now"
+  },
+  'make-an-appointment-des': {
+    vi: "Liên hệ ngay chúng tôi để được phục vụ và sử dụng các dịch vụ khám, chữa bệnh hiện đại & cao cấp nhất.",
+    en: "Contact us now to be served and use the most modern and high-quality medical examination and treatment services."
+  },
+  'make-an-appointment-btn': {
+    vi: "Liên hệ ngay",
+    en: "Contact now"
+  },
+  'return-menu': {
+    vi: "Quay lại menu chính",
+    en: "Return to the main menu"
+  },
+  'article-tags-title': {
+    vi: "Thẻ bài viết",
+    en: "Article tags"
+  },
+  'doctor-card-title': {
+    vi: "Bệnh viện sẽ phát triển theo mô hình các quần thể y tế hiện đại tại các nước phát triển, cụ thể như Bệnh viện đa khoa Quốc gia Singapore",
+    en: "The hospital will develop according to the model of modern medical complexes in developed countries, specifically the Singapore National General Hospital."
+  },
+  'doctor-card-rank': {
+    vi: "Thiếu tướng, TS. TTND",
+    en: "Major general, TS. TTND"
+  },
+  'doctor-card-position': {
+    vi: "Giám đốc Bệnh viện",
+    en: "Hospital Director"
   }
 };

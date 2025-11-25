@@ -4,8 +4,6 @@ import {
   PageContent,
   SectionMap,
 } from '@/src/types/pageBuilder';
-import TheHeader from '../components/common/the-header';
-import TheFooter from '../components/common/the-footer';
 import TeamSlider5Col from '../components/sections/team/TeamSlider5Col';
 import LogoSlider from '@/src/components/sections/slider/LogoSlider';
 import Posts3Col from '@/src/components/sections/post-grid/Posts3Col';
@@ -28,14 +26,6 @@ import TeamGrid from '@/src/components/sections/team/TeamGrid';
 import GalleryAlternate from '../components/sections/gallery/GalleryAlternate';
 import HotNewsHero from '../components/sections/news/HotNewsHero';
 import NewsListCard from '../components/sections/news/NewsListCard';
-
-const headerMap: SectionMap = {
-  'top-nav': TheHeader,
-};
-
-const footerMap: SectionMap = {
-  'bottom-nav': TheFooter,
-};
 
 const sectionMap: SectionMap = {
   // Home page
@@ -82,15 +72,9 @@ const PageBuilder = ({ pageContent }: PageBuilderProps) => {
   }
   const sections = pageContent.sections;
 
-  // const headerSlug = pageContent?.top_navigation?.slug;
-  // const HeaderComp = headerSlug ? headerMap[headerSlug] : null;
-
-  // const footerSlug = pageContent?.bottom_navigation?.slug;
-  // const FooterComp = footerSlug ? footerMap[footerSlug] : null;
 
   return (
     <>
-      {/* {HeaderComp && <HeaderComp data={pageContent?.top_navigation} />} */}
 
       <div className="padding-top-body">
         {sections.map((section: CommonSection, index: number) => {
@@ -101,7 +85,6 @@ const PageBuilder = ({ pageContent }: PageBuilderProps) => {
         })}
       </div>
 
-      {/* {FooterComp && <FooterComp data={pageContent?.bottom_navigation} />} */}
     </>
   );
 };
