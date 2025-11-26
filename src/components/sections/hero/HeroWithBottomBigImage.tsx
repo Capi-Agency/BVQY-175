@@ -12,27 +12,28 @@ export default function HeroWithBottomBigImage({
   return (
     <section className="bg-[#F6FAF7]">
       <div className="container">
-        <div className="flex flex-col items-stretch gap-4 pt-6 md:pt-8 lg:flex-row lg:items-end lg:justify-between lg:pt-12 xl:pt-[60px] 2xl:pt-[80px]">
-          <h1 className="basis-1/2 text-[36px] font-bold leading-[1.3] text-[#09090B] md:text-[40px] lg:text-[44px] xl:text-[48px] 2xl:text-[56px] 3xl:text-[60px] 4xl:text-[72px]">
+        <div className="flex flex-col items-stretch gap-4 pt-6 md:pt-8 lg:flex-row lg:items-end lg:justify-between lg:pt-10 xl:pt-12 2xl:pt-[56px] 3xl:pt-[64px] 4xl:pt-[72px]">
+          <h1 className="text-[28px] font-bold leading-[1.3] text-[#09090B] md:text-[32px] lg:basis-5/12 lg:text-[36px] xl:text-[40px] 2xl:basis-6/12 2xl:text-[48px] 3xl:text-[56px] 4xl:text-[64px]">
             {department?.title}
           </h1>
 
-          <div className="flex items-start gap-6 md:gap-8 lg:gap-12 xl:gap-[60px]">
-            <div className="space-y-[2px] md:space-y-1">
-              <div className="text-base font-normal text-[#71717A] md:text-lg">
+          <div className="flex items-start gap-6 md:gap-8 lg:gap-10 xl:gap-14">
+            <div className="space-y-[2px] lg:space-y-1 2xl:space-y-2">
+              <div className="text-base font-normal text-[#71717A] md:text-lg 2xl:text-xl">
                 {data?.title}
               </div>
-              <div className="text-lg font-semibold text-[#09090B] md:text-xl lg:text-2xl xl:text-[28px] xl:!leading-[1.3]">
+
+              <div className="text-base font-semibold text-[#09090B] md:text-lg lg:text-xl xl:text-2xl 2xl:text-[26px] 2xl:!leading-[1.3] 3xl:text-[28px]">
                 {formatDate(department?.date_established)}
               </div>
             </div>
 
-            <div className="space-y-[2px] md:space-y-1">
-              <div className="text-base font-normal text-[#71717A] md:text-lg">
+            <div className="space-y-[2px] lg:space-y-1 2xl:space-y-2">
+              <div className="text-base font-normal text-[#71717A] md:text-lg 2xl:text-xl">
                 {data?.subtitle}
               </div>
               <div
-                className="text-lg font-semibold text-[#09090B] md:text-xl lg:text-2xl xl:text-[28px] xl:!leading-[1.3]"
+                className="text-base font-semibold text-[#09090B] md:text-lg lg:text-xl xl:text-2xl 2xl:text-[26px] 2xl:!leading-[1.3] 3xl:text-[28px]"
                 dangerouslySetInnerHTML={{
                   __html: department?.organizational_structure,
                 }}
@@ -41,7 +42,7 @@ export default function HeroWithBottomBigImage({
           </div>
         </div>
 
-        <div className="p-[80px_0_40px]">
+        <div className="p-[24px_0] md:p-[32px_0] lg:p-[48px_0] 2xl:p-[64px_0_40px] 3xl:p-[80px_0_40px]">
           <div className="relative aspect-[9/4] w-full overflow-hidden rounded-[6px]">
             <NextImg
               src={getAssetUrlById(department?.cover)}
