@@ -1,100 +1,136 @@
 'use client';
+
+import dynamic from 'next/dynamic';
 import {
   CommonSection,
   PageContent,
   SectionMap,
 } from '@/src/types/pageBuilder';
-
-
-import {
-  Card2Col,
-  Card2ColWithBlurb,
-  CardSlider,
-  CardSliderWithBlurb,
-  CardSliderWithLeftRightButton,
-} from '../components/sections/card';
 import { EmptySection } from '../components/sections/custom';
-import { CtaBasic } from '../components/sections/cta';
-import { Feature4Col } from '../components/sections/feature';
-import {
-  GalleryAlternate,
-  GalleryWithText,
-} from '../components/sections/gallery';
-import {
-  HeroBackgroundsFocus,
-  HeroWithBottomBigImage,
-  HeroWithTopImage,
-} from '../components/sections/hero';
-import {
-  InfoBasic,
-  InfoBasicR,
-  InfoCenterBlock,
-  InfoWithFeaturesImage,
-  InfoWithLeftImage,
-  InfoWithLeftImageTopTitle,
-  InfoWithRightImage,
-} from '../components/sections/information';
-import {
-  HotNewsHero,
-  NewsDetail,
-  NewsListCard,
-} from '../components/sections/news';
-import {
-  NumberNone,
-  NumberSplit,
-  NumberWithText,
-} from '../components/sections/number';
-import { Posts3Col } from '../components/sections/post-grid';
-import RelatedPosts from '../components/sections/post-grid/RelatedPost';
-import { LogoSlider } from '../components/sections/slider';
-import { Team4Col, TeamGrid, TeamSlider4Col, TeamSlider5Col } from '../components/sections/team';
-import { BreadcrumbBasic } from '../components/sections/breadcrumb';
 
 const sectionMap: SectionMap = {
-  // Home page
-  'hero-with-top-big-image': HeroWithTopImage,
-  'team-slider-5-col': TeamSlider5Col,
-  'logo-slider': LogoSlider,
-  'posts-3-col': Posts3Col,
-  'feature-4-col': Feature4Col,
-  'number-none': NumberNone,
-  'gallery-with-text': GalleryWithText,
+  // Home
+  'hero-with-top-big-image': dynamic(() =>
+    import('../components/sections/hero').then((m) => m.HeroWithTopImage),
+  ),
+  'team-slider-5-col': dynamic(() =>
+    import('../components/sections/team').then((m) => m.TeamSlider5Col),
+  ),
+  'logo-slider': dynamic(() =>
+    import('../components/sections/slider').then((m) => m.LogoSlider),
+  ),
+  'posts-3-col': dynamic(() =>
+    import('../components/sections/post-grid').then((m) => m.Posts3Col),
+  ),
+  'feature-4-col': dynamic(() =>
+    import('../components/sections/feature').then((m) => m.Feature4Col),
+  ),
+  'number-none': dynamic(() =>
+    import('../components/sections/number').then((m) => m.NumberNone),
+  ),
+  'gallery-with-text': dynamic(() =>
+    import('../components/sections/gallery').then((m) => m.GalleryWithText),
+  ),
 
   // About us
-  'hero-background-focus': HeroBackgroundsFocus,
-  'info-basic': InfoBasic,
-  'card-2-col': Card2Col,
-  'card-slider': CardSlider,
-  'info-split-with-features-image': InfoWithFeaturesImage,
-  'info-center-block': InfoCenterBlock,
-  'info-basic-r': InfoBasicR,
-  'team-4-col': Team4Col,
-  'card-slider-with-l-r-button': CardSliderWithLeftRightButton,
+  'hero-background-focus': dynamic(() =>
+    import('../components/sections/hero').then((m) => m.HeroBackgroundsFocus),
+  ),
+  'info-basic': dynamic(() =>
+    import('../components/sections/information').then((m) => m.InfoBasic),
+  ),
+  'card-2-col': dynamic(() =>
+    import('../components/sections/card').then((m) => m.Card2Col),
+  ),
+  'card-slider': dynamic(() =>
+    import('../components/sections/card').then((m) => m.CardSlider),
+  ),
+  'info-split-with-features-image': dynamic(() =>
+    import('../components/sections/information').then(
+      (m) => m.InfoWithFeaturesImage,
+    ),
+  ),
+  'info-center-block': dynamic(() =>
+    import('../components/sections/information').then((m) => m.InfoCenterBlock),
+  ),
+  'info-basic-r': dynamic(() =>
+    import('../components/sections/information').then((m) => m.InfoBasicR),
+  ),
+  'team-4-col': dynamic(() =>
+    import('../components/sections/team').then((m) => m.Team4Col),
+  ),
+  'card-slider-with-l-r-button': dynamic(() =>
+    import('../components/sections/card').then(
+      (m) => m.CardSliderWithLeftRightButton,
+    ),
+  ),
 
   // Hospital leader
-  'card-slider-with-blurb': CardSliderWithBlurb,
-  'team-grid': TeamGrid,
-  'gallery-alternate': GalleryAlternate,
+  'card-slider-with-blurb': dynamic(() =>
+    import('../components/sections/card').then((m) => m.CardSliderWithBlurb),
+  ),
+  'team-grid': dynamic(() =>
+    import('../components/sections/team').then((m) => m.TeamGrid),
+  ),
+  'gallery-alternate': dynamic(() =>
+    import('../components/sections/gallery').then((m) => m.GalleryAlternate),
+  ),
 
   // News
-  'info-news': HotNewsHero,
-  'posts-small-image-3-col': NewsListCard,
+  'info-news': dynamic(() =>
+    import('../components/sections/news').then((m) => m.HotNewsHero),
+  ),
+  'posts-small-image-3-col': dynamic(() =>
+    import('../components/sections/news').then((m) => m.NewsListCard),
+  ),
 
   // News detail
-  'breadcrumb-basic': BreadcrumbBasic,
-  'post-detail-with-sidebar-right': NewsDetail,
-  'posts-slider': RelatedPosts,
+  'breadcrumb-basic': dynamic(() =>
+    import('../components/sections/breadcrumb').then((m) => m.BreadcrumbBasic),
+  ),
+  'post-detail-with-sidebar-right': dynamic(() =>
+    import('../components/sections/news').then((m) => m.NewsDetail),
+  ),
+  'posts-slider': dynamic(() =>
+    import('../components/sections/post-grid/RelatedPost').then(
+      (m) => m.default,
+    ),
+  ),
 
   // Department detail
-  'hero-with-bottom-big-image': HeroWithBottomBigImage,
-  'info-with-left-image-top-title': InfoWithLeftImageTopTitle,
-  'team-slider-4-col': TeamSlider4Col,
-  'card-2-col-with-blurb': Card2ColWithBlurb,
-  'number-with-text': NumberWithText,
-  'number-split': NumberSplit,
-  'info-with-right-image': InfoWithRightImage,
-  'info-with-left-image': InfoWithLeftImage,
-  'cta-basic': CtaBasic,
+  'hero-with-bottom-big-image': dynamic(() =>
+    import('../components/sections/hero').then((m) => m.HeroWithBottomBigImage),
+  ),
+  'info-with-left-image-top-title': dynamic(() =>
+    import('../components/sections/information').then(
+      (m) => m.InfoWithLeftImageTopTitle,
+    ),
+  ),
+  'team-slider-4-col': dynamic(() =>
+    import('../components/sections/team').then((m) => m.TeamSlider4Col),
+  ),
+  'card-2-col-with-blurb': dynamic(() =>
+    import('../components/sections/card').then((m) => m.Card2ColWithBlurb),
+  ),
+  'number-with-text': dynamic(() =>
+    import('../components/sections/number').then((m) => m.NumberWithText),
+  ),
+  'number-split': dynamic(() =>
+    import('../components/sections/number').then((m) => m.NumberSplit),
+  ),
+  'info-with-right-image': dynamic(() =>
+    import('../components/sections/information').then(
+      (m) => m.InfoWithRightImage,
+    ),
+  ),
+  'info-with-left-image': dynamic(() =>
+    import('../components/sections/information').then(
+      (m) => m.InfoWithLeftImage,
+    ),
+  ),
+  'cta-basic': dynamic(() =>
+    import('../components/sections/cta').then((m) => m.CtaBasic),
+  ),
 };
 
 type PageBuilderProps = {
