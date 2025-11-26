@@ -4,28 +4,51 @@ import {
   PageContent,
   SectionMap,
 } from '@/src/types/pageBuilder';
-import TeamSlider5Col from '../components/sections/team/TeamSlider5Col';
-import LogoSlider from '@/src/components/sections/slider/LogoSlider';
-import Posts3Col from '@/src/components/sections/post-grid/Posts3Col';
-import Feature4Col from '../components/sections/feature/Feature4Col';
-import NumberNone from '../components/sections/number/NumberNone';
-import GalleryWithText from '../components/sections/gallery/GalleryWithText';
-import HeroWithTopImage from '../components/sections/hero/HeroWithTopImage';
-import HeroBackgroundsFocus from '../components/sections/hero/HeroBackgroundsFocus';
-import InfoBasic from '../components/sections/information/InfoBasic';
-import Card2Col from '../components/sections/card/Card2Col';
-import EmptySection from '../components/sections/custom/EmptySection';
-import CardSlider from '@/src/components/sections/card/CardSlider';
-import InforWIthFeatureImage from '@/src/components/sections/information/InforWIthFeatureImage';
-import InfoCenterBlock from '../components/sections/information/InfoCenterBlock';
-import InfoBasicR from '../components/sections/information/InfoBasicR';
-import Team4Col from '../components/sections/team/Team4Col';
-import CardSliderWithLeftRightButton from '../components/sections/card/CardSliderWithLeftRightButton';
-import CardSliderWithBlurb from '../components/sections/card/CardSliderWithBlurb';
-import TeamGrid from '@/src/components/sections/team/TeamGrid';
-import GalleryAlternate from '../components/sections/gallery/GalleryAlternate';
-import HotNewsHero from '../components/sections/news/HotNewsHero';
-import NewsListCard from '../components/sections/news/NewsListCard';
+
+
+import {
+  Card2Col,
+  Card2ColWithBlurb,
+  CardSlider,
+  CardSliderWithBlurb,
+  CardSliderWithLeftRightButton,
+} from '../components/sections/card';
+import { EmptySection } from '../components/sections/custom';
+import { CtaBasic } from '../components/sections/cta';
+import { Feature4Col } from '../components/sections/feature';
+import {
+  GalleryAlternate,
+  GalleryWithText,
+} from '../components/sections/gallery';
+import {
+  HeroBackgroundsFocus,
+  HeroWithBottomBigImage,
+  HeroWithTopImage,
+} from '../components/sections/hero';
+import {
+  InfoBasic,
+  InfoBasicR,
+  InfoCenterBlock,
+  InfoWithFeaturesImage,
+  InfoWithLeftImage,
+  InfoWithLeftImageTopTitle,
+  InfoWithRightImage,
+} from '../components/sections/information';
+import {
+  HotNewsHero,
+  NewsDetail,
+  NewsListCard,
+} from '../components/sections/news';
+import {
+  NumberNone,
+  NumberSplit,
+  NumberWithText,
+} from '../components/sections/number';
+import { Posts3Col } from '../components/sections/post-grid';
+import RelatedPosts from '../components/sections/post-grid/RelatedPost';
+import { LogoSlider } from '../components/sections/slider';
+import { Team4Col, TeamGrid, TeamSlider4Col, TeamSlider5Col } from '../components/sections/team';
+import { BreadcrumbBasic } from '../components/sections/breadcrumb';
 
 const sectionMap: SectionMap = {
   // Home page
@@ -42,7 +65,7 @@ const sectionMap: SectionMap = {
   'info-basic': InfoBasic,
   'card-2-col': Card2Col,
   'card-slider': CardSlider,
-  'info-split-with-features-image': InforWIthFeatureImage,
+  'info-split-with-features-image': InfoWithFeaturesImage,
   'info-center-block': InfoCenterBlock,
   'info-basic-r': InfoBasicR,
   'team-4-col': Team4Col,
@@ -55,14 +78,31 @@ const sectionMap: SectionMap = {
 
   // News
   'info-news': HotNewsHero,
-  'posts-small-image-3-col': NewsListCard
+  'posts-small-image-3-col': NewsListCard,
+
+  // News detail
+  'breadcrumb-basic': BreadcrumbBasic,
+  'post-detail-with-sidebar-right': NewsDetail,
+  'posts-slider': RelatedPosts,
+
+  // Department detail
+  'hero-with-bottom-big-image': HeroWithBottomBigImage,
+  'info-with-left-image-top-title': InfoWithLeftImageTopTitle,
+  'team-slider-4-col': TeamSlider4Col,
+  'card-2-col-with-blurb': Card2ColWithBlurb,
+  'number-with-text': NumberWithText,
+  'number-split': NumberSplit,
+  'info-with-right-image': InfoWithRightImage,
+  'info-with-left-image': InfoWithLeftImage,
+  'cta-basic': CtaBasic,
 };
 
 type PageBuilderProps = {
   pageContent: PageContent;
+  pageDetail?: any;
 };
 
-const PageBuilder = ({ pageContent }: PageBuilderProps) => {
+const PageBuilder = ({ pageContent, pageDetail }: PageBuilderProps) => {
   if (
     !pageContent ||
     !pageContent?.sections ||
@@ -72,19 +112,22 @@ const PageBuilder = ({ pageContent }: PageBuilderProps) => {
   }
   const sections = pageContent.sections;
 
-
   return (
     <>
-
       <div className="padding-top-body">
         {sections.map((section: CommonSection, index: number) => {
           const SectionComp = sectionMap[section.type];
           if (!SectionComp) return null;
 
-          return <SectionComp key={'section_' + index} data={section} />;
+          return (
+            <SectionComp
+              key={'section_' + index}
+              data={section}
+              {...(pageDetail ? { dataDetail: pageDetail } : {})}
+            />
+          );
         })}
       </div>
-
     </>
   );
 };

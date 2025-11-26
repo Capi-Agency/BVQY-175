@@ -1,13 +1,12 @@
 'use client';
 import NextImg from '@/src/components/common/next-img';
-import { useTranslate } from '@/src/hooks/useTranslate';
 import useStoreLanguage from '@/src/store/store';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
 import RegisterFollowNews from './RegisterFollowNews';
+import { CommonSection } from '@/src/types/pageBuilder';
 
-export default function NewsDetail({ post }: any) {
-  const { trans } = useTranslate();
+export default function NewsDetail({ data, dataDetail }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
   // Helper để chọn nội dung theo ngôn ngữ
   const t = (vi: string, en: string) => (language === 'en' ? en : vi);
@@ -17,8 +16,8 @@ export default function NewsDetail({ post }: any) {
       {/* Cover */}
       <div className="relative h-[200px] w-full md:h-[230px] lg:h-[360px] 2xl:h-[386px] 3xl:h-[426px] 4xl:h-[480px]">
         <NextImg
-          src={getAssetUrlById(post?.thumbnail)}
-          alt={`${post?.title}`}
+          src={getAssetUrlById(dataDetail?.thumbnail)}
+          alt={`${dataDetail?.title}`}
           objectFit="cover"
         />
       </div>
@@ -35,14 +34,14 @@ export default function NewsDetail({ post }: any) {
                   alt="calendar"
                 />
               </div>
-              {formatDate(post?.date_published)}
+              {formatDate(dataDetail?.date_published)}
             </div>
 
             {/* title */}
             <h1
               className="mb-5 text-lg font-bold !leading-normal text-primary-600 lg:mb-6 lg:text-2xl xl:mb-7 xl:text-[28px] 3xl:mb-8 3xl:text-[30px] 4xl:text-[32px]"
               dangerouslySetInnerHTML={{
-                __html: t(post?.title, post?.title_en),
+                __html: t(dataDetail?.title, dataDetail?.title_en),
               }}
             ></h1>
           </div>
@@ -51,7 +50,7 @@ export default function NewsDetail({ post }: any) {
           <div
             className="text-sm font-bold text-gray-950 lg:text-base 3xl:text-lg"
             dangerouslySetInnerHTML={{
-              __html: t(post?.blurb, post?.blurb_en),
+              __html: t(dataDetail?.blurb, dataDetail?.blurb_en),
             }}
           ></div>
 
@@ -59,7 +58,7 @@ export default function NewsDetail({ post }: any) {
           <div
             className="content-wrapper !text-sm font-normal text-gray-950 lg:!text-base 3xl:!text-lg"
             dangerouslySetInnerHTML={{
-              __html: t(post?.content, post?.content_en),
+              __html: t(dataDetail?.content, dataDetail?.content_en),
             }}
           ></div>
         </div>
@@ -69,7 +68,7 @@ export default function NewsDetail({ post }: any) {
           {/*  Tags  */}
           <div>
             <h3 className="mb-2 text-base font-semibold text-gray-950 lg:mb-4 lg:text-lg 3xl:mb-5">
-              {trans('article-tags-title')}
+              {data?.buttons?.[0]?.title}
             </h3>
             <p className="border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 lg:py-3 lg:text-base">
               Tin nổi bật
@@ -84,21 +83,24 @@ export default function NewsDetail({ post }: any) {
 
           {/* Banner */}
           <div className="flex flex-col items-center gap-3 rounded-[6px] border-[.5px] border-primary-600 px-3 py-5 xl:gap-4 xl:rounded-xl xl:px-4 xl:py-6">
-            <p className="mx-auto w-full max-w-[220px] text-center text-sm font-semibold text-black">
-              {trans('doctor-card-title')}
-            </p>
+            <div
+              className="mx-auto w-full max-w-[220px] text-center text-sm font-semibold text-black"
+              dangerouslySetInnerHTML={{
+                __html: data?.contents,
+              }}
+            ></div>
             <div className="relative aspect-[2/3] w-full">
-              <NextImg src="/assets/images/doctor.png" alt="doctor" />
+              <NextImg src={getAssetUrlById(data?.cover?.id)} alt="doctor" />
             </div>
             <div className="text-center">
               <p className="text-xs font-normal text-gray-700 2xl:text-sm 3xl:text-base">
-                {trans('doctor-card-rank')}
+                {data?.subtitle}
               </p>
               <p className="text-lg font-bold text-primary-500 2xl:text-xl 3xl:text-2xl">
-                Trần Quốc Việt
+                {data?.title}
               </p>
               <p className="text-xs font-medium text-gray-700 2xl:text-sm 3xl:text-base">
-                {trans('doctor-card-position')}
+                {data?.blurb}
               </p>
             </div>
           </div>

@@ -5,46 +5,49 @@ import useStoreLanguage from '@/src/store/store';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import RightArrowIcon from '@/src/components/common/icons/RightArrowIcon';
 import NewsCard from '../news/NewsCard';
 import { getListNews } from '@/src/services/news';
 import { useTranslate } from '@/src/hooks/useTranslate';
+import { CommonSection } from '@/src/types/pageBuilder';
+import { getAssetUrlById } from '@/src/utils/image';
+import NextImg from '../../common/next-img';
+import { fnGetListItemByEndpoint } from '@/src/services/common';
 
-const RelatedPosts = () => {
+const RelatedPosts = ({ data }: CommonSection) => {
   const language = useStoreLanguage((state: any) => state.language);
   const { trans } = useTranslate();
 
   const [newsData, setNewsData] = useState<any>([]);
 
-  async function fetchData() {
-    try {
-      const response = await getListNews({
-        collection: 'posts',
-        page: 1,
-        limit: 3,
-      });
-      setNewsData(response);
-    } catch (error) {
-      console.log('Error:', error);
-    }
-  }
-
   useEffect(() => {
-    fetchData();
-  }, []);
+    (async () => {
+      try {
+        const response = await fnGetListItemByEndpoint(data?.url);
+        setNewsData(response);
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    })();
+  }, [data]);
 
   return (
     <div className="py-10 lg:py-12 xl:py-14 2xl:py-16 3xl:py-[72px] 4xl:py-20">
       <div className="container flex items-center justify-between">
-        <h1 className="section-title">{trans('related-posts')}</h1>
+        <h1 className="section-title">{data?.title}</h1>
         <Link
-          href={`/${language}/tin-tuc`}
-          className="flex items-center gap-1.5 text-gray-950 group-hover:text-primary-50"
+          href={`/${language}${data?.buttons?.[0]?.url}`}
+          className="group flex items-center gap-1.5 text-gray-950"
         >
-          <span className="text-sm font-medium 2xl:text-base 3xl:text-lg">
-            {trans('view-all')}
+          <span className="text-sm font-medium transition-colors duration-100 group-hover:text-primary-500 2xl:text-base 3xl:text-lg">
+            {data?.buttons?.[0]?.title}
           </span>
-          <RightArrowIcon className="mx-1 w-[14px] xl:w-[18px]" />
+
+          <div className="relative size-5 brightness-0 transition-all duration-100 group-hover:brightness-100 xl:size-6">
+            <NextImg
+              src={getAssetUrlById(data?.buttons?.[0]?.icon?.id)}
+              alt="arrow icon"
+            />
+          </div>
         </Link>
       </div>
 
@@ -83,7 +86,7 @@ const RelatedPosts = () => {
             {newsData?.length > 0 &&
               newsData?.map((item: any, index: number) => (
                 <SwiperSlide key={'post_' + index}>
-                  <NewsCard item={item} url={'/tin-tuc'} />
+                  <NewsCard item={item} url={data?.buttons?.[0]?.url ?? '/tin-tuc'} />
                 </SwiperSlide>
               ))}
           </Swiper>

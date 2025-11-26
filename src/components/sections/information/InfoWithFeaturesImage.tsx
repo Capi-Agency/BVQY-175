@@ -7,7 +7,7 @@ import clsx from 'clsx';
 
 type Props = {};
 
-const InforWIthFeatureImage = ({ data }: CommonSection) => {
+export default function InfoWithFeaturesImage({ data }: CommonSection) {
   return (
     <div className="container flex flex-col gap-20 py-[60px] md:gap-40 md:py-20 lg:py-[100px] xl:flex-row xl:gap-6 xl:py-40 2xl:gap-7 3xl:py-[176px] 4xl:justify-between 4xl:py-[200px]">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 xl:flex xl:flex-1 xl:flex-col xl:justify-center xl:gap-12 2xl:gap-[52px] 3xl:gap-[60px] 4xl:max-w-[700px]">
@@ -60,5 +60,3 @@ const InforWIthFeatureImage = ({ data }: CommonSection) => {
     </div>
   );
 };
-
-export default InforWIthFeatureImage;

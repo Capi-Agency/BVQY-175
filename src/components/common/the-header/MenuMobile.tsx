@@ -133,7 +133,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
             </div>
           </div>
 
-          <div className="scrollbar-hidden relative flex-1 overflow-y-scroll pb-[100px]">
+          <div className="scrollbar-hidden relative flex-1 overflow-y-scroll overflow-x-hidden pb-[100px]">
             <div className="flex items-center justify-center gap-6 pb-[6px] pt-5 md:hidden">
               {contact_information?.files?.length > 0 &&
                 contact_information?.files?.map((file: any, index: number) => (

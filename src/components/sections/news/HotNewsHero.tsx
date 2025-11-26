@@ -1,23 +1,20 @@
 'use client';
-import { useTranslate } from '@/src/hooks/useTranslate';
 import React, { useEffect, useState } from 'react';
 import NextImg from '../../common/next-img';
 import Link from 'next/link';
-import { getListItemByEndpoint } from '@/src/services/news';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
 import useStoreLanguage from '@/src/store/store';
-import Breadcrumb from '../../common/breadcrumb';
+import { fnGetListItemByEndpoint } from '@/src/services/common';
 
 export default function HotNewsHero({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
-  const { trans } = useTranslate();
   const [dataNews, setDataNews] = useState<any>([]);
   useEffect(() => {
     (async () => {
       try {
-        const response = await getListItemByEndpoint(data?.url);
+        const response = await fnGetListItemByEndpoint(data?.url);
         setDataNews(response);
       } catch (error) {
         console.log('Error:', error);
@@ -27,13 +24,6 @@ export default function HotNewsHero({ data }: CommonSection) {
 
   return (
     <section>
-      <Breadcrumb
-        items={[
-          { title: 'home-page-label', url: '/' },
-          { title: 'news-page-label', url: '/tin-tuc' },
-        ]}
-      />
-
       <div className="p-[40px_0] md:p-[44px_0_24px] lg:p-[52px_0_28px] xl:p-[64px_0_32px] 3xl:p-[72px_0_32px] 4xl:p-[80px_0_40px]">
         <div className="container space-y-8 lg:space-y-10 xl:space-y-12 3xl:space-y-[52px] 4xl:space-y-[60px]">
           <h2

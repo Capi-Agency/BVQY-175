@@ -1,0 +1,3 @@
+export { default as HeroBackgroundsFocus } from "./HeroBackgroundsFocus"
+export { default as HeroWithBottomBigImage } from "./HeroWithBottomBigImage"
+export { default as HeroWithTopImage } from "./HeroWithTopImage"

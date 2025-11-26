@@ -31,6 +31,7 @@ type CommonSection = {
     custom?: any;
     url?: any;
   };
+  dataDetail?: any;
 };
 
 // section-level fields
@@ -42,17 +43,12 @@ type SectionMap = {
 type Asset =
   | string
   | {
-    id: string;
-  }
-  | {
-    directus_files_id: {
       id: string;
+    }
+  | {
+      directus_files_id: {
+        id: string;
+      };
     };
-  };
 
-export type {
-  Asset,
-  PageContent,
-  SectionMap,
-  CommonSection,
-};
+export type { Asset, PageContent, SectionMap, CommonSection };

@@ -37,14 +37,14 @@ export default function MegaMenuContent({ item }: any) {
               (item_third: any, item_third_index: number) => (
                 <div key={item_third_index}>
                   {item_third?.url ? (
-                    <Link
+                    <NavigationMenu.Link
                       href={`/${language}${item_third?.url || ''}`}
                       className="block text-sm font-bold uppercase text-black 3xl:text-base"
                     >
                       {language === 'en'
                         ? `${item_third?.title_en}`
                         : `${item_third?.title}`}
-                    </Link>
+                    </NavigationMenu.Link>
                   ) : (
                     <div className="block text-sm font-bold uppercase text-black 3xl:text-base">
                       {language === 'en'
@@ -56,7 +56,7 @@ export default function MegaMenuContent({ item }: any) {
                     {item_third?.sub_items?.map(
                       (item_fourth: any, item_fourth_index: number) =>
                         item_fourth?.url ? (
-                          <Link
+                          <NavigationMenu.Link
                             key={item_fourth_index}
                             href={`/${language}${item_fourth?.url || ''}`}
                             className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[10px]"
@@ -64,7 +64,7 @@ export default function MegaMenuContent({ item }: any) {
                             {language === 'en'
                               ? `${item_fourth?.title_en}`
                               : `${item_fourth?.title}`}
-                          </Link>
+                          </NavigationMenu.Link>
                         ) : (
                           <div
                             key={item_fourth_index}

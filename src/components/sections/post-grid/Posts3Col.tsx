@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { getListItemByEndpoint } from '@/src/services/news';
 import NewsCard from '../news/NewsCard';
+import { fnGetListItemByEndpoint } from '@/src/services/common';
 
 const Posts3Col = ({ data }: CommonSection) => {
   const [newsData, setNewsData] = useState<any>([]);
@@ -13,7 +13,7 @@ const Posts3Col = ({ data }: CommonSection) => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await getListItemByEndpoint(data?.url);
+        const response = await fnGetListItemByEndpoint(data?.url);
         setNewsData(response);
       } catch (error) {
         console.log('Error:', error);

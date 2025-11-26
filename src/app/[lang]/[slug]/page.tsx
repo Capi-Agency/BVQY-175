@@ -49,7 +49,7 @@ export async function generateMetadata(
       canonical: process.env.SITE_URL ?? '',
       languages: {
         vi: `${process.env.SITE_URL}/vi/${slug}`,
-        en: `${process.env.SITE_URL}/en${slug}`,
+        en: `${process.env.SITE_URL}/en/${slug}`,
       },
     },
   };

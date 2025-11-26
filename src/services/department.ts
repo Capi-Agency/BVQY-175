@@ -39,3 +39,5 @@ export const getChildDepartments = async (groupSlug: string) => {
     console.log('Err in getChildDepartments: ', error);
   }
 };
+
+

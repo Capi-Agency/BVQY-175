@@ -1,3 +1,5 @@
+
+
 export const updateSlugLanguage = (
   slug: string,
   newLanguage: string,
@@ -100,18 +102,6 @@ export const locales: any = {
     vi: 'Giải thưởng & Danh hiệu',
     en: 'Awards & Honors',
   },
-  'home-page-label': {
-    vi: 'Trang chủ',
-    en: 'Home page',
-  },
-  'news-page-label': {
-    vi: 'Tin tức',
-    en: 'News',
-  },
-  'news-detail-page-label': {
-    vi: 'Chi tiết tin tức',
-    en: 'News detail',
-  },
   'view-more-label': {
     vi: 'Xem chi tiết',
     en: 'View more',
@@ -119,14 +109,6 @@ export const locales: any = {
   'no-data-label': {
     vi: 'Không có dữ liệu',
     en: 'No data available',
-  },
-  'related-posts': {
-    vi: 'Bài viết liên quan',
-    en: 'Related posts',
-  },
-  'view-all': {
-    vi: 'Xem tất cả',
-    en: 'View all',
   },
   'make-an-appointment-title': {
     vi: "Đặt lịch <br/> khám ngay",
@@ -144,20 +126,4 @@ export const locales: any = {
     vi: "Quay lại menu chính",
     en: "Return to the main menu"
   },
-  'article-tags-title': {
-    vi: "Thẻ bài viết",
-    en: "Article tags"
-  },
-  'doctor-card-title': {
-    vi: "Bệnh viện sẽ phát triển theo mô hình các quần thể y tế hiện đại tại các nước phát triển, cụ thể như Bệnh viện đa khoa Quốc gia Singapore",
-    en: "The hospital will develop according to the model of modern medical complexes in developed countries, specifically the Singapore National General Hospital."
-  },
-  'doctor-card-rank': {
-    vi: "Thiếu tướng, TS. TTND",
-    en: "Major general, TS. TTND"
-  },
-  'doctor-card-position': {
-    vi: "Giám đốc Bệnh viện",
-    en: "Hospital Director"
-  }
 };

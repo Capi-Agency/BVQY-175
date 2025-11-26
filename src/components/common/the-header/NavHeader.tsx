@@ -41,7 +41,7 @@ export default function NavHeader() {
                   }
                 >
                   {item?.url ? (
-                    <Link
+                    <NavigationMenu.Link
                       href={`/${language}${item?.url || ''}`}
                       ref={(el: any) => {
                         menuItemsRef.current[index] = el;
@@ -57,7 +57,7 @@ export default function NavHeader() {
                           alt="arrow down icon"
                         />
                       </div>
-                    </Link>
+                    </NavigationMenu.Link>
                   ) : (
                     <div
                       ref={(el: any) => {
@@ -93,7 +93,7 @@ export default function NavHeader() {
                         >
                           {/* Cấp 1 */}
                           {item_second?.url ? (
-                            <Link
+                            <NavigationMenu.Link
                               href={`/${language}${item_second?.url || ''}`}
                               className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 group-hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[10px_16px]"
                             >
@@ -110,7 +110,7 @@ export default function NavHeader() {
                                   />
                                 </div>
                               )}
-                            </Link>
+                            </NavigationMenu.Link>
                           ) : (
                             <div className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 group-hover:text-primary-600 2xl:p-[6px_12px] 4xl:p-[10px_16px]">
                               <div className="flex-1">
@@ -142,14 +142,14 @@ export default function NavHeader() {
                                 (item_third: any, item_third_index: number) => (
                                   <div key={item_third_index}>
                                     {item_third?.url ? (
-                                      <Link
+                                      <NavigationMenu.Link
                                         href={`/${language}${item_third?.url || ''}`}
                                         className="block text-sm font-bold uppercase text-black 3xl:text-base"
                                       >
                                         {language === 'en'
                                           ? `${item_third?.title_en}`
                                           : `${item_third?.title}`}
-                                      </Link>
+                                      </NavigationMenu.Link>
                                     ) : (
                                       <div className="block text-sm font-bold uppercase text-black 3xl:text-base">
                                         {language === 'en'
@@ -165,7 +165,7 @@ export default function NavHeader() {
                                           item_fourth_index: number,
                                         ) =>
                                           item_fourth?.url ? (
-                                            <Link
+                                            <NavigationMenu.Link
                                               key={item_fourth_index}
                                               href={`/${language}${item_fourth?.url || ''}`}
                                               className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[10px]"
@@ -173,7 +173,7 @@ export default function NavHeader() {
                                               {language === 'en'
                                                 ? `${item_fourth?.title_en}`
                                                 : `${item_fourth?.title}`}
-                                            </Link>
+                                            </NavigationMenu.Link>
                                           ) : (
                                             <div
                                               key={item_fourth_index}
@@ -199,12 +199,12 @@ export default function NavHeader() {
               </NavigationMenu.Item>
             ) : (
               <NavigationMenu.Item key={index}>
-                <Link
+                <NavigationMenu.Link
                   href={`/${language}${item?.url || ''}`}
                   className="relative block whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:text-base"
                 >
                   {language === 'en' ? `${item?.title_en}` : `${item?.title}`}
-                </Link>
+                </NavigationMenu.Link>
               </NavigationMenu.Item>
             );
           })}

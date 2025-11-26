@@ -3,9 +3,21 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata, ResolvingMetadata } from 'next';
 import { checkValueNull } from '@/src/utils/validate';
-import NewsDetail from '@/src/components/sections/news/NewsDetail';
-import RelatedPosts from '@/src/components/sections/post-grid/RelatedPost';
-import Breadcrumb from '@/src/components/common/breadcrumb';
+import { cookies } from 'next/headers';
+import JsonLDProvider from '@/src/components/common/the-json-ld';
+import PageBuilder from '@/src/page-builder';
+import { fnGetPageBySlug } from '@/src/services/page';
+
+async function getLang() {
+  const cookieStore = await cookies();
+  const lang: string = cookieStore.get('language')?.value ?? 'vi';
+  return lang;
+}
+
+async function getLangSlugNewsDetail(): Promise<string> {
+  const lang = await getLang();
+  return lang === 'en' ? 'chi-tiet-tin-tuc-en' : 'chi-tiet-tin-tuc';
+}
 
 type Props = {
   params: Promise<{
@@ -21,23 +33,34 @@ export async function generateMetadata(
   const idRegex = /^[a-zA-Z0-9-_]+$/;
   if (!slug || !idRegex.test(slug)) return notFound();
 
-  const data = await fnGetNewsDetailBySlug('posts_by_id', slug);
+  const lang = await getLang();
+  const data = await getNewsDetail({ collection: 'posts', slug });
   if (!data) notFound();
+
+  const title =
+    lang === 'en'
+      ? checkValueNull(data?.title_en, '')
+      : checkValueNull(data?.title, '');
+
+  const description =
+    lang === 'en'
+      ? checkValueNull(data?.blurb_en, '')
+      : checkValueNull(data?.blurb, '');
 
   const imageUrl = data?.thumbnail?.id
     ? `${process.env.NEXT_PUBLIC_ASSETS_URL}${data.thumbnail.id}`
     : '/assets/images/open_graph.png';
 
   return {
-    title: checkValueNull(data?.title, ''),
+    title,
     keywords: 'Bệnh viện Quân Y 175',
-    description: checkValueNull(data?.blurb, ''),
+    description,
     openGraph: {
       locale: 'vi_VN',
       alternateLocale: 'en_US',
-      siteName: checkValueNull(data?.title, ''),
-      title: checkValueNull(data?.title, ''),
-      description: checkValueNull(data?.blurb, ''),
+      siteName: title,
+      title,
+      description,
       images: [imageUrl],
       url: process.env.SITE_URL ?? '',
       type: 'website',
@@ -51,23 +74,20 @@ export async function generateMetadata(
 const NewsDetailPage = async ({ params }: Props) => {
   const { slug } = await params;
   const post = await getNewsDetail({ collection: 'posts', slug });
+  const langSlug = await getLangSlugNewsDetail();
+  const pageContent = await fnGetPageBySlug(langSlug);
+
+  const pageSchema = pageContent?.seo?.meta_schema;
 
   if (!post) {
     notFound();
   }
 
   return (
-    <div className="padding-top-body">
-      <Breadcrumb
-        items={[
-          { title: 'home-page-label', url: '/' },
-          { title: 'news-page-label', url: '/tin-tuc' },
-          { title: 'news-detail-page-label' },
-        ]}
-      />
-      <NewsDetail post={post} />
-      <RelatedPosts />
-    </div>
+    <>
+      <JsonLDProvider pageSchema={pageSchema} />
+      <PageBuilder pageContent={pageContent} pageDetail={post} />
+    </>
   );
 };
 

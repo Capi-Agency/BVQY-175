@@ -149,16 +149,7 @@ export const fnGetListVideos = async ({
 };
 
 // Theo RESTful
-export const getListItemByEndpoint = async (endpoint: string) => {
-  const data = await directusClientWithRest.request(
-    customEndpoint<any>({
-      path: `${endpoint}`,
-      method: 'GET',
-    }),
-  );
 
-  return data;
-};
 
 /** Lấy danh sách item - có bộ lọc/ phân trang */
 export const getListNews = async ({
