@@ -18,14 +18,16 @@ export default function HeroWithTopImage({ data }: CommonSection) {
           src={getAssetUrlById(data?.cover?.[0]?.id)}
           objectFit="cover"
           alt="home banner"
+          className="object-top"
         />
       </div>
 
-      <div className="relative hidden h-[308px] w-full overflow-hidden md:block lg:h-[410px] xl:h-[512px] 2xl:h-[576px] 3xl:h-[640px] 4xl:h-[768px]">
+      <div className="4xl:aspect relative hidden h-[308px] w-full overflow-hidden md:block lg:h-[410px] xl:h-[512px] 2xl:h-[576px] 3xl:h-[640px] 4xl:aspect-[1920/768] 4xl:h-auto 4xl:min-h-[768px]">
         <NextImg
           src={getAssetUrlById(data?.cover?.[1]?.id)}
           objectFit="cover"
           alt="home banner"
+          className="object-top"
         />
       </div>
 
