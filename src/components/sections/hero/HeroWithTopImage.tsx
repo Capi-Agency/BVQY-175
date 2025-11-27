@@ -13,7 +13,7 @@ export default function HeroWithTopImage({ data }: CommonSection) {
 
   return (
     <section>
-      <div className="relative h-[calc(100vh-64px)] w-full overflow-hidden md:hidden">
+      <div className="relative h-[calc(50vh-64px)] w-full overflow-hidden md:hidden">
         <NextImg
           src={getAssetUrlById(data?.cover?.[0]?.id)}
           objectFit="cover"
@@ -96,18 +96,14 @@ export default function HeroWithTopImage({ data }: CommonSection) {
             className="w-full !px-6"
           >
             {data?.items?.map((item: any, index: number) => (
-              <SwiperSlide
-                key={index}
-                className="!w-[220px] pb-6"
-              
-              >
+              <SwiperSlide key={index} className="!w-[220px] pb-6">
                 <div
                   key={index}
                   className="group relative flex flex-col items-center gap-3 bg-white p-3 duration-200 hover:bg-secondary xl:flex-1 xl:p-[16px_12px] 3xl:gap-4 3xl:p-4 4xl:gap-5 4xl:p-5"
                   style={{
-                  boxShadow:
-                    '0 12px 15px -3px rgba(18, 26, 43, 0.05), 0 4px 6px -3px rgba(18, 26, 43, 0.05)',
-                }}
+                    boxShadow:
+                      '0 12px 15px -3px rgba(18, 26, 43, 0.05), 0 4px 6px -3px rgba(18, 26, 43, 0.05)',
+                  }}
                 >
                   <div className="relative size-8 duration-200 group-hover:brightness-[0] group-hover:invert group-hover:saturate-[100%] xl:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
                     <NextImg

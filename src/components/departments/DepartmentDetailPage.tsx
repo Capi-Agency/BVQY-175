@@ -2,9 +2,10 @@
 import NextImg from '@/src/components/common/next-img';
 import { getChildDepartments } from '@/src/services/department';
 import { getAssetUrlById } from '@/src/utils/image';
+import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useRef, useState } from 'react';
 
 type Props = {
   departmentGroups: any[];
@@ -17,6 +18,7 @@ const DepartmentDetailPage = ({
   parentGroups,
   bannerData,
 }: Props) => {
+  const containerRef = useRef(null)
   const [activeChildGroup, setActiveChildGroup] = useState(null);
   const [childDepartments, setChildDepartments] = useState<any>([]);
   const [searchText, setSearchText] = useState('');
@@ -104,14 +106,14 @@ const DepartmentDetailPage = ({
       </div>
 
       {/* Slider các khối */}
-      <div className="container hidden flex-wrap justify-center gap-6 3xl:flex 3xl:max-w-[1280px] 3xl:px-0 3xl:py-[100px] 4xl:max-w-[1440px]">
+      <div className="container hidden flex-wrap justify-center gap-6 3xl:flex 3xl:max-w-[1280px] 3xl:px-0 3xl:pt-[100px] 4xl:max-w-[1440px]">
         {parentGroups?.map((group, index: number) => (
           <DepartmentSlideCard group={group} key={'item_' + index} />
         ))}
       </div>
 
       <div className="container flex flex-col gap-6 py-6 lg:max-w-[824px] lg:gap-12 xl:max-w-none xl:py-10 2xl:gap-14 2xl:px-40 2xl:py-12 3xl:max-w-[1280px] 3xl:flex-row 3xl:items-start 3xl:gap-[72px] 3xl:px-0 4xl:max-w-[1440px] 4xl:gap-20 4xl:py-[120px]">
-        <div className="w-full rounded-[16px] border border-[#E9EBED] bg-white px-4 py-6 3xl:max-w-[360px]">
+        <div className=" w-full rounded-[16px] border border-[#E9EBED] bg-white px-4 py-6 3xl:max-w-[360px]">
           {/* input */}
           <form
             className="relative rounded-[6px] bg-gray-100 p-5 pl-11 shadow-lg"
