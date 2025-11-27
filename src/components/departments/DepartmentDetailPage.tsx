@@ -27,21 +27,10 @@ const DepartmentDetailPage = ({
 }: Props) => {
   const containerRef = useRef(null);
   const { conditions } = useGsapMatchMedia();
-  const [activeChildGroup, setActiveChildGroup] = useState(null);
-  const [childDepartments, setChildDepartments] = useState<any>([]);
   const [searchText, setSearchText] = useState('');
   const [debouncedText, setDebouncedText] = useState('');
   const ctaButtonData = bannerData?.buttons[0];
   const selector = gsap.utils.selector(containerRef);
-
-  useEffect(() => {
-    const fetchChildDepartments = async () => {
-      if (!activeChildGroup) return;
-      const res = await getChildDepartments(activeChildGroup);
-      setChildDepartments(res || []);
-    };
-    fetchChildDepartments();
-  }, [activeChildGroup]);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -222,110 +211,12 @@ const DepartmentDetailPage = ({
         {/* Các khối */}
         <div className="flex flex-col">
           {parentGroups?.map((pGroup: any, index: number) => {
-            const chilrenGroups = [
-              { title: 'Tất cả' },
-              ...pGroup?.children_groups,
-            ];
-
             return (
-              <div
-                className="py-6 lg:py-8 xl:py-10 2xl:py-12 3xl:py-[52px]"
-                key={'group__' + index}
-                id={pGroup.slug}
-              >
-                <p className="section-sub-title">{pGroup.description}</p>
-                <p className="section-title mt-2">{pGroup.title}</p>
-
-                {/* Tabs các khối con */}
-                {chilrenGroups && chilrenGroups.length > 0 && (
-                  <div className="my-5 flex flex-col gap-3 md:flex-row md:flex-wrap 3xl:gap-x-8 3xl:gap-y-5">
-                    {chilrenGroups.map((group: any, idx: number) => (
-                      <div
-                        onClick={() => setActiveChildGroup(group.slug)}
-                        key={'group___' + idx}
-                        className={clsx(
-                          'w-full text-base font-normal uppercase text-gray-500 hover:text-primary-600 hover:underline md:w-fit',
-                          group.slug === activeChildGroup &&
-                            'text-primary-600 underline',
-                          isMatch(group.title) &&
-                            'rounded-md bg-primary-600 px-2 py-1 text-white hover:text-primary-50',
-                        )}
-                      >
-                        {group.title}
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* List các khối con */}
-                {!activeChildGroup &&
-                  pGroup?.children_groups &&
-                  pGroup.children_groups.length > 0 && (
-                    <div className="flex flex-col gap-6 md:flex-row md:flex-wrap">
-                      {pGroup.children_groups.map((group: any, idx: number) => (
-                        <div
-                          onClick={() => setActiveChildGroup(group.slug)}
-                          key={'group___' + idx}
-                          className={clsx(
-                            'w-full cursor-pointer text-xl font-normal underline md:w-fit lg:w-[calc(50%-12px)]',
-                            isMatch(group.title)
-                              ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
-                              : 'text-gray-950 hover:text-primary-600',
-                          )}
-                        >
-                          {group.title}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                {/* Các khoa */}
-                {pGroup?.departments && pGroup.departments.length > 0 && (
-                  <div className="mt-5 flex list-none flex-col gap-4 md:flex-row md:flex-wrap md:gap-6 xl:mt-8 3xl:mt-[52px] 3xl:gap-x-4 3xl:gap-y-5">
-                    {pGroup.departments.map((department: any, idx: number) => (
-                      <Link
-                        href={'/vi/chuyen-khoa/' + department.slug}
-                        className={clsx(
-                          'text-xl font-normal underline lg:w-[calc(50%-12px)]',
-                          isMatch(department.title) ||
-                            isMatch(department.code || '')
-                            ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
-                            : 'text-gray-950 hover:text-primary-600',
-                        )}
-                        key={'department_' + idx}
-                      >
-                        {department.title}{' '}
-                        {department.code ? `(${department.code})` : null}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-
-                {/* Các khoa thuộc khối con */}
-                {!!pGroup.children_groups.find(
-                  (childGroup: any) => childGroup.slug === activeChildGroup,
-                ) &&
-                  childDepartments.length > 0 && (
-                    <div className="mt-5 flex list-none flex-col gap-4 md:flex-row md:flex-wrap md:gap-6 xl:mt-8 3xl:mt-[52px] 3xl:gap-x-4 3xl:gap-y-5">
-                      {childDepartments.map((department: any, idx: number) => (
-                        <Link
-                          href={'/vi/chuyen-khoa/' + department.slug}
-                          className={clsx(
-                            'text-xl font-normal underline lg:w-[calc(50%-12px)]',
-                            isMatch(department.title) ||
-                              isMatch(department.code || '')
-                              ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
-                              : 'text-gray-950 hover:text-primary-600',
-                          )}
-                          key={'department_' + idx}
-                        >
-                          {department.title}{' '}
-                          {department.code ? `(${department.code})` : null}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-              </div>
+              <DepartmentGroupSection
+                pGroup={pGroup}
+                key={index}
+                isMatch={isMatch}
+              />
             );
           })}
         </div>
@@ -339,6 +230,127 @@ const DepartmentDetailPage = ({
 };
 
 export default DepartmentDetailPage;
+
+const DepartmentGroupSection = ({
+  pGroup,
+  isMatch,
+}: {
+  pGroup: any;
+  isMatch: any;
+}) => {
+  const [activeChildGroup, setActiveChildGroup] = useState('');
+  const chilrenGroups = [
+    { title: 'Tất cả', slug: '' },
+    ...pGroup?.children_groups,
+  ];
+  const [childDepartments, setChildDepartments] = useState<any>([]);
+
+  useEffect(() => {
+    const fetchChildDepartments = async () => {
+      if (!activeChildGroup) return;
+      const res = await getChildDepartments(activeChildGroup);
+      setChildDepartments(res || []);
+    };
+    fetchChildDepartments();
+  }, [activeChildGroup]);
+
+  return (
+    <div
+      className="py-6 lg:py-8 xl:py-10 2xl:py-12 3xl:py-[52px]"
+      id={pGroup.slug}
+    >
+      <p className="section-sub-title">{pGroup.description}</p>
+      <p className="section-title mt-2">{pGroup.title}</p>
+
+      {/* Tabs các khối con */}
+      {chilrenGroups && chilrenGroups.length > 1 && (
+        <div className="my-5 flex flex-col gap-3 md:flex-row md:flex-wrap 3xl:gap-x-8 3xl:gap-y-5">
+          {chilrenGroups.map((group: any, idx: number) => (
+            <div
+              onClick={() => setActiveChildGroup(group.slug)}
+              key={'group___' + idx}
+              className={clsx(
+                'w-full text-base font-normal uppercase text-gray-500 hover:text-primary-600 hover:underline md:w-fit',
+                group.slug === activeChildGroup && 'text-primary-600 underline',
+                isMatch(group.title) &&
+                  'rounded-md bg-primary-600 px-2 py-1 text-white hover:text-primary-50',
+              )}
+            >
+              {group.title}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* List các khối con */}
+      {!activeChildGroup &&
+        pGroup?.children_groups &&
+        pGroup.children_groups.length > 0 && (
+          <div className="flex flex-col gap-6 md:flex-row md:flex-wrap">
+            {pGroup.children_groups.map((group: any, idx: number) => (
+              <div
+                onClick={() => setActiveChildGroup(group.slug)}
+                key={'group___' + idx}
+                className={clsx(
+                  'w-full cursor-pointer text-xl font-normal underline md:w-fit lg:w-[calc(50%-12px)]',
+                  isMatch(group.title)
+                    ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
+                    : 'text-gray-950 hover:text-primary-600',
+                )}
+              >
+                {group.title}
+              </div>
+            ))}
+          </div>
+        )}
+
+      {/* Các khoa */}
+      {pGroup?.departments && pGroup.departments.length > 0 && (
+        <div className="mt-5 flex list-none flex-col gap-4 md:flex-row md:flex-wrap md:gap-6 xl:mt-8 3xl:mt-[52px] 3xl:gap-x-4 3xl:gap-y-5">
+          {pGroup.departments.map((department: any, idx: number) => (
+            <Link
+              href={'/vi/chuyen-khoa/' + department.slug}
+              className={clsx(
+                'text-xl font-normal underline lg:w-[calc(50%-12px)]',
+                isMatch(department.title) || isMatch(department.code || '')
+                  ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
+                  : 'text-gray-950 hover:text-primary-600',
+              )}
+              key={'department_' + idx}
+            >
+              {department.title}{' '}
+              {department.code ? `(${department.code})` : null}
+            </Link>
+          ))}
+        </div>
+      )}
+
+      {/* Các khoa thuộc khối con */}
+      {!!pGroup.children_groups.find(
+        (childGroup: any) => childGroup.slug === activeChildGroup,
+      ) &&
+        childDepartments.length > 0 && (
+          <div className="mt-5 flex list-none flex-col gap-4 md:flex-row md:flex-wrap md:gap-6 xl:mt-8 3xl:mt-[52px] 3xl:gap-x-4 3xl:gap-y-5">
+            {childDepartments.map((department: any, idx: number) => (
+              <Link
+                href={'/vi/chuyen-khoa/' + department.slug}
+                className={clsx(
+                  'text-xl font-normal underline lg:w-[calc(50%-12px)]',
+                  isMatch(department.title) || isMatch(department.code || '')
+                    ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
+                    : 'text-gray-950 hover:text-primary-600',
+                )}
+                key={'department_' + idx}
+              >
+                {department.title}{' '}
+                {department.code ? `(${department.code})` : null}
+              </Link>
+            ))}
+          </div>
+        )}
+    </div>
+  );
+};
 
 const DepartmentSlideCard = ({ group }: { group: any }) => {
   return (
