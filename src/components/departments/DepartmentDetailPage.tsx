@@ -6,6 +6,13 @@ import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useEffect, useReducer, useRef, useState } from 'react';
+import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { getOffsetY } from '@/src/utils/gsap';
+import gsap from 'gsap';
+
+gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
 type Props = {
   departmentGroups: any[];
@@ -18,12 +25,14 @@ const DepartmentDetailPage = ({
   parentGroups,
   bannerData,
 }: Props) => {
-  const containerRef = useRef(null)
+  const containerRef = useRef(null);
+  const { conditions } = useGsapMatchMedia();
   const [activeChildGroup, setActiveChildGroup] = useState(null);
   const [childDepartments, setChildDepartments] = useState<any>([]);
   const [searchText, setSearchText] = useState('');
   const [debouncedText, setDebouncedText] = useState('');
   const ctaButtonData = bannerData?.buttons[0];
+  const selector = gsap.utils.selector(containerRef);
 
   useEffect(() => {
     const fetchChildDepartments = async () => {
@@ -45,6 +54,22 @@ const DepartmentDetailPage = ({
     if (!debouncedText) return false;
     return txt?.toLowerCase().includes(debouncedText);
   };
+
+  const { contextSafe } = useGSAP(
+    () => {
+      ScrollTrigger.create({
+        trigger: selector('.button-group'),
+        start: () => getOffsetY(conditions),
+        end: 'max',
+        pin: true,
+        pinSpacing: false,
+      });
+    },
+    {
+      scope: containerRef,
+      dependencies: [conditions],
+    },
+  );
 
   return (
     <div className="padding-top-body bg-primary-50">
@@ -112,11 +137,14 @@ const DepartmentDetailPage = ({
         ))}
       </div>
 
-      <div className="container flex flex-col gap-6 py-6 lg:max-w-[824px] lg:gap-12 xl:max-w-none xl:py-10 2xl:gap-14 2xl:px-40 2xl:py-12 3xl:max-w-[1280px] 3xl:flex-row 3xl:items-start 3xl:gap-[72px] 3xl:px-0 4xl:max-w-[1440px] 4xl:gap-20 4xl:py-[120px]">
-        <div className=" w-full rounded-[16px] border border-[#E9EBED] bg-white px-4 py-6 3xl:max-w-[360px]">
+      <div
+        ref={containerRef}
+        className="container flex flex-col gap-6 py-6 lg:max-w-[824px] lg:gap-12 xl:max-w-none xl:py-10 2xl:gap-14 2xl:px-40 2xl:py-12 3xl:max-w-[1280px] 3xl:flex-row 3xl:items-start 3xl:gap-[72px] 3xl:px-0 4xl:max-w-[1440px] 4xl:gap-20 4xl:py-[120px]"
+      >
+        <div className="button-group w-full rounded-[16px] border border-[#E9EBED] bg-white px-4 py-6 3xl:max-w-[360px]">
           {/* input */}
           <form
-            className="relative rounded-[6px] bg-gray-100 p-5 pl-11 shadow-lg"
+            className="relative hidden rounded-[6px] bg-gray-100 p-5 pl-11 shadow-lg md:block"
             onSubmit={(e: any) => {
               e.preventDefault();
             }}
@@ -138,14 +166,14 @@ const DepartmentDetailPage = ({
           </form>
 
           {/* Button cac khoi */}
-          <div className="mt-4 flex flex-col gap-4 md:flex-row md:flex-wrap 3xl:h-fit 3xl:flex-col">
+          <div className="grid grid-cols-5 gap-2.5 md:mt-4 md:flex md:flex-wrap md:gap-4 3xl:h-fit 3xl:flex-col">
             {parentGroups?.map((group: any, index: number) => {
               return (
                 <Link
                   href={'#' + group.slug}
                   key={'group_' + index}
                   className={clsx(
-                    'group relative flex cursor-pointer items-center gap-2.5 overflow-hidden px-5 py-4 shadow-lg transition-all hover:bg-primary-600 xl:w-fit xl:flex-1 3xl:w-full',
+                    'group relative flex cursor-pointer items-center justify-center gap-2.5 overflow-hidden py-4 shadow-lg transition-all hover:bg-primary-600 md:justify-start md:px-5 xl:w-fit xl:flex-1 3xl:w-full',
                   )}
                 >
                   <img
@@ -153,7 +181,7 @@ const DepartmentDetailPage = ({
                     alt="icon"
                     className="size-10 group-hover:brightness-0 group-hover:invert"
                   />
-                  <p className="text-nowrap text-lg font-semibold text-gray-500 group-hover:text-white">
+                  <p className="hidden text-nowrap text-lg font-semibold text-gray-500 group-hover:text-white md:block">
                     {group.title}
                   </p>
                   <BgHiddenShape className="pointer-events-none absolute left-1/2 w-[90%] -translate-x-[60%]" />
@@ -194,6 +222,11 @@ const DepartmentDetailPage = ({
         {/* Các khối */}
         <div className="flex flex-col">
           {parentGroups?.map((pGroup: any, index: number) => {
+            const chilrenGroups = [
+              { title: 'Tất cả' },
+              ...pGroup?.children_groups,
+            ];
+
             return (
               <div
                 className="py-6 lg:py-8 xl:py-10 2xl:py-12 3xl:py-[52px]"
@@ -204,26 +237,25 @@ const DepartmentDetailPage = ({
                 <p className="section-title mt-2">{pGroup.title}</p>
 
                 {/* Tabs các khối con */}
-                {pGroup?.children_groups &&
-                  pGroup.children_groups.length > 0 && (
-                    <div className="my-5 flex flex-col gap-3 md:flex-row md:flex-wrap 3xl:gap-x-8 3xl:gap-y-5">
-                      {pGroup.children_groups.map((group: any, idx: number) => (
-                        <div
-                          onClick={() => setActiveChildGroup(group.slug)}
-                          key={'group___' + idx}
-                          className={clsx(
-                            'w-full text-base font-normal uppercase text-gray-500 hover:text-primary-600 hover:underline md:w-fit',
-                            group.slug === activeChildGroup &&
-                              'text-primary-600 underline',
-                            isMatch(group.title) &&
-                              'rounded-md bg-primary-600 px-2 py-1 text-white hover:text-primary-50',
-                          )}
-                        >
-                          {group.title}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                {chilrenGroups && chilrenGroups.length > 0 && (
+                  <div className="my-5 flex flex-col gap-3 md:flex-row md:flex-wrap 3xl:gap-x-8 3xl:gap-y-5">
+                    {chilrenGroups.map((group: any, idx: number) => (
+                      <div
+                        onClick={() => setActiveChildGroup(group.slug)}
+                        key={'group___' + idx}
+                        className={clsx(
+                          'w-full text-base font-normal uppercase text-gray-500 hover:text-primary-600 hover:underline md:w-fit',
+                          group.slug === activeChildGroup &&
+                            'text-primary-600 underline',
+                          isMatch(group.title) &&
+                            'rounded-md bg-primary-600 px-2 py-1 text-white hover:text-primary-50',
+                        )}
+                      >
+                        {group.title}
+                      </div>
+                    ))}
+                  </div>
+                )}
 
                 {/* List các khối con */}
                 {!activeChildGroup &&
