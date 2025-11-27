@@ -41,3 +41,28 @@ export const getChildDepartments = async (groupSlug: string) => {
 };
 
 
+export const fnGetDeparmentDetail = async ({
+  collection,
+  slug,
+}: {
+  collection: string;
+  slug: string;
+}) => {
+  try {
+    const res = await directusClientWithRest.request(
+      readItem(collection, slug, {
+        fields: [
+          '*',
+          'achievements_images.*',
+          'facilities_images.*',
+          'technologies_images.*',
+          'doctors.*.*'],
+      }),
+    );
+    return res;
+  } catch (error) {
+    console.log('error in get data: ', error);
+  }
+};
+
+

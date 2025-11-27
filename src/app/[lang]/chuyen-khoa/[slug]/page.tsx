@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 import JsonLDProvider from '@/src/components/common/the-json-ld';
 import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
-import { fnGetListitem } from '@/src/services/common';
+import { fnGetDeparmentDetail } from '@/src/services/department';
 
 async function getLang() {
   const cookieStore = await cookies();
@@ -34,7 +34,7 @@ export async function generateMetadata(
   if (!slug || !idRegex.test(slug)) return notFound();
 
   const lang = await getLang();
-  const data = await fnGetListitem({ collection: 'departments', slug });
+  const data = await fnGetDeparmentDetail({ collection: 'departments', slug });
   if (!data) notFound();
 
   const title =
@@ -73,7 +73,7 @@ export async function generateMetadata(
 
 const NewsDetailPage = async ({ params }: Props) => {
   const { slug } = await params;
-  const dataDetail = await fnGetListitem({ collection: 'departments', slug });
+  const dataDetail = await fnGetDeparmentDetail({ collection: 'departments', slug });
   const langSlug = await getLangSlugNewsDetail();
   const pageContent = await fnGetPageBySlug(langSlug);
 
