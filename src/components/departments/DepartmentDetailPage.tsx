@@ -276,7 +276,7 @@ const DepartmentGroupSection = ({
                   'rounded-md bg-primary-600 px-2 py-1 text-white hover:text-primary-50',
               )}
             >
-              {group.title}
+              {group.title} ({group?.departments?.length})
             </div>
           ))}
         </div>
@@ -285,7 +285,7 @@ const DepartmentGroupSection = ({
       {/* List các khối con */}
       {!activeChildGroup &&
         pGroup?.children_groups &&
-        pGroup.children_groups.length > 0 && (
+        pGroup.children_groups.length > 1 && (
           <div className="flex flex-col gap-6 md:flex-row md:flex-wrap">
             {pGroup.children_groups.map((group: any, idx: number) => (
               <div
@@ -305,7 +305,7 @@ const DepartmentGroupSection = ({
         )}
 
       {/* Các khoa */}
-      {pGroup?.departments && pGroup.departments.length > 0 && (
+      {pGroup?.departments && pGroup.departments.length > 1 && (
         <div className="mt-5 flex list-none flex-col gap-4 md:flex-row md:flex-wrap md:gap-6 xl:mt-8 3xl:mt-[52px] 3xl:gap-x-4 3xl:gap-y-5">
           {pGroup.departments.map((department: any, idx: number) => (
             <Link

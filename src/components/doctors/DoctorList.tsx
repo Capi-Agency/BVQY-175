@@ -1,6 +1,7 @@
 'use client';
 import NextImg from '@/src/components/common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
+import clsx from 'clsx';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
@@ -11,6 +12,11 @@ type Props = {
 const DoctorList = ({ data }: Props) => {
   const [searchText, setSearchText] = useState('');
   const [debouncedText, setDebouncedText] = useState('');
+  const [selectedLetter, setSelectedLetter] = useState('');
+  const [searchMethod, setSearchMethod] = useState<
+    'by_name' | 'by_department' | null
+  >(null);
+
   return (
     <div className="bg-primary-50">
       {/* Breadcrumb */}
@@ -34,7 +40,7 @@ const DoctorList = ({ data }: Props) => {
         </div>
 
         {/* Search form */}
-        <div className="mx-auto w-full max-w-[320px] -translate-y-1/2 bg-transparent md:bottom-0 md:max-w-[600px] md:px-0 md:py-0 lg:max-w-[800px] 3xl:absolute 3xl:block">
+        <div className="mx-auto w-full max-w-[320px] -translate-y-1/2 bg-transparent md:bottom-0 md:max-w-[600px] md:px-0 md:py-0 lg:max-w-[800px] xl:max-w-[1000px]">
           <form
             className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
             onSubmit={(e: any) => {
@@ -73,11 +79,19 @@ const DoctorList = ({ data }: Props) => {
       </div>
 
       {/* Danh sách bác sĩ */}
-      <div className="container space-y-8 pb-20 pt-8 lg:py-16 xl:py-[72px] 2xl:py-20 3xl:py-[100px] 4xl:py-[120px]">
+      <div className="container space-y-8 pb-20 lg:pb-16 xl:pb-[72px] 2xl:pb-20 3xl:pb-[100px] 4xl:pb-[120px]">
         {/* Nút chuyển tabs */}
         <div className="flex flex-col gap-4 md:flex-row">
           {/* Tim theo ten */}
-          <div className="w-full bg-white px-5 py-4 shadow-lg md:flex-1">
+          <div
+            className={clsx(
+              'flex w-full flex-col justify-center px-5 py-4 shadow-lg md:flex-1 xl:h-40',
+              searchMethod === 'by_name'
+                ? 'bg-primary-600 *:!text-gray-50'
+                : 'bg-white',
+            )}
+            onClick={() => setSearchMethod('by_name')}
+          >
             <div className="mb-2 flex items-center gap-2.5 text-lg font-semibold text-gray-500">
               {/* icon */}
               <div className="flex items-center justify-center rounded-[6px] bg-primary-50 p-2">
@@ -95,7 +109,15 @@ const DoctorList = ({ data }: Props) => {
           </div>
 
           {/* Tim theo khoa */}
-          <div className="w-full bg-white px-5 py-4 shadow-lg md:flex-1">
+          <div
+            className={clsx(
+              'flex w-full flex-col justify-center px-5 py-4 shadow-lg md:flex-1 xl:h-40',
+              searchMethod === 'by_department'
+                ? 'bg-primary-600 *:!text-gray-50'
+                : 'bg-white',
+            )}
+            onClick={() => setSearchMethod('by_department')}
+          >
             <div className="mb-2 flex items-center gap-2.5 text-lg font-semibold text-gray-500">
               {/* icon */}
               <div className="flex items-center justify-center rounded-[6px] bg-primary-50 p-2">
@@ -114,6 +136,33 @@ const DoctorList = ({ data }: Props) => {
         </div>
 
         <div className="bg-white p-6">
+          {/* Bàn phím */}
+          {searchMethod === 'by_name' ? (
+            <div className="space-y-6 py-6">
+              <h3 className="text-center text-base font-semibold text-black">
+                Tìm kiếm bác sĩ theo tên
+              </h3>
+              <div className="flex flex-wrap justify-center gap-6">
+                {letters.map((letter: string, index: number) => {
+                  return (
+                    <div
+                      className={clsx(
+                        'flex size-10 items-center justify-center rounded-xl text-xl font-semibold',
+                        selectedLetter === letter
+                          ? 'bg-primary-600 text-primary-50'
+                          : 'text-gray-500',
+                      )}
+                      key={index}
+                      onClick={() => setSelectedLetter(letter)}
+                    >
+                      {letter}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
+
           {/* Hiển thị kết quả */}
           <div className="flex flex-col gap-3">
             <div className="text-base font-medium text-gray-700">
@@ -202,3 +251,28 @@ const DoctorList = ({ data }: Props) => {
 };
 
 export default DoctorList;
+
+const letters = [
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'G',
+  'H',
+  'I',
+  'K',
+  'L',
+  'M',
+  'N',
+  'O',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+  'V',
+  'X',
+  'Y',
+];
