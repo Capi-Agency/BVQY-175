@@ -22,7 +22,7 @@ export default function DoctorCard({
     >
       <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[8px] transition-colors duration-200 group-hover:bg-primary-600">
         <NextImg
-          src={getAssetUrlById(item?.avatar)}
+          src={getAssetUrlById(item?.avatar?.id || item?.avatar)}
           alt="Doctor image"
           objectFit="cover"
           className="z-[2]"

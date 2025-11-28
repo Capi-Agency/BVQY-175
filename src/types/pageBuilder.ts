@@ -28,6 +28,7 @@ type CommonSection = {
     collection_items_limit?: any;
     collection_items_order?: any;
     collection_filter?: any;
+    doctors?: any[];
     custom?: any;
     url?: any;
   };

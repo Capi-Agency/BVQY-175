@@ -14,22 +14,7 @@ import { getListDoctorPreview } from '@/src/services/doctors';
 
 export default function TeamSlider5Col({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
-  const [doctorData, setDoctorData] = useState<any>([]);
-  console.log("🚀 ~ TeamSlider5Col ~ doctorData:", doctorData)
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await getListDoctorPreview({
-          limit: data?.collection_items_limit,
-          page: 1,
-        });
-        setDoctorData(response);
-      } catch (error) {
-        console.log('Error fetching data:', error);
-      }
-    })();
-  }, []);
+  const doctorData = data?.doctors?.map((d) => d.doctor);
 
   return (
     <section className="bg-primary-50 py-10 md:py-6 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
