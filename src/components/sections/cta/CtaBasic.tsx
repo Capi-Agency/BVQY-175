@@ -83,7 +83,7 @@ export default function CtaBasic({ data }: CommonSection) {
         </div>
       </div>
 
-      <div className="absolute inset-0 z-[0] size-full">
+      <div className="absolute inset-0 z-[0] size-full pointer-events-none">
         <NextImg
           src={'/assets/images/cta_background.png'}
           objectFit="cover"

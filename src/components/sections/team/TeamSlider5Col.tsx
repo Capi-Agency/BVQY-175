@@ -1,6 +1,6 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -10,9 +10,26 @@ import { getAssetUrlById } from '@/src/utils/image';
 import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
 import DoctorCard from '../../common/doctor-card';
+import { getListDoctorPreview } from '@/src/services/doctors';
 
 export default function TeamSlider5Col({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
+  const [doctorData, setDoctorData] = useState<any>([]);
+  console.log("🚀 ~ TeamSlider5Col ~ doctorData:", doctorData)
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await getListDoctorPreview({
+          limit: data?.collection_items_limit,
+          page: 1,
+        });
+        setDoctorData(response);
+      } catch (error) {
+        console.log('Error fetching data:', error);
+      }
+    })();
+  }, []);
 
   return (
     <section className="bg-primary-50 py-10 md:py-6 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
@@ -51,7 +68,7 @@ export default function TeamSlider5Col({ data }: CommonSection) {
             }}
             className="w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-0"
           >
-            {data?.items?.map((item: any, index: number) => (
+            {doctorData?.map((item: any, index: number) => (
               <SwiperSlide key={index}>
                 <DoctorCard item={item} />
               </SwiperSlide>

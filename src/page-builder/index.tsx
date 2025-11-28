@@ -13,6 +13,7 @@ const sectionMap: SectionMap = {
   'hero-with-top-big-image': dynamic(() =>
     import('../components/sections/hero').then((m) => m.HeroWithTopImage),
   ),
+  'feature-with-image-4-col': dynamic(() => import('../components/sections/hero')),
   'team-slider-5-col': dynamic(() =>
     import('../components/sections/team').then((m) => m.TeamSlider5Col),
   ),

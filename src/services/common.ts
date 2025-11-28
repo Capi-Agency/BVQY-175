@@ -16,21 +16,21 @@ export const fnGetListItemByEndpoint = async (endpoint: string) => {
 };
 
 
-export const fnGetListitem = async ({
-  collection,
-  slug,
-}: {
-  collection: string;
-  slug: string;
-}) => {
-  try {
-    const res = await directusClientWithRest.request(
-      readItem(collection, slug, {
-        fields: ['*'],
-      }),
-    );
-    return res;
-  } catch (error) {
-    console.log('error in get data: ', error);
-  }
-};
+// export const fnGetListitem = async ({
+//   collection,
+//   slug,
+// }: {
+//   collection: string;
+//   slug: string;
+// }) => {
+//   try {
+//     const res = await directusClientWithRest.request(
+//       readItem(collection, slug, {
+//         fields: ['*.*.*.*'],
+//       }),
+//     );
+//     return res;
+//   } catch (error) {
+//     console.log('error in get data: ', error);
+//   }
+// };

@@ -11,11 +11,12 @@ import { NewsCard } from '../news';
 import DoctorCard from '../../common/doctor-card';
 
 export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
-  console.log(dataDetail)
+  console.log(dataDetail);
+
   return (
     <section className="bg-primary-50 py-6 md:py-8 lg:py-12 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]">
-      <div className="container grid grid-cols-12 gap-6 lg:gap-10 xl:gap-12 2xl:gap-[60px] 4xl:gap-[80px]">
-        <div className="col-span-full xl:col-span-3">
+      <div className="grid grid-cols-12 gap-6 xl:container lg:gap-10 xl:gap-12 3xl:gap-[60px] 4xl:gap-[80px]">
+        <div className="col-span-full px-6 md:px-[calc((100vw-688px)/2)] lg:px-[calc((100vw-944px)/2)] xl:px-0 xl:col-span-3">
           <div className="space-y-1">
             <div className="section-sub-title">{data?.subtitle}</div>
 
@@ -39,15 +40,24 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
           <Swiper
             touchEventsTarget="container"
             grabCursor={true}
-            slidesPerView={3}
+            slidesPerView={1.5}
             loop={false}
-            spaceBetween={40}
+            spaceBetween={16}
             speed={700}
-            className="!h-full !w-full"
+            breakpoints={{
+              768: {
+                slidesPerView: 3,
+              },
+              1600: {
+                slidesPerView: 3,
+                spaceBetween: 24,
+              },
+            }}
+            className="!h-full !w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-[calc((100vw-944px)/2)] xl:!px-0"
           >
             {dataDetail?.doctors?.map((item: any, index: number) => (
               <SwiperSlide key={index}>
-                {/* <DoctorCard item={item?.doctor} /> */}
+                <DoctorCard item={item?.doctor} type="type_position" />
               </SwiperSlide>
             ))}
           </Swiper>
