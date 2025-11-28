@@ -13,7 +13,6 @@ import DoctorCard from '../../common/doctor-card';
 
 export default function TeamSlider5Col({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
-  const doctorData = data?.doctors?.map((d) => d.doctor);
 
   return (
     <section className="bg-primary-50 py-10 md:py-6 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
@@ -54,7 +53,7 @@ export default function TeamSlider5Col({ data }: CommonSection) {
           >
             {data?.doctors?.map((item: any, index: number) => (
               <SwiperSlide key={index}>
-                <DoctorCard item={item} />
+                <DoctorCard item={item} type='blouse_logo'/>
               </SwiperSlide>
             ))}
           </Swiper>
