@@ -11,6 +11,7 @@ import { ScrollSmootherProvider } from '../providers/ScrollSmootherProvider';
 import ScrollSmoothWrapper from '../components/animation/ScrollSmoothWrapper';
 import TheHeader from '../components/common/the-header';
 import TheFooter from '../components/common/the-footer';
+import BackToTop from '../components/common/back-to-top';
 
 export default async function RootLayout({
   children,
@@ -78,6 +79,7 @@ export default async function RootLayout({
             <GsapMatchMediaProvider>
               <ScrollSmootherProvider>
                 <TheHeader data={{ default: true, slug: 'top-nav' }} />
+                <BackToTop />
                 <ScrollSmoothWrapper>
                   {children}
                   <TheFooter data={{ default: true, slug: 'bottom-nav' }} />

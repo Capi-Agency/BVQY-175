@@ -10,7 +10,6 @@ import { getAssetUrlById } from '@/src/utils/image';
 import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
 import DoctorCard from '../../common/doctor-card';
-import { getListDoctorPreview } from '@/src/services/doctors';
 
 export default function TeamSlider5Col({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
@@ -53,7 +52,7 @@ export default function TeamSlider5Col({ data }: CommonSection) {
             }}
             className="w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-0"
           >
-            {doctorData?.map((item: any, index: number) => (
+            {data?.doctors?.map((item: any, index: number) => (
               <SwiperSlide key={index}>
                 <DoctorCard item={item} />
               </SwiperSlide>

@@ -42,8 +42,8 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
         asChild
         className="block"
       >
-        <button className="flex h-9 w-[52px] items-center justify-center rounded-[6px] bg-primary-600 xl:hidden 2xl:h-10 2xl:w-[60px]">
-          <div className="relative size-5 2xl:size-6">
+        <button className="flex items-center justify-center md:h-9 md:w-[52px] md:rounded-[6px] md:bg-primary-600 xl:hidden 2xl:h-10 2xl:w-[60px]">
+          <div className="relative size-5 brightness-0 md:brightness-100 2xl:size-6">
             <NextImg src="/assets/icons/ham_menu.svg" alt="menu icon" />
           </div>
         </button>
@@ -133,7 +133,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
             </div>
           </div>
 
-          <div className="scrollbar-hidden relative flex-1 overflow-y-scroll overflow-x-hidden pb-[100px]">
+          <div className="scrollbar-hidden relative flex-1 overflow-x-hidden overflow-y-scroll pb-[100px]">
             <div className="flex items-center justify-center gap-6 pb-[6px] pt-5 md:hidden">
               {contact_information?.files?.length > 0 &&
                 contact_information?.files?.map((file: any, index: number) => (
@@ -260,14 +260,17 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                       );
                     })}
                 </AccordionRoot>
+
                 <div
-                  className={`${isOpenSubMenu ? 'left-1/2 -translate-x-1/2 opacity-100' : 'left-0 translate-x-full opacity-0'} container absolute top-0 z-[200] !m-0 h-[600px] w-[100vw] bg-white transition-all duration-500`}
+                  className={`${isOpenSubMenu ? 'left-1/2 -translate-x-1/2 opacity-100' : 'left-0 translate-x-full opacity-0'} container absolute top-0 z-[200] !m-0 w-[100vw] bg-white pb-[100px] transition-all duration-500`}
                 >
                   <AccordionRoot
                     key={isOpenSubMenu ? 'open' : 'closed'}
                     className="relative w-full space-y-6"
-                    type="single"
-                    collapsible
+                    type="multiple" // Cho phép nhiều tab mở cùng lúc
+                    defaultValue={itemSecond?.sub_items?.map(
+                      (_: any, i: number) => `item-second-${i}`,
+                    )}
                   >
                     <button
                       onClick={() => setIsOpenSubMenu(false)}

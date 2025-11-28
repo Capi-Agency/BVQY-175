@@ -21,7 +21,6 @@ export default function TheHeader({ data }: Props) {
   const pathname = usePathname();
   const router = useRouter();
 
-
   const changeLanguage = useCallback(
     (value: string) => {
       const segments = pathname.split('/');
@@ -73,7 +72,7 @@ export default function TheHeader({ data }: Props) {
 
             {/* Start: location + search + language */}
             <div className="flex flex-col items-center gap-[6px] 4xl:gap-2">
-              <div className="flex items-center gap-2 2xl:gap-3">
+              <div className="flex items-center gap-4 md:gap-2 2xl:gap-3">
                 <button className="hidden h-9 w-[52px] items-center justify-center rounded-[6px] bg-primary-600 md:flex 2xl:h-10 2xl:w-[60px]">
                   <div className="relative size-5 2xl:size-6">
                     <NextImg
@@ -83,8 +82,8 @@ export default function TheHeader({ data }: Props) {
                   </div>
                 </button>
 
-                <button className="hidden h-9 w-[52px] items-center justify-center rounded-[6px] bg-primary-600 md:flex 2xl:h-10 2xl:w-[60px]">
-                  <div className="relative size-5 2xl:size-6">
+                <button className="flex items-center justify-center md:h-9 md:w-[52px] md:rounded-[6px] md:bg-primary-600 2xl:h-10 2xl:w-[60px]">
+                  <div className="relative size-5 brightness-0 md:brightness-100 2xl:size-6">
                     <NextImg
                       src="/assets/icons/search_white.svg"
                       alt="search icon"
