@@ -6,6 +6,7 @@ import { getAssetUrlById } from '@/src/utils/image';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { formatDate } from '@/src/utils/validate';
 
 const CardSlider = ({ data }: CommonSection) => {
   const [activeItem, setActiveItem] = useState<number>(0);
@@ -14,19 +15,6 @@ const CardSlider = ({ data }: CommonSection) => {
     () => data?.items?.[activeItem],
     [activeItem, data?.items],
   );
-
-  const rangeYear = useMemo(() => {
-    const years = data?.items
-      ?.map((item: any) => new Date(item.subtitle).getFullYear())
-      .filter((y: any) => !isNaN(y));
-
-    if (!years || years.length === 0) return { minYear: 0, maxYear: 0 };
-
-    return {
-      minYear: Math.min(...years),
-      maxYear: Math.max(...years),
-    };
-  }, [data]);
 
   return (
     <div className="bg-primary-50 py-10 md:py-6 lg:py-10 2xl:py-20 3xl:py-[100px] 4xl:py-[120px]">
@@ -42,28 +30,33 @@ const CardSlider = ({ data }: CommonSection) => {
             grabCursor={true}
             slidesPerView={'auto'}
             loop={false}
-            spaceBetween={86}
+            spaceBetween={80}
             speed={700}
-            className="!px-6 !w-full md:!px-[calc((100vw-688px)/2)] lg:!px-6 xl:!px-7 3xl:!px-8 4xl:!px-10"
+            breakpoints={{
+              768: {
+                spaceBetween: 80,
+              },
+              1280: {
+                spaceBetween: 70,
+              },
+              1440: {
+                spaceBetween: 80,
+              },
+              1600: {
+                spaceBetween: 94,
+              },
+              1920: {
+                spaceBetween: 104,
+              },
+            }}
+            className="!w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-6 xl:!px-7 3xl:!px-8 4xl:!px-10"
           >
             {data?.items?.map((item: any, index: number) => {
-              const year = new Date(item?.subtitle).getFullYear();
-              if (isNaN(year)) return null;
-
               const isActive = index === activeItem;
-              // Nếu năm hiện tại cách năm lớn nhất 15 năm thì lấy width 7%
-              const width =
-                rangeYear.maxYear - year <= 15
-                  ? 7
-                  : (rangeYear.maxYear - year) * 0.4;
+              const year = new Date(item?.subtitle).getFullYear();
+
               return (
-                <SwiperSlide
-                  key={'dot_' + index}
-                  style={{
-                    width: `${width}%`,
-                  }}
-                  className='pr-[15%] md:pr-0'
-                >
+                <SwiperSlide key={'dot_' + index} className="!w-fit">
                   <div
                     onClick={(e) => {
                       e.stopPropagation();
