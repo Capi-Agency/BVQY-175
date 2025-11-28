@@ -276,7 +276,8 @@ const DepartmentGroupSection = ({
                   'rounded-md bg-primary-600 px-2 py-1 text-white hover:text-primary-50',
               )}
             >
-              {group.title} ({group?.departments?.length})
+              {group.title}{' '}
+              {group.slug !== '' ? `(${group?.departments?.length})` : ''}
             </div>
           ))}
         </div>
