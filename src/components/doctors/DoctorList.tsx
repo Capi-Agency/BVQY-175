@@ -7,15 +7,21 @@ import React, { useState } from 'react';
 
 type Props = {
   data: any;
+  departmentGroups: any;
 };
 
-const DoctorList = ({ data }: Props) => {
+const DoctorList = ({ data, departmentGroups }: Props) => {
   const [searchText, setSearchText] = useState('');
-  const [debouncedText, setDebouncedText] = useState('');
   const [selectedLetter, setSelectedLetter] = useState('');
   const [searchMethod, setSearchMethod] = useState<
     'by_name' | 'by_department' | null
   >(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const parentGroups = departmentGroups?.filter(
+    (d: any) => d.parent_group === null,
+  );
+  const [activeParentGroup, setActiveParentGroup] = useState(null);
+  const [selectedDepartment, setSelectDepartment] = useState(null);
 
   return (
     <div className="bg-primary-50">
@@ -163,6 +169,70 @@ const DoctorList = ({ data }: Props) => {
             </div>
           ) : null}
 
+          {/* Dropdown chuyen khoa */}
+          {searchMethod === 'by_department' ? (
+            <div className="space-y-6 py-6">
+              <h3 className="text-center text-base font-semibold text-black">
+                Tìm kiếm bác sĩ theo chuyên khoa
+              </h3>
+
+              <div className="mx-auto w-full bg-transparent md:max-w-[600px] md:px-0 md:py-0 lg:max-w-[800px] 3xl:block">
+                <form
+                  className="relative flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
+                  onSubmit={(e: any) => {
+                    e.preventDefault();
+                  }}
+                >
+                  <div
+                    className="flex flex-1 items-center gap-6 text-[#0F2F64]"
+                    onClick={() => setIsDropdownOpen((prev) => !prev)}
+                  >
+                    Chọn chuyên khoa
+                    <img
+                      src="/assets/icons/chevron_down_gray.svg"
+                      alt="chevron down"
+                      className={clsx(
+                        'size-4 transition-all',
+                        isDropdownOpen ? 'rotate-180' : 'rotate-0',
+                      )}
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="flex size-10 items-center justify-center rounded-[4px] bg-primary-600 p-3 text-white md:size-auto md:gap-4 3xl:px-8 3xl:py-4"
+                  >
+                    <span className="hidden md:block">Tìm kiếm</span>
+                    <img
+                      src="/assets/icons/arrow_right_white.svg"
+                      alt="arrow right"
+                    />
+                  </button>
+                  <div
+                    className={clsx(
+                      'absolute left-1/2 top-[calc(100%+16px)] z-[20] w-full -translate-x-1/2 rounded-[6px] bg-white p-6 shadow-xl transition-all',
+                      isDropdownOpen
+                        ? 'max-h-[4000px] opacity-100'
+                        : 'max-h-0 opacity-0',
+                    )}
+                  >
+                    <div className="h-full">
+                      {parentGroups.map((pGroup: any) => {
+                        return (
+                          <DepartmentDropdownItem
+                            pGroup={pGroup}
+                            isOpen={activeParentGroup === pGroup.slug}
+                            key={pGroup.slug}
+                            onClick={() => setActiveParentGroup(pGroup.slug)}
+                          />
+                        );
+                      })}
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          ) : null}
+
           {/* Hiển thị kết quả */}
           <div className="flex flex-col gap-3">
             <div className="text-base font-medium text-gray-700">
@@ -251,6 +321,67 @@ const DoctorList = ({ data }: Props) => {
 };
 
 export default DoctorList;
+
+const DepartmentDropdownItem = ({
+  pGroup,
+  isOpen,
+  onClick,
+}: {
+  pGroup: any;
+  isOpen: boolean;
+  onClick: () => void;
+}) => {
+  return (
+    <div onClick={onClick}>
+      <div
+        className={clsx(
+          'rounded-[4px] p-2 font-bold uppercase',
+          isOpen ? 'bg-primary-600 text-primary-50' : 'bg-white text-black',
+        )}
+        key={pGroup.slug}
+      >
+        {pGroup.title}
+      </div>
+      {isOpen && (
+        <div
+          className={clsx(
+            'p-3',
+            isOpen ? 'max-h-[4000px] opacity-100' : 'max-h-0 opacity-0',
+          )}
+        >
+          {pGroup?.departments &&
+            pGroup?.departments?.map((dep: any) => (
+              <div
+                key={dep.slug}
+                className="py-2.5 text-sm font-semibold text-primary-1000"
+              >
+                {dep.title}
+              </div>
+            ))}
+
+          <div className="space-y-4">
+            {pGroup?.children_groups &&
+              pGroup?.children_groups?.map((childGroup: any) => (
+                <div key={childGroup.slug}>
+                  <h4 className="font-bold uppercase text-gray-400">
+                    {childGroup.title}
+                  </h4>
+                  {childGroup?.departments?.map((dep: any) => (
+                    <div
+                      key={'child_dep_' + dep.slug}
+                      className="py-2.5 text-sm font-semibold text-primary-1000"
+                    >
+                      {dep.title}
+                    </div>
+                  ))}
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const letters = [
   'A',

@@ -34,11 +34,12 @@ const DoctorListPage = async () => {
     (s: any) => s.type === 'breadcrumb-basic',
   );
   const bannerData = sections.find((s: any) => s.type === 'hero-text-overlay');
+  const departmentGroups = await getAllDepartmentGroups();
 
   return (
     <div className="padding-top-body">
       <BreadcrumbBasic type="breadcrumb-basic" data={breadcrumbData} />
-      <DoctorList data={bannerData} />
+      <DoctorList data={bannerData} departmentGroups={departmentGroups} />
     </div>
   );
 };

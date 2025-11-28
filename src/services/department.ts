@@ -11,7 +11,7 @@ export const getAllDepartmentGroups = async () => {
           'departments.title_en',
           'departments.slug',
           'departments.code',
-          'children_groups.*',
+          'children_groups.*.*',
         ],
         sort: ['sort', 'title'],
       }),
@@ -40,7 +40,6 @@ export const getChildDepartments = async (groupSlug: string) => {
   }
 };
 
-
 export const fnGetDeparmentDetail = async ({
   collection,
   slug,
@@ -56,7 +55,8 @@ export const fnGetDeparmentDetail = async ({
           'achievements_images.*',
           'facilities_images.*',
           'technologies_images.*',
-          'doctors.*.*'],
+          'doctors.*.*',
+        ],
       }),
     );
     return res;
@@ -64,5 +64,3 @@ export const fnGetDeparmentDetail = async ({
     console.log('error in get data: ', error);
   }
 };
-
-
