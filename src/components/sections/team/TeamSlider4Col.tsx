@@ -11,7 +11,6 @@ import { NewsCard } from '../news';
 import DoctorCard from '../../common/doctor-card';
 
 export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
-  console.log(dataDetail);
 
   return (
     <section className="bg-primary-50 py-6 md:py-8 lg:py-12 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]">

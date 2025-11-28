@@ -100,3 +100,7 @@
 .swiper-card-slider-with-blurb .swiper-slide {
     height: unset !important;
 }
+
+.swiper-hero-background-focus .swiper-wrapper {
+  transition-timing-function: ease-in-out !important;
+}
