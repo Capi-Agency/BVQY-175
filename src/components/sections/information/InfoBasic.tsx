@@ -24,7 +24,7 @@ export default function InfoBasic({ data }: CommonSection) {
             }}
           ></div>
 
-          <Link
+          {/* <Link
             href={`/${language}${data?.buttons?.[0]?.url}`}
             className="btn-danger"
           >
@@ -35,7 +35,7 @@ export default function InfoBasic({ data }: CommonSection) {
                 alt="icon"
               />
             </div>
-          </Link>
+          </Link> */}
         </div>
 
         <div className="grid grid-cols-2 gap-4 xl:gap-5 3xl:gap-6">
