@@ -14,12 +14,10 @@ export default function InfoWithRightImage({
   data,
   dataDetail,
 }: CommonSection) {
+  const hasContent =
+    dataDetail?.facilities || (dataDetail?.facilities_images?.length ?? 0) > 0;
 
-    const hasContent =
-    dataDetail?.facilities || dataDetail?.facilities_images;
-
-  if (hasContent === null || hasContent.length === 0) return null;
-
+  if (!hasContent) return null;
 
   return (
     <div className="bg-primary-50 py-6 md:py-8 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">

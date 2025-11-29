@@ -11,12 +11,12 @@ import { NewsCard } from '../news';
 import DoctorCard from '../../common/doctor-card';
 
 export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
-  console.log(dataDetail)
-  const hasContent =
-    dataDetail.leadership_board_description || dataDetail.doctors;
+  const description = dataDetail.leadership_board_description;
+  const doctors = dataDetail.doctors;
 
-    console.log('hasContent: '+hasContent)
-  if (hasContent === null || hasContent.length === 0) return null;
+  const hasContent = !!description || (doctors?.length ?? 0) > 0;
+
+  if (!hasContent) return null;
 
   return (
     <section className="bg-primary-50 py-6 md:py-8 lg:py-12 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]">

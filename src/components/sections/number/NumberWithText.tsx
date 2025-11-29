@@ -4,9 +4,8 @@ import React from 'react';
 import Counter from '../../animation/Counter';
 
 export default function NumberWithText({ data, dataDetail }: CommonSection) {
-  const hasContent = dataDetail?.research_project;
-
-  if (hasContent === null || hasContent.length === 0) return null;
+  const hasContent = dataDetail?.research_project?.length;
+  if (!hasContent) return null;
 
   return (
     <section className="bg-primary-600 py-10 md:py-8 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">

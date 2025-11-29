@@ -11,16 +11,17 @@ import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
 
 export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
+  const hasContent =
+    !!dataDetail?.technologies ||
+    (Array.isArray(dataDetail?.technologies_images) &&
+      dataDetail.technologies_images.length > 0);
 
-      const hasContent =
-    dataDetail?.technologies || dataDetail?.technologies_images;
-
-  if (hasContent === null || hasContent.length === 0) return null;
+  if (!hasContent) return null;
 
   return (
     <div className="bg-primary-50 py-6 md:py-8 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
       <div className="container grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2 lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-[52px] 4xl:gap-[60px]">
-        <div className='lg:order-2'>
+        <div className="lg:order-2">
           <div className="space-y-1">
             <div className="section-sub-title">{data?.subtitle}</div>
 

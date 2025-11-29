@@ -17,9 +17,9 @@ export default function NumberSplit({ data, dataDetail }: CommonSection) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
 
   const hasContent =
-    dataDetail?.achievements_images || dataDetail?.achievements;
+    !!dataDetail?.achievements || dataDetail?.achievements_images?.length;
 
-  if (hasContent === null || hasContent.length === 0) return null;
+  if (!hasContent) return null;
 
   return (
     <div className="bg-primary-50 p-[32px_0_24px] lg:p-[48px_0_32px] xl:p-[60px_0_32px] 2xl:p-[80px_0_48px] 3xl:p-[100px_0_56px] 4xl:p-[120px_0_60px]">
