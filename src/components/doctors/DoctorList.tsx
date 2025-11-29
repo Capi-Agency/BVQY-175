@@ -5,8 +5,14 @@ import { getDoctorsCount, getListDoctors } from '@/src/services/doctors';
 import { getAssetUrlById } from '@/src/utils/image';
 import clsx from 'clsx';
 import Link from 'next/link';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { debounce, divide } from 'lodash';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { debounce } from 'lodash';
 
 type Props = {
   data: any;
@@ -17,7 +23,6 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
   // Quản lý filter
   const [searchText, setSearchText] = useState('');
   const [debouncedText, setDebouncedText] = useState('');
-  console.log('🚀 ~ DoctorList ~ debouncedText:', debouncedText);
   const [selectedLetter, setSelectedLetter] = useState('');
   const [searchMethod, setSearchMethod] = useState<
     'by_name' | 'by_department' | null
@@ -31,6 +36,25 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
     return departmentGroups.find((d: any) => d.slug === activeParentGroup);
   }, [activeParentGroup, departmentGroups]);
   const [selectedDepartment, setSelectedDepartment] = useState<any>(null);
+  const panelRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        panelRef.current &&
+        !panelRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false); // đóng panel
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   // Quản lý fetching
   const [doctors, setDoctors] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
@@ -294,6 +318,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
 
               <div className="mx-auto w-full bg-transparent md:max-w-[600px] md:px-0 md:py-0 lg:max-w-[800px] 3xl:block">
                 <form
+                  ref={panelRef}
                   className="relative flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -301,7 +326,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                   }}
                 >
                   <div
-                    className="flex flex-1 items-center gap-6 text-[#0F2F64]"
+                    className="flex flex-1 cursor-pointer items-center gap-6 text-[#0F2F64]"
                     onClick={() => setIsDropdownOpen((prev) => !prev)}
                   >
                     {selectedDepartment
@@ -331,7 +356,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                       'absolute left-1/2 top-[calc(100%+16px)] z-[20] w-full -translate-x-1/2 rounded-[6px] bg-white p-6 shadow-xl transition-all',
                       isDropdownOpen
                         ? 'max-h-[4000px] opacity-100'
-                        : 'max-h-0 opacity-0',
+                        : 'hidden max-h-0 opacity-0',
                     )}
                   >
                     <div className="h-full md:hidden">
@@ -584,7 +609,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
   }, []);
   return (
     <div className="flex flex-col gap-5 rounded-2xl bg-white p-5 shadow-lg md:flex-row md:p-4 lg:p-6 xl:gap-10 xl:p-4 2xl:p-5">
-      <div className="relative h-[240px] w-full overflow-hidden rounded-[10px] md:h-auto md:w-[192px] lg:h-[280px] lg:w-[224px] xl:h-[240px] xl:w-[192px] 2xl:h-[280px] 2xl:w-[224px]">
+      <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[10px] md:w-[192px] lg:w-[224px] xl:w-[192px] 2xl:w-[224px]">
         <NextImg
           src={getAssetUrlById(doctor?.avatar)}
           alt="cover"
