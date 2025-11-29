@@ -367,6 +367,8 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                             isOpen={activeParentGroup === pGroup.slug}
                             key={pGroup.slug}
                             onClick={() => setActiveParentGroup(pGroup.slug)}
+                            setSelectedDepartment={setSelectedDepartment}
+                            setIsDropdownOpen={setIsDropdownOpen}
                           />
                         );
                       })}
@@ -511,10 +513,14 @@ const DepartmentDropdownItem = ({
   pGroup,
   isOpen,
   onClick,
+  setSelectedDepartment,
+  setIsDropdownOpen,
 }: {
   pGroup: any;
   isOpen: boolean;
   onClick: () => void;
+  setSelectedDepartment: (d: any) => void;
+  setIsDropdownOpen: (v: boolean) => void;
 }) => {
   return (
     <div onClick={onClick}>
@@ -539,6 +545,10 @@ const DepartmentDropdownItem = ({
               <div
                 key={dep.slug}
                 className="py-2.5 text-sm font-semibold text-primary-1000"
+                onClick={() => {
+                  setSelectedDepartment(dep);
+                  setIsDropdownOpen(false);
+                }}
               >
                 {dep.title}
               </div>
@@ -555,6 +565,10 @@ const DepartmentDropdownItem = ({
                     <div
                       key={'child_dep_' + dep.slug}
                       className="py-2.5 text-sm font-semibold text-primary-1000"
+                      onClick={() => {
+                        setSelectedDepartment(dep);
+                        setIsDropdownOpen(false);
+                      }}
                     >
                       {dep.title}
                     </div>
