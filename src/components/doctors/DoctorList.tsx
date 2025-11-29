@@ -1,10 +1,11 @@
 'use client';
 import NextImg from '@/src/components/common/next-img';
 import ThePagination from '@/src/components/common/the-pagination';
+import { getDoctorsCount, getListDoctors } from '@/src/services/doctors';
 import { getAssetUrlById } from '@/src/utils/image';
 import clsx from 'clsx';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 type Props = {
   data: any;
@@ -12,6 +13,7 @@ type Props = {
 };
 
 const DoctorList = ({ data, departmentGroups }: Props) => {
+  // Quản lý filter
   const [searchText, setSearchText] = useState('');
   const [selectedLetter, setSelectedLetter] = useState('');
   const [searchMethod, setSearchMethod] = useState<
@@ -22,7 +24,80 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
     (d: any) => d.parent_group === null,
   );
   const [activeParentGroup, setActiveParentGroup] = useState(null);
+  const currentParentGroup = useMemo(() => {
+    return departmentGroups.find((d: any) => d.slug === activeParentGroup);
+  }, [activeParentGroup, departmentGroups]);
   const [selectedDepartment, setSelectDepartment] = useState(null);
+
+  // Quản lý fetching
+  const [doctors, setDoctors] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+
+  // Hàm gọi API dựa trên search/filter
+  const fetchDoctors = async (page = 1) => {
+    setLoading(true);
+    try {
+      const res = await getListDoctors({
+        limit: 6,
+        page,
+        keyword:
+          searchMethod === 'by_name' && searchText ? searchText : undefined,
+        letter:
+          searchMethod === 'by_name' && selectedLetter
+            ? selectedLetter
+            : undefined,
+        departmentId:
+          searchMethod === 'by_department' && selectedDepartment
+            ? selectedDepartment
+            : undefined,
+      });
+
+      setDoctors(res || []);
+    } catch (err) {
+      console.error(err);
+      setDoctors([]);
+      setTotalPage(1);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchDoctorCount = async () => {
+    try {
+      const res = await getDoctorsCount({
+        keyword:
+          searchMethod === 'by_name' && searchText ? searchText : undefined,
+        letter:
+          searchMethod === 'by_name' && selectedLetter
+            ? selectedLetter
+            : undefined,
+        departmentId:
+          searchMethod === 'by_department' && selectedDepartment
+            ? selectedDepartment
+            : undefined,
+      });
+
+      const _totalPage = Math.ceil(res / 6);
+      setTotalPage(_totalPage);
+    } catch (err) {
+      console.error(err);
+      setDoctors([]);
+      setTotalPage(1);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Gọi lại khi search/filter thay đổi
+  useEffect(() => {
+    fetchDoctors(1);
+  }, [searchText, selectedLetter, selectedDepartment, searchMethod]);
+
+  useEffect(() => {
+    fetchDoctorCount();
+  }, []);
 
   return (
     <div className="bg-primary-50">
@@ -50,8 +125,9 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
         <div className="mx-auto w-full max-w-[320px] -translate-y-1/2 bg-transparent md:bottom-0 md:max-w-[600px] md:px-0 md:py-0 lg:max-w-[800px] xl:max-w-[1000px]">
           <form
             className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
-            onSubmit={(e: any) => {
+            onSubmit={(e) => {
               e.preventDefault();
+              fetchDoctors(1);
             }}
           >
             <div className="flex flex-1 flex-col text-start">
@@ -191,8 +267,9 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
               <div className="mx-auto w-full bg-transparent md:max-w-[600px] md:px-0 md:py-0 lg:max-w-[800px] 3xl:block">
                 <form
                   className="relative flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
-                  onSubmit={(e: any) => {
+                  onSubmit={(e) => {
                     e.preventDefault();
+                    fetchDoctors(1);
                   }}
                 >
                   <div
@@ -227,7 +304,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                         : 'max-h-0 opacity-0',
                     )}
                   >
-                    <div className="h-full">
+                    <div className="h-full md:hidden">
                       {parentGroups.map((pGroup: any) => {
                         return (
                           <DepartmentDropdownItem
@@ -238,6 +315,64 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                           />
                         );
                       })}
+                    </div>
+
+                    <div className="hidden md:flex md:gap-8">
+                      {/* Parent Group - left */}
+                      <div className="space-y-2">
+                        {parentGroups.map((pGroup: any) => {
+                          const isOpen = activeParentGroup === pGroup.slug;
+                          return (
+                            <div
+                              onClick={() => setActiveParentGroup(pGroup.slug)}
+                              className={clsx(
+                                'cursor-pointer rounded-[4px] p-2 font-bold uppercase',
+                                isOpen
+                                  ? 'bg-primary-600 text-primary-50'
+                                  : 'bg-white text-black',
+                              )}
+                              key={pGroup.slug}
+                            >
+                              {pGroup.title}
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Child Department - right */}
+                      <div className="flex flex-1 flex-wrap gap-x-4">
+                        {currentParentGroup?.departments &&
+                          currentParentGroup?.departments?.map((dep: any) => (
+                            <div
+                              key={dep.slug}
+                              className="w-[calc(50%-16px)] py-2.5 text-sm font-semibold text-primary-1000"
+                            >
+                              {dep.title}
+                            </div>
+                          ))}
+
+                        {currentParentGroup?.children_groups &&
+                          currentParentGroup?.children_groups?.map(
+                            (childGroup: any) => (
+                              <div
+                                key={childGroup.slug}
+                                className='text-primary-1000" w-[calc(50%-16px)] py-2.5 text-sm font-semibold'
+                              >
+                                <h4 className="font-bold uppercase text-gray-400">
+                                  {childGroup.title}
+                                </h4>
+                                {childGroup?.departments?.map((dep: any) => (
+                                  <div
+                                    key={'child_dep_' + dep.slug}
+                                    className="py-2.5 text-sm font-semibold text-primary-1000"
+                                  >
+                                    {dep.title}
+                                  </div>
+                                ))}
+                              </div>
+                            ),
+                          )}
+                      </div>
                     </div>
                   </div>
                 </form>
@@ -263,11 +398,9 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
 
           {/* Danh sách */}
           <div className="grid grid-cols-1 gap-6 lg:gap-10 xl:grid-cols-2">
-            {Array(6)
-              .fill(null)
-              .map((_, index: number) => (
-                <DoctorCard key={index} />
-              ))}
+            {doctors?.map((doctor: any, index: number) => (
+              <DoctorCard key={index} doctor={doctor} />
+            ))}
           </div>
 
           <ThePagination currentPage={1} totalPage={5} setPage={() => {}} />
@@ -365,12 +498,25 @@ const letters = [
   'Y',
 ];
 
-const DoctorCard = () => {
+const titleMap: Record<string, string> = {
+  director: 'Giám đốc',
+  deputy_director: 'Phó giám đốc',
+  doctor: 'Bác sĩ điều trị',
+};
+
+const DoctorCard = ({ doctor }: { doctor: any }) => {
+  const [render, setRender] = useState(false);
+  const department = doctor?.departments[0]?.department;
+  const hospitalTitle = titleMap[doctor?.hospital_title] || null;
+
+  useEffect(() => {
+    setRender(true);
+  }, []);
   return (
     <div className="flex flex-col gap-5 rounded-2xl bg-white p-5 shadow-lg md:flex-row md:p-4 lg:p-6 xl:gap-10 xl:p-4 2xl:p-5">
       <div className="relative h-[240px] w-full overflow-hidden rounded-[10px] md:h-auto md:w-[192px] lg:h-[280px] lg:w-[224px] xl:h-[240px] xl:w-[192px] 2xl:h-[280px] 2xl:w-[224px]">
         <NextImg
-          src="/assets/images/tran_quoc_viet_cover.png"
+          src={getAssetUrlById(doctor?.avatar)}
           alt="cover"
           objectFit="cover"
           className="object-top"
@@ -380,13 +526,13 @@ const DoctorCard = () => {
       <div className="flex flex-1 flex-col justify-center md:px-5 lg:justify-between xl:justify-center xl:px-0 2xl:justify-between">
         <div>
           <div className="text-sm font-normal text-gray-500 lg:text-base xl:text-sm 2xl:text-base">
-            Đại tá, PGS. TS, TTƯT
+            {doctor?.full_title}
           </div>
           <div className="text-xl font-bold text-primary-1000 lg:text-2xl xl:text-xl 2xl:text-2xl">
-            Nguyễn Văn Minh
+            {doctor?.full_name}
           </div>
           <div className="mb-6 text-base font-medium text-primary-500">
-            Giám đốc Bệnh viện
+            {hospitalTitle}
           </div>
 
           <div className="space-y-2">
@@ -397,20 +543,22 @@ const DoctorCard = () => {
                 className="size-5"
               />
               <p className="gray-700 text-base font-normal lg:text-lg xl:text-base 2xl:text-lg">
-                Hồi sức - Cấp cứu
+                {doctor?.specialty}
               </p>
             </div>
 
-            <div className="flex items-center gap-1.5">
-              <img
-                src="/assets/icons/hospital_location_black.svg"
-                alt="first aid"
-                className="size-5"
-              />
-              <p className="gray-700 text-base font-normal lg:text-lg xl:text-base 2xl:text-lg">
-                Khoa hồi sức tích cực ngoại (A12.2)
-              </p>
-            </div>
+            {render && department && (
+              <div className="flex items-center gap-1.5">
+                <img
+                  src="/assets/icons/hospital_location_black.svg"
+                  alt="first aid"
+                  className="size-5"
+                />
+                <p className="gray-700 text-base font-normal lg:text-lg xl:text-base 2xl:text-lg">
+                  {department?.title} ({department?.code})
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
