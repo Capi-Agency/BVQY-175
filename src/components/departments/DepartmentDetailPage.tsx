@@ -25,7 +25,8 @@ const DepartmentDetailPage = ({
   parentGroups,
   bannerData,
 }: Props) => {
-  const containerRef = useRef(null);
+  const containerRef = useRef<any>(null);
+  const sidebarRef = useRef<any>(null);
   const { conditions } = useGsapMatchMedia();
   const [searchText, setSearchText] = useState('');
   const [debouncedText, setDebouncedText] = useState('');
@@ -46,15 +47,23 @@ const DepartmentDetailPage = ({
 
   const { contextSafe } = useGSAP(
     () => {
-      if (!containerRef?.current) return;
-      ScrollTrigger.create({
-        trigger: selector('.button-group'),
-        start: () => getPositionFixed(conditions),
-        endTrigger: containerRef.current,
-        end: 'bottom bottom',
-        pin: true,
-        pinSpacing: false,
-        pinnedContainer: containerRef?.current
+      if (!containerRef.current || !sidebarRef.current) return;
+      const mm = gsap.matchMedia();
+
+      mm.add('(min-width: 1600px)', () => {
+        ScrollTrigger.create({
+          trigger: sidebarRef.current,
+          start: () => getPositionFixed(conditions),
+          endTrigger: containerRef.current,
+          // end: "bottom bottom",
+          // end: () => `bottom bottom+=${containerRef.current?.offsetHeight || 0}`,
+          end: () =>
+            `+=${containerRef?.current?.offsetHeight - sidebarRef?.current?.offsetHeight}`,
+          pin: true,
+          pinSpacing: false,
+          pinnedContainer: containerRef?.current,
+          markers: true, // có thể bật true để debug
+        });
       });
     },
     {
@@ -129,101 +138,106 @@ const DepartmentDetailPage = ({
         ))}
       </div>
 
-      <div
-        ref={containerRef}
-        className="container flex flex-col gap-6 lg:gap-12 2xl:gap-14 3xl:flex-row 3xl:gap-[72px] 4xl:gap-20"
-      >
-        <div className="button-group hidden py-6 xl:py-10 2xl:py-12 3xl:block 4xl:py-[120px]">
-          <div className="h-fit w-[360px] rounded-[16px] border border-[#E9EBED] bg-white px-4 py-6">
-            {/* input */}
-            <form
-              className="relative hidden rounded-[6px] bg-gray-100 p-5 pl-11 shadow-lg md:block"
-              onSubmit={(e: any) => {
-                e.preventDefault();
-              }}
-            >
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
-                className="w-full bg-transparent text-lg text-gray-950 placeholder:text-gray-500 focus:border-none focus:outline-none lg:text-xl"
-                placeholder="Tìm kiếm theo tên, mã "
-              />
-              <img
-                src="/assets/icons/search_gray.svg"
-                alt="search_gray"
-                className="absolute left-4 top-1/2 -translate-y-1/2"
-              />
-            </form>
+      <div className="p-[12px_0_24px] xl:p-[20px_0_40px] 2xl:p-[24px_0_48px] 4xl:p-[60_0_120px]">
+        <div
+          ref={containerRef}
+          className="flex flex-col items-stretch md:gap-6 md:container lg:gap-12 2xl:gap-14 3xl:flex-row 3xl:items-start 3xl:gap-[72px] 4xl:gap-20"
+        >
+          <div
+            ref={sidebarRef}
+            className="block h-fit md:pt-3 xl:pt-5 3xl:pt-6 4xl:pt-[60px]"
+          >
+            <div className="h-fit rounded-[16px] border border-[#E9EBED] bg-white p-4 lg:p-5 2xl:p-6 3xl:w-[360px] 3xl:p-[24px_20px]">
+              {/* input */}
+              <form
+                className="relative hidden rounded-[6px] bg-gray-100 p-3 !pl-11 shadow-lg md:block 2xl:p-4"
+                onSubmit={(e: any) => {
+                  e.preventDefault();
+                }}
+              >
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  className="w-full bg-transparent bg-none text-base text-gray-950 placeholder:text-gray-500 focus:border-none focus:outline-none xl:text-lg"
+                  placeholder="Tìm kiếm theo tên, mã "
+                />
+                <img
+                  src="/assets/icons/search_gray.svg"
+                  alt="search_gray"
+                  className="absolute left-4 top-1/2 size-5 -translate-y-1/2"
+                />
+              </form>
 
-            {/* Button cac khoi */}
-            <div className="grid grid-cols-5 gap-2.5 md:mt-4 md:flex md:flex-wrap md:gap-4 3xl:h-fit 3xl:flex-col">
-              {parentGroups?.slice(0,3)?.map((group: any, index: number) => {
-                return (
-                  <Link
-                    href={'#' + group.slug}
-                    key={'group_' + index}
-                    className={clsx(
-                      'group relative flex cursor-pointer items-center justify-center gap-2.5 overflow-hidden py-4 shadow-lg transition-all hover:bg-primary-600 md:justify-start md:px-5 xl:w-fit xl:flex-1 3xl:w-full',
-                    )}
-                  >
-                    <img
-                      src={getAssetUrlById(group.icon)}
-                      alt="icon"
-                      className="size-10 group-hover:brightness-0 group-hover:invert"
-                    />
-                    <p className="hidden text-nowrap text-lg font-semibold text-gray-500 group-hover:text-white md:block">
-                      {group.title}
-                    </p>
-                    <BgHiddenShape className="pointer-events-none absolute left-1/2 w-[90%] -translate-x-[60%]" />
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* CTA goi ngay */}
-            <div className="relative mt-4 hidden rounded-[6px] bg-primary-950 px-6 py-8 3xl:block">
-              <div className="relative z-10">
-                <div
-                  className="mb-5 text-[28px] font-bold text-primary-50"
-                  dangerouslySetInnerHTML={{
-                    __html: ctaButtonData?.title,
-                  }}
-                ></div>
-                <Link
-                  href={ctaButtonData?.url}
-                  className="flex w-fit items-center gap-2.5 rounded-[6px] bg-[#E50000] p-[10px_12px_10px_16px] text-lg font-medium leading-none text-white"
-                >
-                  {ctaButtonData?.blurb}
-                  <img
-                    src="/assets/icons/phone_white.svg"
-                    alt="phone"
-                    className="size-5"
-                  />
-                </Link>
+              {/* Button cac khoi */}
+              <div className="flex gap-2 md:mt-4 md:gap-4 3xl:h-fit 3xl:flex-col">
+                {parentGroups?.slice(0, 3)?.map((group: any, index: number) => {
+                  return (
+                    <Link
+                      href={'#' + group.slug}
+                      key={'group_' + index}
+                      className={clsx(
+                        'group relative flex flex-1 cursor-pointer items-center justify-center gap-2.5 overflow-hidden px-[18px] py-4 shadow-lg transition-all hover:bg-primary-600 md:px-5 lg:gap-3 xl:w-fit xl:flex-1 3xl:w-full 3xl:justify-start',
+                      )}
+                    >
+                      <img
+                        src={getAssetUrlById(group.icon)}
+                        alt="icon"
+                        className="size-5 group-hover:brightness-0 group-hover:invert md:size-8 lg:size-9 xl:size-10"
+                      />
+                      <div className="text-nowrap text-sm font-semibold text-gray-500 group-hover:text-white md:text-base lg:text-lg">
+                        {group.title}
+                      </div>
+                      <BgHiddenShape className="pointer-events-none absolute left-1/2 w-[90%] -translate-x-[60%]" />
+                    </Link>
+                  );
+                })}
               </div>
-              <img
-                src="/assets/images/net-overlay.png"
-                alt="net overlay"
-                className="absolute inset-0 z-0 opacity-30"
-              />
+
+              {/* CTA goi ngay */}
+              <div className="relative mt-4 hidden rounded-[6px] bg-primary-950 px-6 py-8 3xl:block">
+                <div className="relative z-10">
+                  <div
+                    className="mb-5 text-[28px] font-bold text-primary-50"
+                    dangerouslySetInnerHTML={{
+                      __html: ctaButtonData?.title,
+                    }}
+                  ></div>
+                  <Link
+                    href={ctaButtonData?.url}
+                    className="flex w-fit items-center gap-2.5 rounded-[6px] bg-[#E50000] p-[10px_12px_10px_16px] text-lg font-medium leading-none text-white"
+                  >
+                    {ctaButtonData?.blurb}
+                    <img
+                      src="/assets/icons/phone_white.svg"
+                      alt="phone"
+                      className="size-5"
+                    />
+                  </Link>
+                </div>
+                <img
+                  src="/assets/images/net-overlay.png"
+                  alt="net overlay"
+                  className="absolute inset-0 z-0 opacity-30"
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Các khối */}
-        <div className="flex flex-1 flex-col py-6 xl:py-10 2xl:py-12 4xl:py-[120px]">
-          {parentGroups?.map((pGroup: any, index: number) => {
-            return (
-              <DepartmentGroupSection
-                pGroup={pGroup}
-                key={index}
-                isMatch={isMatch}
-              />
-            );
-          })}
+          {/* Các khối */}
+          <div className="flex flex-1 flex-col px-6 md:pt-3 md:px-0 xl:pt-5 2xl:pt-6 4xl:pt-[60px]">
+            {parentGroups?.map((pGroup: any, index: number) => {
+              return (
+                <DepartmentGroupSection
+                  pGroup={pGroup}
+                  key={index}
+                  isMatch={isMatch}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -235,6 +249,12 @@ const DepartmentDetailPage = ({
 };
 
 export default DepartmentDetailPage;
+
+// const SideBarLeft = () => {
+//   return (
+
+//   )
+// }
 
 const DepartmentGroupSection = ({
   pGroup,

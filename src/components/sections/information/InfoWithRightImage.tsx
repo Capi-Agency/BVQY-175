@@ -3,7 +3,7 @@ import { CommonSection } from '@/src/types/pageBuilder';
 import React, { useEffect } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Pagination } from 'swiper/modules';
+import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
@@ -62,7 +62,12 @@ export default function InfoWithRightImage({
                   loop={true}
                   spaceBetween={0}
                   speed={700}
-                  modules={[Pagination]}
+                  modules={[Pagination, EffectFade, Autoplay]}
+                  effect="fade"
+                  autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: false,
+                  }}
                   pagination={{
                     clickable: true,
                     type: 'bullets',
