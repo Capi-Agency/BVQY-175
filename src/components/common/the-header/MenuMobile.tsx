@@ -177,20 +177,39 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                           key={index}
                           className="group w-full"
                         >
-                          <AccordionTrigger className="flex w-fit items-center gap-[2px]">
-                            <div className="text-sm font-bold uppercase text-black">
-                              {language === 'en'
-                                ? `${item?.title_en}`
-                                : `${item?.title}`}{' '}
-                            </div>
+                          <div className="flex w-full items-center justify-between gap-[2px]">
+                            {item?.url ? (
+                              <DialogClose
+                                onClick={() => {
+                                  smoother?.paused(false);
+                                }}
+                                asChild
+                                className="border-none outline-none"
+                              >
+                                <Link
+                                  href={`/${language}${item?.url || ''}`}
+                                  className="text-sm font-bold uppercase text-black"
+                                >
+                                  {language === 'en'
+                                    ? `${item?.title_en}`
+                                    : `${item?.title}`}{' '}
+                                </Link>
+                              </DialogClose>
+                            ) : (
+                              <AccordionTrigger className="text-sm font-bold uppercase text-black">
+                                {language === 'en'
+                                  ? `${item?.title_en}`
+                                  : `${item?.title}`}{' '}
+                              </AccordionTrigger>
+                            )}
 
-                            <div className="relative size-5 origin-center transition-all duration-300 ease-in group-data-[state=open]:-rotate-180">
+                            <AccordionTrigger className="relative size-5 origin-center transition-all duration-300 ease-in group-data-[state=open]:-rotate-180">
                               <NextImg
                                 src="/assets/icons/arrow_down_black.svg"
                                 alt="arrow down icon"
                               />
-                            </div>
-                          </AccordionTrigger>
+                            </AccordionTrigger>
+                          </div>
 
                           <AccordionContent>
                             <div className="flex flex-col gap-4 px-5 pt-4">
@@ -211,7 +230,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                                           : `${item_second?.title}`}
                                       </div>
                                       <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
-                                        {item_second?.sub_items?.length}
+                                        {item_second?.sub_items?.length === 1 ? item_second?.sub_items?.[0]?.sub_items?.length : item_second?.sub_items?.length}
                                       </div>
                                       <div className="relative size-5 origin-center -rotate-90">
                                         <NextImg
@@ -261,8 +280,9 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                     })}
                 </AccordionRoot>
 
+                {/* sub menu: cấp 3 trở đi */}
                 <div
-                  className={`${isOpenSubMenu ? 'left-1/2 -translate-x-1/2 opacity-100' : 'left-0 translate-x-full opacity-0'} container absolute top-0 z-[200] !m-0 w-[100vw] bg-white pb-[100px] transition-all duration-500`}
+                  className={`${isOpenSubMenu ? 'left-1/2 -translate-x-1/2 opacity-100' : 'left-0 translate-x-full opacity-0'} scrollbar-hidden container absolute top-0 z-[200] !m-0 h-full w-[100vw] overflow-x-hidden overflow-y-scroll bg-white pb-[100px] transition-all duration-500`}
                 >
                   <AccordionRoot
                     key={isOpenSubMenu ? 'open' : 'closed'}
@@ -296,23 +316,46 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                               key={item_third_index}
                               className="group w-full"
                             >
-                              <AccordionTrigger className="flex w-fit items-center gap-[2px]">
-                                <div className="text-start text-sm font-bold uppercase text-black">
-                                  {language === 'en'
-                                    ? `${item_third?.title_en}`
-                                    : `${item_third?.title}`}{' '}
-                                </div>
+                              {item_third?.title &&
+                                (item_third?.title_en && (
+                                  <div className="flex w-full items-center justify-between gap-[2px] ">
+                                    {item_third?.url ? (
+                                      <DialogClose
+                                        onClick={() => {
+                                          setIsOpenSubMenu(false);
+                                          smoother?.paused(false);
+                                        }}
+                                        asChild
+                                        className="border-none outline-none"
+                                      >
+                                        <Link
+                                          href={`/${language}${item_third?.url || ''}`}
+                                          className="text-start text-sm font-bold uppercase text-black"
+                                        >
+                                          {language === 'en'
+                                            ? `${item_third?.title_en}`
+                                            : `${item_third?.title}`}{' '}
+                                        </Link>
+                                      </DialogClose>
+                                    ) : (
+                                      <AccordionTrigger className="text-start text-sm font-bold uppercase text-black">
+                                        {language === 'en'
+                                          ? `${item_third?.title_en}`
+                                          : `${item_third?.title}`}{' '}
+                                      </AccordionTrigger>
+                                    )}
 
-                                <div className="relative size-5 origin-center transition-all duration-300 ease-in group-data-[state=open]:-rotate-180">
-                                  <NextImg
-                                    src="/assets/icons/arrow_down_black.svg"
-                                    alt="arrow down icon"
-                                  />
-                                </div>
-                              </AccordionTrigger>
+                                    <AccordionTrigger className="relative size-5 origin-center transition-all duration-300 ease-in group-data-[state=open]:-rotate-180">
+                                      <NextImg
+                                        src="/assets/icons/arrow_down_black.svg"
+                                        alt="arrow down icon"
+                                      />
+                                    </AccordionTrigger>
+                                  </div>
+                                ))}
 
                               <AccordionContent>
-                                <div className="flex flex-col gap-4 px-5 pt-4">
+                                <div className={`${item_third?.title && item_third?.title_en ? "pt-4" : "pt-0"} flex flex-col gap-4 px-5`}>
                                   {item_third?.sub_items?.map(
                                     (
                                       item_fourth: any,

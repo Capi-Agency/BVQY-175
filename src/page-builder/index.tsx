@@ -136,6 +136,11 @@ const sectionMap: SectionMap = {
   'cta-basic': dynamic(() =>
     import('../components/sections/cta').then((m) => m.CtaBasic),
   ),
+
+  // Doctor detail
+  'post-detail-with-sidebar-left': dynamic(() =>
+    import('../components/doctors').then((m) => m.DoctorDetail),
+  ),
 };
 
 type PageBuilderProps = {

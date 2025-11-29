@@ -26,20 +26,18 @@ export function getPositionFixed(conditions: gsap.Conditions | undefined): any {
         case conditions.isXS:
             return "top top+=64px";
         case conditions.isMD:
-            return "top top+=80px";
+            return "top top+=68px";
         case conditions.isLG:
-            return "top top+=84px";
-        case conditions.is2LG:
-            return "top top+=88px";
+            return "top top+=76px";
         case conditions.isXl:
-            return "top top+=92px";
+            return "top top+=130px";
         case conditions.is2XL:
-            return "top top+=100px";
+            return "top top+=142px";
         case conditions.is3XL:
-            return "top top+=100px";
+            return "top top+=146px";
         case conditions.is4Xl:
-            return "top top+=100px";
-        default: return "top top+=100px"
+            return "top top+=154px";
+        default: return "top top+=154px"
     };
 }
 

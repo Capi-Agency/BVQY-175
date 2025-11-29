@@ -71,3 +71,24 @@ export const getDoctorBySlug = async (slug: string) => {
     console.log('Err in getDoctorBySlug: ', error);
   }
 };
+
+export const fnGetDoctorDetail = async ({
+  collection,
+  slug,
+}: {
+  collection: string;
+  slug: string;
+}) => {
+  try {
+    const res = await directusClientWithRest.request(
+      readItem(collection, slug, {
+        fields: [
+          '*',
+        ],
+      }),
+    );
+    return res;
+  } catch (error) {
+    console.log('error in get data: ', error);
+  }
+};

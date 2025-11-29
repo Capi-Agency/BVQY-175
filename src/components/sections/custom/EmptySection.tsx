@@ -10,7 +10,6 @@ export default function EmptySection() {
       <div className="section-title container py-[100px] text-center">
         {trans('empty-page')}
       </div>
-      ;
     </section>
   );
 }
