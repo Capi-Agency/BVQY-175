@@ -5,7 +5,8 @@ import { getDoctorsCount, getListDoctors } from '@/src/services/doctors';
 import { getAssetUrlById } from '@/src/utils/image';
 import clsx from 'clsx';
 import Link from 'next/link';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { debounce, divide } from 'lodash';
 
 type Props = {
   data: any;
@@ -15,6 +16,8 @@ type Props = {
 const DoctorList = ({ data, departmentGroups }: Props) => {
   // Quản lý filter
   const [searchText, setSearchText] = useState('');
+  const [debouncedText, setDebouncedText] = useState('');
+  console.log('🚀 ~ DoctorList ~ debouncedText:', debouncedText);
   const [selectedLetter, setSelectedLetter] = useState('');
   const [searchMethod, setSearchMethod] = useState<
     'by_name' | 'by_department' | null
@@ -27,33 +30,39 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
   const currentParentGroup = useMemo(() => {
     return departmentGroups.find((d: any) => d.slug === activeParentGroup);
   }, [activeParentGroup, departmentGroups]);
-  const [selectedDepartment, setSelectDepartment] = useState(null);
-
+  const [selectedDepartment, setSelectedDepartment] = useState<any>(null);
   // Quản lý fetching
   const [doctors, setDoctors] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalItem, setTotalItem] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
 
+  const resetFilter = () => {
+    setSearchText('');
+    setSelectedLetter('');
+    setSelectedDepartment(null);
+    setSearchMethod(null);
+    setCurrentPage(1);
+  };
+
   // Hàm gọi API dựa trên search/filter
-  const fetchDoctors = async (page = 1) => {
+  const fetchDoctors = useCallback(async () => {
     setLoading(true);
     try {
       const res = await getListDoctors({
         limit: 6,
-        page,
-        keyword:
-          searchMethod === 'by_name' && searchText ? searchText : undefined,
+        page: currentPage,
+        keyword: debouncedText ? debouncedText : undefined,
         letter:
           searchMethod === 'by_name' && selectedLetter
             ? selectedLetter
             : undefined,
         departmentId:
           searchMethod === 'by_department' && selectedDepartment
-            ? selectedDepartment
+            ? selectedDepartment?.slug
             : undefined,
       });
-
       setDoctors(res || []);
     } catch (err) {
       console.error(err);
@@ -62,42 +71,59 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [
+    currentPage,
+    selectedDepartment,
+    selectedLetter,
+    searchMethod,
+    debouncedText,
+  ]);
 
-  const fetchDoctorCount = async () => {
+  const fetchDoctorCount = useCallback(async () => {
     try {
       const res = await getDoctorsCount({
-        keyword:
-          searchMethod === 'by_name' && searchText ? searchText : undefined,
+        keyword: debouncedText ? debouncedText : undefined,
         letter:
           searchMethod === 'by_name' && selectedLetter
             ? selectedLetter
             : undefined,
         departmentId:
           searchMethod === 'by_department' && selectedDepartment
-            ? selectedDepartment
+            ? selectedDepartment?.slug
             : undefined,
       });
-
-      const _totalPage = Math.ceil(res / 6);
-      setTotalPage(_totalPage);
+      setTotalItem(res);
+      setTotalPage(Math.ceil(res / 6));
     } catch (err) {
       console.error(err);
       setDoctors([]);
       setTotalPage(1);
-    } finally {
-      setLoading(false);
     }
-  };
+  }, [selectedDepartment?.slug, selectedLetter, searchMethod, debouncedText]);
 
   // Gọi lại khi search/filter thay đổi
   useEffect(() => {
-    fetchDoctors(1);
-  }, [searchText, selectedLetter, selectedDepartment, searchMethod]);
+    fetchDoctorCount();
+    fetchDoctors();
+  }, [
+    searchText,
+    selectedLetter,
+    selectedDepartment?.slug,
+    searchMethod,
+    currentPage,
+    fetchDoctors,
+    fetchDoctorCount,
+  ]);
 
   useEffect(() => {
-    fetchDoctorCount();
-  }, []);
+    setCurrentPage(1);
+  }, [searchText, selectedLetter, selectedDepartment?.slug, searchMethod]);
+
+  useEffect(() => {
+    debounce(() => {
+      setDebouncedText(searchText.trim());
+    }, 700)();
+  }, [searchText.trim()]);
 
   return (
     <div className="bg-primary-50">
@@ -127,7 +153,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
             className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
             onSubmit={(e) => {
               e.preventDefault();
-              fetchDoctors(1);
+              setCurrentPage(1);
             }}
           >
             <div className="flex flex-1 flex-col text-start">
@@ -142,7 +168,9 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                 id="name"
                 name="name"
                 value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
+                onChange={(e) => {
+                  setSearchText(e.target.value);
+                }}
                 placeholder="Nhập tên, chuyên khoa"
                 className="text-base font-normal placeholder:text-[#0F2F64] focus:border-none focus:outline-none md:text-lg"
               />
@@ -168,7 +196,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
           {/* Tim theo ten */}
           <div
             className={clsx(
-              'relative flex h-[100px] w-full flex-col justify-center px-5 py-4 shadow-lg md:h-[120px] md:flex-1 lg:h-[140px] xl:h-[160px]',
+              'relative flex h-[100px] w-full cursor-pointer flex-col justify-center px-5 py-4 shadow-lg md:h-[120px] md:flex-1 lg:h-[140px] xl:h-[160px]',
               searchMethod === 'by_name'
                 ? 'bg-primary-600 *:!text-gray-50'
                 : 'bg-white',
@@ -200,7 +228,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
           {/* Tim theo khoa */}
           <div
             className={clsx(
-              'relative flex h-[100px] w-full flex-col justify-center px-5 py-4 shadow-lg md:h-[120px] md:flex-1 lg:h-[140px] xl:h-[160px]',
+              'relative flex h-[100px] w-full cursor-pointer flex-col justify-center px-5 py-4 shadow-lg md:h-[120px] md:flex-1 lg:h-[140px] xl:h-[160px]',
               searchMethod === 'by_department'
                 ? 'bg-primary-600 *:!text-gray-50'
                 : 'bg-white',
@@ -269,14 +297,16 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                   className="relative flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
                   onSubmit={(e) => {
                     e.preventDefault();
-                    fetchDoctors(1);
+                    setCurrentPage(1);
                   }}
                 >
                   <div
                     className="flex flex-1 items-center gap-6 text-[#0F2F64]"
                     onClick={() => setIsDropdownOpen((prev) => !prev)}
                   >
-                    Chọn chuyên khoa
+                    {selectedDepartment
+                      ? selectedDepartment.title
+                      : 'Chọn chuyên khoa'}
                     <img
                       src="/assets/icons/chevron_down_gray.svg"
                       alt="chevron down"
@@ -345,7 +375,11 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                           currentParentGroup?.departments?.map((dep: any) => (
                             <div
                               key={dep.slug}
-                              className="w-[calc(50%-16px)] py-2.5 text-sm font-semibold text-primary-1000"
+                              className="w-[calc(50%-16px)] cursor-pointer py-2.5 text-sm font-semibold text-primary-1000"
+                              onClick={() => {
+                                setSelectedDepartment(dep);
+                                setIsDropdownOpen(false);
+                              }}
                             >
                               {dep.title}
                             </div>
@@ -364,7 +398,11 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                                 {childGroup?.departments?.map((dep: any) => (
                                   <div
                                     key={'child_dep_' + dep.slug}
-                                    className="py-2.5 text-sm font-semibold text-primary-1000"
+                                    onClick={() => {
+                                      setSelectedDepartment(dep);
+                                      setIsDropdownOpen(false);
+                                    }}
+                                    className="cursor-pointer py-2.5 text-sm font-semibold text-primary-1000"
                                   >
                                     {dep.title}
                                   </div>
@@ -383,27 +421,59 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
           {/* Hiển thị kết quả */}
           <div className="flex flex-col gap-3 md:flex-row md:items-center">
             <div className="flex items-center gap-1.5 text-base font-medium text-gray-700">
-              <span className="text-xl font-semibold text-primary-600">6 </span>
-              kết quả phù hợp với tìm kiếm{' '}
-              <span className="font-semibold text-primary-600">“Minh”</span>
+              <span className="text-xl font-semibold text-primary-600">
+                {totalItem}{' '}
+              </span>
+              kết quả phù hợp{' '}
+              {searchText && (
+                <div>
+                  với tìm kiếm{' '}
+                  <span className="font-semibold text-primary-600">
+                    {' '}
+                    “{searchText}”
+                  </span>
+                </div>
+              )}
             </div>
 
-            <div className="hidden h-4 w-[1px] bg-gray-300 md:block"></div>
+            {(!!searchText || !!searchMethod) && (
+              <>
+                <div className="hidden h-4 w-[1px] bg-gray-300 md:block"></div>
 
-            <div className="flex items-center justify-end gap-1.5 font-medium text-[#ED5252] lg:text-lg">
-              Xóa bộ lọc
-              <img src="/assets/icons/close_red.svg" alt="close_red" />
-            </div>
+                <div
+                  onClick={resetFilter}
+                  className="flex cursor-pointer items-center justify-end gap-1.5 align-middle font-medium text-[#ED5252] lg:text-lg"
+                >
+                  Xóa bộ lọc
+                  <img src="/assets/icons/close_red.svg" alt="close_red" />
+                </div>
+              </>
+            )}
           </div>
 
           {/* Danh sách */}
-          <div className="grid grid-cols-1 gap-6 lg:gap-10 xl:grid-cols-2">
-            {doctors?.map((doctor: any, index: number) => (
-              <DoctorCard key={index} doctor={doctor} />
-            ))}
-          </div>
+          {doctors && doctors.length > 0 ? (
+            <div className="grid grid-cols-1 gap-6 lg:gap-10 xl:grid-cols-2">
+              {doctors.map((doctor: any, index: number) => (
+                <DoctorCard key={index} doctor={doctor} />
+              ))}
+            </div>
+          ) : (
+            <div className="flex h-[300px] items-center justify-center text-center">
+              <div>
+                <p className="text-xl text-black">Không tìm thấy kết quả</p>
+                <p className="text-base text-[#6C6C71]">
+                  Không có bác sĩ phù hợp với tìm kiếm của bạn. Vui lòng thử lại
+                </p>
+              </div>
+            </div>
+          )}
 
-          <ThePagination currentPage={1} totalPage={5} setPage={() => {}} />
+          <ThePagination
+            currentPage={currentPage}
+            totalPage={totalPage}
+            setPage={setCurrentPage}
+          />
         </div>
       </div>
     </div>

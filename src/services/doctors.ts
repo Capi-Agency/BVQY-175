@@ -22,7 +22,7 @@ export const getListDoctors = async ({
 
     // 1. Keyword search
     if (keyword) {
-      filter.name = {
+      filter.full_name = {
         _icontains: keyword,
       };
     }
@@ -37,8 +37,10 @@ export const getListDoctors = async ({
     // 3. Filter theo khoa
     if (departmentId) {
       filter.departments = {
-        slug: {
-          _eq: departmentId,
+        department: {
+          slug: {
+            _eq: departmentId,
+          },
         },
       };
     }
@@ -78,7 +80,7 @@ export const getDoctorsCount = async ({
 
     // 1. Keyword search
     if (keyword) {
-      filter.name = { _icontains: keyword };
+      filter.full_name = { _icontains: keyword };
     }
 
     // 2. Search theo chữ cái
@@ -89,16 +91,18 @@ export const getDoctorsCount = async ({
     // 3. Filter theo khoa
     if (departmentId) {
       filter.departments = {
-        slug: { _eq: departmentId },
+        department: {
+          slug: {
+            _eq: departmentId,
+          },
+        },
       };
     }
 
     // Gọi API với limit = 1, page = 1, chỉ cần meta.total_items
     const res = await directusClientWithRest.request(
       readItems('doctors', {
-        fields: ['slug'], // chỉ lấy id để giảm payload
-        limit: 1,
-        page: 1,
+        fields: ['slug'],
         filter,
       }),
     );
