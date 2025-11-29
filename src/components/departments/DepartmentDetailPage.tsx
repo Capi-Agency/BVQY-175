@@ -62,7 +62,6 @@ const DepartmentDetailPage = ({
           pin: true,
           pinSpacing: false,
           pinnedContainer: containerRef?.current,
-          markers: true, // có thể bật true để debug
         });
       });
     },
@@ -141,7 +140,7 @@ const DepartmentDetailPage = ({
       <div className="p-[12px_0_24px] xl:p-[20px_0_40px] 2xl:p-[24px_0_48px] 4xl:p-[60_0_120px]">
         <div
           ref={containerRef}
-          className="flex flex-col items-stretch md:gap-6 md:container lg:gap-12 2xl:gap-14 3xl:flex-row 3xl:items-start 3xl:gap-[72px] 4xl:gap-20"
+          className="flex flex-col items-stretch md:container md:gap-6 lg:gap-12 2xl:gap-14 3xl:flex-row 3xl:items-start 3xl:gap-[72px] 4xl:gap-20"
         >
           <div
             ref={sidebarRef}
@@ -227,7 +226,7 @@ const DepartmentDetailPage = ({
           </div>
 
           {/* Các khối */}
-          <div className="flex flex-1 flex-col px-6 md:pt-3 md:px-0 xl:pt-5 2xl:pt-6 4xl:pt-[60px]">
+          <div className="flex flex-1 flex-col px-6 md:px-0 md:pt-3 xl:pt-5 2xl:pt-6 4xl:pt-[60px]">
             {parentGroups?.map((pGroup: any, index: number) => {
               return (
                 <DepartmentGroupSection
@@ -288,7 +287,7 @@ const DepartmentGroupSection = ({
       <p className="section-title mt-2">{pGroup.title}</p>
 
       {/* Tabs các khối con */}
-      {chilrenGroups && chilrenGroups.length > 1 && (
+      {/* {chilrenGroups && chilrenGroups.length > 1 && (
         <div className="my-5 flex flex-col gap-3 md:flex-row md:flex-wrap 3xl:gap-x-8 3xl:gap-y-5">
           {chilrenGroups.map((group: any, idx: number) => (
             <div
@@ -306,7 +305,7 @@ const DepartmentGroupSection = ({
             </div>
           ))}
         </div>
-      )}
+      )} */}
 
       {/* List các khối con */}
       {!activeChildGroup &&
@@ -315,16 +314,37 @@ const DepartmentGroupSection = ({
           <div className="flex flex-col gap-6 md:flex-row md:flex-wrap">
             {pGroup.children_groups.map((group: any, idx: number) => (
               <div
-                onClick={() => setActiveChildGroup(group.slug)}
                 key={'group___' + idx}
-                className={clsx(
-                  'w-full cursor-pointer text-xl font-normal underline md:w-fit lg:w-[calc(50%-12px)]',
-                  isMatch(group.title)
-                    ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
-                    : 'text-gray-950 hover:text-primary-600',
-                )}
+                className="mt-6 w-full md:w-fit lg:w-[calc(50%-12px)]"
               >
-                {group.title}
+                <div
+                  className={clsx(
+                    'cursor-pointer text-xl font-semibold underline',
+                    isMatch(group.title)
+                      ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
+                      : 'text-gray-500 hover:text-primary-600',
+                  )}
+                >
+                  {group.title}
+                </div>
+                <div className="ml-3 mt-4 flex list-none flex-col gap-4 md:gap-6 xl:mt-6 3xl:gap-x-4 3xl:gap-y-5">
+                  {group.departments.map((department: any, idx: number) => (
+                    <Link
+                      href={'/vi/chuyen-khoa/' + department.slug}
+                      className={clsx(
+                        'text-xl font-normal underline',
+                        isMatch(department.title) ||
+                          isMatch(department.code || '')
+                          ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
+                          : 'text-gray-950 hover:text-primary-600',
+                      )}
+                      key={'department_' + idx}
+                    >
+                      {department.title}{' '}
+                      {department.code ? `(${department.code})` : null}
+                    </Link>
+                  ))}
+                </div>
               </div>
             ))}
           </div>

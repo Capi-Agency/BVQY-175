@@ -672,7 +672,8 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
         </div>
 
         <Link
-          href={'#'}
+          href={'/doi-ngu-bac-si/' + doctor.slug}
+          locale={'vi'}
           className="mt-6 flex items-center gap-2 font-medium text-gray-950 group-hover:text-primary-50 lg:mt-0 lg:text-lg xl:mt-6"
         >
           Xem chi tiết
