@@ -1,5 +1,6 @@
 'use client';
 import NextImg from '@/src/components/common/next-img';
+import ThePagination from '@/src/components/common/the-pagination';
 import { getAssetUrlById } from '@/src/utils/image';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -56,7 +57,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
             <div className="flex flex-1 flex-col text-start">
               <label
                 htmlFor="searchText"
-                className="text-sm font-normal text-gray-500"
+                className="text-sm font-normal text-gray-500 lg:text-base"
               >
                 Tìm kiếm bác sĩ
               </label>
@@ -85,20 +86,20 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
       </div>
 
       {/* Danh sách bác sĩ */}
-      <div className="container space-y-8 pb-20 lg:pb-16 xl:pb-[72px] 2xl:pb-20 3xl:pb-[100px] 4xl:pb-[120px]">
+      <div className="container space-y-8 pb-20 md:space-y-10 lg:pb-16 xl:pb-[72px] 2xl:pb-20 3xl:pb-[100px] 4xl:pb-[120px]">
         {/* Nút chuyển tabs */}
-        <div className="flex flex-col gap-4 md:flex-row">
+        <div className="flex flex-col gap-4 md:flex-row md:gap-6">
           {/* Tim theo ten */}
           <div
             className={clsx(
-              'flex w-full flex-col justify-center px-5 py-4 shadow-lg md:flex-1 xl:h-40',
+              'relative flex h-[100px] w-full flex-col justify-center px-5 py-4 shadow-lg md:h-[120px] md:flex-1 lg:h-[140px] xl:h-[160px]',
               searchMethod === 'by_name'
                 ? 'bg-primary-600 *:!text-gray-50'
                 : 'bg-white',
             )}
             onClick={() => setSearchMethod('by_name')}
           >
-            <div className="mb-2 flex items-center gap-2.5 text-lg font-semibold text-gray-500">
+            <div className="mb-2 flex items-center gap-2.5 text-lg font-semibold text-gray-500 lg:text-xl">
               {/* icon */}
               <div className="flex items-center justify-center rounded-[6px] bg-primary-50 p-2">
                 <img
@@ -112,19 +113,25 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
             <p className="text-sm font-medium text-gray-500">
               Tìm nhanh bác sĩ theo tên
             </p>
+
+            <img
+              src="/assets/images/arrow_bg.png"
+              alt="bg"
+              className="absolute right-[20%] top-1/2 -translate-y-1/2"
+            />
           </div>
 
           {/* Tim theo khoa */}
           <div
             className={clsx(
-              'flex w-full flex-col justify-center px-5 py-4 shadow-lg md:flex-1 xl:h-40',
+              'relative flex h-[100px] w-full flex-col justify-center px-5 py-4 shadow-lg md:h-[120px] md:flex-1 lg:h-[140px] xl:h-[160px]',
               searchMethod === 'by_department'
                 ? 'bg-primary-600 *:!text-gray-50'
                 : 'bg-white',
             )}
             onClick={() => setSearchMethod('by_department')}
           >
-            <div className="mb-2 flex items-center gap-2.5 text-lg font-semibold text-gray-500">
+            <div className="mb-2 flex items-center gap-2.5 text-lg font-semibold text-gray-500 lg:text-xl">
               {/* icon */}
               <div className="flex items-center justify-center rounded-[6px] bg-primary-50 p-2">
                 <img
@@ -138,22 +145,27 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
             <p className="text-sm font-medium text-gray-500">
               Tìm bác sĩ theo đúng chuyên khoa
             </p>
+            <img
+              src="/assets/images/arrow_bg.png"
+              alt="bg"
+              className="absolute right-[20%] top-1/2 -translate-y-1/2"
+            />
           </div>
         </div>
 
-        <div className="bg-white p-6">
+        <div className="bg-white p-6 lg:p-10">
           {/* Bàn phím */}
           {searchMethod === 'by_name' ? (
             <div className="space-y-6 py-6">
-              <h3 className="text-center text-base font-semibold text-black">
+              <h3 className="text-center text-base font-semibold text-black xl:text-lg 2xl:text-xl">
                 Tìm kiếm bác sĩ theo tên
               </h3>
-              <div className="flex flex-wrap justify-center gap-6">
+              <div className="mx-auto flex flex-wrap justify-center gap-6 md:max-w-[456px] lg:max-w-[564px] xl:max-w-[648px] 2xl:max-w-[732px] 3xl:max-w-[900px]">
                 {letters.map((letter: string, index: number) => {
                   return (
-                    <div
+                    <button
                       className={clsx(
-                        'flex size-10 items-center justify-center rounded-xl text-xl font-semibold',
+                        'flex size-10 cursor-pointer items-center justify-center rounded-xl text-xl font-semibold hover:bg-primary-300 hover:text-primary-50 md:size-[56px] md:text-2xl lg:size-[60px] lg:text-[28px]',
                         selectedLetter === letter
                           ? 'bg-primary-600 text-primary-50'
                           : 'text-gray-500',
@@ -162,7 +174,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                       onClick={() => setSelectedLetter(letter)}
                     >
                       {letter}
-                    </div>
+                    </button>
                   );
                 })}
               </div>
@@ -172,7 +184,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
           {/* Dropdown chuyen khoa */}
           {searchMethod === 'by_department' ? (
             <div className="space-y-6 py-6">
-              <h3 className="text-center text-base font-semibold text-black">
+              <h3 className="text-center text-base font-semibold text-black xl:text-lg 2xl:text-xl">
                 Tìm kiếm bác sĩ theo chuyên khoa
               </h3>
 
@@ -234,86 +246,31 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
           ) : null}
 
           {/* Hiển thị kết quả */}
-          <div className="flex flex-col gap-3">
-            <div className="text-base font-medium text-gray-700">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center">
+            <div className="flex items-center gap-1.5 text-base font-medium text-gray-700">
               <span className="text-xl font-semibold text-primary-600">6 </span>
               kết quả phù hợp với tìm kiếm{' '}
               <span className="font-semibold text-primary-600">“Minh”</span>
             </div>
-            <div className="flex items-center justify-end gap-1.5 font-medium text-[#ED5252]">
+
+            <div className="hidden h-4 w-[1px] bg-gray-300 md:block"></div>
+
+            <div className="flex items-center justify-end gap-1.5 font-medium text-[#ED5252] lg:text-lg">
               Xóa bộ lọc
               <img src="/assets/icons/close_red.svg" alt="close_red" />
             </div>
           </div>
 
           {/* Danh sách */}
-          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+          <div className="grid grid-cols-1 gap-6 lg:gap-10 xl:grid-cols-2">
             {Array(6)
               .fill(null)
               .map((_, index: number) => (
-                <div
-                  key={index}
-                  className="flex flex-col gap-5 rounded-2xl bg-white p-5 shadow-lg md:flex-row"
-                >
-                  <div className="relative h-[240px] w-full overflow-hidden rounded-[10px] md:max-w-[192px]">
-                    <NextImg
-                      src="/assets/images/tran_quoc_viet_cover.png"
-                      alt="cover"
-                      objectFit="cover"
-                      className="object-top"
-                    />
-                  </div>
-
-                  <div className="flex flex-1 flex-col justify-center md:px-5">
-                    <div className="text-sm font-normal text-gray-500">
-                      Đại tá, PGS. TS, TTƯT
-                    </div>
-                    <div className="text-xl font-bold text-primary-1000">
-                      Nguyễn Văn Minh
-                    </div>
-                    <div className="mb-6 text-base font-medium text-primary-500">
-                      Giám đốc Bệnh viện
-                    </div>
-
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-1.5">
-                        <img
-                          src="/assets/icons/first_aid_black.svg"
-                          alt="first aid"
-                          className="size-5"
-                        />
-                        <p className="gray-700 text-base font-normal">
-                          Hồi sức - Cấp cứu
-                        </p>
-                      </div>
-
-                      <div className="flex items-center gap-1.5">
-                        <img
-                          src="/assets/icons/first_aid_black.svg"
-                          alt="first aid"
-                          className="size-5"
-                        />
-                        <p className="gray-700 text-base font-normal">
-                          Khoa hồi sức tích cực ngoại (A12.2)
-                        </p>
-                      </div>
-                    </div>
-
-                    <Link
-                      href={'#'}
-                      className="mt-6 flex items-center gap-2 font-medium text-gray-950 group-hover:text-primary-50 3xl:text-lg"
-                    >
-                      Xem chi tiết
-                      <img
-                        src="/assets/icons/arrow_right_black.svg"
-                        alt="arrow right"
-                        className="size-6 group-hover:brightness-0 group-hover:invert"
-                      />
-                    </Link>
-                  </div>
-                </div>
+                <DoctorCard key={index} />
               ))}
           </div>
+
+          <ThePagination currentPage={1} totalPage={5} setPage={() => {}} />
         </div>
       </div>
     </div>
@@ -407,3 +364,68 @@ const letters = [
   'X',
   'Y',
 ];
+
+const DoctorCard = () => {
+  return (
+    <div className="flex flex-col gap-5 rounded-2xl bg-white p-5 shadow-lg md:flex-row md:p-4 lg:p-6 xl:gap-10 xl:p-4 2xl:p-5">
+      <div className="relative h-[240px] w-full overflow-hidden rounded-[10px] md:h-auto md:w-[192px] lg:h-[280px] lg:w-[224px] xl:h-[240px] xl:w-[192px] 2xl:h-[280px] 2xl:w-[224px]">
+        <NextImg
+          src="/assets/images/tran_quoc_viet_cover.png"
+          alt="cover"
+          objectFit="cover"
+          className="object-top"
+        />
+      </div>
+
+      <div className="flex flex-1 flex-col justify-center md:px-5 lg:justify-between xl:justify-center xl:px-0 2xl:justify-between">
+        <div>
+          <div className="text-sm font-normal text-gray-500 lg:text-base xl:text-sm 2xl:text-base">
+            Đại tá, PGS. TS, TTƯT
+          </div>
+          <div className="text-xl font-bold text-primary-1000 lg:text-2xl xl:text-xl 2xl:text-2xl">
+            Nguyễn Văn Minh
+          </div>
+          <div className="mb-6 text-base font-medium text-primary-500">
+            Giám đốc Bệnh viện
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center gap-1.5">
+              <img
+                src="/assets/icons/first_aid_black.svg"
+                alt="first aid"
+                className="size-5"
+              />
+              <p className="gray-700 text-base font-normal lg:text-lg xl:text-base 2xl:text-lg">
+                Hồi sức - Cấp cứu
+              </p>
+            </div>
+
+            <div className="flex items-center gap-1.5">
+              <img
+                src="/assets/icons/hospital_location_black.svg"
+                alt="first aid"
+                className="size-5"
+              />
+              <p className="gray-700 text-base font-normal lg:text-lg xl:text-base 2xl:text-lg">
+                Khoa hồi sức tích cực ngoại (A12.2)
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <Link
+          href={'#'}
+          className="mt-6 flex items-center gap-2 font-medium text-gray-950 group-hover:text-primary-50 lg:mt-0 lg:text-lg xl:mt-6"
+        >
+          Xem chi tiết
+          <img
+            src="/assets/icons/arrow_right_black.svg"
+            alt="arrow right"
+            className="size-6 group-hover:brightness-0 group-hover:invert"
+          />
+        </Link>
+      </div>
+    </div>
+  );
+};

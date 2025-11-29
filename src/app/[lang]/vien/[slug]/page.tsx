@@ -34,7 +34,10 @@ export async function generateMetadata(
   if (!slug || !idRegex.test(slug)) return notFound();
 
   const lang = await getLang();
-  const data = await fnGetDeparmentDetail({ collection: 'departments', slug });
+  const data = await fnGetDeparmentDetail({
+    collection: 'department_groups',
+    slug,
+  });
   if (!data) notFound();
 
   const title =
@@ -74,7 +77,7 @@ export async function generateMetadata(
 const DepartmentDetailPage = async ({ params }: Props) => {
   const { slug } = await params;
   const dataDetail = await fnGetDeparmentDetail({
-    collection: 'departments',
+    collection: 'department_groups',
     slug,
   });
   const langSlug = await getLangSlugNewsDetail();
