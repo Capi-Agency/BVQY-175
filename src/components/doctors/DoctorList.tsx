@@ -623,7 +623,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
   }, []);
   return (
     <div className="flex flex-col gap-5 rounded-2xl bg-white p-5 shadow-lg md:flex-row md:p-4 lg:p-6 xl:gap-10 xl:p-4 2xl:p-5">
-      <div className="relative aspect-[2/3] w-full overflow-hidden rounded-[10px] md:w-[192px] lg:w-[224px] xl:w-[192px] 2xl:w-[224px]">
+      <div className="relative aspect-[2/3] max-h-[280px] w-full overflow-hidden rounded-[10px] bg-gray-100 md:w-[192px] lg:w-[224px] xl:w-[192px] 2xl:w-[224px]">
         <NextImg
           src={getAssetUrlById(doctor?.avatar)}
           alt="cover"
@@ -672,7 +672,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
         </div>
 
         <Link
-          href={'/doi-ngu-bac-si/' + doctor.slug}
+          href={'/vi/doi-ngu-bac-si/' + doctor.slug}
           locale={'vi'}
           className="mt-6 flex items-center gap-2 font-medium text-gray-950 group-hover:text-primary-50 lg:mt-0 lg:text-lg xl:mt-6"
         >
