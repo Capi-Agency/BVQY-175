@@ -16,7 +16,7 @@ async function getLang() {
 
 async function getLangSlugNewsDetail(): Promise<string> {
   const lang = await getLang();
-  return lang === 'en' ? 'chi-tiet-chuyen-khoa-en' : 'chi-tiet-chuyen-khoa';
+  return lang === 'en' ? 'chi-tiet-vien-en' : 'chi-tiet-vien';
 }
 
 type Props = {
