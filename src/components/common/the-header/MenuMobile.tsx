@@ -149,6 +149,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
             <div className="space-y-6 py-6 lg:space-y-8 lg:py-8">
               <div className="flex h-10 items-stretch rounded-[6px] bg-[#F4F4F5] p-[6px_6px_6px_16px] backdrop-blur-[9.5px]">
                 <input
+                  autoFocus={false}
                   type="text"
                   className="flex-1 border-none bg-transparent text-xs font-normal text-black outline-none placeholder:text-[#52525B]"
                   placeholder={trans('search-placeholder')}
@@ -230,7 +231,10 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                                           : `${item_second?.title}`}
                                       </div>
                                       <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
-                                        {item_second?.sub_items?.length === 1 ? item_second?.sub_items?.[0]?.sub_items?.length : item_second?.sub_items?.length}
+                                        {item_second?.sub_items?.length === 1
+                                          ? item_second?.sub_items?.[0]
+                                              ?.sub_items?.length
+                                          : item_second?.sub_items?.length}
                                       </div>
                                       <div className="relative size-5 origin-center -rotate-90">
                                         <NextImg
@@ -316,46 +320,47 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                               key={item_third_index}
                               className="group w-full"
                             >
-                              {item_third?.title &&
-                                (item_third?.title_en && (
-                                  <div className="flex w-full items-center justify-between gap-[2px] ">
-                                    {item_third?.url ? (
-                                      <DialogClose
-                                        onClick={() => {
-                                          setIsOpenSubMenu(false);
-                                          smoother?.paused(false);
-                                        }}
-                                        asChild
-                                        className="border-none outline-none"
+                              {item_third?.title && item_third?.title_en && (
+                                <div className="flex w-full items-center justify-between gap-[2px]">
+                                  {item_third?.url ? (
+                                    <DialogClose
+                                      onClick={() => {
+                                        setIsOpenSubMenu(false);
+                                        smoother?.paused(false);
+                                      }}
+                                      asChild
+                                      className="border-none outline-none"
+                                    >
+                                      <Link
+                                        href={`/${language}${item_third?.url || ''}`}
+                                        className="text-start text-sm font-bold uppercase text-black"
                                       >
-                                        <Link
-                                          href={`/${language}${item_third?.url || ''}`}
-                                          className="text-start text-sm font-bold uppercase text-black"
-                                        >
-                                          {language === 'en'
-                                            ? `${item_third?.title_en}`
-                                            : `${item_third?.title}`}{' '}
-                                        </Link>
-                                      </DialogClose>
-                                    ) : (
-                                      <AccordionTrigger className="text-start text-sm font-bold uppercase text-black">
                                         {language === 'en'
                                           ? `${item_third?.title_en}`
                                           : `${item_third?.title}`}{' '}
-                                      </AccordionTrigger>
-                                    )}
-
-                                    <AccordionTrigger className="relative size-5 origin-center transition-all duration-300 ease-in group-data-[state=open]:-rotate-180">
-                                      <NextImg
-                                        src="/assets/icons/arrow_down_black.svg"
-                                        alt="arrow down icon"
-                                      />
+                                      </Link>
+                                    </DialogClose>
+                                  ) : (
+                                    <AccordionTrigger className="text-start text-sm font-bold uppercase text-black">
+                                      {language === 'en'
+                                        ? `${item_third?.title_en}`
+                                        : `${item_third?.title}`}{' '}
                                     </AccordionTrigger>
-                                  </div>
-                                ))}
+                                  )}
+
+                                  <AccordionTrigger className="relative size-5 origin-center transition-all duration-300 ease-in group-data-[state=open]:-rotate-180">
+                                    <NextImg
+                                      src="/assets/icons/arrow_down_black.svg"
+                                      alt="arrow down icon"
+                                    />
+                                  </AccordionTrigger>
+                                </div>
+                              )}
 
                               <AccordionContent>
-                                <div className={`${item_third?.title && item_third?.title_en ? "pt-4" : "pt-0"} flex flex-col gap-4 px-5`}>
+                                <div
+                                  className={`${item_third?.title && item_third?.title_en ? 'pt-4' : 'pt-0'} flex flex-col gap-4 px-5`}
+                                >
                                   {item_third?.sub_items?.map(
                                     (
                                       item_fourth: any,

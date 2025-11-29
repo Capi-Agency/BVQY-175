@@ -73,7 +73,7 @@ export default function NumberSplit({ data, dataDetail }: CommonSection) {
 
           <div className="flex flex-col items-stretch justify-center gap-2 py-2 md:py-2 lg:gap-4 lg:py-0 xl:gap-6 2xl:gap-8 3xl:gap-10">
             <div
-              className="text-base font-bold text-primary-600 lg:px-10 lg:text-lg xl:px-12 xl:text-xl 2xl:px-[60px] 3xl:px-[70px] 3xl:text-[22px] 4xl:px-[80px]"
+              className="section-title font-bold text-primary-600 lg:px-10 xl:px-12 2xl:px-[60px] 3xl:px-[70px] 4xl:px-[80px]"
               dangerouslySetInnerHTML={{
                 __html: data?.title,
               }}

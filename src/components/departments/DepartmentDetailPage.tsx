@@ -140,7 +140,7 @@ const DepartmentDetailPage = ({
       <div className="p-[12px_0_24px] xl:p-[20px_0_40px] 2xl:p-[24px_0_48px] 4xl:p-[60_0_120px]">
         <div
           ref={containerRef}
-          className="flex flex-col items-stretch md:container md:gap-6 lg:gap-12 2xl:gap-14 3xl:flex-row 3xl:items-start 3xl:gap-[72px] 4xl:gap-20"
+          className="flex flex-col items-stretch md:gap-6 md:container lg:gap-6 2xl:gap-0 3xl:flex-row 3xl:items-start 3xl:gap-[72px] 4xl:gap-20"
         >
           <div
             ref={sidebarRef}
@@ -226,7 +226,7 @@ const DepartmentDetailPage = ({
           </div>
 
           {/* Các khối */}
-          <div className="flex flex-1 flex-col px-6 md:px-0 md:pt-3 xl:pt-5 2xl:pt-6 4xl:pt-[60px]">
+          <div className="flex flex-1 flex-col px-6 md:px-0 2xl:pt-6 4xl:pt-[60px]">
             {parentGroups?.map((pGroup: any, index: number) => {
               return (
                 <DepartmentGroupSection
@@ -294,8 +294,8 @@ const DepartmentGroupSection = ({
               onClick={() => setActiveChildGroup(group.slug)}
               key={'group___' + idx}
               className={clsx(
-                'w-full text-base font-normal uppercase text-gray-500 hover:text-primary-600 hover:underline md:w-fit',
-                group.slug === activeChildGroup && 'text-primary-600 underline',
+                'w-full text-sm lg:text-base font-normal uppercase text-gray-500 hover:text-primary-600 underline-offset-4 cursor-pointer hover:underline md:w-fit',
+                group.slug === activeChildGroup && 'text-primary-600 underline-offset-4 underline',
                 isMatch(group.title) &&
                   'rounded-md bg-primary-600 px-2 py-1 text-white hover:text-primary-50',
               )}
@@ -311,11 +311,16 @@ const DepartmentGroupSection = ({
       {!activeChildGroup &&
         pGroup?.children_groups &&
         pGroup.children_groups.length > 1 && (
-          <div className="flex flex-col gap-6 md:flex-row md:flex-wrap">
+          <div className="flex flex-col gap-3 md:gap-4 xl:gap-5 2xl:gap-6 md:flex-row md:flex-wrap">
             {pGroup.children_groups.map((group: any, idx: number) => (
               <div
                 key={'group___' + idx}
-                className="mt-6 w-full md:w-fit lg:w-[calc(50%-12px)]"
+                className={clsx(
+                  'text-base w-full cursor-pointer lg:text-lg 2xl:text-xl font-normal underline-offset-4 underline md:w-fit lg:w-[calc(50%-12px)]',
+                  isMatch(group.title)
+                    ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
+                    : 'text-gray-950 hover:text-primary-600',
+                )}
               >
                 <div
                   className={clsx(
@@ -352,12 +357,12 @@ const DepartmentGroupSection = ({
 
       {/* Các khoa */}
       {pGroup?.departments && pGroup.departments.length > 1 && (
-        <div className="mt-5 flex list-none flex-col gap-4 md:flex-row md:flex-wrap md:gap-6 xl:mt-8 3xl:mt-[52px] 3xl:gap-x-4 3xl:gap-y-5">
+        <div className="mt-5 flex list-none flex-col gap-3 md:gap-4 md:flex-row md:flex-wrap xl:gap-5 2xl:gap-6 xl:mt-8 3xl:mt-[52px] 3xl:gap-x-4 3xl:gap-y-5">
           {pGroup.departments.map((department: any, idx: number) => (
             <Link
               href={'/vi/chuyen-khoa/' + department.slug}
               className={clsx(
-                'text-xl font-normal underline lg:w-[calc(50%-12px)]',
+                'text-base lg:text-lg 2xl:text-xl font-normal underline-offset-4 underline lg:w-[calc(50%-12px)]',
                 isMatch(department.title) || isMatch(department.code || '')
                   ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
                   : 'text-gray-950 hover:text-primary-600',
@@ -376,12 +381,12 @@ const DepartmentGroupSection = ({
         (childGroup: any) => childGroup.slug === activeChildGroup,
       ) &&
         childDepartments.length > 0 && (
-          <div className="mt-5 flex list-none flex-col gap-4 md:flex-row md:flex-wrap md:gap-6 xl:mt-8 3xl:mt-[52px] 3xl:gap-x-4 3xl:gap-y-5">
+          <div className="mt-5 flex list-none flex-col gap-3 md:gap-4 md:flex-row md:flex-wrap xl:gap-5 2xl:gap-6 xl:mt-8 3xl:mt-[52px] 3xl:gap-x-4 3xl:gap-y-5">
             {childDepartments.map((department: any, idx: number) => (
               <Link
                 href={'/vi/chuyen-khoa/' + department.slug}
                 className={clsx(
-                  'text-xl font-normal underline lg:w-[calc(50%-12px)]',
+                  'text-base lg:text-lg 2xl:text-xl font-normal underline-offset-4 underline lg:w-[calc(50%-12px)]',
                   isMatch(department.title) || isMatch(department.code || '')
                     ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
                     : 'text-gray-950 hover:text-primary-600',

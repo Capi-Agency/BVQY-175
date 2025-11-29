@@ -19,7 +19,7 @@ export default function FeatureWithImage4Col({ data }: CommonSection) {
             <Link
               key={index}
               href={`/${language}${button?.url}`}
-              className="group flex items-center gap-3 bg-white p-[12px_24px] transition-colors duration-200 hover:bg-secondary md:p-[12px_40px] lg:p-[12px_80px] xl:p-[12px_120px] 2xl:flex-1 2xl:p-[12px_16px] 3xl:gap-4 3xl:p-[12px_20px] 4xl:p-[12px_32px]"
+              className="group flex items-center gap-3 bg-white p-[12px_24px] transition-colors duration-200 hover:bg-secondary md:p-[12px_40px] lg:p-[12px_80px] xl:p-[12px_120px] 2xl:flex-1 2xl:p-[12px_16px] 3xl:gap-4 3xl:p-[12px_20px] 4xl:p-[12px_24px]"
               style={{
                 boxShadow:
                   '0 12px 15px -3px rgba(18, 26, 43, 0.05), 0 4px 6px -3px rgba(18, 26, 43, 0.05)',
