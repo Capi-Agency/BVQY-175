@@ -9,7 +9,7 @@ import { useEffect, useReducer, useRef, useState } from 'react';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { getOffsetY } from '@/src/utils/gsap';
+import { getOffsetY, getPositionFixed } from '@/src/utils/gsap';
 import gsap from 'gsap';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
@@ -46,12 +46,15 @@ const DepartmentDetailPage = ({
 
   const { contextSafe } = useGSAP(
     () => {
+      if (!containerRef?.current) return;
       ScrollTrigger.create({
         trigger: selector('.button-group'),
-        start: () => getOffsetY(conditions),
-        end: 'max',
+        start: () => getPositionFixed(conditions),
+        endTrigger: containerRef.current,
+        end: 'bottom bottom',
         pin: true,
         pinSpacing: false,
+        pinnedContainer: containerRef?.current
       });
     },
     {
@@ -128,88 +131,90 @@ const DepartmentDetailPage = ({
 
       <div
         ref={containerRef}
-        className="container flex flex-col gap-6 py-6 lg:max-w-[824px] lg:gap-12 xl:max-w-none xl:py-10 2xl:gap-14 2xl:px-40 2xl:py-12 3xl:max-w-[1280px] 3xl:flex-row 3xl:items-start 3xl:gap-[72px] 3xl:px-0 4xl:max-w-[1440px] 4xl:gap-20 4xl:py-[120px]"
+        className="container flex flex-col gap-6 lg:gap-12 2xl:gap-14 3xl:flex-row 3xl:gap-[72px] 4xl:gap-20"
       >
-        <div className="button-group w-full rounded-[16px] border border-[#E9EBED] bg-white px-4 py-6 3xl:max-w-[360px]">
-          {/* input */}
-          <form
-            className="relative hidden rounded-[6px] bg-gray-100 p-5 pl-11 shadow-lg md:block"
-            onSubmit={(e: any) => {
-              e.preventDefault();
-            }}
-          >
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              className="w-full bg-transparent text-lg text-gray-950 placeholder:text-gray-500 focus:border-none focus:outline-none lg:text-xl"
-              placeholder="Tìm kiếm theo tên, mã "
-            />
-            <img
-              src="/assets/icons/search_gray.svg"
-              alt="search_gray"
-              className="absolute left-4 top-1/2 -translate-y-1/2"
-            />
-          </form>
+        <div className="button-group hidden py-6 xl:py-10 2xl:py-12 3xl:block 4xl:py-[120px]">
+          <div className="h-fit w-[360px] rounded-[16px] border border-[#E9EBED] bg-white px-4 py-6">
+            {/* input */}
+            <form
+              className="relative hidden rounded-[6px] bg-gray-100 p-5 pl-11 shadow-lg md:block"
+              onSubmit={(e: any) => {
+                e.preventDefault();
+              }}
+            >
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                className="w-full bg-transparent text-lg text-gray-950 placeholder:text-gray-500 focus:border-none focus:outline-none lg:text-xl"
+                placeholder="Tìm kiếm theo tên, mã "
+              />
+              <img
+                src="/assets/icons/search_gray.svg"
+                alt="search_gray"
+                className="absolute left-4 top-1/2 -translate-y-1/2"
+              />
+            </form>
 
-          {/* Button cac khoi */}
-          <div className="grid grid-cols-5 gap-2.5 md:mt-4 md:flex md:flex-wrap md:gap-4 3xl:h-fit 3xl:flex-col">
-            {parentGroups?.map((group: any, index: number) => {
-              return (
-                <Link
-                  href={'#' + group.slug}
-                  key={'group_' + index}
-                  className={clsx(
-                    'group relative flex cursor-pointer items-center justify-center gap-2.5 overflow-hidden py-4 shadow-lg transition-all hover:bg-primary-600 md:justify-start md:px-5 xl:w-fit xl:flex-1 3xl:w-full',
-                  )}
-                >
-                  <img
-                    src={getAssetUrlById(group.icon)}
-                    alt="icon"
-                    className="size-10 group-hover:brightness-0 group-hover:invert"
-                  />
-                  <p className="hidden text-nowrap text-lg font-semibold text-gray-500 group-hover:text-white md:block">
-                    {group.title}
-                  </p>
-                  <BgHiddenShape className="pointer-events-none absolute left-1/2 w-[90%] -translate-x-[60%]" />
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* CTA goi ngay */}
-          <div className="relative mt-4 hidden rounded-[6px] bg-primary-950 px-6 py-8 3xl:block">
-            <div className="relative z-10">
-              <div
-                className="mb-5 text-[28px] font-bold text-primary-50"
-                dangerouslySetInnerHTML={{
-                  __html: ctaButtonData?.title,
-                }}
-              ></div>
-              <Link
-                href={ctaButtonData?.url}
-                className="flex w-fit items-center gap-2.5 rounded-[6px] bg-[#E50000] p-[10px_12px_10px_16px] text-lg font-medium leading-none text-white"
-              >
-                {ctaButtonData?.blurb}
-                <img
-                  src="/assets/icons/phone_white.svg"
-                  alt="phone"
-                  className="size-5"
-                />
-              </Link>
+            {/* Button cac khoi */}
+            <div className="grid grid-cols-5 gap-2.5 md:mt-4 md:flex md:flex-wrap md:gap-4 3xl:h-fit 3xl:flex-col">
+              {parentGroups?.slice(0,3)?.map((group: any, index: number) => {
+                return (
+                  <Link
+                    href={'#' + group.slug}
+                    key={'group_' + index}
+                    className={clsx(
+                      'group relative flex cursor-pointer items-center justify-center gap-2.5 overflow-hidden py-4 shadow-lg transition-all hover:bg-primary-600 md:justify-start md:px-5 xl:w-fit xl:flex-1 3xl:w-full',
+                    )}
+                  >
+                    <img
+                      src={getAssetUrlById(group.icon)}
+                      alt="icon"
+                      className="size-10 group-hover:brightness-0 group-hover:invert"
+                    />
+                    <p className="hidden text-nowrap text-lg font-semibold text-gray-500 group-hover:text-white md:block">
+                      {group.title}
+                    </p>
+                    <BgHiddenShape className="pointer-events-none absolute left-1/2 w-[90%] -translate-x-[60%]" />
+                  </Link>
+                );
+              })}
             </div>
-            <img
-              src="/assets/images/net-overlay.png"
-              alt="net overlay"
-              className="absolute inset-0 z-0 opacity-30"
-            />
+
+            {/* CTA goi ngay */}
+            <div className="relative mt-4 hidden rounded-[6px] bg-primary-950 px-6 py-8 3xl:block">
+              <div className="relative z-10">
+                <div
+                  className="mb-5 text-[28px] font-bold text-primary-50"
+                  dangerouslySetInnerHTML={{
+                    __html: ctaButtonData?.title,
+                  }}
+                ></div>
+                <Link
+                  href={ctaButtonData?.url}
+                  className="flex w-fit items-center gap-2.5 rounded-[6px] bg-[#E50000] p-[10px_12px_10px_16px] text-lg font-medium leading-none text-white"
+                >
+                  {ctaButtonData?.blurb}
+                  <img
+                    src="/assets/icons/phone_white.svg"
+                    alt="phone"
+                    className="size-5"
+                  />
+                </Link>
+              </div>
+              <img
+                src="/assets/images/net-overlay.png"
+                alt="net overlay"
+                className="absolute inset-0 z-0 opacity-30"
+              />
+            </div>
           </div>
         </div>
 
         {/* Các khối */}
-        <div className="flex flex-col">
+        <div className="flex flex-1 flex-col py-6 xl:py-10 2xl:py-12 4xl:py-[120px]">
           {parentGroups?.map((pGroup: any, index: number) => {
             return (
               <DepartmentGroupSection

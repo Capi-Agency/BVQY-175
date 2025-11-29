@@ -7,14 +7,22 @@ import { getAssetUrlById } from '@/src/utils/image';
 
 export default function HeroWithBottomBigImage({
   data,
-  dataDetail: department,
+  dataDetail,
 }: CommonSection) {
+  const hasContent =
+    dataDetail?.title ||
+    dataDetail?.date_established ||
+    dataDetail?.organizational_structure ||
+    dataDetail?.cover;
+
+  if (hasContent === null || hasContent.length === 0) return null;
+
   return (
     <section className="bg-[#F6FAF7]">
       <div className="container">
         <div className="flex flex-col items-stretch gap-4 pt-6 md:pt-8 lg:flex-row lg:items-end lg:justify-between lg:pt-10 xl:pt-12 2xl:pt-[56px] 3xl:pt-[64px] 4xl:pt-[72px]">
           <h1 className="text-[28px] font-bold leading-[1.3] text-[#09090B] md:text-[32px] lg:basis-5/12 lg:text-[36px] xl:text-[40px] 2xl:basis-6/12 2xl:text-[48px] 3xl:text-[56px] 4xl:text-[64px]">
-            {department?.title}
+            {dataDetail?.title}
           </h1>
 
           <div className="flex items-start gap-6 md:gap-8 lg:gap-10 xl:gap-14">
@@ -24,7 +32,7 @@ export default function HeroWithBottomBigImage({
               </div>
 
               <div className="text-base font-semibold text-[#09090B] md:text-lg lg:text-xl xl:text-2xl 2xl:text-[26px] 2xl:!leading-[1.3] 3xl:text-[28px]">
-                {formatDate(department?.date_established)}
+                {formatDate(dataDetail?.date_established)}
               </div>
             </div>
 
@@ -35,7 +43,7 @@ export default function HeroWithBottomBigImage({
               <div
                 className="text-base font-semibold text-[#09090B] md:text-lg lg:text-xl xl:text-2xl 2xl:text-[26px] 2xl:!leading-[1.3] 3xl:text-[28px]"
                 dangerouslySetInnerHTML={{
-                  __html: department?.organizational_structure,
+                  __html: dataDetail?.organizational_structure,
                 }}
               ></div>
             </div>
@@ -45,7 +53,7 @@ export default function HeroWithBottomBigImage({
         <div className="p-[24px_0] md:p-[32px_0] lg:p-[48px_0] 2xl:p-[64px_0_40px] 3xl:p-[80px_0_40px]">
           <div className="relative aspect-[9/4] w-full overflow-hidden rounded-[6px]">
             <NextImg
-              src={getAssetUrlById(department?.cover)}
+              src={getAssetUrlById(dataDetail?.cover)}
               alt="banner image"
             />
           </div>

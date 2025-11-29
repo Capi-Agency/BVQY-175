@@ -31,7 +31,7 @@ export default function MegaMenuContent({ item }: any) {
         {item?.sub_items?.map((item_second: any, item_second_index: number) => (
           <div
             key={item_second_index}
-            className={`${currentTab === item_second_index ? 'grid' : 'hidden'} grid-cols-3 gap-5 pt-4 2xl:grid-cols-4 2xl:gap-6 2xl:pt-5 3xl:gap-7 4xl:gap-8 4xl:pt-6`}
+            className={`${currentTab === item_second_index ? 'grid' : 'hidden'} ${item_second?.sub_items?.length === 1 ? 'grid-cols-1' : 'grid-cols-3 2xl:grid-cols-4'} gap-5 pt-4 2xl:gap-6 2xl:pt-5 3xl:gap-7 4xl:gap-8 4xl:pt-6`}
           >
             {item_second?.sub_items?.map(
               (item_third: any, item_third_index: number) => (
@@ -42,17 +42,20 @@ export default function MegaMenuContent({ item }: any) {
                       className="block text-sm font-bold uppercase text-black 3xl:text-base"
                     >
                       {language === 'en'
-                        ? `${item_third?.title_en}`
-                        : `${item_third?.title}`}
+                        ? `${item_third?.title_en || ''}`
+                        : `${item_third?.title || ''}`}
                     </NavigationMenu.Link>
                   ) : (
                     <div className="block text-sm font-bold uppercase text-black 3xl:text-base">
                       {language === 'en'
-                        ? `${item_third?.title_en}`
-                        : `${item_third?.title}`}
+                        ? `${item_third?.title_en || ''}`
+                        : `${item_third?.title || ''}`}
                     </div>
                   )}
-                  <div className="pt-1">
+
+                  <div
+                    className={`${item_second?.sub_items?.length === 1 ? 'grid grid-cols-3 gap-x-5 2xl:grid-cols-4 2xl:gap-x-6 3xl:gap-x-7 4xl:gap-x-8' : ''} pt-1`}
+                  >
                     {item_third?.sub_items?.map(
                       (item_fourth: any, item_fourth_index: number) =>
                         item_fourth?.url ? (
