@@ -342,12 +342,12 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
             <div
               key={'group___' + idx}
               className={clsx(
-                'w-full cursor-pointer text-base font-normal text-gray-950 underline underline-offset-4 hover:text-primary-600 md:w-[calc(50%-12px)] lg:text-lg 2xl:text-xl',
+                'w-full cursor-pointer text-base font-normal text-gray-950 hover:text-primary-600 md:w-[calc(50%-12px)] lg:text-lg 2xl:text-xl',
               )}
             >
               <div
                 className={clsx(
-                  'cursor-pointer p-[8px_0__4px] text-base font-semibold text-gray-950 underline hover:text-primary-600 md:p-[12px_0__4px] lg:p-[16px_0_4px] lg:text-lg 2xl:text-xl',
+                  'cursor-pointer p-[8px_0__4px] text-base font-semibold text-gray-950 underline-offset-4 hover:text-primary-600 hover:underline md:p-[12px_0__4px] lg:p-[16px_0_4px] lg:text-lg 2xl:text-xl',
                 )}
               >
                 {group.title}
@@ -357,7 +357,7 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
                   <Link
                     href={'/vi/chuyen-khoa/' + department.slug}
                     className={clsx(
-                      'text-base font-normal text-gray-950 underline hover:text-primary-600 lg:text-lg 2xl:text-xl',
+                      'text-base font-normal text-gray-950 hover:text-primary-600 hover:underline lg:text-lg 2xl:text-xl',
                     )}
                     key={'department_' + idx}
                   >
@@ -378,7 +378,7 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
             <Link
               href={'/vi/chuyen-khoa/' + department.slug}
               className={clsx(
-                'text-base font-normal text-gray-950 underline underline-offset-4 hover:text-primary-600 lg:w-[calc(50%-12px)] lg:text-lg 2xl:text-xl',
+                'text-base font-normal text-gray-950 underline-offset-4 hover:text-primary-600 hover:underline lg:w-[calc(50%-12px)] lg:text-lg 2xl:text-xl',
               )}
               key={'department_' + idx}
             >
