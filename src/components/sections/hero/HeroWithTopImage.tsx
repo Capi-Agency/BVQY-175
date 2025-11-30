@@ -147,8 +147,8 @@ const SliderImage = ({ dataImage, paginationClass }: any) => {
         ))}
       </Swiper>
 
-      <div className="container absolute bottom-2 left-0 z-[5] flex w-full justify-center lg:bottom-4 xl:bottom-5 3xl:bottom-6">
-        <div className="relative w-fit">
+      <div className="absolute bottom-2 left-0 z-[5] flex w-full justify-center lg:bottom-4 xl:bottom-5 3xl:bottom-6">
+        <div className="container relative w-fit">
           <div
             className={`swiper-bullets-container ${paginationClass} !w-fit`}
           ></div>

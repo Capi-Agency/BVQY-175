@@ -7,13 +7,34 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
+import Link from 'next/link';
+import useStoreLanguage from '@/src/store/store';
 
 export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
+  const language = useStoreLanguage((state: any) => state.language);
+
   return (
-    <div className="flex flex-col items-stretch gap-6 bg-[#F6FAF7] py-10 md:py-6 lg:gap-8 lg:py-10 xl:gap-11 xl:py-11 2xl:gap-12 2xl:py-12 3xl:gap-[52px] 3xl:py-[52px] 4xl:gap-[60px] 4xl:py-[60px]">
-      <h2 className="section-title container uppercase text-primary-600">
-        {data?.title}
-      </h2>
+    <div className="flex flex-col items-stretch gap-6 bg-[#F6FAF7] py-10 md:py-6 md:gap-8 lg:py-10 xl:gap-11 xl:py-11 2xl:gap-12 2xl:py-12 3xl:gap-[52px] 3xl:py-[52px] 4xl:gap-[60px] 4xl:py-[60px]">
+      <div className="container flex items-center justify-between">
+        <h2 className="section-title uppercase text-primary-600">
+          {data?.title}
+        </h2>
+
+        <div className='w-fit hidden md:block'>
+          <Link
+            href={`/${language}${data?.buttons?.[0]?.url}`}
+            className="btn-danger"
+          >
+            {data?.buttons?.[0]?.title}
+            <div className="relative size-5 2xl:size-6">
+              <NextImg
+                src={getAssetUrlById(data?.buttons?.[0]?.icon?.id)}
+                alt="icon"
+              />
+            </div>
+          </Link>
+        </div>
+      </div>
 
       <div className="lg:container">
         <div className="relative">
@@ -31,7 +52,7 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
             }}
             breakpoints={{
               768: {
-                slidesPerView: 2.6,
+                slidesPerView: 3,
                 spaceBetween: 24,
               },
               1024: {
@@ -82,6 +103,21 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
               />
             </div>
           </button>
+        </div>
+
+        <div className="container pt-6 md:hidden">
+          <Link
+            href={`/${language}${data?.buttons?.[0]?.url}`}
+            className="btn-danger"
+          >
+            {data?.buttons?.[0]?.title}
+            <div className="relative size-5 2xl:size-6">
+              <NextImg
+                src={getAssetUrlById(data?.buttons?.[0]?.icon?.id)}
+                alt="icon"
+              />
+            </div>
+          </Link>
         </div>
       </div>
     </div>

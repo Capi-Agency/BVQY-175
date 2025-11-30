@@ -34,20 +34,18 @@ export default function HotNewsHero({ data }: CommonSection) {
           ></h2>
           {dataNews?.length > 0 &&
             dataNews?.map(({ short_content }: any, index: number) => (
-              <div
+              <Link
                 key={index}
+                href={`/${language}${data?.buttons?.[0]?.url}/${short_content?.slug}`}
                 className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-11 3xl:gap-[52px] 4xl:gap-[60px]"
               >
-                <Link
-                  href={`/${language}${data?.buttons?.[0]?.url}/${short_content?.slug}`}
-                  className="relative aspect-video overflow-hidden"
-                >
+                <div className="relative aspect-video overflow-hidden">
                   <NextImg
                     src={getAssetUrlById(short_content?.thumbnail?.id)}
                     alt="news thumbnail"
                     objectFit="cover"
                   />
-                </Link>
+                </div>
 
                 <div className="flex flex-col items-stretch justify-center">
                   <div className="line-clamp-3 text-xl font-semibold uppercase text-primary-600 lg:text-2xl 2xl:text-[28px] 2xl:!leading-[1.5] 3xl:text-[30px] 4xl:text-[32px]">
@@ -74,10 +72,7 @@ export default function HotNewsHero({ data }: CommonSection) {
                       </p>
                     </div>
 
-                    <Link
-                      href={`/${language}${data?.buttons?.[0]?.url}/${short_content?.slug}`}
-                      className="flex items-center gap-1.5 xl:gap-2"
-                    >
+                    <div className="flex items-center gap-1.5 xl:gap-2">
                       <p className="text-sm font-medium text-black lg:text-base 3xl:text-lg 4xl:text-xl">
                         {data?.buttons?.[0]?.title}
                       </p>
@@ -88,10 +83,10 @@ export default function HotNewsHero({ data }: CommonSection) {
                           alt="arrow icon"
                         />
                       </div>
-                    </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
         </div>
       </div>

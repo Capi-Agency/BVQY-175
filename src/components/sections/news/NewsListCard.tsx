@@ -25,20 +25,25 @@ gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
 export default function NewsListCard({ data }: CommonSection) {
   const { trans } = useTranslate();
+  // Animation
   const { conditions } = useGsapMatchMedia();
   const containerRef = useRef<any>(null);
   const newsListRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
-
+ 
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const [dataNews, setDataNews] = useState<any>([]);
   const [length, setLength] = useState<number>(0);
 
+  // Bộ lọc
   const currentPage = Number(searchParams.get('page')) || 1;
+  const category = searchParams.get('cate');
+  const search = searchParams.get('s');
   const isSort: boolean = data?.collection_items_order === '-date_published';
 
+  // Phân trang
   const totalPage: number = useMemo(() => {
     return length
       ? Math.ceil(Number(length) / data?.collection_items_limit)
@@ -49,7 +54,7 @@ export default function NewsListCard({ data }: CommonSection) {
     () => getPaginatedPages(totalPage, currentPage),
     [totalPage, currentPage],
   );
-  
+
   const offsetY = useMemo(() => getOffsetY(conditions), []);
 
   const { contextSafe } = useGSAP(
@@ -69,7 +74,7 @@ export default function NewsListCard({ data }: CommonSection) {
     },
     {
       scope: containerRef,
-      dependencies: [data, currentPage],
+      dependencies: [data, currentPage, category, search],
     },
   );
 
@@ -80,6 +85,8 @@ export default function NewsListCard({ data }: CommonSection) {
         page: currentPage,
         limit: data?.collection_items_limit,
         sort: isSort,
+        category: category || '',
+        keyword: search || '',
       });
       setDataNews(response);
     } catch (error) {
@@ -92,14 +99,15 @@ export default function NewsListCard({ data }: CommonSection) {
       try {
         const response = await getTotalNewsCount({
           collection: data?.collections,
+          category: category || '',
+          keyword: search || '',
         });
-        console.log(response);
         setLength(response);
       } catch (error) {
         console.log('Error:', error);
       }
     })();
-  }, [data]);
+  }, [data, category, search]);
 
   const handleChangePage = useCallback(
     (pageNumber: number) => {

@@ -60,7 +60,12 @@ export default function TeamSlider5Col({ data }: CommonSection) {
           >
             {data?.doctors?.map((item: any, index: number) => (
               <SwiperSlide key={index}>
-                <DoctorCard item={item} type="blouse_logo" />
+                <DoctorCard
+                  item={item}
+                  avatarType="avatar"
+                  subTitle="specialty"
+                  isHover
+                />
               </SwiperSlide>
             ))}
           </Swiper>

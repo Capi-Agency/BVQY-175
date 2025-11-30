@@ -5,11 +5,27 @@ import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
 import RegisterFollowNews from './RegisterFollowNews';
 import { CommonSection } from '@/src/types/pageBuilder';
+import { useEffect, useState } from 'react';
+import { fnGetListitem } from '@/src/services/common';
+import Link from 'next/link';
 
 export default function NewsDetail({ data, dataDetail }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
   // Helper để chọn nội dung theo ngôn ngữ
   const t = (vi: string, en: string) => (language === 'en' ? en : vi);
+
+  const [cateData, setCateData] = useState<any>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fnGetListitem({ collection: 'p_categories' });
+        setCateData(response);
+      } catch (error) {
+        console.log('Error fetching data' + error);
+      }
+    })();
+  }, []);
 
   return (
     <section className="container my-10 lg:my-12 2xl:my-[72px] 3xl:my-20">
@@ -22,9 +38,9 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
         />
       </div>
 
-      <div className="mt-6 flex flex-col gap-6 md:grid md:grid-cols-[auto,260px] md:flex-row lg:mx-auto lg:mt-10 lg:max-w-[902px] lg:gap-11 xl:max-w-[960px] 2xl:gap-12 3xl:max-w-[1120px] 3xl:gap-[60px] 4xl:mt-[60px]">
+      <div className="mt-6 flex flex-col gap-6 md:grid md:grid-cols-[auto,220px] lg:grid-cols-[auto,260px] md:flex-row lg:mx-auto lg:mt-10 lg:gap-8 xl:gap-11 2xl:gap-12 3xl:gap-[60px] 4xl:mt-[60px]">
         {/* Main content */}
-        <div className="space-y-4 md:space-y-6">
+        <div className="space-y-4 md:space-y-6 ">
           <div className="space-y-2 lg:space-y-3">
             {/* Date published */}
             <div className="flex items-center gap-1.5 text-sm text-black lg:text-base 2xl:gap-2 2xl:text-lg 4xl:text-xl">
@@ -64,25 +80,28 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
         </div>
 
         {/* Sidebar */}
-        <div className="space-y-6 lg:space-y-8 3xl:space-y-10">
+        <div className="space-y-6 lg:space-y-8 3xl:space-y-10 ">
           {/*  Tags  */}
           <div>
             <h3 className="mb-2 text-base font-semibold text-gray-950 lg:mb-4 lg:text-lg 3xl:mb-5">
               {data?.buttons?.[0]?.title}
             </h3>
-            <p className="border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 lg:py-3 lg:text-base">
-              Tin nổi bật
-            </p>
-            <p className="border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 lg:py-3 lg:text-base">
-              Tin nổi bật
-            </p>
+            {cateData?.map((cate: any, index: number) => (
+              <Link
+                href={`/${language}/tin-tuc?cate=${cate?.slug}`}
+                key={cate?.slug}
+                className="block border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 lg:py-3 lg:text-base"
+              >
+                {language === 'en' ? cate?.title_en : cate?.title}
+              </Link>
+            ))}
           </div>
 
           {/* Form */}
           <RegisterFollowNews />
 
           {/* Banner */}
-          <div className="flex flex-col items-center gap-3 rounded-[6px] border-[.5px] border-primary-600 px-3 py-5 xl:gap-4 xl:rounded-xl xl:px-4 xl:py-6">
+          {/* <div className="flex flex-col items-center gap-3 rounded-[6px] border-[.5px] border-primary-600 px-3 py-5 xl:gap-4 xl:rounded-xl xl:px-4 xl:py-6">
             <div
               className="mx-auto w-full max-w-[220px] text-center text-sm font-semibold text-black"
               dangerouslySetInnerHTML={{
@@ -103,7 +122,7 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
                 {data?.blurb}
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

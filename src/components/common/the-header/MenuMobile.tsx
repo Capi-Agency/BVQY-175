@@ -49,14 +49,16 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
         </button>
       </DialogTrigger>
 
-      <DialogContentMenuMobile>
+      <DialogContentMenuMobile onOpenAutoFocus={(e) => e.preventDefault()}>
         <div className="hidden">
           <DialogTitle>Mobile menu</DialogTitle>
           <DialogDescription>Mobile menu</DialogDescription>
         </div>
 
-        <div className="container flex h-full flex-col items-stretch bg-white">
+        <div className="container flex h-full flex-col items-stretch">
+          {/* header */}
           <div className="flex items-center justify-between py-[6px]">
+            {/* Logo 175 */}
             <DialogClose
               onClick={() => {
                 setIsOpenSubMenu(false);
@@ -77,6 +79,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
             </DialogClose>
 
             <div className="flex items-center gap-2">
+              {/* Address button */}
               <DialogClose
                 onClick={() => {
                   setIsOpenSubMenu(false);
@@ -95,6 +98,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                 </div>
               </DialogClose>
 
+              {/* Language button */}
               <button
                 onClick={() =>
                   changeLanguage(`${language === 'en' ? 'vi' : 'en'}`)
@@ -116,6 +120,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                 )}
               </button>
 
+              {/* Close button */}
               <DialogClose
                 onClick={() => {
                   setIsOpenSubMenu(false);
@@ -133,40 +138,46 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
             </div>
           </div>
 
-          <div className="scrollbar-hidden relative flex-1 overflow-x-hidden overflow-y-scroll pb-[100px]">
-            <div className="flex items-center justify-center gap-6 pb-[6px] pt-5 md:hidden">
-              {contact_information?.files?.length > 0 &&
-                contact_information?.files?.map((file: any, index: number) => (
-                  <div className="relative h-[72px] w-[50px]" key={index}>
-                    <NextImg
-                      src={getAssetUrlById(file?.directus_files_id)}
-                      alt="Military hospital"
-                    />
-                  </div>
-                ))}
-            </div>
+          <div className="relative flex h-[calc(100vh-64px)] flex-col items-stretch">
+            <div className="scrollbar-hidden relative flex-1 overflow-x-hidden overflow-y-scroll pb-5 md:pb-6">
+              <div className="relative w-full space-y-5 md:space-y-7 lg:space-y-8">
+                {/* Danh hiệu, huân chương */}
+                <div className="flex items-center justify-center gap-6 pb-[6px] pt-5 md:hidden">
+                  {contact_information?.files?.length > 0 &&
+                    contact_information?.files?.map(
+                      (file: any, index: number) => (
+                        <div className="relative h-[72px] w-[50px]" key={index}>
+                          <NextImg
+                            src={getAssetUrlById(file?.directus_files_id)}
+                            alt="Military hospital"
+                          />
+                        </div>
+                      ),
+                    )}
+                </div>
 
-            <div className="space-y-6 py-6 lg:space-y-8 lg:py-8">
-              <div className="flex h-10 items-stretch rounded-[6px] bg-[#F4F4F5] p-[6px_6px_6px_16px] backdrop-blur-[9.5px]">
-                <input
-                  autoFocus={false}
-                  type="text"
-                  className="flex-1 border-none bg-transparent text-xs font-normal text-black outline-none placeholder:text-[#52525B]"
-                  placeholder={trans('search-placeholder')}
-                />
-                <button className="flex items-center justify-center rounded-[4px] bg-primary-600 px-3">
-                  <div className="relative size-5">
-                    <NextImg
-                      src="/assets/icons/search_white.svg"
-                      alt="search icon"
-                    />
-                  </div>
-                </button>
-              </div>
+                {/* input search */}
+                <div className="flex h-11 items-stretch rounded-[6px] bg-[#F4F4F5] p-[6px_6px_6px_16px] gap-2 md:gap-3 lg:gap-4 backdrop-blur-[9.5px]">
+                  <input
+                    tabIndex={1}
+                    autoFocus={false}
+                    type="text"
+                    className="flex-1 border-none bg-transparent text-sm font-normal text-black outline-none placeholder:text-[#52525B]"
+                    placeholder={trans('search-placeholder')}
+                  />
+                  <button className="flex items-center justify-center rounded-[4px] bg-primary-600 px-3">
+                    <div className="relative size-5">
+                      <NextImg
+                        src="/assets/icons/search_white.svg"
+                        alt="search icon"
+                      />
+                    </div>
+                  </button>
+                </div>
 
-              <div className="relative">
+                {/* menu main */}
                 <AccordionRoot
-                  className="relative w-full space-y-6"
+                  className="relative w-full space-y-5 md:space-y-6"
                   type="single"
                   collapsible
                 >
@@ -204,11 +215,13 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                               </AccordionTrigger>
                             )}
 
-                            <AccordionTrigger className="relative size-5 origin-center transition-all duration-300 ease-in group-data-[state=open]:-rotate-180">
-                              <NextImg
-                                src="/assets/icons/arrow_down_black.svg"
-                                alt="arrow down icon"
-                              />
+                            <AccordionTrigger className="relative size-6 flex justify-center items-center origin-center transition-all duration-300 ease-in group-data-[state=open]:-rotate-180">
+                              <div className='relative size-5'>
+                                <NextImg
+                                  src="/assets/icons/arrow_down_black.svg"
+                                  alt="arrow down icon"
+                                />
+                              </div>
                             </AccordionTrigger>
                           </div>
 
@@ -284,197 +297,200 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                     })}
                 </AccordionRoot>
 
-                {/* sub menu: cấp 3 trở đi */}
-                <div
-                  className={`${isOpenSubMenu ? 'left-1/2 -translate-x-1/2 opacity-100' : 'left-0 translate-x-full opacity-0'} scrollbar-hidden container absolute top-0 z-[200] !m-0 h-full w-[100vw] overflow-x-hidden overflow-y-scroll bg-white pb-[100px] transition-all duration-500`}
-                >
-                  <AccordionRoot
-                    key={isOpenSubMenu ? 'open' : 'closed'}
-                    className="relative w-full space-y-6"
-                    type="multiple" // Cho phép nhiều tab mở cùng lúc
-                    defaultValue={itemSecond?.sub_items?.map(
-                      (_: any, i: number) => `item-second-${i}`,
-                    )}
+                {/* footer */}
+                <div className="flex items-center gap-2 md:hidden">
+                  {/* address button */}
+                  <DialogClose
+                    onClick={() => {
+                      setIsOpenSubMenu;
+                      smoother?.paused(false);
+                    }}
+                    asChild
+                    className="border-none outline-none"
                   >
-                    <button
-                      onClick={() => setIsOpenSubMenu(false)}
-                      className="flex items-center gap-1"
-                    >
-                      <div className="relative size-5 origin-center rotate-90">
+                    <div className="btn-menu">
+                      <div className="relative size-5 2xl:size-6">
                         <NextImg
-                          src="/assets/icons/arrow_down_black.svg"
-                          alt="arrow down icon"
+                          src="/assets/icons/hospital_location.svg"
+                          alt="hospital location"
                         />
                       </div>
-                      <div className="text-sm font-bold text-black">
-                        {trans('return-menu')}
-                      </div>
-                    </button>
+                    </div>
+                  </DialogClose>
 
-                    {itemSecond &&
-                      itemSecond?.sub_items?.map(
-                        (item_third: any, item_third_index: any) => {
-                          return item_third?.sub_items ? (
-                            <AccordionItem
-                              value={`item-second-${item_third_index}`}
-                              key={item_third_index}
-                              className="group w-full"
-                            >
-                              {item_third?.title && item_third?.title_en && (
-                                <div className="flex w-full items-center justify-between gap-[2px]">
-                                  {item_third?.url ? (
-                                    <DialogClose
-                                      onClick={() => {
-                                        setIsOpenSubMenu(false);
-                                        smoother?.paused(false);
-                                      }}
-                                      asChild
-                                      className="border-none outline-none"
+                  {/* Language button */}
+                  <button
+                    onClick={() =>
+                      changeLanguage(`${language === 'en' ? 'vi' : 'en'}`)
+                    }
+                    className="relative h-9 w-[52px] overflow-hidden rounded-[6px] 2xl:h-10 2xl:w-[60px]"
+                  >
+                    {language && language === 'en' ? (
+                      <NextImg
+                        src="/assets/images/flag_en.png"
+                        alt="English"
+                        objectFit="cover"
+                      />
+                    ) : (
+                      <NextImg
+                        src="/assets/images/flag_vi.png"
+                        alt="Vietnamese"
+                        objectFit="cover"
+                      />
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* sub menu: cấp 3 trở đi */}
+            <div
+              onScroll={(e) => e.stopPropagation()}
+              className={`${isOpenSubMenu ? 'left-1/2 -translate-x-1/2 opacity-100' : 'left-0 translate-x-full opacity-0'} container absolute inset-0 z-[200] !m-0 flex h-full w-[100vw] flex-col items-stretch bg-white pt-5 transition-all duration-500 md:pt-6`}
+            >
+              <button
+                onClick={() => setIsOpenSubMenu(false)}
+                className="mb-2 md:mb-3 flex items-center gap-1"
+              >
+                <div className="relative size-5 origin-center rotate-90">
+                  <NextImg
+                    src="/assets/icons/arrow_down_black.svg"
+                    alt="arrow down icon"
+                  />
+                </div>
+                <div className="text-sm font-bold text-black">
+                  {trans('return-menu')}
+                </div>
+              </button>
+
+              <div className="scrollbar-hidden relative flex-1 overflow-x-hidden overflow-y-scroll py-5">
+                <AccordionRoot
+                  key={isOpenSubMenu ? 'open' : 'closed'}
+                  className="relative w-full space-y-6"
+                  type="multiple" // Cho phép nhiều tab mở cùng lúc
+                  defaultValue={itemSecond?.sub_items?.map(
+                    (_: any, i: number) => `item-second-${i}`,
+                  )}
+                >
+                  {itemSecond &&
+                    itemSecond?.sub_items?.map(
+                      (item_third: any, item_third_index: any) => {
+                        return item_third?.sub_items ? (
+                          <AccordionItem
+                            value={`item-second-${item_third_index}`}
+                            key={item_third_index}
+                            className="group w-full"
+                          >
+                            {item_third?.title && item_third?.title_en && (
+                              <div className="flex w-full items-center justify-between gap-[2px]">
+                                {item_third?.url ? (
+                                  <DialogClose
+                                    onClick={() => {
+                                      setIsOpenSubMenu(false);
+                                      smoother?.paused(false);
+                                    }}
+                                    asChild
+                                    className="border-none outline-none"
+                                  >
+                                    <Link
+                                      href={`/${language}${item_third?.url || ''}`}
+                                      className="text-start text-sm font-bold uppercase text-black"
                                     >
-                                      <Link
-                                        href={`/${language}${item_third?.url || ''}`}
-                                        className="text-start text-sm font-bold uppercase text-black"
-                                      >
-                                        {language === 'en'
-                                          ? `${item_third?.title_en}`
-                                          : `${item_third?.title}`}{' '}
-                                      </Link>
-                                    </DialogClose>
-                                  ) : (
-                                    <AccordionTrigger className="text-start text-sm font-bold uppercase text-black">
                                       {language === 'en'
                                         ? `${item_third?.title_en}`
                                         : `${item_third?.title}`}{' '}
-                                    </AccordionTrigger>
-                                  )}
-
-                                  <AccordionTrigger className="relative size-5 origin-center transition-all duration-300 ease-in group-data-[state=open]:-rotate-180">
-                                    <NextImg
-                                      src="/assets/icons/arrow_down_black.svg"
-                                      alt="arrow down icon"
-                                    />
+                                    </Link>
+                                  </DialogClose>
+                                ) : (
+                                  <AccordionTrigger className="text-start text-sm font-bold uppercase text-black">
+                                    {language === 'en'
+                                      ? `${item_third?.title_en}`
+                                      : `${item_third?.title}`}{' '}
                                   </AccordionTrigger>
-                                </div>
-                              )}
+                                )}
 
-                              <AccordionContent>
-                                <div
-                                  className={`${item_third?.title && item_third?.title_en ? 'pt-4' : 'pt-0'} flex flex-col gap-4 px-5`}
-                                >
-                                  {item_third?.sub_items?.map(
-                                    (
-                                      item_fourth: any,
-                                      item_fourth_index: any,
-                                    ) =>
-                                      item_fourth?.sub_items?.length > 0 ? (
-                                        <div
-                                          key={item_fourth_index}
-                                          className="flex w-fit cursor-pointer items-center gap-1"
-                                        >
-                                          <div className="text-sm font-medium text-[#18181B]">
-                                            {language === 'en'
-                                              ? `${item_fourth?.title_en}`
-                                              : `${item_fourth?.title}`}
-                                          </div>
-                                          <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
-                                            {item_fourth?.sub_items?.length}
-                                          </div>
-                                          <div className="relative size-5 origin-center -rotate-90">
-                                            <NextImg
-                                              src="/assets/icons/arrow_down_black.svg"
-                                              alt="arrow down icon"
-                                            />
-                                          </div>
-                                        </div>
-                                      ) : (
-                                        <DialogClose
-                                          onClick={() => {
-                                            setIsOpenSubMenu(false);
-                                            smoother?.paused(false);
-                                          }}
-                                          asChild
-                                          key={item_fourth_index}
-                                          className="w-fit"
-                                        >
-                                          <Link
-                                            href={`/${language}${item_fourth?.url || ''}`}
-                                            className="text-sm font-medium text-[#18181B]"
-                                          >
-                                            {language === 'en'
-                                              ? `${item_fourth?.title_en}`
-                                              : `${item_fourth?.title}`}{' '}
-                                          </Link>
-                                        </DialogClose>
-                                      ),
-                                  )}
-                                </div>
-                              </AccordionContent>
-                            </AccordionItem>
-                          ) : (
-                            <AccordionItem key={item_third_index}>
-                              <DialogClose
-                                onClick={() => {
-                                  setIsOpenSubMenu(false);
-                                  smoother?.paused(false);
-                                }}
-                                asChild
+                                <AccordionTrigger className="relative size-5 origin-center transition-all duration-300 ease-in group-data-[state=open]:-rotate-180">
+                                  <NextImg
+                                    src="/assets/icons/arrow_down_black.svg"
+                                    alt="arrow down icon"
+                                  />
+                                </AccordionTrigger>
+                              </div>
+                            )}
+
+                            <AccordionContent>
+                              <div
+                                className={`${item_third?.title && item_third?.title_en ? 'pt-4' : 'pt-0'} flex flex-col gap-4 px-5`}
                               >
-                                <Link
-                                  href={`/${language}${item_third?.url || ''}`}
-                                  className="text-sm font-bold uppercase text-black"
-                                >
-                                  {language === 'en'
-                                    ? `${item_third?.title_en}`
-                                    : `${item_third?.title}`}
-                                </Link>
-                              </DialogClose>
-                            </AccordionItem>
-                          );
-                        },
-                      )}
-                  </AccordionRoot>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 md:hidden">
-                <DialogClose
-                  onClick={() => {
-                    setIsOpenSubMenu;
-                    smoother?.paused(false);
-                  }}
-                  asChild
-                  className="border-none outline-none"
-                >
-                  <div className="btn-menu">
-                    <div className="relative size-5 2xl:size-6">
-                      <NextImg
-                        src="/assets/icons/hospital_location.svg"
-                        alt="hospital location"
-                      />
-                    </div>
-                  </div>
-                </DialogClose>
-
-                <button
-                  onClick={() =>
-                    changeLanguage(`${language === 'en' ? 'vi' : 'en'}`)
-                  }
-                  className="relative h-9 w-[52px] overflow-hidden rounded-[6px] 2xl:h-10 2xl:w-[60px]"
-                >
-                  {language && language === 'en' ? (
-                    <NextImg
-                      src="/assets/images/flag_en.png"
-                      alt="English"
-                      objectFit="cover"
-                    />
-                  ) : (
-                    <NextImg
-                      src="/assets/images/flag_vi.png"
-                      alt="Vietnamese"
-                      objectFit="cover"
-                    />
-                  )}
-                </button>
+                                {item_third?.sub_items?.map(
+                                  (item_fourth: any, item_fourth_index: any) =>
+                                    item_fourth?.sub_items?.length > 0 ? (
+                                      <div
+                                        key={item_fourth_index}
+                                        className="flex w-fit cursor-pointer items-center gap-1"
+                                      >
+                                        <div className="text-sm font-medium text-[#18181B]">
+                                          {language === 'en'
+                                            ? `${item_fourth?.title_en}`
+                                            : `${item_fourth?.title}`}
+                                        </div>
+                                        <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
+                                          {item_fourth?.sub_items?.length}
+                                        </div>
+                                        <div className="relative size-5 origin-center -rotate-90">
+                                          <NextImg
+                                            src="/assets/icons/arrow_down_black.svg"
+                                            alt="arrow down icon"
+                                          />
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      <DialogClose
+                                        onClick={() => {
+                                          setIsOpenSubMenu(false);
+                                          smoother?.paused(false);
+                                        }}
+                                        asChild
+                                        key={item_fourth_index}
+                                        className="w-fit"
+                                      >
+                                        <Link
+                                          href={`/${language}${item_fourth?.url || ''}`}
+                                          className="text-sm font-medium text-[#18181B]"
+                                        >
+                                          {language === 'en'
+                                            ? `${item_fourth?.title_en}`
+                                            : `${item_fourth?.title}`}{' '}
+                                        </Link>
+                                      </DialogClose>
+                                    ),
+                                )}
+                              </div>
+                            </AccordionContent>
+                          </AccordionItem>
+                        ) : (
+                          <AccordionItem key={item_third_index}>
+                            <DialogClose
+                              onClick={() => {
+                                setIsOpenSubMenu(false);
+                                smoother?.paused(false);
+                              }}
+                              asChild
+                            >
+                              <Link
+                                href={`/${language}${item_third?.url || ''}`}
+                                className="text-sm font-bold uppercase text-black"
+                              >
+                                {language === 'en'
+                                  ? `${item_third?.title_en}`
+                                  : `${item_third?.title}`}
+                              </Link>
+                            </DialogClose>
+                          </AccordionItem>
+                        );
+                      },
+                    )}
+                </AccordionRoot>
               </div>
             </div>
           </div>
