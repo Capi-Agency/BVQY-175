@@ -26,7 +26,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
   return (
     <div className="bg-primary-50 py-6 md:py-10 2xl:py-[60px]">
       <div className="container grid grid-cols-11 gap-6 md:gap-7 lg:gap-8 xl:gap-10 3xl:gap-12 4xl:gap-14">
-        <div className="col-span-full flex flex-col items-stretch gap-6 md:flex-row md:items-start md:gap-7 lg:col-span-4 lg:flex-col lg:items-stretch lg:gap-8 2xl:gap-10 4xl:gap-14">
+        <div className="col-span-full flex flex-col items-stretch gap-6 md:flex-row md:items-start md:gap-7 lg:col-span-4 lg:flex-col lg:items-stretch lg:gap-8">
           <div className="relative aspect-[480/600] w-full bg-white md:basis-1/2 lg:basis-0">
             <NextImg
               src={getAssetUrlById(
@@ -49,6 +49,19 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
           </div>
 
           <div className="space-y-2 md:basis-1/2 lg:basis-0 lg:space-y-3 xl:space-y-4">
+            <Link
+              href={`#`}
+              className="btn-danger relative !mb-6 w-full justify-center py-3 md:!mb-7 lg:!mb-8 lg:py-4 lg:text-lg"
+            >
+              Đặt lịch khám
+              <div className="relative size-4">
+                <NextImg
+                  src="/assets/icons/phone2_white.svg"
+                  alt="phone icon"
+                />
+              </div>
+            </Link>
+
             <div className="text-xl font-semibold text-primary-800 md:text-[22px] xl:text-2xl 2xl:text-[28px]">
               Giới thiệu
             </div>

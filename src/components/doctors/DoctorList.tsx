@@ -718,7 +718,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
           >
             Đặt lịch khám
             <div className="relative size-4">
-              <NextImg src="/assets/icons/phone_white.svg" alt="phone icon" />
+              <NextImg src="/assets/icons/phone2_white.svg" alt="phone icon" />
             </div>
           </Link>
           <Link
