@@ -175,6 +175,7 @@ export const fnGetDoctorDetail = async ({
           '*',
           'departments.department.*',
           'department_groups.department_groups_slug.title',
+          'department_groups.department_groups_slug.slug',
         ],
       }),
     );

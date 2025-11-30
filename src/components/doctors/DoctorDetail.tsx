@@ -20,7 +20,6 @@ import useStoreLanguage from '@/src/store/store';
 import { getDoctorTitles } from '@/src/utils/render-doctor-title';
 
 export default function DoctorDetail({ data, dataDetail }: CommonSection) {
-  console.log('🚀 ~ DoctorDetail ~ dataDetail:', dataDetail);
   const [isViewMore, setIsViewMore] = useState<boolean>(false);
   const language = useStoreLanguage((state: any) => state.language);
 
@@ -104,6 +103,17 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
                 </div>
 
                 <div className="flex flex-wrap gap-3">
+                  {dataDetail?.department_groups?.map(
+                    ({ department_groups_slug: group }: any, index: number) => (
+                      <Link
+                        key={index}
+                        href={`/${language}/vien/${group?.slug}`}
+                        className="block text-sm font-normal text-[#09090B] underline underline-offset-2 lg:text-base"
+                      >
+                        {language === 'en' ? group?.title_en : group?.title}
+                      </Link>
+                    ),
+                  )}
                   {dataDetail?.departments?.map(
                     ({ department }: any, index: number) => (
                       <Link
