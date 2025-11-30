@@ -33,6 +33,7 @@ const DepartmentDetailPage = ({
   const ctaButtonData = bannerData?.buttons[0];
   const selector = gsap.utils.selector(containerRef);
   const [filteredGroups, setFilteredGroups] = useState(parentGroups);
+  console.log('🚀 ~ DepartmentDetailPage ~ filteredGroups:', filteredGroups);
   const normalizeText = (str: string) =>
     removeVietnameseMarks(str || '').toLowerCase();
 
@@ -323,7 +324,7 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
       <p className="section-title mt-2">{pGroup.title}</p>
 
       {/* List các khối con */}
-      {pGroup?.children_groups && pGroup.children_groups.length > 1 && (
+      {pGroup?.children_groups && pGroup.children_groups.length > 0 && (
         <div className="mt-5 flex flex-col gap-3 md:flex-row md:flex-wrap md:gap-4 xl:mt-8 xl:gap-5 2xl:gap-6 3xl:mt-[52px]">
           {pGroup.children_groups.map((group: any, idx: number) => (
             <div
