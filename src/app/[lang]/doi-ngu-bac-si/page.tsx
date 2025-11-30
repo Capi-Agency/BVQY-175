@@ -1,4 +1,4 @@
-import DepartmentDetailPage from '@/src/components/departments/DepartmentDetailPage';
+import DepartmentDetailPage from '@/src/components/departments/DepartmentListPage';
 import DoctorList from '@/src/components/doctors/DoctorList';
 import { BreadcrumbBasic } from '@/src/components/sections/breadcrumb';
 import LogoSlider from '@/src/components/sections/slider/LogoSlider';

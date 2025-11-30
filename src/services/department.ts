@@ -1,7 +1,17 @@
 import { directusClientWithRest } from '@/src/lib/directus';
 import { readItem, readItems } from '@directus/sdk';
 
-export const getAllDepartmentGroups = async () => {
+export const getAllDepartmentGroups = async (keyword?: string) => {
+  const filter: any = {};
+  if (keyword) {
+    filter.title = {
+      _icontains: keyword,
+    };
+    filter.code = {
+      _icontains: keyword,
+    };
+  }
+
   try {
     const res = await directusClientWithRest.request(
       readItems('department_groups', {
@@ -13,6 +23,7 @@ export const getAllDepartmentGroups = async () => {
           'departments.code',
           'children_groups.*.*',
         ],
+        filter,
         sort: ['sort', 'title'],
       }),
     );

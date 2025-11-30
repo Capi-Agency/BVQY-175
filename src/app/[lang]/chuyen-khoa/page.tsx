@@ -1,4 +1,4 @@
-import DepartmentDetailPage from '@/src/components/departments/DepartmentDetailPage';
+import DepartmentListPage from '@/src/components/departments/DepartmentListPage';
 import LogoSlider from '@/src/components/sections/slider/LogoSlider';
 import { getAllDepartmentGroups } from '@/src/services/department';
 import { fnGetPageBySlug } from '@/src/services/page';
@@ -35,7 +35,7 @@ const DepartmentListPageWrapper = async () => {
 
   return (
     <div>
-      <DepartmentDetailPage
+      <DepartmentListPage
         bannerData={bannerData}
         departmentGroups={departmentGroups as any[]}
         parentGroups={parentGroups as any[]}

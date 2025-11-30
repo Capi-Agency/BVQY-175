@@ -11,6 +11,7 @@ import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { getOffsetY, getPositionFixed } from '@/src/utils/gsap';
 import gsap from 'gsap';
+import { removeVietnameseMarks } from '@/src/utils/validate';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
@@ -29,21 +30,11 @@ const DepartmentDetailPage = ({
   const sidebarRef = useRef<any>(null);
   const { conditions } = useGsapMatchMedia();
   const [searchText, setSearchText] = useState('');
-  const [debouncedText, setDebouncedText] = useState('');
   const ctaButtonData = bannerData?.buttons[0];
   const selector = gsap.utils.selector(containerRef);
-
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedText(searchText.trim().toLowerCase());
-    }, 200);
-    return () => clearTimeout(handler);
-  }, [searchText]);
-
-  const isMatch = (txt: string) => {
-    if (!debouncedText) return false;
-    return txt?.toLowerCase().includes(debouncedText);
-  };
+  const [filteredGroups, setFilteredGroups] = useState(parentGroups);
+  const normalizeText = (str: string) =>
+    removeVietnameseMarks(str || '').toLowerCase();
 
   const { contextSafe } = useGSAP(
     () => {
@@ -71,6 +62,59 @@ const DepartmentDetailPage = ({
     },
   );
 
+  const filterRecursive = (group: any, text: string) => {
+    const newGroup: any = { ...group };
+
+    // 1) Filter departments
+    if (newGroup.departments) {
+      newGroup.departments = newGroup.departments.filter((d: any) => {
+        const title = normalizeText(d.title);
+        const code = normalizeText(d.code);
+        return title.includes(text) || code.includes(text);
+      });
+    }
+
+    // 2) Filter department_groups (nested)
+    if (newGroup.children_groups) {
+      newGroup.children_groups = newGroup.children_groups
+        .map((g: any) => filterRecursive(g, text))
+        .filter((g: any) => {
+          const hasDepts = g.departments && g.departments.length > 0;
+          const hasChildren = g.children_groups && g.children_groups.length > 0;
+          return hasDepts || hasChildren;
+        });
+    }
+
+    return newGroup;
+  };
+
+  const handleSearch = () => {
+    if (!searchText.trim()) {
+      setFilteredGroups(parentGroups);
+      return;
+    }
+
+    const text = normalizeText(searchText);
+
+    const newGroups = parentGroups
+      .map((pGroup: any) => filterRecursive(pGroup, text))
+      .filter((g: any) => {
+        const hasDepts = g.departments && g.departments.length > 0;
+        const hasChildren =
+          (g.children_groups && g.children_groups.length > 0) ||
+          (g.department_groups && g.department_groups.length > 0);
+        return hasDepts || hasChildren;
+      });
+
+    setFilteredGroups(newGroups);
+  };
+
+  useEffect(() => {
+    if (searchText.length === 0) {
+      handleSearch();
+    }
+  }, [searchText]);
+
   return (
     <div className="padding-top-body bg-primary-50">
       {/* Banner + Search box */}
@@ -97,6 +141,13 @@ const DepartmentDetailPage = ({
             className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
             onSubmit={(e: any) => {
               e.preventDefault();
+              handleSearch();
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                handleSearch();
+              }
             }}
           >
             <div className="flex flex-1 flex-col text-start">
@@ -112,6 +163,12 @@ const DepartmentDetailPage = ({
                 name="name"
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSearch();
+                  }
+                }}
                 placeholder="VD: Khoa Nội tiêu hoá"
                 className="text-base font-normal placeholder:text-[#0F2F64] focus:border-none focus:outline-none md:text-lg"
               />
@@ -140,7 +197,7 @@ const DepartmentDetailPage = ({
       <div className="p-[12px_0_24px] xl:p-[20px_0_40px] 2xl:p-[24px_0_48px] 4xl:p-[60_0_120px]">
         <div
           ref={containerRef}
-          className="flex flex-col items-stretch md:gap-6 md:container lg:gap-6 2xl:gap-0 3xl:flex-row 3xl:items-start 3xl:gap-[72px] 4xl:gap-20"
+          className="flex flex-col items-stretch md:container md:gap-6 lg:gap-6 2xl:gap-0 3xl:flex-row 3xl:items-start 3xl:gap-[72px] 4xl:gap-20"
         >
           <div
             ref={sidebarRef}
@@ -152,6 +209,13 @@ const DepartmentDetailPage = ({
                 className="relative hidden rounded-[6px] bg-gray-100 p-3 !pl-11 shadow-lg md:block 2xl:p-4"
                 onSubmit={(e: any) => {
                   e.preventDefault();
+                  handleSearch();
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    handleSearch();
+                  }
                 }}
               >
                 <input
@@ -162,6 +226,12 @@ const DepartmentDetailPage = ({
                   onChange={(e) => setSearchText(e.target.value)}
                   className="w-full bg-transparent bg-none text-base text-gray-950 placeholder:text-gray-500 focus:border-none focus:outline-none xl:text-lg"
                   placeholder="Tìm kiếm theo tên, mã "
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleSearch();
+                    }
+                  }}
                 />
                 <img
                   src="/assets/icons/search_gray.svg"
@@ -227,14 +297,8 @@ const DepartmentDetailPage = ({
 
           {/* Các khối */}
           <div className="flex flex-1 flex-col px-6 md:px-0 2xl:pt-6 4xl:pt-[60px]">
-            {parentGroups?.map((pGroup: any, index: number) => {
-              return (
-                <DepartmentGroupSection
-                  pGroup={pGroup}
-                  key={index}
-                  isMatch={isMatch}
-                />
-              );
+            {filteredGroups?.map((pGroup: any, index: number) => {
+              return <DepartmentGroupSection pGroup={pGroup} key={index} />;
             })}
           </div>
         </div>
@@ -249,123 +313,59 @@ const DepartmentDetailPage = ({
 
 export default DepartmentDetailPage;
 
-// const SideBarLeft = () => {
-//   return (
-
-//   )
-// }
-
-const DepartmentGroupSection = ({
-  pGroup,
-  isMatch,
-}: {
-  pGroup: any;
-  isMatch: any;
-}) => {
-  const [activeChildGroup, setActiveChildGroup] = useState('');
-  const chilrenGroups = [
-    { title: 'Tất cả', slug: '' },
-    ...pGroup?.children_groups,
-  ];
-  const [childDepartments, setChildDepartments] = useState<any>([]);
-
-  useEffect(() => {
-    const fetchChildDepartments = async () => {
-      if (!activeChildGroup) return;
-      const res = await getChildDepartments(activeChildGroup);
-      setChildDepartments(res || []);
-    };
-    fetchChildDepartments();
-  }, [activeChildGroup]);
-
+const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
   return (
     <div
       className="py-6 lg:py-8 xl:py-10 2xl:py-12 3xl:py-[52px]"
       id={pGroup.slug}
     >
-      <p className="section-sub-title">{pGroup.description}</p>
+      {/* <p className="section-sub-title">{pGroup.description}</p> */}
       <p className="section-title mt-2">{pGroup.title}</p>
 
-      {/* Tabs các khối con */}
-      {/* {chilrenGroups && chilrenGroups.length > 1 && (
-        <div className="my-5 flex flex-col gap-3 md:flex-row md:flex-wrap 3xl:gap-x-8 3xl:gap-y-5">
-          {chilrenGroups.map((group: any, idx: number) => (
+      {/* List các khối con */}
+      {pGroup?.children_groups && pGroup.children_groups.length > 1 && (
+        <div className="mt-5 flex flex-col gap-3 md:flex-row md:flex-wrap md:gap-4 xl:mt-8 xl:gap-5 2xl:gap-6 3xl:mt-[52px]">
+          {pGroup.children_groups.map((group: any, idx: number) => (
             <div
-              onClick={() => setActiveChildGroup(group.slug)}
               key={'group___' + idx}
               className={clsx(
-                'w-full text-sm lg:text-base font-normal uppercase text-gray-500 hover:text-primary-600 underline-offset-4 cursor-pointer hover:underline md:w-fit',
-                group.slug === activeChildGroup && 'text-primary-600 underline-offset-4 underline',
-                isMatch(group.title) &&
-                  'rounded-md bg-primary-600 px-2 py-1 text-white hover:text-primary-50',
+                'w-full cursor-pointer text-base font-normal text-gray-950 underline underline-offset-4 hover:text-primary-600 md:w-fit lg:w-[calc(50%-12px)] lg:text-lg 2xl:text-xl',
               )}
             >
-              {group.title}{' '}
-              {group.slug !== '' ? `(${group?.departments?.length})` : ''}
+              <div
+                className={clsx(
+                  'cursor-pointer text-xl font-semibold text-gray-500 underline hover:text-primary-600',
+                )}
+              >
+                {group.title}
+              </div>
+              <div className="ml-3 mt-4 flex list-none flex-col gap-4 md:gap-6 xl:mt-6 3xl:gap-x-4 3xl:gap-y-5">
+                {group.departments.map((department: any, idx: number) => (
+                  <Link
+                    href={'/vi/chuyen-khoa/' + department.slug}
+                    className={clsx(
+                      'text-xl font-normal text-gray-950 underline hover:text-primary-600',
+                    )}
+                    key={'department_' + idx}
+                  >
+                    {department.title}{' '}
+                    {department.code ? `(${department.code})` : null}
+                  </Link>
+                ))}
+              </div>
             </div>
           ))}
         </div>
-      )} */}
-
-      {/* List các khối con */}
-      {!activeChildGroup &&
-        pGroup?.children_groups &&
-        pGroup.children_groups.length > 1 && (
-          <div className="flex flex-col gap-3 md:gap-4 xl:gap-5 2xl:gap-6 md:flex-row md:flex-wrap">
-            {pGroup.children_groups.map((group: any, idx: number) => (
-              <div
-                key={'group___' + idx}
-                className={clsx(
-                  'text-base w-full cursor-pointer lg:text-lg 2xl:text-xl font-normal underline-offset-4 underline md:w-fit lg:w-[calc(50%-12px)]',
-                  isMatch(group.title)
-                    ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
-                    : 'text-gray-950 hover:text-primary-600',
-                )}
-              >
-                <div
-                  className={clsx(
-                    'cursor-pointer text-xl font-semibold underline',
-                    isMatch(group.title)
-                      ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
-                      : 'text-gray-500 hover:text-primary-600',
-                  )}
-                >
-                  {group.title}
-                </div>
-                <div className="ml-3 mt-4 flex list-none flex-col gap-4 md:gap-6 xl:mt-6 3xl:gap-x-4 3xl:gap-y-5">
-                  {group.departments.map((department: any, idx: number) => (
-                    <Link
-                      href={'/vi/chuyen-khoa/' + department.slug}
-                      className={clsx(
-                        'text-xl font-normal underline',
-                        isMatch(department.title) ||
-                          isMatch(department.code || '')
-                          ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
-                          : 'text-gray-950 hover:text-primary-600',
-                      )}
-                      key={'department_' + idx}
-                    >
-                      {department.title}{' '}
-                      {department.code ? `(${department.code})` : null}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+      )}
 
       {/* Các khoa */}
-      {pGroup?.departments && pGroup.departments.length > 1 && (
-        <div className="mt-5 flex list-none flex-col gap-3 md:gap-4 md:flex-row md:flex-wrap xl:gap-5 2xl:gap-6 xl:mt-8 3xl:mt-[52px] 3xl:gap-x-4 3xl:gap-y-5">
+      {pGroup?.departments && pGroup.departments.length > 0 && (
+        <div className="mt-5 flex list-none flex-col gap-3 md:flex-row md:flex-wrap md:gap-4 xl:mt-8 xl:gap-5 2xl:gap-6 3xl:mt-[52px] 3xl:gap-x-4 3xl:gap-y-5">
           {pGroup.departments.map((department: any, idx: number) => (
             <Link
               href={'/vi/chuyen-khoa/' + department.slug}
               className={clsx(
-                'text-base lg:text-lg 2xl:text-xl font-normal underline-offset-4 underline lg:w-[calc(50%-12px)]',
-                isMatch(department.title) || isMatch(department.code || '')
-                  ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
-                  : 'text-gray-950 hover:text-primary-600',
+                'text-base font-normal text-gray-950 underline underline-offset-4 hover:text-primary-600 lg:w-[calc(50%-12px)] lg:text-lg 2xl:text-xl',
               )}
               key={'department_' + idx}
             >
@@ -377,28 +377,6 @@ const DepartmentGroupSection = ({
       )}
 
       {/* Các khoa thuộc khối con */}
-      {!!pGroup.children_groups.find(
-        (childGroup: any) => childGroup.slug === activeChildGroup,
-      ) &&
-        childDepartments.length > 0 && (
-          <div className="mt-5 flex list-none flex-col gap-3 md:gap-4 md:flex-row md:flex-wrap xl:gap-5 2xl:gap-6 xl:mt-8 3xl:mt-[52px] 3xl:gap-x-4 3xl:gap-y-5">
-            {childDepartments.map((department: any, idx: number) => (
-              <Link
-                href={'/vi/chuyen-khoa/' + department.slug}
-                className={clsx(
-                  'text-base lg:text-lg 2xl:text-xl font-normal underline-offset-4 underline lg:w-[calc(50%-12px)]',
-                  isMatch(department.title) || isMatch(department.code || '')
-                    ? 'rounded-md bg-primary-600 px-2 py-1 text-white'
-                    : 'text-gray-950 hover:text-primary-600',
-                )}
-                key={'department_' + idx}
-              >
-                {department.title}{' '}
-                {department.code ? `(${department.code})` : null}
-              </Link>
-            ))}
-          </div>
-        )}
     </div>
   );
 };
@@ -427,9 +405,9 @@ const DepartmentSlideCard = ({ group }: { group: any }) => {
             {group.title}
           </h4>
         </div>
-        <p className="text-sm font-medium text-gray-500 group-hover:text-white">
+        {/* <p className="text-sm font-medium text-gray-500 group-hover:text-white">
           {group.description}
-        </p>
+        </p> */}
       </div>
 
       {/* view details */}
