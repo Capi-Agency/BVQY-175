@@ -51,7 +51,6 @@ const DepartmentDetailPage = ({
           pin: true,
           pinSpacing: false,
           pinnedContainer: containerRef?.current,
-          markers: true,
         });
       });
 
