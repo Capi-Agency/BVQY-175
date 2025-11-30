@@ -12,7 +12,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { debounce } from 'lodash';
 
 type Props = {
   data: any;
@@ -22,7 +21,6 @@ type Props = {
 const DoctorList = ({ data, departmentGroups }: Props) => {
   // Quản lý filter
   const [searchText, setSearchText] = useState('');
-  const [debouncedText, setDebouncedText] = useState('');
   const [selectedLetter, setSelectedLetter] = useState('');
   const [searchMethod, setSearchMethod] = useState<
     'by_name' | 'by_department' | null
@@ -77,7 +75,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
       const res = await getListDoctors({
         limit: 6,
         page: currentPage,
-        keyword: debouncedText ? debouncedText : undefined,
+        keyword: searchText ? searchText.trim() : undefined,
         letter:
           searchMethod === 'by_name' && selectedLetter
             ? selectedLetter
@@ -96,17 +94,17 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
       setLoading(false);
     }
   }, [
-    currentPage,
     selectedDepartment,
     selectedLetter,
     searchMethod,
-    debouncedText,
+    searchText,
+    currentPage,
   ]);
 
   const fetchDoctorCount = useCallback(async () => {
     try {
       const res = await getDoctorsCount({
-        keyword: debouncedText ? debouncedText : undefined,
+        keyword: searchText ? searchText.trim() : undefined,
         letter:
           searchMethod === 'by_name' && selectedLetter
             ? selectedLetter
@@ -123,31 +121,23 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
       setDoctors([]);
       setTotalPage(1);
     }
-  }, [selectedDepartment?.slug, selectedLetter, searchMethod, debouncedText]);
+  }, [
+    selectedDepartment?.slug,
+    selectedLetter,
+    searchMethod,
+    searchText,
+    currentPage,
+  ]);
 
   // Gọi lại khi search/filter thay đổi
   useEffect(() => {
     fetchDoctorCount();
     fetchDoctors();
-  }, [
-    searchText,
-    selectedLetter,
-    selectedDepartment?.slug,
-    searchMethod,
-    currentPage,
-    fetchDoctors,
-    fetchDoctorCount,
-  ]);
+  }, [selectedLetter, selectedDepartment?.slug, searchMethod, currentPage]);
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchText, selectedLetter, selectedDepartment?.slug, searchMethod]);
-
-  useEffect(() => {
-    debounce(() => {
-      setDebouncedText(searchText.trim());
-    }, 700)();
-  }, [searchText.trim()]);
+  }, [selectedLetter, selectedDepartment?.slug, searchMethod]);
 
   return (
     <div className="bg-primary-50">
@@ -177,7 +167,8 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
             className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
             onSubmit={(e) => {
               e.preventDefault();
-              setCurrentPage(1);
+              fetchDoctorCount();
+              fetchDoctors();
             }}
           >
             <div className="flex flex-1 flex-col text-start">
@@ -194,6 +185,14 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                 value={searchText}
                 onChange={(e) => {
                   setSearchText(e.target.value);
+                  setSearchMethod(null);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    fetchDoctorCount();
+                    fetchDoctors();
+                  }
                 }}
                 placeholder="Nhập tên, chuyên khoa"
                 className="text-base font-normal placeholder:text-[#0F2F64] focus:border-none focus:outline-none md:text-lg"
@@ -322,7 +321,8 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                   className="relative flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
                   onSubmit={(e) => {
                     e.preventDefault();
-                    setCurrentPage(1);
+                    fetchDoctorCount();
+                    fetchDoctors();
                   }}
                 >
                   <div
@@ -460,13 +460,13 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
               <span className="text-xl font-semibold text-primary-600">
                 {totalItem}{' '}
               </span>
-              kết quả phù hợp{' '}
-              {searchText && (
+              kết quả phù hợp
+              {(searchText || selectedLetter) && (
                 <div>
                   với tìm kiếm{' '}
                   <span className="font-semibold text-primary-600">
                     {' '}
-                    “{searchText}”
+                    “{searchText || selectedLetter}”
                   </span>
                 </div>
               )}
