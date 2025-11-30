@@ -65,7 +65,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                 <DoctorCard
                   item={item?.doctor}
                   avatarType="avatar"
-                  subTitle="department_title"
+                  subTitle={`${data?.blurb}`}
                   isLogo={false}
                   isHover={true}
                 />
