@@ -27,7 +27,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
     <div className="bg-primary-50 py-6 md:py-10 2xl:py-[60px]">
       <div className="container grid grid-cols-11 gap-6 md:gap-7 lg:gap-8 xl:gap-10 3xl:gap-12 4xl:gap-14">
         <div className="col-span-full flex flex-col items-stretch gap-6 md:flex-row md:items-start md:gap-7 lg:col-span-4 lg:flex-col lg:items-stretch lg:gap-8">
-          <div className="relative aspect-[480/600] w-full bg-gray-100 md:basis-1/2 lg:basis-0">
+          <div className="relative aspect-[480/600] w-full bg-gray-200 md:basis-1/2 lg:basis-0">
             <NextImg
               src={getAssetUrlById(
                 dataDetail?.avatar || dataDetail?.uniform_avatar,
