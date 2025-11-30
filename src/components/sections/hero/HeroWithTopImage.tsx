@@ -45,6 +45,13 @@ export default function HeroWithTopImage({ data }: CommonSection) {
               __html: data?.title,
             }}
           ></h2>
+
+          <div
+            className="w-full text-sm font-normal text-[#E4E4E7] md:!leading-[1.4] lg:!leading-[1.5] xl:text-base 3xl:text-lg 3xl:!leading-[1.6] 4xl:text-xl"
+            dangerouslySetInnerHTML={{
+              __html: data?.subtitle,
+            }}
+          ></div>
         </div>
       </div>
     </section>
