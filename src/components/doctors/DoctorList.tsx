@@ -236,7 +236,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                   className="size-5"
                 />
               </div>
-              Tìm theo Tên
+              Lọc theo Tên
             </div>
             <p className="text-sm font-medium text-gray-500">
               Tìm nhanh bác sĩ theo tên
@@ -268,7 +268,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                   className="size-5"
                 />
               </div>
-              Tìm theo Chuyên khoa
+              Lọc theo Chuyên khoa
             </div>
             <p className="text-sm font-medium text-gray-500">
               Tìm bác sĩ theo đúng chuyên khoa

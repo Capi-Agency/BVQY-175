@@ -29,8 +29,8 @@ export const getListDoctors = async ({
 
     // 2. Search theo chữ cái
     if (letter) {
-      filter.full_name = {
-        _starts_with: letter,
+      filter.searched_name = {
+        _starts_with: letter.toLocaleLowerCase(),
       };
     }
 
@@ -85,7 +85,7 @@ export const getDoctorsCount = async ({
 
     // 2. Search theo chữ cái
     if (letter) {
-      filter.full_name = { _starts_with: letter };
+      filter.searched_name = { _starts_with: letter.toLocaleLowerCase() };
     }
 
     // 3. Filter theo khoa
