@@ -171,7 +171,11 @@ export const fnGetDoctorDetail = async ({
   try {
     const res = await directusClientWithRest.request(
       readItem(collection, slug, {
-        fields: ['*', 'departments.department.*'],
+        fields: [
+          '*',
+          'departments.department.*',
+          'department_groups.department_groups_slug.title',
+        ],
       }),
     );
     return res;

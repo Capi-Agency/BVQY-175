@@ -17,29 +17,12 @@ import {
 } from '../common/doctor-card';
 import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
+import { getDoctorTitles } from '@/src/utils/render-doctor-title';
 
 export default function DoctorDetail({ data, dataDetail }: CommonSection) {
+  console.log('🚀 ~ DoctorDetail ~ dataDetail:', dataDetail);
   const [isViewMore, setIsViewMore] = useState<boolean>(false);
   const language = useStoreLanguage((state: any) => state.language);
-
-
-  const getTitleList = (dataDetail: any) => {
-    const maps = [
-      { key: 'hospital_title', map: hospitalTitleMap },
-      { key: 'institute_title', map: instituteTitleMap },
-      { key: 'department_title', map: departmentTitleMap },
-      { key: 'admin_department_title', map: adminDepartmentTitleMap },
-    ];
-
-    return maps
-      .map(({ key, map }) => {
-        const value = dataDetail?.[key];
-        return value ? (map[value] ?? value) : null;
-      })
-      .filter(Boolean)
-      .join(', ');
-  };
-
 
   return (
     <div className="bg-primary-50 py-6 md:py-10 2xl:py-[60px]">
@@ -102,7 +85,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
                   Chức vụ
                 </div>
                 <div className="text-sm font-normal text-[#09090B] lg:text-base">
-                  {getTitleList(dataDetail)}
+                  {getDoctorTitles(dataDetail).join(', ')}
                 </div>
               </div>
 

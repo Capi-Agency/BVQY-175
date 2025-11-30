@@ -25,14 +25,14 @@ export const getDoctorTitles = (doctor: any) => {
 
   // ---- Institute level ----
   const instituteName =
-    doctor?.department_groups?.[0]?.department_groups_slug?.title || '';
+    doctor?.department_groups?.[0]?.department_groups_slug?.title || 'Viện';
 
   if (doctor?.institute_title && instituteMap[doctor.institute_title]) {
     titles.push(`${instituteMap[doctor.institute_title]} ${instituteName}`);
   }
 
   // ---- Department level ----
-  const departmentName = doctor?.departments?.[0]?.department?.title || '';
+  const departmentName = doctor?.departments?.[0]?.department?.title || 'Khoa';
 
   if (doctor?.department_title && departmentMap[doctor.department_title]) {
     titles.push(`${departmentMap[doctor.department_title]} ${departmentName}`);
