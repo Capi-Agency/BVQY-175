@@ -6,7 +6,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Grid } from 'swiper/modules';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
+import { handleScrollTo } from '@/src/utils/gsap';
+import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 export default function CardSliderWithBlurb({ data }: CommonSection) {
+  const { conditions } = useGsapMatchMedia();
   return (
     <div className="bg-primary-50 py-10 md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]">
       <div className="section-title container uppercase text-primary-600">
@@ -69,7 +72,13 @@ export default function CardSliderWithBlurb({ data }: CommonSection) {
                     <div
                       className={`${isEven ? 'flex-col lg:order-1' : 'flex-col lg:order-2 lg:flex-col-reverse'} flex flex-1 items-center justify-start lg:justify-end`}
                     >
-                      <div
+                      <button
+                        onClick={() =>
+                          handleScrollTo(
+                            `${item?.buttons?.[0]?.url}`,
+                            conditions,
+                          )
+                        }
                         className="w-full flex-1 space-y-[6px] rounded-md bg-white p-2 lg:flex-none lg:p-3 xl:space-y-2 xl:p-4"
                         style={{
                           boxShadow: '0 1px 2px 0 rgba(18, 26, 43, 0.05)',
@@ -90,7 +99,7 @@ export default function CardSliderWithBlurb({ data }: CommonSection) {
                             {item?.title}
                           </div>
                         </div>
-                      </div>
+                      </button>
 
                       <div
                         className={`${isEven ? '' : 'lg:rotate-180'} size-[2px] border-x-[6px] border-t-[6px] border-transparent border-t-white`}
@@ -101,11 +110,16 @@ export default function CardSliderWithBlurb({ data }: CommonSection) {
                       className={`hidden lg:block ${isEven ? 'order-2' : 'order-1'}`}
                     ></div>
 
-                    <div className="relative z-[1] mx-auto flex h-9 w-[100px] items-center justify-center rounded-[10px] bg-primary-600 lg:absolute lg:left-1/2 lg:top-1/2 lg:mx-0 lg:h-[46px] lg:w-[110px] lg:-translate-x-1/2 lg:-translate-y-1/2 xl:h-12 xl:w-[120px] 2xl:h-14 2xl:w-[144px] 4xl:h-[60px] 4xl:w-[160px]">
+                    <button
+                      onClick={() =>
+                        handleScrollTo(`${item?.buttons?.[0]?.url}`, conditions)
+                      }
+                      className="relative z-[1] mx-auto flex h-9 w-[100px] items-center justify-center rounded-[10px] bg-primary-600 lg:absolute lg:left-1/2 lg:top-1/2 lg:mx-0 lg:h-[46px] lg:w-[110px] lg:-translate-x-1/2 lg:-translate-y-1/2 xl:h-12 xl:w-[120px] 2xl:h-14 2xl:w-[144px] 4xl:h-[60px] 4xl:w-[160px]"
+                    >
                       <div className="text-xl font-semibold text-white lg:text-[22px] xl:text-2xl 2xl:text-[28px] 4xl:text-[32px]">
                         {item?.blurb}
                       </div>
-                    </div>
+                    </button>
                   </div>
                 </SwiperSlide>
               );

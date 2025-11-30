@@ -29,12 +29,14 @@ export default function NumberWithText({ data, dataDetail }: CommonSection) {
                 key={index}
                 className="flex-1 space-y-1 lg:space-y-[6px] 2xl:space-y-2 4xl:space-y-3"
               >
-                <div
-                  data-aos="true"
-                  className="text-[28px] font-medium leading-[1.4] text-white md:leading-[1.3] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] 3xl:text-[44px] 4xl:text-[48px]"
-                >
-                  0
-                </div>
+                {item?.number && (
+                  <div
+                    data-aos="true"
+                    className="text-[28px] font-medium leading-[1.4] text-white md:leading-[1.3] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] 3xl:text-[44px] 4xl:text-[48px]"
+                  >
+                    0
+                  </div>
+                )}
 
                 <div
                   className="text-sm font-normal text-[#ACD1B8] lg:text-base 2xl:text-lg 4xl:text-xl"

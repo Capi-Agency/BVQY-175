@@ -657,7 +657,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
       </div>
 
       <div className="flex flex-1 flex-col justify-center md:px-5 lg:justify-between xl:justify-center xl:px-0 2xl:justify-between">
-        <div>
+        <div className='space-y-[2px]'>
           <div className="text-sm font-normal text-gray-500 lg:text-base xl:text-sm 2xl:text-base">
             {doctor?.full_title}
           </div>

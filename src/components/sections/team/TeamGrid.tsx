@@ -9,22 +9,7 @@ import { useTranslate } from '@/src/hooks/useTranslate';
 
 const TeamGrid = ({ data }: CommonSection) => {
   return (
-    <div>
-      <div className="relative h-[340px] w-full overflow-hidden md:hidden">
-        <NextImg
-          src={getAssetUrlById(data?.cover?.[0]?.id)}
-          objectFit="cover"
-          alt="banner image"
-        />
-      </div>
-      <div className="relative hidden h-[174px] w-full overflow-hidden md:block lg:h-[232px] xl:h-[290px] 2xl:h-[326px] 3xl:h-[364px] 4xl:h-[436px]">
-        <NextImg
-          src={getAssetUrlById(data?.cover?.[1]?.id)}
-          objectFit="cover"
-          alt="banner image"
-        />
-      </div>
-
+    <section>
       <div className="py-10 md:container md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
         <h2
           className="section-title px-6 uppercase text-primary-600 md:px-0"
@@ -40,14 +25,15 @@ const TeamGrid = ({ data }: CommonSection) => {
           }}
         ></div>
 
-        <div className="hidden space-y-20 pt-10 md:block md:pt-[80px] lg:space-y-[100px] lg:pt-[100px] xl:space-y-[120px] xl:pt-[120px] 2xl:space-y-[140px] 2xl:pt-[140px] 3xl:space-y-[160px] 3xl:pt-[160px]">
+        <div className="hidden space-y-8 pt-10 md:block md:pt-6 lg:space-y-10 lg:pt-8 xl:space-y-12 xl:pt-10 3xl:space-y-14 3xl:pt-12">
           {data?.items.map((item: any, index: number) => (
-            <LeaderCard
-              key={'card_' + index}
-              item={item}
-              directionLTR={index % 2 === 0}
-              data={data}
-            />
+            <div id={item?.buttons?.[0]?.url} key={'card_' + index}>
+              <LeaderCard
+                item={item}
+                directionLTR={index % 2 === 0}
+                data={data}
+              />
+            </div>
           ))}
         </div>
 
@@ -63,17 +49,19 @@ const TeamGrid = ({ data }: CommonSection) => {
           >
             {data?.items.map((item: any, index: number) => (
               <SwiperSlide key={'card_' + index}>
-                <LeaderCard
-                  item={item}
-                  directionLTR={index % 2 === 0}
-                  data={data}
-                />
+                <div id={item?.buttons?.[0]?.url}>
+                  <LeaderCard
+                    item={item}
+                    directionLTR={index % 2 === 0}
+                    data={data}
+                  />
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
@@ -96,13 +84,13 @@ const LeaderCard = ({
       <div
         onClick={() => setExpanded((prev) => !prev)}
         className={clsx(
-          'relative z-[1] flex cursor-pointer flex-col rounded-[6px] p-4 duration-200 md:p-6 lg:rounded-[16px] lg:p-10 xl:p-[52px] 2xl:rounded-[20px] 2xl:p-16 3xl:p-[72px] 4xl:rounded-[24px] 4xl:p-20',
+          'relative z-[1] flex cursor-pointer flex-col items-start justify-between gap-4 rounded-[6px] p-4 duration-200 md:p-6 lg:rounded-[16px] lg:p-10 xl:p-[52px] 2xl:rounded-[20px] 2xl:p-16 3xl:p-[72px] 4xl:rounded-[24px] 4xl:p-20',
           directionLTR ? 'md:flex-row' : 'md:flex-row-reverse',
           expanded ? 'bg-primary-600' : 'bg-primary-50',
         )}
       >
         {/* Text */}
-        <div className="space-y-3 md:basis-1/2 xl:space-y-4 2xl:space-y-5 3xl:space-y-6">
+        <div className="space-y-3 md:basis-3/5 lg:basis-1/2 xl:space-y-4 2xl:space-y-5 3xl:space-y-6">
           {/* Year */}
           <div className="flex items-center gap-1 xl:gap-2">
             <div
@@ -167,33 +155,10 @@ const LeaderCard = ({
             }}
           ></div>
 
-          {/* Avatar */}
-          <div
-            className={clsx(
-              'relative bottom-0 mx-auto aspect-[4/5] w-[288px] md:absolute md:mx-0 md:w-[336px] lg:w-[366px] xl:w-[416px] 2xl:w-[506px] 3xl:w-[556px] 4xl:w-[576px]',
-              directionLTR ? 'right-0' : 'left-0',
-            )}
-          >
-            <NextImg
-              src={getAssetUrlById(item?.cover?.[0]?.id)}
-              objectFit="cover"
-              alt="doctor"
-            />
-          </div>
-
-          <img
-            src="/assets/images/logo-short-form.png"
-            alt="logo short form"
-            className={clsx(
-              'absolute top-6 -z-10 aspect-[5/4] w-20 xl:w-[120px] 2xl:w-[203px]',
-              directionLTR ? 'right-6' : 'left-6',
-            )}
-          />
-
           {/* see more */}
           <div
             className={clsx(
-              'flex items-center gap-1 text-base font-bold text-[#092E15] transition-all duration-200',
+              'flex items-center gap-1 text-sm font-bold text-[#092E15] transition-all duration-200 lg:text-base',
               expanded ? 'opacity-0' : 'opacity-100',
             )}
           >
@@ -209,6 +174,20 @@ const LeaderCard = ({
               />
             </div>
           </div>
+        </div>
+
+        {/* Avatar */}
+        <div
+          className={clsx(
+            'relative aspect-[340/480] w-full md:w-[200px] lg:w-[240px] xl:w-[260px] 2xl:w-[280px] 3xl:w-[280px] 4xl:w-[340px]',
+            directionLTR ? 'right-0' : 'left-0',
+          )}
+        >
+          <NextImg
+            src={getAssetUrlById(item?.cover?.[0]?.id)}
+            objectFit="cover"
+            alt="doctor"
+          />
         </div>
       </div>
 
@@ -346,11 +325,11 @@ const LeaderCard = ({
             </div>
           )}
 
-          <div className='flex justify-center'>
+          <div className="flex justify-center">
             <div
-            onClick={() => setExpanded(false)}
+              onClick={() => setExpanded(false)}
               className={clsx(
-                'flex items-center justify-center cursor-pointer gap-1 text-base font-bold text-[#E50000] transition-all duration-200',
+                'flex cursor-pointer items-center justify-center gap-1 text-sm font-bold text-[#E50000] transition-all duration-200 lg:text-base',
                 expanded ? 'opacity-100' : 'opacity-0',
               )}
             >
