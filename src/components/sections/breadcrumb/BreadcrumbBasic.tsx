@@ -10,7 +10,7 @@ export default function BreadcrumbBasic({ data }: CommonSection) {
 
   return (
     <div className="bg-primary-50">
-      <div className="container flex items-center gap-1 py-1.5 text-sm md:text-base lg:gap-1.5 lg:py-2 lg:text-lg xl:py-2.5 4xl:gap-2 4xl:py-3 4xl:text-xl">
+      <div className="container flex items-center gap-1 py-2 text-sm md:text-base lg:gap-1.5 lg:py-2 lg:text-lg xl:py-2.5 4xl:gap-2 4xl:py-3 4xl:text-xl">
         {data?.items?.map((item: any, index: number) => {
           const isLast = index === data?.items?.length - 1;
 

@@ -63,7 +63,7 @@ export default function GalleryWithText({ data }: CommonSection) {
                       e.stopPropagation();
                       setCurrentTab(index);
                     }}
-                    className={`${currentTab === index ? 'text-primary-600' : 'text-[#71717A]'} relative cursor-pointer pb-2 text-sm font-medium uppercase transition-colors duration-200 2xl:pb-3 2xl:text-base`}
+                    className={`${currentTab === index ? 'text-primary-600' : 'text-[#71717A]'} relative cursor-pointer pb-2 text-sm font-medium uppercase transition-colors duration-200 2xl:text-base`}
                   >
                     {item?.title}
                   </div>
@@ -75,7 +75,7 @@ export default function GalleryWithText({ data }: CommonSection) {
             </Swiper>
           </div>
 
-          <div className="pt-2">
+          <div className="pt-2 lg:pt-3 xl:pt-4 3xl:pt-5">
             {data?.items?.map((item: any, index: number) => (
               <div
                 key={index}

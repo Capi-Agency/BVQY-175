@@ -51,7 +51,7 @@ const TeamGrid = ({ data }: CommonSection) => {
           ))}
         </div>
 
-        <div className="relative w-full md:hidden pt-10">
+        <div className="relative w-full pt-10 md:hidden">
           <Swiper
             touchEventsTarget="container"
             grabCursor={true}
@@ -59,7 +59,7 @@ const TeamGrid = ({ data }: CommonSection) => {
             loop={false}
             spaceBetween={16}
             speed={500}
-            className="!px-6 !w-full"
+            className="!w-full !px-6"
           >
             {data?.items.map((item: any, index: number) => (
               <SwiperSlide key={'card_' + index}>
@@ -193,15 +193,14 @@ const LeaderCard = ({
           {/* see more */}
           <div
             className={clsx(
-              'flex items-center gap-1 text-base font-bold duration-200',
-              expanded ? 'text-primary-50' : 'text-[#092E15]',
+              'flex items-center gap-1 text-base font-bold text-[#092E15] transition-all duration-200',
+              expanded ? 'opacity-0' : 'opacity-100',
             )}
           >
-            {expanded ? data?.buttons?.[1]?.title : data?.buttons?.[0]?.title}
+            {data?.buttons?.[0]?.title}
             <div
               className={clsx(
                 'relative size-5 transition-all duration-200 xl:size-6',
-                expanded ? '-rotate-180 invert' : 'rotate-0',
               )}
             >
               <NextImg
@@ -346,6 +345,28 @@ const LeaderCard = ({
               ></div>
             </div>
           )}
+
+          <div className='flex justify-center'>
+            <div
+            onClick={() => setExpanded(false)}
+              className={clsx(
+                'flex items-center justify-center cursor-pointer gap-1 text-base font-bold text-[#E50000] transition-all duration-200',
+                expanded ? 'opacity-100' : 'opacity-0',
+              )}
+            >
+              {data?.buttons?.[1]?.title}
+              <div
+                className={
+                  'relative size-5 rotate-180 transition-all duration-200 xl:size-6'
+                }
+              >
+                <NextImg
+                  src={getAssetUrlById(data?.buttons?.[1]?.icon?.id)}
+                  alt="star icon"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -10,10 +10,11 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 export default function FeatureWithImage4Col({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
-
   return (
     <section>
       <div className="py-10 md:py-6 2xl:py-8 4xl:py-10">
+     
+
         <div className="container grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-4 2xl:flex 2xl:items-stretch 3xl:gap-6">
           {data?.buttons?.map((button: any, index: number) => (
             <Link

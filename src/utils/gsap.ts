@@ -1,3 +1,6 @@
+import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
+import gsap from 'gsap';
+gsap.registerPlugin(ScrollToPlugin);
 
 export function getOffsetY(conditions: gsap.Conditions | undefined): any {
     if (conditions === undefined) return
@@ -41,6 +44,20 @@ export function getPositionFixed(conditions: gsap.Conditions | undefined): any {
     };
 }
 
+export const handleScrollTo = (elementId: string, conditions: gsap.Conditions | undefined) => {
+    const elementTarget = document.getElementById(elementId);
+    if (elementTarget && conditions) {
+        gsap.to(window, {
+            scrollTo: {
+                y: elementTarget,
+                offsetY: getOffsetY(conditions),
+                autoKill: false,
+            },
+            duration: 1.5,
+            ease: 'power2.out',
+        });
+    }
+};
 
 
 

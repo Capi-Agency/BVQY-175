@@ -1,4 +1,4 @@
-import { fnGetNewsDetailBySlug, getNewsDetail } from '@/src/services/news';
+import { getNewsDetail } from '@/src/services/news';
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata, ResolvingMetadata } from 'next';
