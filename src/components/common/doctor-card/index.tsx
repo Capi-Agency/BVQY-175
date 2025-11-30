@@ -19,6 +19,8 @@ interface DoctorCardProps {
     | 'institute_title'
     | 'admin_department_title'
     | string;
+  avatarRatio?: '2/3' | '5/6' | '3/4' | string;
+  avatarOrigin?: 'center' | 'top' | 'left' | 'right' | 'bottom';
 }
 
 const hospitalTitleMap: Record<string, string> = {
@@ -52,6 +54,8 @@ export default function DoctorCard({
   bgColor = 'bg-white',
   avatarType = 'avatar',
   subTitle = 'specialty',
+  avatarRatio = '2/3',
+  avatarOrigin = 'center',
 }: DoctorCardProps) {
   const language = useStoreLanguage((state: any) => state.language);
 
@@ -86,11 +90,14 @@ export default function DoctorCard({
     >
       <div
         className={cn(
-          'relative aspect-[2/3] w-full overflow-hidden rounded-[8px]',
+          'relative w-full overflow-hidden rounded-[8px]',
           bgColor,
           isHover &&
             'transition-colors duration-200 group-hover:bg-primary-600',
         )}
+        style={{
+          aspectRatio: avatarRatio,
+        }}
       >
         <NextImg
           src={getAssetUrlById(avatarId)}
@@ -104,7 +111,7 @@ export default function DoctorCard({
             src="/assets/images/doctor_card_bg.png"
             alt="doctor card bg image"
             objectFit="cover"
-            className="z-[1]"
+            className="z-[1] origin-center"
           />
         )}
       </div>

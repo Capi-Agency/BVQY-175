@@ -395,9 +395,10 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
 };
 
 const DepartmentSlideCard = ({ group }: { group: any }) => {
+  const { conditions } = useGsapMatchMedia();
   return (
-    <Link
-      href={'#' + group.slug}
+    <button
+      onClick={() => handleScrollTo(group?.slug, conditions)}
       className="group relative cursor-pointer space-y-5 bg-white p-5 shadow-lg transition-all hover:bg-primary-600 lg:w-[calc((100%-24px*2)/3)]"
     >
       {/* cover */}
@@ -436,7 +437,7 @@ const DepartmentSlideCard = ({ group }: { group: any }) => {
         />
       </div>
       <BgHiddenShape className="pointer-events-none absolute left-0 w-[90%]" />
-    </Link>
+    </button>
   );
 };
 
