@@ -463,7 +463,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
           ) : null}
 
           {/* Hiển thị kết quả */}
-          <div className="flex flex-col gap-3 md:flex-row md:items-center">
+          <div className="mb-3 flex flex-col gap-3 md:flex-row md:items-center">
             <div className="flex items-center gap-1.5 text-base font-medium text-gray-700">
               <span className="text-xl font-semibold text-primary-600">
                 {totalItem}{' '}
@@ -634,7 +634,6 @@ const letters = [
 ];
 
 const DoctorCard = ({ doctor }: { doctor: any }) => {
-  console.log('🚀 ~ DoctorCard ~ doctor:', doctor);
   const [render, setRender] = useState(false);
   const department = doctor?.departments[0]?.department;
   const institueTitle =
@@ -645,14 +644,16 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
     setRender(true);
   }, []);
   return (
-    <div className="flex flex-col gap-5 rounded-2xl bg-white p-5 shadow-lg md:flex-row md:p-4 lg:p-6 xl:gap-10 xl:p-4 2xl:p-5">
-      <div className="relative aspect-[2/3] max-h-[280px] w-full overflow-hidden rounded-[10px] bg-gray-100 md:w-[192px] lg:w-[224px] xl:w-[192px] 2xl:w-[224px]">
-        <NextImg
-          src={getAssetUrlById(doctor?.avatar)}
-          alt="cover"
-          objectFit="cover"
-          className="object-top"
-        />
+    <div className="flex flex-col gap-5 rounded-2xl border-[2px] border-white bg-white p-5 shadow-lg transition-all hover:border-primary-600 md:flex-row md:p-4 xl:p-4 2xl:p-5">
+      <div className="flex h-full items-center">
+        <div className="relative aspect-[2/3] max-h-[280px] w-full overflow-hidden rounded-[10px] bg-gray-100 md:w-[192px] lg:w-[224px] xl:w-[192px] 2xl:w-[224px]">
+          <NextImg
+            src={getAssetUrlById(doctor?.avatar)}
+            alt="cover"
+            objectFit="cover"
+            className="object-center"
+          />
+        </div>
       </div>
 
       <div className="flex flex-1 flex-col justify-center md:px-5 lg:justify-between xl:justify-center xl:px-0 2xl:justify-between">
@@ -660,10 +661,10 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
           <div className="text-sm font-normal text-gray-500 lg:text-base xl:text-sm 2xl:text-base">
             {doctor?.full_title}
           </div>
-          <div className="text-xl font-bold text-primary-1000 lg:text-2xl xl:text-xl 2xl:text-2xl">
+          <div className="my-1 text-xl font-bold text-primary-1000 lg:text-2xl xl:text-xl 2xl:text-2xl">
             {doctor?.full_name}
           </div>
-          <div className="mb-4">
+          <div className="mb-5">
             {titles.map((title, index) => (
               <div className="text-sm font-medium text-primary-500" key={index}>
                 {title}
@@ -678,7 +679,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
                 alt="first aid"
                 className="size-5"
               />
-              <p className="gray-700 text-base font-normal lg:text-lg xl:text-base 2xl:text-lg">
+              <p className="gray-700 text-base font-normal lg:text-lg xl:text-base">
                 {doctor?.specialty}
               </p>
             </div>
@@ -690,7 +691,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
                   alt="first aid"
                   className="size-5"
                 />
-                <p className="gray-700 text-base font-normal lg:text-lg xl:text-base 2xl:text-lg">
+                <p className="gray-700 text-base font-normal lg:text-lg xl:text-base">
                   {department?.title} ({department?.code})
                 </p>
               </div>
@@ -702,7 +703,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
                   alt="first aid"
                   className="size-5"
                 />
-                <p className="gray-700 text-base font-normal lg:text-lg xl:text-base 2xl:text-lg">
+                <p className="gray-700 text-base font-normal lg:text-lg xl:text-base">
                   {institueTitle}
                 </p>
               </div>
@@ -710,18 +711,29 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
           </div>
         </div>
 
-        <Link
-          href={'/vi/doi-ngu-bac-si/' + doctor.slug}
-          locale={'vi'}
-          className="mt-6 flex items-center gap-2 font-medium text-gray-950 group-hover:text-primary-50 lg:mt-0 lg:text-lg xl:mt-6"
-        >
-          Xem chi tiết
-          <img
-            src="/assets/icons/arrow_right_black.svg"
-            alt="arrow right"
-            className="size-6 group-hover:brightness-0 group-hover:invert"
-          />
-        </Link>
+        <div className="mt-6 grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-1 4xl:grid-cols-2">
+          <Link
+            href={`#`}
+            className="btn-danger relative w-full justify-center"
+          >
+            Đặt lịch khám
+            <div className="relative size-4">
+              <NextImg src="/assets/icons/phone_white.svg" alt="phone icon" />
+            </div>
+          </Link>
+          <Link
+            href={'/vi/doi-ngu-bac-si/' + doctor.slug}
+            locale={'vi'}
+            className="btn-view-detail w-full justify-center"
+          >
+            Xem chi tiết
+            <img
+              src="/assets/icons/arrow_right_black.svg"
+              alt="arrow right"
+              className="size-6 group-hover:brightness-0 group-hover:invert"
+            />
+          </Link>
+        </div>
       </div>
     </div>
   );

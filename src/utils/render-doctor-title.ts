@@ -1,6 +1,6 @@
 const hospitalMap: Record<string, string> = {
-  director: 'Giám đốc bệnh viện',
-  deputy_director: 'Phó giám đốc bệnh viện',
+  director: 'Giám đốc Bệnh viện',
+  deputy_director: 'Phó giám đốc Bệnh viện',
   doctor: 'Bác sĩ điều trị',
 };
 
