@@ -40,7 +40,7 @@ const DepartmentListPageWrapper = async () => {
         departmentGroups={departmentGroups as any[]}
         parentGroups={parentGroups as any[]}
       />
-      <LogoSlider data={logoSlider} />
+      {/* <LogoSlider data={logoSlider} /> */}
     </div>
   );
 };
