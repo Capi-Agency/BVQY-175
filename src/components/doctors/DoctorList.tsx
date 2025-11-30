@@ -383,14 +383,23 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                             <div
                               onClick={() => setActiveParentGroup(pGroup.slug)}
                               className={clsx(
-                                'cursor-pointer rounded-[4px] p-2 font-bold uppercase',
+                                'flex cursor-pointer items-center justify-between rounded-[4px] p-2 font-bold uppercase',
                                 isOpen
                                   ? 'bg-primary-600 text-primary-50'
                                   : 'bg-white text-black',
                               )}
                               key={pGroup.slug}
                             >
-                              {pGroup.title}
+                              <span>{pGroup.title}</span>
+                              <img
+                                src={'/assets/icons/chevron_down_gray.svg'}
+                                className={clsx(
+                                  'ml-2 h-4 w-4 transition-transform duration-200',
+                                  isOpen
+                                    ? 'rotate-180 brightness-0 invert'
+                                    : 'rotate-0',
+                                )}
+                              />
                             </div>
                           );
                         })}
@@ -522,22 +531,31 @@ const DepartmentDropdownItem = ({
   setSelectedDepartment: (d: any) => void;
   setIsDropdownOpen: (v: boolean) => void;
 }) => {
+  const [open, setOpen] = useState(isOpen);
   return (
     <div onClick={onClick}>
       <div
+        onClick={() => setOpen(!isOpen)}
         className={clsx(
-          'rounded-[4px] p-2 font-bold uppercase',
+          'flex items-center justify-between rounded-[4px] p-2 font-bold uppercase',
           isOpen ? 'bg-primary-600 text-primary-50' : 'bg-white text-black',
         )}
         key={pGroup.slug}
       >
         {pGroup.title}
+        <img
+          src={'/assets/icons/chevron_down_gray.svg'}
+          className={clsx(
+            'ml-2 h-4 w-4 transition-transform duration-200',
+            isOpen ? 'rotate-180 brightness-0 invert' : 'rotate-0',
+          )}
+        />
       </div>
-      {isOpen && (
+      {open && (
         <div
           className={clsx(
             'p-3',
-            isOpen ? 'max-h-[4000px] opacity-100' : 'max-h-0 opacity-0',
+            isOpen ? 'max-h-[4000px] opacity-100' : 'hidden max-h-0 opacity-0',
           )}
         >
           {pGroup?.departments &&
