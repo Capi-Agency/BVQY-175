@@ -9,7 +9,7 @@ import { useEffect, useReducer, useRef, useState } from 'react';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { getOffsetY, getPositionFixed } from '@/src/utils/gsap';
+import { getOffsetY, getPositionFixed, handleScrollTo } from '@/src/utils/gsap';
 import gsap from 'gsap';
 import { removeVietnameseMarks } from '@/src/utils/validate';
 
@@ -38,8 +38,22 @@ const DepartmentDetailPage = ({
 
   const { contextSafe } = useGSAP(
     () => {
-      if (!containerRef.current || !sidebarRef.current) return;
+      if (!containerRef.current || !sidebarRef.current || !conditions) return;
       const mm = gsap.matchMedia();
+      mm.add('(max-width: 767px)', () => {
+        ScrollTrigger.create({
+          trigger: sidebarRef.current,
+          start: () => getPositionFixed(conditions),
+          endTrigger: containerRef.current,
+          // end: "bottom bottom",
+          end: () =>
+            `+=${containerRef?.current?.offsetHeight - sidebarRef?.current?.offsetHeight}`,
+          pin: true,
+          pinSpacing: false,
+          pinnedContainer: containerRef?.current,
+          markers: true,
+        });
+      });
 
       mm.add('(min-width: 1600px)', () => {
         ScrollTrigger.create({
@@ -194,7 +208,7 @@ const DepartmentDetailPage = ({
         ))}
       </div>
 
-      <div className="p-[12px_0_24px] xl:p-[20px_0_40px] 2xl:p-[24px_0_48px] 4xl:p-[60_0_120px]">
+      <div className="p-[12px_0_24px] xl:p-[20px_0_40px] 2xl:p-[60px_0_48px] 4xl:p-[64_0_120px]">
         <div
           ref={containerRef}
           className="flex flex-col items-stretch md:container md:gap-6 lg:gap-6 2xl:gap-0 3xl:flex-row 3xl:items-start 3xl:gap-[72px] 4xl:gap-20"
@@ -206,7 +220,7 @@ const DepartmentDetailPage = ({
             <div className="h-fit rounded-[16px] border border-[#E9EBED] bg-white p-4 lg:p-5 2xl:p-6 3xl:w-[360px] 3xl:p-[24px_20px]">
               {/* input */}
               <form
-                className="relative hidden rounded-[6px] bg-gray-100 p-3 !pl-11 shadow-lg md:block 2xl:p-4"
+                className="relative block rounded-[6px] bg-gray-100 p-2 !pl-11 shadow-lg md:p-3 2xl:p-4"
                 onSubmit={(e: any) => {
                   e.preventDefault();
                   handleSearch();
@@ -241,14 +255,14 @@ const DepartmentDetailPage = ({
               </form>
 
               {/* Button cac khoi */}
-              <div className="flex gap-2 md:mt-4 md:gap-4 3xl:h-fit 3xl:flex-col">
+              <div className="mt-2 flex gap-2 md:mt-4 md:gap-4 3xl:h-fit 3xl:flex-col">
                 {parentGroups?.slice(0, 3)?.map((group: any, index: number) => {
                   return (
-                    <Link
-                      href={'#' + group.slug}
+                    <div
+                      onClick={() => handleScrollTo(group?.slug, conditions)}
                       key={'group_' + index}
                       className={clsx(
-                        'group relative flex flex-1 cursor-pointer items-center justify-center gap-2.5 overflow-hidden px-[18px] py-4 shadow-lg transition-all hover:bg-primary-600 md:px-5 lg:gap-3 xl:w-fit xl:flex-1 3xl:w-full 3xl:justify-start',
+                        'group relative flex flex-1 cursor-pointer items-center justify-center gap-2.5 overflow-hidden px-[18px] py-3 shadow-lg transition-all hover:bg-primary-600 md:px-5 md:py-4 lg:gap-3 xl:w-fit xl:flex-1 3xl:w-full 3xl:justify-start',
                       )}
                     >
                       <img
@@ -260,7 +274,7 @@ const DepartmentDetailPage = ({
                         {group.title}
                       </div>
                       <BgHiddenShape className="pointer-events-none absolute left-1/2 w-[90%] -translate-x-[60%]" />
-                    </Link>
+                    </div>
                   );
                 })}
               </div>
@@ -324,27 +338,27 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
 
       {/* List các khối con */}
       {pGroup?.children_groups && pGroup.children_groups.length > 0 && (
-        <div className="mt-5 flex flex-col gap-3 md:flex-row md:flex-wrap md:gap-4 xl:mt-8 xl:gap-5 2xl:gap-6 3xl:mt-[52px]">
+        <div className="mt-5 flex flex-col gap-3 md:flex-row md:flex-wrap md:gap-4 xl:mt-8 xl:gap-5 2xl:gap-6 3xl:mt-[32px]">
           {pGroup.children_groups.map((group: any, idx: number) => (
             <div
               key={'group___' + idx}
               className={clsx(
-                'w-full cursor-pointer text-base font-normal text-gray-950 underline underline-offset-4 hover:text-primary-600 md:w-fit lg:w-[calc(50%-12px)] lg:text-lg 2xl:text-xl',
+                'w-full cursor-pointer text-base font-normal text-gray-950 underline underline-offset-4 hover:text-primary-600 md:w-[calc(50%-12px)] lg:text-lg 2xl:text-xl',
               )}
             >
               <div
                 className={clsx(
-                  'cursor-pointer text-xl font-semibold text-gray-500 underline hover:text-primary-600',
+                  'cursor-pointer p-[8px_0__4px] text-base font-semibold text-gray-950 underline hover:text-primary-600 md:p-[12px_0__4px] lg:p-[16px_0_4px] lg:text-lg 2xl:text-xl',
                 )}
               >
                 {group.title}
               </div>
-              <div className="ml-3 mt-4 flex list-none flex-col gap-4 md:gap-6 xl:mt-6 3xl:gap-x-4 3xl:gap-y-5">
+              <div className="ml-3 mt-4 flex list-none flex-col gap-4 md:ml-5 md:gap-5 xl:ml-7 xl:mt-5 2xl:gap-6 3xl:gap-x-4 3xl:gap-y-5">
                 {group.departments.map((department: any, idx: number) => (
                   <Link
                     href={'/vi/chuyen-khoa/' + department.slug}
                     className={clsx(
-                      'text-xl font-normal text-gray-950 underline hover:text-primary-600',
+                      'text-base font-normal text-gray-950 underline hover:text-primary-600 lg:text-lg 2xl:text-xl',
                     )}
                     key={'department_' + idx}
                   >
@@ -360,7 +374,7 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
 
       {/* Các khoa */}
       {pGroup?.departments && pGroup.departments.length > 0 && (
-        <div className="mt-5 flex list-none flex-col gap-3 md:flex-row md:flex-wrap md:gap-4 xl:mt-8 xl:gap-5 2xl:gap-6 3xl:mt-[52px] 3xl:gap-x-4 3xl:gap-y-5">
+        <div className="mt-5 flex list-none flex-col gap-3 md:flex-row md:flex-wrap md:gap-4 xl:mt-8 xl:gap-5 2xl:gap-6 3xl:mt-[32px] 3xl:gap-x-4 3xl:gap-y-5">
           {pGroup.departments.map((department: any, idx: number) => (
             <Link
               href={'/vi/chuyen-khoa/' + department.slug}

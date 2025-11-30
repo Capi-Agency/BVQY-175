@@ -53,7 +53,7 @@ export const handleScrollTo = (elementId: string, conditions: gsap.Conditions | 
                 offsetY: getOffsetY(conditions),
                 autoKill: false,
             },
-            duration: 1.5,
+            duration: 1,
             ease: 'power2.out',
         });
     }
