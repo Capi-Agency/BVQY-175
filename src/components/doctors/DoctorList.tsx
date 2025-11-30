@@ -202,7 +202,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                     fetchDoctors();
                   }
                 }}
-                placeholder="Nhập tên, chuyên khoa"
+                placeholder="Nhập tên bác sĩ"
                 className="text-base font-normal placeholder:text-[#0F2F64] focus:border-none focus:outline-none md:text-lg"
               />
             </div>
