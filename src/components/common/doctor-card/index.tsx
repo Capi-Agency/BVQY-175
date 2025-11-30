@@ -12,7 +12,13 @@ interface DoctorCardProps {
   isHover?: boolean;
   bgColor?: string;
   avatarType: 'avatar' | 'uniform_avatar';
-  subTitle: 'specialty' | 'hospital_title' | 'department_title';
+  subTitle:
+    | 'specialty'
+    | 'hospital_title'
+    | 'department_title'
+    | 'institute_title'
+    | 'admin_department_title'
+    | string;
 }
 
 const hospitalTitleMap: Record<string, string> = {
@@ -21,10 +27,22 @@ const hospitalTitleMap: Record<string, string> = {
   doctor: 'Bác sĩ điều trị',
 };
 
+const instituteTitleMap: Record<string, string> = {
+  director: 'Giám đốc Viện',
+  deputy_director: 'Phó giám đốc Viện',
+};
+
 const departmentTitleMap: Record<string, string> = {
   head_of_department: 'Chủ nhiệm Khoa',
   deputy_head_of_department: 'Phó Chủ nhiệm Khoa',
   head_nurse: 'Điều dưỡng trưởng',
+};
+
+const adminDepartmentTitleMap: Record<string, string> = {
+  head_of_department: 'Trưởng phòng',
+  deputy_head_of_department: 'Phó phòng',
+  head_of_division: 'Trưởng ban',
+  deputy_head_of_division: 'Phó ban',
 };
 
 export default function DoctorCard({
@@ -43,9 +61,18 @@ export default function DoctorCard({
       hospital_title: (
         <>{hospitalTitleMap[item?.hospital_title] ?? item?.hospital_title}</>
       ),
+      institute_title: (
+        <>{instituteTitleMap[item?.institute_title] ?? item?.institute_title}</>
+      ),
       department_title: (
         <>
           {departmentTitleMap[item?.department_title] ?? item?.department_title}
+        </>
+      ),
+      admin_department_title: (
+        <>
+          {adminDepartmentTitleMap[item?.admin_department_title] ??
+            item?.admin_department_title}
         </>
       ),
     };
@@ -98,3 +125,10 @@ export default function DoctorCard({
     </Link>
   );
 }
+
+export {
+  hospitalTitleMap,
+  instituteTitleMap,
+  departmentTitleMap,
+  adminDepartmentTitleMap,
+};

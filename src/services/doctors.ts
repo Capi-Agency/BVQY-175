@@ -170,7 +170,7 @@ export const fnGetDoctorDetail = async ({
   try {
     const res = await directusClientWithRest.request(
       readItem(collection, slug, {
-        fields: ['*'],
+        fields: ['*', 'departments.department.*'],
       }),
     );
     return res;
