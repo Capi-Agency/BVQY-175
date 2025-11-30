@@ -99,6 +99,7 @@ export default function GalleryWithText({ data }: CommonSection) {
                         <NextImg
                           src={getAssetUrlById(itemCover?.id)}
                           alt="Cơ sở vật chất image"
+                          objectFit='cover'
                         />
                       </div>
                     ))}
