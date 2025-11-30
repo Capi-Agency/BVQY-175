@@ -33,6 +33,7 @@ export default function InfoWithLeftImageTopTitle({
             <NextImg
               src={getAssetUrlById(dataDetail?.description_image)}
               alt="image"
+              objectFit='cover'
             />
           </div>
 
