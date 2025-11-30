@@ -396,7 +396,10 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
 
 const DepartmentSlideCard = ({ group }: { group: any }) => {
   return (
-    <div className="group relative cursor-pointer space-y-5 bg-white p-5 shadow-lg transition-all hover:bg-primary-600 lg:w-[calc((100%-24px*2)/3)]">
+    <Link
+      href={'#' + group.slug}
+      className="group relative cursor-pointer space-y-5 bg-white p-5 shadow-lg transition-all hover:bg-primary-600 lg:w-[calc((100%-24px*2)/3)]"
+    >
       {/* cover */}
       <div className="relative aspect-video w-full">
         <NextImg
@@ -424,19 +427,16 @@ const DepartmentSlideCard = ({ group }: { group: any }) => {
       </div>
 
       {/* view details */}
-      <Link
-        href={'#' + group.slug}
-        className="flex items-center gap-2 font-medium text-gray-500 group-hover:text-primary-50 3xl:text-lg"
-      >
+      <div className="flex items-center gap-2 font-medium text-gray-500 group-hover:text-primary-50 3xl:text-lg">
         Xem chi tiết
         <img
           src="/assets/icons/arrow_right_gray.svg"
           alt="arrow right"
           className="size-6 group-hover:brightness-0 group-hover:invert"
         />
-      </Link>
+      </div>
       <BgHiddenShape className="pointer-events-none absolute left-0 w-[90%]" />
-    </div>
+    </Link>
   );
 };
 
