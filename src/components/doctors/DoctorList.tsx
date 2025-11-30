@@ -3,6 +3,7 @@ import NextImg from '@/src/components/common/next-img';
 import ThePagination from '@/src/components/common/the-pagination';
 import { getDoctorsCount, getListDoctors } from '@/src/services/doctors';
 import { getAssetUrlById } from '@/src/utils/image';
+import { getDoctorTitles } from '@/src/utils/render-doctor-title';
 import clsx from 'clsx';
 import Link from 'next/link';
 import React, {
@@ -134,6 +135,13 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
     fetchDoctorCount();
     fetchDoctors();
   }, [selectedLetter, selectedDepartment?.slug, searchMethod, currentPage]);
+
+  useEffect(() => {
+    if (searchText === '') {
+      fetchDoctorCount();
+      fetchDoctors();
+    }
+  }, [searchText]);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -625,16 +633,11 @@ const letters = [
   'Y',
 ];
 
-const titleMap: Record<string, string> = {
-  director: 'Giám đốc',
-  deputy_director: 'Phó giám đốc',
-  doctor: 'Bác sĩ điều trị',
-};
-
 const DoctorCard = ({ doctor }: { doctor: any }) => {
   const [render, setRender] = useState(false);
   const department = doctor?.departments[0]?.department;
-  const hospitalTitle = titleMap[doctor?.hospital_title] || null;
+  const titles = getDoctorTitles(doctor);
+  console.log('🚀 ~ DoctorCard ~ titles:', titles);
 
   useEffect(() => {
     setRender(true);
@@ -658,8 +661,12 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
           <div className="text-xl font-bold text-primary-1000 lg:text-2xl xl:text-xl 2xl:text-2xl">
             {doctor?.full_name}
           </div>
-          <div className="mb-6 text-base font-medium text-primary-500">
-            {hospitalTitle}
+          <div className="mb-4">
+            {titles.map((title, index) => (
+              <div className="text-sm font-medium text-primary-500" key={index}>
+                {title}
+              </div>
+            ))}
           </div>
 
           <div className="space-y-2">

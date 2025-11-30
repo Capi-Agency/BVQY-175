@@ -51,6 +51,7 @@ export const getListDoctors = async ({
           '*',
           'departments.department.code',
           'departments.department.title',
+          'department_groups.department_groups_slug.title',
         ],
         limit,
         page,
