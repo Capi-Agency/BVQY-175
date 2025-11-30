@@ -634,10 +634,12 @@ const letters = [
 ];
 
 const DoctorCard = ({ doctor }: { doctor: any }) => {
+  console.log('🚀 ~ DoctorCard ~ doctor:', doctor);
   const [render, setRender] = useState(false);
   const department = doctor?.departments[0]?.department;
+  const institueTitle =
+    doctor?.department_groups[0]?.department_groups_slug?.title;
   const titles = getDoctorTitles(doctor);
-  console.log('🚀 ~ DoctorCard ~ titles:', titles);
 
   useEffect(() => {
     setRender(true);
@@ -690,6 +692,18 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
                 />
                 <p className="gray-700 text-base font-normal lg:text-lg xl:text-base 2xl:text-lg">
                   {department?.title} ({department?.code})
+                </p>
+              </div>
+            )}
+            {render && institueTitle && (
+              <div className="flex items-center gap-1.5">
+                <img
+                  src="/assets/icons/hospital_location_black.svg"
+                  alt="first aid"
+                  className="size-5"
+                />
+                <p className="gray-700 text-base font-normal lg:text-lg xl:text-base 2xl:text-lg">
+                  {institueTitle}
                 </p>
               </div>
             )}
