@@ -33,7 +33,6 @@ const DepartmentDetailPage = ({
   const ctaButtonData = bannerData?.buttons[0];
   const selector = gsap.utils.selector(containerRef);
   const [filteredGroups, setFilteredGroups] = useState(parentGroups);
-  console.log('🚀 ~ DepartmentDetailPage ~ filteredGroups:', filteredGroups);
   const normalizeText = (str: string) =>
     removeVietnameseMarks(str || '').toLowerCase();
 

@@ -19,7 +19,7 @@ export default function NumberWithText({ data, dataDetail }: CommonSection) {
 
         <div className="flex flex-col items-stretch gap-4 md:flex-row md:gap-2 lg:gap-4 3xl:gap-6">
           {dataDetail?.research_project?.map((item: any, index: number) => {
-            const num = Number(item?.number) || 0;
+            const num = Number(item?.number) || index + 1;
 
             return (
               <Counter
