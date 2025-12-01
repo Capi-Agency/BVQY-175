@@ -345,13 +345,14 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
                 'w-full cursor-pointer text-base font-normal text-gray-950 hover:text-primary-600 md:w-[calc(50%-12px)] lg:text-lg 2xl:text-xl',
               )}
             >
-              <div
+              <Link
+                href={'/vi/vien/' + group.slug}
                 className={clsx(
                   'cursor-pointer p-[8px_0__4px] text-base font-semibold text-gray-950 underline-offset-4 hover:text-primary-600 hover:underline md:p-[12px_0__4px] lg:p-[16px_0_4px] lg:text-lg 2xl:text-xl',
                 )}
               >
                 {group.title}
-              </div>
+              </Link>
               <div className="ml-3 mt-4 flex list-none flex-col gap-4 md:ml-5 md:gap-5 xl:ml-7 xl:mt-5 2xl:gap-6 3xl:gap-x-4 3xl:gap-y-5">
                 {group.departments.map((department: any, idx: number) => (
                   <Link
