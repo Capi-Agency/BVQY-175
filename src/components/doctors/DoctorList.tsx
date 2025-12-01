@@ -645,13 +645,13 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
   }, []);
   return (
     <div className="flex flex-col gap-5 rounded-2xl border-[2px] border-white bg-white p-5 shadow-lg transition-all hover:border-primary-600 md:flex-row md:p-4 xl:p-4 2xl:p-5">
-      <div className="flex h-full items-center">
-        <div className="relative aspect-[2/3] max-h-[280px] w-full overflow-hidden rounded-[10px] bg-gray-100 md:w-[192px] lg:w-[224px] xl:w-[192px] 2xl:w-[224px]">
+      <div className="flex h-full items-center justify-center">
+        <div className="relative aspect-[3/4] h-auto w-full overflow-hidden rounded-[10px] bg-gray-100 md:max-h-[280px] md:w-[192px] lg:w-[224px] xl:w-[192px] 2xl:w-[224px]">
           <NextImg
             src={getAssetUrlById(doctor?.avatar)}
             alt="cover"
             objectFit="cover"
-            className="object-center"
+            className="-top-[8%] object-top"
           />
         </div>
       </div>
