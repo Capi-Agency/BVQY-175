@@ -19,6 +19,7 @@ export default function BreadcrumbBasic({ data }: CommonSection) {
               {item?.buttons?.[0]?.url ? (
                 <Link
                   href={`/${language}${item?.buttons?.[0]?.url}` || '/'}
+                  aria-label="Chuyển trang"
                   className={`${isLast ? 'font-semibold text-primary-600' : 'font-normal text-[#71717A] hover:text-primary-600'} block transition-colors duration-100`}
                 >
                   {item?.buttons?.[0]?.title}

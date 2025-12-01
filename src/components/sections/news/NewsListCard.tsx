@@ -30,7 +30,7 @@ export default function NewsListCard({ data }: CommonSection) {
   const containerRef = useRef<any>(null);
   const newsListRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
- 
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -178,12 +178,14 @@ export default function NewsListCard({ data }: CommonSection) {
         className="p-[24px_0_44px] lg:p-[28px_0_52px] xl:p-[32px_0_64px] 3xl:p-[32px_0_72px] 4xl:p-[40px_0_80px]"
       >
         <div className="container space-y-8 lg:space-y-10 xl:space-y-12 3xl:space-y-[52px] 4xl:space-y-[60px]">
-          <h2
-            className="section-title text-primary-950"
-            dangerouslySetInnerHTML={{
-              __html: data?.title,
-            }}
-          ></h2>
+          {data?.title && (
+            <h2
+              className="section-title text-primary-950"
+              dangerouslySetInnerHTML={{
+                __html: data?.title,
+              }}
+            ></h2>
+          )}
 
           {dataNews?.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:gap-8 4xl:gap-10">

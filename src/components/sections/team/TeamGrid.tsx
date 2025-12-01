@@ -11,12 +11,14 @@ const TeamGrid = ({ data }: CommonSection) => {
   return (
     <section>
       <div className="py-10 md:container md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
-        <h2
-          className="section-title px-6 uppercase text-primary-600 md:px-0"
-          dangerouslySetInnerHTML={{
-            __html: data?.title,
-          }}
-        ></h2>
+        {data?.title && (
+          <h2
+            className="section-title px-6 uppercase text-primary-600 md:px-0"
+            dangerouslySetInnerHTML={{
+              __html: data?.title,
+            }}
+          ></h2>
+        )}
 
         <div
           className="section-content px-6 pt-4 text-justify md:px-0 lg:pt-5 2xl:pt-6"

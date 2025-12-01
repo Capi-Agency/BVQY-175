@@ -52,6 +52,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
           <div className="space-y-2 md:basis-1/2 lg:basis-0 lg:space-y-3 xl:space-y-4">
             <Link
               href={`#`}
+              aria-label="Đặt lịch khám"
               className="btn-danger relative !mb-6 w-full justify-center py-3 md:!mb-7 lg:!mb-8 lg:py-4 lg:text-lg"
             >
               Đặt lịch khám
@@ -122,6 +123,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
                       <Link
                         key={index}
                         href={`/${language}/vien/${group?.slug}`}
+                        aria-label="Xem chi tiết viện"
                         className="block text-sm font-normal text-[#09090B] underline underline-offset-2 lg:text-base"
                       >
                         {language === 'en' ? group?.title_en : group?.title}
@@ -133,6 +135,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
                       <Link
                         key={index}
                         href={`/${language}/chuyen-khoa/${department?.slug}`}
+                        aria-label="Xem chi tiết chuyên khoa"
                         className="block text-sm font-normal text-[#09090B] underline underline-offset-2 lg:text-base"
                       >
                         {language === 'en'

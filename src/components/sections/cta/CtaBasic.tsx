@@ -15,6 +15,7 @@ export default function CtaBasic({ data }: CommonSection) {
         <div className="basis-full space-y-4 md:basis-1/2 md:space-y-5 xl:space-y-6 3xl:space-y-8">
           <Link
             href={'/'}
+            aria-label="Chuyển đến trang chủ"
             className="relative block h-10 w-[178px] lg:h-[60px] lg:w-[266px]"
           >
             <NextImg

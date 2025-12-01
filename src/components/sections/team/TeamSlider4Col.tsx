@@ -25,12 +25,14 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
           <div className="space-y-1">
             <div className="section-sub-title">{data?.subtitle}</div>
 
-            <h2
-              className="section-title mt-1"
-              dangerouslySetInnerHTML={{
-                __html: data?.title,
-              }}
-            ></h2>
+            {data?.title && (
+              <h2
+                className="section-title mt-1"
+                dangerouslySetInnerHTML={{
+                  __html: data?.title,
+                }}
+              ></h2>
+            )}
           </div>
 
           <div
@@ -75,7 +77,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
             </Swiper>
           ) : (
             <>
-              <div className="hidden w-full grid-cols-2 gap-8 md:grid md:px-[calc((100vw-688px)/2)] lg:gap-6 lg:px-0 lg:pl-[80px] xl:pl-[100px] 2xl:pl-[160px] 3xl:pl-[220px] 4xl:pl-[260px] xl:gap-10">
+              <div className="hidden w-full grid-cols-2 gap-8 md:grid md:px-[calc((100vw-688px)/2)] lg:gap-6 lg:px-0 lg:pl-[80px] xl:gap-10 xl:pl-[100px] 2xl:pl-[160px] 3xl:pl-[220px] 4xl:pl-[260px]">
                 {dataDetail?.doctors?.map((item: any, index: number) => (
                   <div key={index} className="">
                     <DoctorCard

@@ -26,12 +26,14 @@ export default function InfoWithRightImage({
           <div className="space-y-1">
             <div className="section-sub-title">{data?.subtitle}</div>
 
-            <h2
-              className="section-title mt-1"
-              dangerouslySetInnerHTML={{
-                __html: data?.title,
-              }}
-            ></h2>
+            {data?.title && (
+              <h2
+                className="section-title mt-1"
+                dangerouslySetInnerHTML={{
+                  __html: data?.title,
+                }}
+              ></h2>
+            )}
           </div>
 
           <div

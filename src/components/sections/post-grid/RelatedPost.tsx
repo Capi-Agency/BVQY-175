@@ -33,9 +33,10 @@ const RelatedPosts = ({ data }: CommonSection) => {
   return (
     <div className="py-10 lg:py-12 xl:py-14 2xl:py-16 3xl:py-[72px] 4xl:py-20">
       <div className="container flex items-center justify-between">
-        <h1 className="section-title">{data?.title}</h1>
+        {data?.title && <h1 className="section-title">{data?.title}</h1>}
         <Link
           href={`/${language}${data?.buttons?.[0]?.url}`}
+          aria-label="Xem tất cả tin tức"
           className="group flex items-center gap-1.5 text-gray-950"
         >
           <span className="text-sm font-medium transition-colors duration-100 group-hover:text-primary-500 2xl:text-base 3xl:text-lg">
@@ -86,7 +87,10 @@ const RelatedPosts = ({ data }: CommonSection) => {
             {newsData?.length > 0 &&
               newsData?.map((item: any, index: number) => (
                 <SwiperSlide key={'post_' + index}>
-                  <NewsCard item={item} url={data?.buttons?.[0]?.url ?? '/tin-tuc'} />
+                  <NewsCard
+                    item={item}
+                    url={data?.buttons?.[0]?.url ?? '/tin-tuc'}
+                  />
                 </SwiperSlide>
               ))}
           </Swiper>

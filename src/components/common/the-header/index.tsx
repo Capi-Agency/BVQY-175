@@ -44,6 +44,7 @@ export default function TheHeader({ data }: Props) {
         <div className="container relative flex items-center justify-between">
           <Link
             href="/"
+            aria-label="Chuyển đến trang chủ"
             className="relative h-[52px] w-[214px] md:h-[56px] md:w-[230px] lg:h-[64px] lg:w-[262px] 2xl:h-[72px] 2xl:w-[296px] 4xl:h-[80px] 4xl:w-[328px]"
           >
             <NextImg

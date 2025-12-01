@@ -19,6 +19,7 @@ export default function FeatureWithImage4Col({ data }: CommonSection) {
             <Link
               key={index}
               href={`/${language}${button?.url}`}
+              aria-label={button?.title}
               className="group flex items-center gap-3 bg-white p-[12px_24px] transition-colors duration-200 hover:bg-secondary md:p-[12px_40px] lg:p-[12px_80px] xl:p-[12px_120px] 2xl:flex-1 2xl:p-[12px_16px] 3xl:gap-4 3xl:p-[12px_20px] 4xl:p-[12px_24px]"
               style={{
                 boxShadow:
@@ -30,9 +31,11 @@ export default function FeatureWithImage4Col({ data }: CommonSection) {
               </div>
 
               <div className="flex-1">
-                <h2 className="text-lg font-semibold leading-[1.5] text-[#09090B] transition-colors duration-200 group-hover:text-white 2xl:text-xl 4xl:text-[22px]">
-                  {button?.title}
-                </h2>
+                {button?.title && (
+                  <h2 className="text-lg font-semibold leading-[1.5] text-[#09090B] transition-colors duration-200 group-hover:text-white 2xl:text-xl 4xl:text-[22px]">
+                    {button?.title}
+                  </h2>
+                )}
                 <div className="text-sm font-normal text-[#3F3F46] transition-colors duration-200 group-hover:text-white/60">
                   {button?.blurb}
                 </div>

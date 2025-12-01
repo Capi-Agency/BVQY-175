@@ -111,6 +111,7 @@ export default function GalleryWithText({ data }: CommonSection) {
                     <Link
                       href={`/${language}${data?.buttons?.[0]?.url}`}
                       className="btn-danger"
+                      aria-label="Chuyển đến trang cơ sở vật chất"
                     >
                       {data?.buttons?.[0]?.title}
                       <div className="relative size-5 2xl:size-6">

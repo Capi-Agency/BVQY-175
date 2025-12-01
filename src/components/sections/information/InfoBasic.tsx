@@ -13,9 +13,11 @@ export default function InfoBasic({ data }: CommonSection) {
     <section className="bg-white py-10 md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
       <div className="container grid grid-cols-1 gap-11 md:gap-6 lg:grid-cols-2 2xl:gap-7 3xl:gap-8 4xl:gap-10">
         <div className="space-y-4 xl:space-y-6 2xl:space-y-7 3xl:space-y-8 4xl:space-y-10">
-          <h1 className="section-title uppercase text-primary-600">
-            {data?.title}
-          </h1>
+          {data?.title && (
+            <h1 className="section-title uppercase text-primary-600">
+              {data?.title}
+            </h1>
+          )}
 
           <div
             className="section-content text-justify"

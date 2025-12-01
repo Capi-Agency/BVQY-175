@@ -13,9 +13,11 @@ export default function InfoWithFeaturesImage({ data }: CommonSection) {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 xl:flex xl:flex-1 xl:flex-col xl:justify-center xl:gap-12 2xl:gap-[52px] 3xl:gap-[60px] 4xl:max-w-[700px]">
         {data?.items?.map((item: any, index: number) => (
           <div className="space-y-4" key={'i_' + index}>
-            <h1 className="section-title uppercase text-primary-600">
-              {item?.title}
-            </h1>
+            {data?.title && (
+              <h1 className="section-title uppercase text-primary-600">
+                {item?.title}
+              </h1>
+            )}
             <div
               className="section-content"
               dangerouslySetInnerHTML={{
@@ -59,4 +61,4 @@ export default function InfoWithFeaturesImage({ data }: CommonSection) {
       </div>
     </div>
   );
-};
+}

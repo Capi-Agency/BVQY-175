@@ -38,13 +38,14 @@ export default function HeroWithTopImage({ data }: CommonSection) {
               __html: data?.blurb,
             }}
           ></div>
-
-          <h2
-            className="text-[30px] font-bold !leading-[1.4] text-white md:text-[32px] lg:text-[36px] xl:text-[40px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]"
-            dangerouslySetInnerHTML={{
-              __html: data?.title,
-            }}
-          ></h2>
+          {data?.title && (
+            <h2
+              className="text-[30px] font-bold !leading-[1.4] text-white md:text-[32px] lg:text-[36px] xl:text-[40px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]"
+              dangerouslySetInnerHTML={{
+                __html: data?.title,
+              }}
+            ></h2>
+          )}
 
           <div
             className="w-full text-sm font-normal text-[#E4E4E7] md:!leading-[1.4] lg:!leading-[1.5] xl:text-base 3xl:text-lg 3xl:!leading-[1.6] 4xl:text-xl"

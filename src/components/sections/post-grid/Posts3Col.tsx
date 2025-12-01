@@ -24,7 +24,7 @@ const Posts3Col = ({ data }: CommonSection) => {
   return (
     <div className="py-10 text-center xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
       <div className="section-sub-title">{data?.subtitle}</div>
-      <h1 className="section-title">{data?.title}</h1>
+      {data?.title && <h1 className="section-title">{data?.title}</h1>}
 
       <div className="lg:container">
         <div className="relative pt-6 xl:pt-7 2xl:pt-8 4xl:pt-10">

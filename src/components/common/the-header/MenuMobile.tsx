@@ -69,6 +69,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
             >
               <Link
                 href="/"
+                aria-label="Chuyển đến trang chủ"
                 className="relative h-[52px] w-[214px] md:h-[56px] md:w-[230px] lg:h-[64px] lg:w-[262px] 2xl:h-[72px] 2xl:w-[296px] 4xl:h-[80px] 4xl:w-[328px]"
               >
                 <NextImg
@@ -157,7 +158,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                 </div>
 
                 {/* input search */}
-                <div className="flex h-11 items-stretch rounded-[6px] bg-[#F4F4F5] p-[6px_6px_6px_16px] gap-2 md:gap-3 lg:gap-4 backdrop-blur-[9.5px]">
+                <div className="flex h-11 items-stretch gap-2 rounded-[6px] bg-[#F4F4F5] p-[6px_6px_6px_16px] backdrop-blur-[9.5px] md:gap-3 lg:gap-4">
                   <input
                     tabIndex={1}
                     autoFocus={false}
@@ -215,8 +216,8 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                               </AccordionTrigger>
                             )}
 
-                            <AccordionTrigger className="relative size-6 flex justify-center items-center origin-center transition-all duration-300 ease-in group-data-[state=open]:-rotate-180">
-                              <div className='relative size-5'>
+                            <AccordionTrigger className="relative flex size-6 origin-center items-center justify-center transition-all duration-300 ease-in group-data-[state=open]:-rotate-180">
+                              <div className="relative size-5">
                                 <NextImg
                                   src="/assets/icons/arrow_down_black.svg"
                                   alt="arrow down icon"
@@ -350,7 +351,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
             >
               <button
                 onClick={() => setIsOpenSubMenu(false)}
-                className="mb-2 md:mb-3 flex items-center gap-1"
+                className="mb-2 flex items-center gap-1 md:mb-3"
               >
                 <div className="relative size-5 origin-center rotate-90">
                   <NextImg

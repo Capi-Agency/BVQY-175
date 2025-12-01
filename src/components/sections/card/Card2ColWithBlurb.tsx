@@ -12,12 +12,14 @@ export default function Card2ColWithBlurb({ data, dataDetail }: CommonSection) {
         <div className="space-y-1">
           <div className="section-sub-title">{data?.subtitle}</div>
 
-          <h2
-            className="section-title mt-1"
-            dangerouslySetInnerHTML={{
-              __html: data?.title,
-            }}
-          ></h2>
+          {data?.title && (
+            <h2
+              className="section-title mt-1"
+              dangerouslySetInnerHTML={{
+                __html: data?.title,
+              }}
+            ></h2>
+          )}
         </div>
 
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4 lg:gap-5 xl:gap-6 2xl:gap-8 3xl:gap-10">

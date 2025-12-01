@@ -14,15 +14,18 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
 
   return (
-    <div className="flex flex-col items-stretch gap-6 bg-[#F6FAF7] py-10 md:py-6 md:gap-8 lg:py-10 xl:gap-11 xl:py-11 2xl:gap-12 2xl:py-12 3xl:gap-[52px] 3xl:py-[52px] 4xl:gap-[60px] 4xl:py-[60px]">
+    <div className="flex flex-col items-stretch gap-6 bg-[#F6FAF7] py-10 md:gap-8 md:py-6 lg:py-10 xl:gap-11 xl:py-11 2xl:gap-12 2xl:py-12 3xl:gap-[52px] 3xl:py-[52px] 4xl:gap-[60px] 4xl:py-[60px]">
       <div className="container flex items-center justify-between">
-        <h2 className="section-title uppercase text-primary-600">
-          {data?.title}
-        </h2>
+        {data?.title && (
+          <h2 className="section-title uppercase text-primary-600">
+            {data?.title}
+          </h2>
+        )}
 
-        <div className='w-fit hidden md:block'>
+        <div className="hidden w-fit md:block">
           <Link
             href={`/${language}${data?.buttons?.[0]?.url}`}
+            aria-label="Chuyển đến trang thành tích"
             className="btn-danger"
           >
             {data?.buttons?.[0]?.title}
@@ -108,6 +111,7 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
         <div className="container pt-6 md:hidden">
           <Link
             href={`/${language}${data?.buttons?.[0]?.url}`}
+            aria-label="Chuyển đến trang thành tích"
             className="btn-danger"
           >
             {data?.buttons?.[0]?.title}

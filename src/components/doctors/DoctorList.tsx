@@ -714,6 +714,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
         <div className="mt-6 grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-1 4xl:grid-cols-2">
           <Link
             href={`#`}
+            aria-label="Đặt lịch khám"
             className="btn-danger relative w-full justify-center"
           >
             Đặt lịch khám
@@ -725,6 +726,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
             href={'/vi/doi-ngu-bac-si/' + doctor.slug}
             locale={'vi'}
             className="btn-view-detail w-full justify-center"
+            aria-label="Xem chi tiết bác sĩ"
           >
             Xem chi tiết
             <img

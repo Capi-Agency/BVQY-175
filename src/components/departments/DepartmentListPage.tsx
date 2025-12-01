@@ -139,12 +139,14 @@ const DepartmentDetailPage = ({
           }}
         >
           {/* title */}
-          <h1 className="text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
-            {bannerData.title}
-          </h1>
+          {bannerData?.title && (
+            <h1 className="text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
+              {bannerData?.title}
+            </h1>
+          )}
           {/* subtitle */}
           <p className="text-base font-normal text-gray-200 md:text-lg lg:text-xl">
-            {bannerData.subtitle}
+            {bannerData?.subtitle}
           </p>
         </div>
 
@@ -361,6 +363,7 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
                       'text-base font-normal text-gray-950 hover:text-primary-600 hover:underline lg:text-lg 2xl:text-xl',
                     )}
                     key={'department_' + idx}
+                    aria-label="Xem chi tiết chuyên khoa"
                   >
                     {department.title}{' '}
                     {department.code ? `(${department.code})` : null}
@@ -382,6 +385,7 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
                 'text-base font-normal text-gray-950 underline-offset-4 hover:text-primary-600 hover:underline lg:w-[calc(50%-12px)] lg:text-lg 2xl:text-xl',
               )}
               key={'department_' + idx}
+              aria-label="Xem chi tiết chuyên khoa"
             >
               {department.title}{' '}
               {department.code ? `(${department.code})` : null}

@@ -15,7 +15,7 @@ const LogoSlider = ({ data }: Partial<CommonSection>) => {
   return (
     <div className="py-10 text-center md:py-6 lg:py-8 xl:py-10 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
       <div className="section-sub-title">{data?.subtitle}</div>
-      <h1 className="section-title">{data?.title}</h1>
+      {data?.title && <h1 className="section-title">{data?.title}</h1>}
       <div className="md:container">
         <div className="relative pt-6 2xl:pt-8 3xl:pt-10">
           <Swiper

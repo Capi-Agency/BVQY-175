@@ -10,12 +10,14 @@ export default function NumberWithText({ data, dataDetail }: CommonSection) {
   return (
     <section className="bg-primary-600 py-10 md:py-8 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
       <div className="container space-y-4 md:space-y-6 lg:space-y-8 xl:space-y-10 2xl:space-y-14 3xl:space-y-[60px]">
-        <h2
-          className="section-title !text-primary-50"
-          dangerouslySetInnerHTML={{
-            __html: data?.title,
-          }}
-        ></h2>
+        {data?.title && (
+          <h2
+            className="section-title !text-primary-50"
+            dangerouslySetInnerHTML={{
+              __html: data?.title,
+            }}
+          ></h2>
+        )}
 
         <div className="flex flex-col items-stretch gap-4 md:flex-row md:gap-2 lg:gap-4 3xl:gap-6">
           {dataDetail?.research_project?.map((item: any, index: number) => {

@@ -33,6 +33,7 @@ export default function TheFooter({ data }: any) {
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between md:gap-0">
           <Link
             href={'/'}
+            aria-label="Chuyển đến trang chủ"
             className="relative h-[72px] w-[295px] 3xl:h-[88px] 3xl:w-[361px]"
           >
             <NextImg
@@ -117,6 +118,7 @@ export default function TheFooter({ data }: any) {
                       <Link
                         key={sub_item_index}
                         href={`${language}${sub_item?.url}`}
+                        
                         className="block w-fit text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base"
                       >
                         {language === 'en'
@@ -143,6 +145,7 @@ export default function TheFooter({ data }: any) {
                   href={`${contact_information?.facebook_url}`}
                   target="_blank"
                   rel="noopener"
+                  aria-label="Facebook bệnh viện 175"
                   className="relative size-8"
                 >
                   <NextImg
@@ -156,6 +159,7 @@ export default function TheFooter({ data }: any) {
                   href={`${contact_information?.youtube_url}`}
                   target="_blank"
                   rel="noopener"
+                  aria-label="Youtube bệnh viện 175"
                   className="relative size-8"
                 >
                   <NextImg src="/assets/icons/youtube.svg" alt="youtube logo" />
@@ -167,6 +171,7 @@ export default function TheFooter({ data }: any) {
                   href={`${contact_information?.zalo_url}`}
                   target="_blank"
                   rel="noopener"
+                  aria-label="Zalo bệnh viện 175" 
                   className="relative size-8"
                 >
                   <NextImg src="/assets/icons/zalo.svg" alt="zalo logo" />
@@ -187,6 +192,7 @@ export default function TheFooter({ data }: any) {
               target="_blank"
               rel="noopener"
               href={`${contact_information?.dmca_url || '/'}`}
+              aria-label="Chứng chỉ dmca"
               className="relative h-[50px] w-[100px] 2xl:h-[58px] 2xl:w-[116px] 4xl:h-[66px] 4xl:w-[132px]"
             >
               <NextImg src="/assets/images/dmca.png" alt="DMCA protected" />
@@ -205,6 +211,7 @@ export default function TheFooter({ data }: any) {
                   rel="noopener"
                   href={`${contact_information?.security_url || '/'}`}
                   className="block tracking-wider"
+                  aria-label="Thông tin bảo mật"
                 >
                   {trans('policy-label')}
                 </Link>
@@ -217,6 +224,7 @@ export default function TheFooter({ data }: any) {
                 target="_blank"
                 rel="noopener"
                 href={`${contact_information?.security_url || '/'}`}
+                aria-label="Thông tin bảo mật"
                 className="block tracking-wider"
               >
                 {trans('terms-services-label')}

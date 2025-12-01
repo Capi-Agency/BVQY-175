@@ -18,7 +18,9 @@ export default function TeamSlider5Col({ data }: CommonSection) {
     <section className="bg-primary-50 py-10 md:py-6 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
       <div className="container">
         <div className="section-sub-title text-center">{data?.subtitle}</div>
-        <h1 className="section-title text-center">{data?.title}</h1>
+        {data?.title && (
+          <h1 className="section-title text-center">{data?.title}</h1>
+        )}
       </div>
       <div className="lg:container">
         <div className="relative pt-6 lg:pt-8 xl:pt-11 2xl:pt-12 3xl:pt-[52px] 4xl:pt-[60px]">
@@ -94,6 +96,7 @@ export default function TeamSlider5Col({ data }: CommonSection) {
           <Link
             href={`/${language}${data?.buttons?.[0]?.url}`}
             className="btn-danger"
+            aria-label="Xem tất cả bác sĩ"
           >
             {data?.buttons?.[0]?.title}
             <div className="relative size-5 2xl:size-6">

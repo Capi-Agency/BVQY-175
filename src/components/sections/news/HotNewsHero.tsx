@@ -26,17 +26,20 @@ export default function HotNewsHero({ data }: CommonSection) {
     <section>
       <div className="p-[40px_0] md:p-[44px_0_24px] lg:p-[52px_0_28px] xl:p-[64px_0_32px] 3xl:p-[72px_0_32px] 4xl:p-[80px_0_40px]">
         <div className="container space-y-8 lg:space-y-10 xl:space-y-12 3xl:space-y-[52px] 4xl:space-y-[60px]">
-          <h2
-            className="section-title text-primary-950"
-            dangerouslySetInnerHTML={{
-              __html: data?.title,
-            }}
-          ></h2>
+          {data?.title && (
+            <h2
+              className="section-title text-primary-950"
+              dangerouslySetInnerHTML={{
+                __html: data?.title,
+              }}
+            ></h2>
+          )}
           {dataNews?.length > 0 &&
             dataNews?.map(({ short_content }: any, index: number) => (
               <Link
                 key={index}
                 href={`/${language}${data?.buttons?.[0]?.url}/${short_content?.slug}`}
+                aria-label="Xem chi tiết tin tức"
                 className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-11 3xl:gap-[52px] 4xl:gap-[60px]"
               >
                 <div className="relative aspect-video overflow-hidden">

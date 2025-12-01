@@ -86,6 +86,7 @@ export default function DoctorCard({
   return (
     <Link
       href={`/${language}/doi-ngu-bac-si/${item?.slug}`}
+      aria-label="Xem chi tiết bác sĩ"
       className="group block space-y-3 2xl:space-y-[14px] 3xl:space-y-4"
     >
       <div
