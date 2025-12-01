@@ -5,6 +5,7 @@ import { createSeoData } from '@/src/utils/metadata';
 import { checkValueNull } from '@/src/utils/validate';
 import { Metadata, ResolvingMetadata } from 'next';
 import { cookies } from 'next/headers';
+import { useRouter } from 'next/router';
 
 async function getLangSlugHome(): Promise<string> {
   const cookieStore = await cookies();
