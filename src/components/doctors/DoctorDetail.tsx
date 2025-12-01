@@ -32,7 +32,8 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
               src={getAssetUrlById(
                 dataDetail?.avatar || dataDetail?.uniform_avatar,
               )}
-              objectFit="cover"
+              objectFit="contain"
+              className="object-top"
               alt="doctor image"
             />
 
