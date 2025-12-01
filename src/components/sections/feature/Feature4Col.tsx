@@ -15,7 +15,7 @@ export default function Feature4Col({ data }: CommonSection) {
   return (
     <section className="bg-white py-10 md:py-6 lg:py-10 xl:py-[52px] 2xl:py-[64px] 3xl:py-[72px] 4xl:py-[80px]">
       <div className="grid-cols-1 gap-6 md:container md:grid md:grid-cols-3 md:gap-4 lg:gap-6 xl:grid-cols-4 2xl:gap-7 3xl:gap-8 4xl:gap-10">
-        <div className="px-6 md:px-0 md:col-span-2 lg:col-span-1">
+        <div className="px-6 md:col-span-2 md:px-0 lg:col-span-1">
           <div className="section-sub-title">{data?.subtitle}</div>
 
           <h1 className="section-title mt-1">{data?.title}</h1>
@@ -44,7 +44,7 @@ export default function Feature4Col({ data }: CommonSection) {
         {data?.items?.map((item: any, index: number) => (
           <Link
             key={index}
-            href={`/${language}${data?.buttons?.[1]?.url}`}
+            href={`/${language}${item?.buttons?.[0]?.url || ''}`}
             className="group relative hidden flex-col justify-between gap-3 bg-primary-50 p-3 transition-all duration-200 hover:bg-primary-600 hover:shadow-[0_25px_45px_-12px_rgba(18,26,43,0.20)] md:flex xl:gap-4 xl:p-4"
           >
             <div className="space-y-3 xl:space-y-4">
@@ -101,7 +101,7 @@ export default function Feature4Col({ data }: CommonSection) {
             {data?.items?.map((item: any, index: number) => (
               <SwiperSlide key={index}>
                 <Link
-                  href={`/${language}${data?.buttons?.[1]?.url}`}
+                  href={`/${language}${item?.buttons?.[0]?.url || ''}`}
                   className="group relative flex flex-col justify-between gap-3 bg-primary-50 p-3 transition-all duration-200 hover:bg-primary-600 hover:shadow-[0_25px_45px_-12px_rgba(18,26,43,0.20)] xl:gap-4 xl:p-4"
                 >
                   <div className="space-y-3 xl:space-y-4">
