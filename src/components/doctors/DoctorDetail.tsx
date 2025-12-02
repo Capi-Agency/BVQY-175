@@ -50,7 +50,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
           </div>
 
           <div className="space-y-2 md:basis-1/2 lg:basis-0 lg:space-y-3 xl:space-y-4">
-            <Link
+            {/* <Link
               href={`#`}
               aria-label="Đặt lịch khám"
               className="btn-danger relative !mb-6 w-full justify-center py-3 md:!mb-7 lg:!mb-8 lg:py-4 lg:text-lg"
@@ -62,7 +62,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
                   alt="phone icon"
                 />
               </div>
-            </Link>
+            </Link> */}
 
             <div className="text-xl font-semibold text-primary-800 md:text-[22px] xl:text-2xl 2xl:text-[28px]">
               Giới thiệu

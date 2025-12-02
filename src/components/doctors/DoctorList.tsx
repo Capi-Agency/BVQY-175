@@ -633,87 +633,105 @@ const letters = [
   'Y',
 ];
 
+const InfoRow = ({
+  icon,
+  children,
+}: {
+  icon: string;
+  children: React.ReactNode;
+}) => (
+  <div className="flex items-center gap-1.5">
+    <img src={icon} alt="icon" className="size-5" />
+    <p className="gray-700 text-base font-normal lg:text-lg xl:text-base">
+      {children}
+    </p>
+  </div>
+);
+
 const DoctorCard = ({ doctor }: { doctor: any }) => {
-  const [render, setRender] = useState(false);
-  const department = doctor?.departments[0]?.department;
-  const institueTitle =
-    doctor?.department_groups[0]?.department_groups_slug?.title;
+  const {
+    avatar,
+    full_title,
+    full_name,
+    specialty,
+    hospital_title = '',
+    slug,
+    departments = [],
+    department_groups = [],
+  } = doctor || {};
+
+  const department = departments[0]?.department;
+  const instituteTitle = department_groups[0]?.department_groups_slug?.title;
   const titles = getDoctorTitles(doctor);
 
-  useEffect(() => {
-    setRender(true);
-  }, []);
+  const isWorkingInDirectorBoard = ['director', 'deputy_director'].includes(
+    hospital_title,
+  );
+
   return (
     <div className="flex flex-col gap-5 rounded-2xl border-[2px] border-white bg-white p-5 shadow-lg transition-all hover:border-primary-600 md:flex-row md:p-4 xl:p-4 2xl:p-5">
+      {/* Avatar */}
       <div className="flex h-full items-center justify-center">
-        <div className="relative aspect-[3/4] h-auto w-full overflow-hidden rounded-[10px] bg-gray-100 md:max-h-[280px] md:w-[192px] lg:w-[224px] xl:w-[192px] 2xl:w-[224px]">
+        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[10px] bg-gray-100 md:max-h-[280px] md:w-[192px] lg:w-[224px] xl:w-[192px] 2xl:w-[224px]">
           <NextImg
-            src={getAssetUrlById(doctor?.avatar)}
-            alt="cover"
+            src={getAssetUrlById(avatar)}
+            alt="doctor avatar"
             objectFit="cover"
             className="-top-[8%] object-top"
           />
         </div>
       </div>
 
+      {/* Content */}
       <div className="flex flex-1 flex-col justify-center md:px-5 lg:justify-between xl:justify-center xl:px-0 2xl:justify-between">
         <div>
+          {/* Titles */}
           <div className="text-sm font-normal text-gray-500 lg:text-base xl:text-sm 2xl:text-base">
-            {doctor?.full_title}
+            {full_title}
           </div>
+
           <div className="my-1 text-xl font-bold text-primary-1000 lg:text-2xl xl:text-xl 2xl:text-2xl">
-            {doctor?.full_name}
+            {full_name}
           </div>
+
           <div className="mb-5">
-            {titles.map((title, index) => (
-              <div className="text-sm font-medium text-primary-500" key={index}>
+            {titles.map((title: string, idx: number) => (
+              <div key={idx} className="text-sm font-medium text-primary-500">
                 {title}
               </div>
             ))}
           </div>
 
+          {/* Info rows */}
           <div className="space-y-2">
-            <div className="flex items-center gap-1.5">
-              <img
-                src="/assets/icons/first_aid_black.svg"
-                alt="first aid"
-                className="size-5"
-              />
-              <p className="gray-700 text-base font-normal lg:text-lg xl:text-base">
-                {doctor?.specialty}
-              </p>
-            </div>
+            <InfoRow icon="/assets/icons/first_aid_black.svg">
+              {specialty}
+            </InfoRow>
 
-            {render && department && (
-              <div className="flex items-center gap-1.5">
-                <img
-                  src="/assets/icons/hospital_location_black.svg"
-                  alt="first aid"
-                  className="size-5"
-                />
-                <p className="gray-700 text-base font-normal lg:text-lg xl:text-base">
-                  {department?.title} ({department?.code})
-                </p>
-              </div>
+            {isWorkingInDirectorBoard && (
+              <InfoRow icon="/assets/icons/hospital_location_black.svg">
+                Ban giám đốc Bệnh viện
+              </InfoRow>
             )}
-            {render && institueTitle && (
-              <div className="flex items-center gap-1.5">
-                <img
-                  src="/assets/icons/hospital_location_black.svg"
-                  alt="first aid"
-                  className="size-5"
-                />
-                <p className="gray-700 text-base font-normal lg:text-lg xl:text-base">
-                  {institueTitle}
-                </p>
-              </div>
+
+            {instituteTitle && (
+              <InfoRow icon="/assets/icons/hospital_location_black.svg">
+                {instituteTitle}
+              </InfoRow>
+            )}
+
+            {department && (
+              <InfoRow icon="/assets/icons/hospital_location_black.svg">
+                {department.title} ({department.code})
+              </InfoRow>
             )}
           </div>
         </div>
 
+        {/* Buttons */}
         <div className="mt-6 grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-1 4xl:grid-cols-2">
-          <Link
-            href={`#`}
+          {/* <Link
+            href="#"
             aria-label="Đặt lịch khám"
             className="btn-danger relative w-full justify-center"
           >
@@ -721,10 +739,11 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
             <div className="relative size-4">
               <NextImg src="/assets/icons/phone2_white.svg" alt="phone icon" />
             </div>
-          </Link>
+          </Link> */}
+
           <Link
-            href={'/vi/doi-ngu-bac-si/' + doctor.slug}
-            locale={'vi'}
+            href={`/vi/doi-ngu-bac-si/${slug}`}
+            locale="vi"
             className="btn-view-detail w-full justify-center"
             aria-label="Xem chi tiết bác sĩ"
           >

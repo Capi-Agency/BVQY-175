@@ -103,7 +103,8 @@ const SliderImage = ({ dataImage, paginationClass }: any) => {
   return (
     <div
       ref={containerRef}
-      className="relative block h-[calc(50vh-64px)] w-full overflow-hidden md:h-[308px] lg:h-[calc(100vh-76px)] xl:h-[calc(100vh-130px)] 2xl:h-[calc(100vh-142px)] 3xl:h-[calc(100vh-146px)] 4xl:h-[calc(100vh-154px)]"
+      // className="relative block h-[calc(50vh-64px)] w-full overflow-hidden md:h-[308px] lg:h-[calc(100vh-76px)] xl:h-[calc(100vh-130px)] 2xl:h-[calc(100vh-142px)] 3xl:h-[calc(100vh-146px)] 4xl:h-[calc(100vh-154px)]"
+      className="relative block aspect-[3/2] h-auto w-full overflow-hidden md:aspect-[5/2]"
     >
       <Swiper
         touchEventsTarget="container"

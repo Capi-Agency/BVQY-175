@@ -12,6 +12,7 @@ import DoctorCard from '../../common/doctor-card';
 
 export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
   const description = dataDetail.leadership_board_description;
+  const avatarType = data?.custom?.avatar_type || 'avatar';
   const doctors = dataDetail.doctors;
 
   const hasContent = !!description || (doctors?.length ?? 0) > 0;
@@ -67,7 +68,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                 <SwiperSlide key={index}>
                   <DoctorCard
                     item={item?.doctor}
-                    avatarType="avatar"
+                    avatarType={avatarType}
                     subTitle={`${data?.blurb}`}
                     isLogo={false}
                     isHover={true}
@@ -82,7 +83,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                   <div key={index} className="">
                     <DoctorCard
                       item={item?.doctor}
-                      avatarType="avatar"
+                      avatarType={avatarType}
                       subTitle={`${data?.blurb}`}
                       isLogo={false}
                       isHover={true}

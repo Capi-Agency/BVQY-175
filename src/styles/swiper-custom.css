@@ -6,13 +6,13 @@
 .swiper-bullets-container .swiper-pagination-bullet {
     opacity: 100;
     background-color: #E4E4E7;
-    width: 10px;
-    height: 10px;
+    width: 6px;
+    height: 6px;
     border-radius: 10px;
     transition: all;
     transition-duration: 400ms;
     transform-origin: center !important;
-    margin: 0 3px;
+    margin: 0 2px;
 }
 
 .swiper-bullets-container .swiper-pagination-bullet-active {
@@ -24,8 +24,8 @@
 
 @media (min-width: 1280px) {
     .swiper-bullets-container .swiper-pagination-bullet {
-        width: 12px;
-        height: 12px;
+        width: 10px;
+        height: 10px;
     }
 
     .swiper-bullets-container .swiper-pagination-bullet-active {
@@ -35,8 +35,8 @@
 
 @media (min-width: 1600px) {
     .swiper-bullets-container .swiper-pagination-bullet {
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
         margin: 0 6px !important;
     }
 
@@ -102,5 +102,5 @@
 }
 
 .swiper-hero-background-focus .swiper-wrapper {
-  transition-timing-function: ease-in-out !important;
+    transition-timing-function: ease-in-out !important;
 }
