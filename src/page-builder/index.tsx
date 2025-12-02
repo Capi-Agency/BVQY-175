@@ -7,6 +7,7 @@ import {
   SectionMap,
 } from '@/src/types/pageBuilder';
 import { EmptySection } from '../components/sections/custom';
+import SideBarRightBasic from '../components/sections/custom/SideBarRightBasic';
 
 const sectionMap: SectionMap = {
   // Home
@@ -97,10 +98,11 @@ const sectionMap: SectionMap = {
     import('../components/sections/news').then((m) => m.NewsDetail),
   ),
   'posts-slider': dynamic(() =>
-    import('../components/sections/post-grid/RelatedPost').then(
-      (m) => m.default,
+    import('../components/sections/post-grid').then(
+      (m) => m.RelatedPost,
     ),
   ),
+  'custom': SideBarRightBasic,
 
   // Department detail
   'hero-with-bottom-big-image': dynamic(() =>

@@ -11,6 +11,8 @@ export const getListNews = async ({
   page = 1,
   sort = true,
   keyword = '',
+  offset = 0,
+
 }: {
   collection: string;
   limit?: number;
@@ -18,6 +20,7 @@ export const getListNews = async ({
   sort?: boolean;
   keyword?: string;
   category?: string;
+  offset?: number;
 }) => {
   const filter: any = {};
   if (category) {
@@ -50,6 +53,7 @@ export const getListNews = async ({
       readItems(collection, {
         page,
         limit,
+        offset,
         sort: sort ? '-date_published' : 'date_published',
         filter,
         fields: ['*', 'categories.category.title', 'categories.category.slug'],

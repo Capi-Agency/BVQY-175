@@ -6,23 +6,31 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import NewsCard from '../news/NewsCard';
-import { getListNews } from '@/src/services/news';
-import { useTranslate } from '@/src/hooks/useTranslate';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { getAssetUrlById } from '@/src/utils/image';
 import NextImg from '../../common/next-img';
 import { fnGetListItemByEndpoint } from '@/src/services/common';
+import { useParams } from 'next/navigation';
+import { getListNews } from '@/src/services/news';
 
 const RelatedPosts = ({ data }: CommonSection) => {
   const language = useStoreLanguage((state: any) => state.language);
-  const { trans } = useTranslate();
-
+  const params = useParams() || {};
+  const category = (params?.cate as string) || '';
   const [newsData, setNewsData] = useState<any>([]);
+
+  const isSort: boolean = data?.collection_items_order === '-date_published';
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await fnGetListItemByEndpoint(data?.url);
+        const response = await getListNews({
+          collection: data?.collections,
+          page: 1,
+          limit: data?.collection_items_limit,
+          sort: isSort,
+          category: category,
+        });
         setNewsData(response);
       } catch (error) {
         console.log('Error:', error);
@@ -90,6 +98,7 @@ const RelatedPosts = ({ data }: CommonSection) => {
                   <NewsCard
                     item={item}
                     url={data?.buttons?.[0]?.url ?? '/tin-tuc'}
+                    cateUrl={category}
                   />
                 </SwiperSlide>
               ))}

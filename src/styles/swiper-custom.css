@@ -18,7 +18,7 @@
 .swiper-bullets-container .swiper-pagination-bullet-active {
     opacity: 100;
     background-color: #198039;
-    width: 30px;
+    width: 24px;
     border-radius: 10px;
 }
 
@@ -29,7 +29,7 @@
     }
 
     .swiper-bullets-container .swiper-pagination-bullet-active {
-        width: 36px;
+        width: 30px;
     }
 }
 

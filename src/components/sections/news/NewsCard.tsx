@@ -7,15 +7,24 @@ import { formatDate } from '@/src/utils/validate';
 import { useTranslate } from '@/src/hooks/useTranslate';
 import useStoreLanguage from '@/src/store/store';
 
-export default function NewsCard({ item, url }: any) {
+type NewsCardProps = {
+  item: any;
+  url: string;
+  cateUrl?: string;
+};
+
+export default function NewsCard({ item, url, cateUrl }: NewsCardProps) {
+  console.log(cateUrl);
   const { trans } = useTranslate();
   const language = useStoreLanguage((state: any) => state.language);
   const t = (vi: string, en: string) => (language === 'en' ? en : vi);
 
   const { short_content } = item;
+  const category = cateUrl || short_content?.categories?.[0]?.slug || '';
+
   return (
     <Link
-      href={`/${language}${url}/${short_content?.slug}`}
+      href={`/${language}${url}/${category}/${short_content?.slug}`}
       aria-label="Xem chi tiết tin tức"
       className="group relative block cursor-pointer space-y-4 bg-primary-50 p-3 text-start transition-all duration-200 hover:bg-primary-600 xl:p-4"
     >
@@ -28,7 +37,7 @@ export default function NewsCard({ item, url }: any) {
         />
       </div>
       <div className="space-y-1">
-        <div className="line-clamp-2 h-[58px] xl:h-[64px] 3xl:h-[71px] 4xl:h-[77px] text-lg font-semibold !leading-[1.6] text-primary-1000 duration-200 group-hover:text-primary-50 xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
+        <div className="line-clamp-2 h-[58px] text-lg font-semibold !leading-[1.6] text-primary-1000 duration-200 group-hover:text-primary-50 xl:h-[64px] xl:text-xl 3xl:h-[71px] 3xl:text-[22px] 4xl:h-[77px] 4xl:text-2xl">
           {t(short_content?.title, item?.title_en)}
         </div>
         <div

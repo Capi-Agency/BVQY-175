@@ -11,7 +11,7 @@ import NewsCard from './NewsCard';
 import { getListNews, getTotalNewsCount } from '@/src/services/news';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { getPaginatedPages } from '@/src/utils/pagination';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { debounce } from 'lodash';
 import { useGSAP } from '@gsap/react';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
@@ -25,6 +25,7 @@ gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
 export default function NewsListCard({ data }: CommonSection) {
   const { trans } = useTranslate();
+
   // Animation
   const { conditions } = useGsapMatchMedia();
   const containerRef = useRef<any>(null);
@@ -33,13 +34,14 @@ export default function NewsListCard({ data }: CommonSection) {
 
   const router = useRouter();
   const searchParams = useSearchParams();
+  const params = useParams() || {};
 
   const [dataNews, setDataNews] = useState<any>([]);
   const [length, setLength] = useState<number>(0);
 
   // Bộ lọc
+  const category = (params?.cate as string) || '';
   const currentPage = Number(searchParams.get('page')) || 1;
-  const category = searchParams.get('cate');
   const search = searchParams.get('s');
   const isSort: boolean = data?.collection_items_order === '-date_published';
 
@@ -87,6 +89,7 @@ export default function NewsListCard({ data }: CommonSection) {
         sort: isSort,
         category: category || '',
         keyword: search || '',
+        offset: 1
       });
       setDataNews(response);
     } catch (error) {
@@ -156,7 +159,6 @@ export default function NewsListCard({ data }: CommonSection) {
   );
 
   const handleScrollTo = contextSafe(() => {
-    // const sectionScrollTo = containerRef?.current.querySelector(`${sectionId}`);
     if (newsListRef.current) {
       gsap.to(window, {
         scrollTo: {
@@ -195,7 +197,11 @@ export default function NewsListCard({ data }: CommonSection) {
                     key={item?.short_content?.slug ?? index}
                     className="news-card col-span-1 origin-center scale-[0.9] opacity-0"
                   >
-                    <NewsCard item={item} url={data?.buttons?.[0]?.url} />
+                    <NewsCard
+                      item={item}
+                      url={data?.buttons?.[0]?.url}
+                      cateUrl={category}
+                    />
                   </div>
                 ))}
 

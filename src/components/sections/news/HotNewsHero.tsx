@@ -7,20 +7,31 @@ import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
 import useStoreLanguage from '@/src/store/store';
 import { fnGetListItemByEndpoint } from '@/src/services/common';
+import { getListNews } from '@/src/services/news';
+import { useParams } from 'next/navigation';
 
 export default function HotNewsHero({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
   const [dataNews, setDataNews] = useState<any>([]);
+  const param = useParams() || {};
+  const category = (param?.cate as string) || '';
+
   useEffect(() => {
     (async () => {
       try {
-        const response = await fnGetListItemByEndpoint(data?.url);
+        const response = await getListNews({
+          collection: data?.collections,
+          page: 1,
+          limit: 1,
+          category: category,
+        });
+
         setDataNews(response);
       } catch (error) {
         console.log('Error:', error);
       }
     })();
-  }, [data]);
+  }, [data, category]);
 
   return (
     <section>
@@ -35,62 +46,67 @@ export default function HotNewsHero({ data }: CommonSection) {
             ></h2>
           )}
           {dataNews?.length > 0 &&
-            dataNews?.map(({ short_content }: any, index: number) => (
-              <Link
-                key={index}
-                href={`/${language}${data?.buttons?.[0]?.url}/${short_content?.slug}`}
-                aria-label="Xem chi tiết tin tức"
-                className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-11 3xl:gap-[52px] 4xl:gap-[60px]"
-              >
-                <div className="relative aspect-video overflow-hidden">
-                  <NextImg
-                    src={getAssetUrlById(short_content?.thumbnail?.id)}
-                    alt="news thumbnail"
-                    objectFit="cover"
-                  />
-                </div>
+            dataNews?.map(({ short_content }: any, index: number) => {
+              const cateUrl =
+                category || short_content?.categories?.[0]?.slug || '';
 
-                <div className="flex flex-col items-stretch justify-center">
-                  <div className="line-clamp-3 text-xl font-semibold uppercase text-primary-600 lg:text-2xl 2xl:text-[28px] 2xl:!leading-[1.5] 3xl:text-[30px] 4xl:text-[32px]">
-                    {short_content?.title}
+              return (
+                <Link
+                  key={index}
+                  href={`/${language}${data?.buttons?.[0]?.url}/${cateUrl}/${short_content?.slug}`}
+                  aria-label="Xem chi tiết tin tức"
+                  className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-11 3xl:gap-[52px] 4xl:gap-[60px]"
+                >
+                  <div className="relative aspect-video overflow-hidden">
+                    <NextImg
+                      src={getAssetUrlById(short_content?.thumbnail?.id)}
+                      alt="news thumbnail"
+                      objectFit="cover"
+                    />
                   </div>
 
-                  <div
-                    className="line-clamp-3 pt-1.5 text-sm font-normal text-black lg:pt-2 xl:text-base 2xl:pt-3 4xl:pt-4"
-                    dangerouslySetInnerHTML={{
-                      __html: short_content?.blurb,
-                    }}
-                  ></div>
-
-                  <div className="flex items-center justify-between pt-3 lg:pt-4 2xl:pt-5 3xl:pt-6">
-                    <div className="flex items-center gap-1.5 xl:gap-2">
-                      <div className="relative size-5 xl:size-6">
-                        <NextImg
-                          src="/assets/icons/calendar_gray.svg"
-                          alt="calendar icon"
-                        />
-                      </div>
-                      <p className="text-sm font-medium text-black lg:text-base 3xl:text-lg 4xl:text-xl">
-                        {formatDate(short_content?.date_published)}
-                      </p>
+                  <div className="flex flex-col items-stretch justify-center">
+                    <div className="line-clamp-3 text-xl font-semibold uppercase text-primary-600 lg:text-2xl 2xl:text-[28px] 2xl:!leading-[1.5] 3xl:text-[30px] 4xl:text-[32px]">
+                      {short_content?.title}
                     </div>
 
-                    <div className="flex items-center gap-1.5 xl:gap-2">
-                      <p className="text-sm font-medium text-black lg:text-base 3xl:text-lg 4xl:text-xl">
-                        {data?.buttons?.[0]?.title}
-                      </p>
+                    <div
+                      className="line-clamp-3 pt-1.5 text-sm font-normal text-black lg:pt-2 xl:text-base 2xl:pt-3 4xl:pt-4"
+                      dangerouslySetInnerHTML={{
+                        __html: short_content?.blurb,
+                      }}
+                    ></div>
 
-                      <div className="relative size-5 xl:size-6">
-                        <NextImg
-                          src={getAssetUrlById(data?.buttons?.[0]?.icon?.id)}
-                          alt="arrow icon"
-                        />
+                    <div className="flex items-center justify-between pt-3 lg:pt-4 2xl:pt-5 3xl:pt-6">
+                      <div className="flex items-center gap-1.5 xl:gap-2">
+                        <div className="relative size-5 xl:size-6">
+                          <NextImg
+                            src="/assets/icons/calendar_gray.svg"
+                            alt="calendar icon"
+                          />
+                        </div>
+                        <p className="text-sm font-medium text-black lg:text-base 3xl:text-lg 4xl:text-xl">
+                          {formatDate(short_content?.date_published)}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 xl:gap-2">
+                        <p className="text-sm font-medium text-black lg:text-base 3xl:text-lg 4xl:text-xl">
+                          {data?.buttons?.[0]?.title}
+                        </p>
+
+                        <div className="relative size-5 xl:size-6">
+                          <NextImg
+                            src={getAssetUrlById(data?.buttons?.[0]?.icon?.id)}
+                            alt="arrow icon"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
         </div>
       </div>
     </section>
