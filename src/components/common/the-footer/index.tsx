@@ -103,33 +103,34 @@ export default function TheFooter({ data }: any) {
 
           {/* Start: site map */}
           {bottom_navigation?.length > 0 &&
-            bottom_navigation?.map((item: any, index: number) => (
-              <div
-                key={index}
-                className="w-full md:w-[200px] xl:w-[172px] 3xl:w-[200px]"
-              >
-                <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
-                  {language === 'en' ? `${item?.title_en}` : `${item?.title}`}
-                </h2>
-                <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
-                <div className="mt-5 space-y-4">
-                  {item?.sub_items?.map(
-                    (sub_item: any, sub_item_index: number) => (
-                      <Link
-                        key={sub_item_index}
-                        href={`/${language}${sub_item?.url}`}
-                        
-                        className="block w-fit text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base"
-                      >
-                        {language === 'en'
-                          ? `${sub_item?.title_en}`
-                          : `${sub_item?.title}`}
-                      </Link>
-                    ),
-                  )}
+            bottom_navigation?.map((item: any, index: number) => {
+              return item?.title ? (
+                <div
+                  key={index}
+                  className="w-full md:w-[200px] xl:w-[172px] 3xl:w-[200px]"
+                >
+                  <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
+                    {language === 'en' ? `${item?.title_en}` : `${item?.title}`}
+                  </h2>
+                  <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
+                  <div className="mt-5 space-y-4">
+                    {item?.sub_items?.map(
+                      (sub_item: any, sub_item_index: number) => (
+                        <Link
+                          key={sub_item_index}
+                          href={`/${language}${sub_item?.url}`}
+                          className="block w-fit text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base"
+                        >
+                          {language === 'en'
+                            ? `${sub_item?.title_en}`
+                            : `${sub_item?.title}`}
+                        </Link>
+                      ),
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ) : null;
+            })}
           {/* End: site map */}
 
           {/* Start: social network */}
@@ -171,7 +172,7 @@ export default function TheFooter({ data }: any) {
                   href={`${contact_information?.zalo_url}`}
                   target="_blank"
                   rel="noopener"
-                  aria-label="Zalo bệnh viện 175" 
+                  aria-label="Zalo bệnh viện 175"
                   className="relative size-8"
                 >
                   <NextImg src="/assets/icons/zalo.svg" alt="zalo logo" />
