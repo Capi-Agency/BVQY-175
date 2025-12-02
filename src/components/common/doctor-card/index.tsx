@@ -21,6 +21,7 @@ interface DoctorCardProps {
     | string;
   avatarRatio?: '2/3' | '5/6' | '3/4' | string;
   avatarOrigin?: 'center' | 'top' | 'left' | 'right' | 'bottom';
+  isRounded?: boolean;
 }
 
 const hospitalTitleMap: Record<string, string> = {
@@ -56,6 +57,7 @@ export default function DoctorCard({
   subTitle = 'specialty',
   avatarRatio = '2/3',
   avatarOrigin = 'center',
+  isRounded = true,
 }: DoctorCardProps) {
   const language = useStoreLanguage((state: any) => state.language);
 
@@ -91,8 +93,9 @@ export default function DoctorCard({
     >
       <div
         className={cn(
-          'relative w-full overflow-hidden rounded-[8px]',
+          'relative w-full overflow-hidden',
           bgColor,
+          isRounded && 'rounded-[8px]',
           isHover &&
             'transition-colors duration-200 group-hover:bg-primary-600',
         )}

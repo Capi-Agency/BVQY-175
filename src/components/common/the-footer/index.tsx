@@ -117,7 +117,7 @@ export default function TheFooter({ data }: any) {
                     (sub_item: any, sub_item_index: number) => (
                       <Link
                         key={sub_item_index}
-                        href={`${language}${sub_item?.url}`}
+                        href={`/${language}${sub_item?.url}`}
                         
                         className="block w-fit text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base"
                       >

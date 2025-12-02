@@ -41,6 +41,7 @@ export default function Team4Col({ data }: CommonSection) {
                 avatarType="uniform_avatar"
                 subTitle="hospital_title"
                 isHover={false}
+                isRounded={false}
               />
             </div>
           </div>
