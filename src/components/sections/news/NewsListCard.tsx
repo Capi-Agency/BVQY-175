@@ -12,7 +12,6 @@ import { getListNews, getTotalNewsCount } from '@/src/services/news';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { getPaginatedPages } from '@/src/utils/pagination';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { debounce } from 'lodash';
 import { useGSAP } from '@gsap/react';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import { getOffsetY } from '@/src/utils/gsap';
@@ -120,20 +119,13 @@ export default function NewsListCard({ data }: CommonSection) {
     [router, searchParams],
   );
 
-  const debouncedChangePage = useMemo(
-    () =>
-      debounce((page: number) => {
-        handleChangePage(page);
-        handleScrollTo();
-      }, 300),
+  const handleClick = useCallback(
+    (pageNumber: number) => {
+      handleChangePage(pageNumber);
+      handleScrollTo();
+    },
     [handleChangePage],
   );
-
-  useEffect(() => {
-    return () => {
-      debouncedChangePage.cancel();
-    };
-  }, [debouncedChangePage]);
 
   useGSAP(
     () => {
@@ -208,7 +200,7 @@ export default function NewsListCard({ data }: CommonSection) {
                 <div className="col-span-full flex items-center justify-center gap-[2px] md:gap-1">
                   <button
                     disabled={currentPage === 1}
-                    onClick={() => debouncedChangePage(currentPage - 1)}
+                    onClick={() => handleClick(currentPage - 1)}
                     className="group relative flex size-9 cursor-pointer items-center justify-center rounded-[6px] bg-white transition-all duration-100 hover:bg-primary-600 disabled:hover:cursor-default md:size-10 3xl:size-11"
                   >
                     <div className="relative size-5 rotate-90 transition-all duration-100 group-hover:brightness-0 group-hover:invert">
@@ -223,7 +215,7 @@ export default function NewsListCard({ data }: CommonSection) {
                       <button
                         onClick={
                           typeof item === 'number'
-                            ? () => debouncedChangePage(item)
+                            ? () => handleClick(item)
                             : undefined
                         }
                         key={`${item}-${index}`}
@@ -235,7 +227,7 @@ export default function NewsListCard({ data }: CommonSection) {
 
                   <button
                     disabled={currentPage === totalPage}
-                    onClick={() => debouncedChangePage(currentPage + 1)}
+                    onClick={() => handleClick(currentPage + 1)}
                     className="group relative flex size-9 cursor-pointer items-center justify-center rounded-[6px] bg-white transition-all duration-100 hover:bg-primary-600 disabled:hover:cursor-default md:size-10 3xl:size-11"
                   >
                     <div className="relative size-5 -rotate-90 transition-all duration-100 group-hover:brightness-0 group-hover:invert">
