@@ -37,10 +37,10 @@ export default function SideBarRightBasic({ data }: CommonSection) {
         {data?.title}
       </h3>
 
-      {cateData?.map((cate: any) => (
+      {cateData?.map((cate: any, index: number) => (
         <Link
-          href={`/${language}/tin-tuc/${cate?.slug}`}
-          key={cate?.slug}
+          href={`/${language}${data?.buttons?.[0]?.url}/${cate?.slug}`}
+          key={cate?.slug || index}
           className="block border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 lg:py-3 lg:text-base"
         >
           {language === 'en' ? cate?.title_en : cate?.title}

@@ -145,7 +145,7 @@ body {}
   }
 
   .content-wrapper :is(th, td) {
-    width: 100%;
+    /* width: 100%; */
     padding: 8px;
     text-align: left;
   }

@@ -90,12 +90,15 @@ const sectionMap: SectionMap = {
   'breadcrumb-basic': dynamic(() =>
     import('../components/sections/breadcrumb').then((m) => m.BreadcrumbBasic),
   ),
+
   'post-detail-with-sidebar-right': dynamic(() =>
     import('../components/sections/news').then((m) => m.NewsDetail),
   ),
+
   'posts-slider': dynamic(() =>
     import('../components/sections/post-grid').then((m) => m.RelatedPost),
   ),
+  
   'sidebar-right-basic': dynamic(() =>
     import('../components/sections/custom').then((m) => m.SideBarRightBasic),
   ),
