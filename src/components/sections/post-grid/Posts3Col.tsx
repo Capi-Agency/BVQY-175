@@ -9,7 +9,6 @@ import { fnGetListItemByEndpoint } from '@/src/services/common';
 
 const Posts3Col = ({ data }: CommonSection) => {
   const [newsData, setNewsData] = useState<any>([]);
-  console.log('🚀 ~ Posts3Col ~ newsData:', newsData);
 
   useEffect(() => {
     (async () => {
@@ -62,10 +61,7 @@ const Posts3Col = ({ data }: CommonSection) => {
             {newsData?.length > 0 &&
               newsData?.map((item: any, index: number) => (
                 <SwiperSlide key={'post_' + index}>
-                  <NewsCard
-                    item={item?.short_content}
-                    url={data?.buttons?.[0]?.url}
-                  />
+                  <NewsCard item={item} url={data?.buttons?.[0]?.url} />
                 </SwiperSlide>
               ))}
           </Swiper>

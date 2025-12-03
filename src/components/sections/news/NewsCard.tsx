@@ -15,6 +15,8 @@ type NewsCardProps = {
 };
 
 export default function NewsCard({ item, url, cateUrl }: NewsCardProps) {
+  console.log("🚀 ~ NewsCard ~ item:", item)
+  console.log(cateUrl);
   const trans = useTranslation();
   const language = useStoreLanguage((state: any) => state.language);
 
@@ -29,7 +31,7 @@ export default function NewsCard({ item, url, cateUrl }: NewsCardProps) {
       {/* cover */}
       <div className="relative aspect-video">
         <NextImg
-          src={getAssetUrlById(item?.thumbnail?.id || item?.thumbnail)}
+          src={getAssetUrlById(item?.thumbnail)}
           alt="post cover"
           objectFit="cover"
         />
