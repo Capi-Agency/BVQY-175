@@ -12,8 +12,8 @@ import DoctorCard from '../../common/doctor-card';
 
 export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
   const description = dataDetail.leadership_board_description;
-  const avatarType = data?.custom?.avatar_type || 'avatar';
   const doctors = dataDetail.doctors;
+  const { custom } = data;
 
   const hasContent = !!description || (doctors?.length ?? 0) > 0;
 
@@ -68,10 +68,10 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                 <SwiperSlide key={index}>
                   <DoctorCard
                     item={item?.doctor}
-                    avatarType={avatarType}
-                    subTitle={`${data?.blurb}`}
-                    isLogo={false}
-                    isHover={true}
+                    avatarType={custom?.avatar_type}
+                    subTitle={custom?.sub_title}
+                    isLogo={custom?.is_logo}
+                    isHover={custom?.is_hover}
                   />
                 </SwiperSlide>
               ))}
@@ -83,10 +83,10 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                   <div key={index} className="">
                     <DoctorCard
                       item={item?.doctor}
-                      avatarType={avatarType}
-                      subTitle={`${data?.blurb}`}
-                      isLogo={false}
-                      isHover={true}
+                      avatarType={custom?.avatar_type}
+                      subTitle={custom?.sub_title}
+                      isLogo={custom?.is_logo}
+                      isHover={custom?.is_hover}
                       avatarRatio="3/4"
                     />
                   </div>
@@ -114,10 +114,10 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                   <SwiperSlide key={index}>
                     <DoctorCard
                       item={item?.doctor}
-                      avatarType="avatar"
-                      subTitle={`${data?.blurb}`}
-                      isLogo={false}
-                      isHover={true}
+                      avatarType={custom?.avatar_type}
+                      subTitle={custom?.sub_title}
+                      isLogo={custom?.is_logo}
+                      isHover={custom?.is_hover}
                     />
                   </SwiperSlide>
                 ))}

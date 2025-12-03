@@ -399,14 +399,14 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                                     >
                                       {language === 'en'
                                         ? `${item_third?.title_en}`
-                                        : `${item_third?.title}`}{' '}
+                                        : `${item_third?.title}`}
                                     </Link>
                                   </DialogClose>
                                 ) : (
                                   <AccordionTrigger className="text-start text-sm font-bold uppercase text-black">
                                     {language === 'en'
                                       ? `${item_third?.title_en}`
-                                      : `${item_third?.title}`}{' '}
+                                      : `${item_third?.title}`}
                                   </AccordionTrigger>
                                 )}
 

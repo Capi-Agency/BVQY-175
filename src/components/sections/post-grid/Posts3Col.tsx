@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import NewsCard from '../news/NewsCard';
 import { fnGetListItemByEndpoint } from '@/src/services/common';
+import { getListNews } from '@/src/services/news';
 
 const Posts3Col = ({ data }: CommonSection) => {
   const [newsData, setNewsData] = useState<any>([]);
@@ -13,7 +14,12 @@ const Posts3Col = ({ data }: CommonSection) => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fnGetListItemByEndpoint(data?.url);
+        const response = await getListNews({
+          collection: data?.collections,
+          page: 1,
+          limit: 3,
+        });
+
         setNewsData(response);
       } catch (error) {
         console.log('Error:', error);
@@ -61,7 +67,10 @@ const Posts3Col = ({ data }: CommonSection) => {
             {newsData?.length > 0 &&
               newsData?.map((item: any, index: number) => (
                 <SwiperSlide key={'post_' + index}>
-                  <NewsCard item={item} url={data?.buttons?.[0]?.url} />
+                  <NewsCard
+                    item={item}
+                    url={data?.buttons?.[0]?.url}
+                  />
                 </SwiperSlide>
               ))}
           </Swiper>

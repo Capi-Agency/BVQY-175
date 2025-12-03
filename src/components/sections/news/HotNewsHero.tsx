@@ -49,7 +49,6 @@ export default function HotNewsHero({ data }: CommonSection) {
           )}
           {dataNews?.length > 0 &&
             dataNews?.map((news: any, index: number) => {
-              console.log("🚀 ~ HotNewsHero ~ news:", news)
               const cateUrl = category || news?.categories?.[0]?.category?.slug || '';
 
               return (

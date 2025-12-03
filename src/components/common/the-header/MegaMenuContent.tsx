@@ -31,12 +31,17 @@ export default function MegaMenuContent({ item }: any) {
         {item?.sub_items?.map((item_second: any, item_second_index: number) => (
           <div
             key={item_second_index}
-            className={`${currentTab === item_second_index ? 'grid' : 'hidden'} ${item_second?.sub_items?.length === 1 ? 'grid-cols-1' : 'grid-cols-3 2xl:grid-cols-4'} gap-5 pt-4 2xl:gap-6 2xl:pt-5 3xl:gap-7 4xl:gap-8 4xl:pt-6`}
+            className={`${currentTab === item_second_index ? 'grid' : 'hidden'} ${item_second?.sub_items?.length === 1 ? 'grid-cols-1' : 'grid-cols-3 2xl:grid-cols-4 grid-flow-row'} gap-5 pt-4 2xl:gap-6 2xl:pt-5 3xl:gap-7 4xl:gap-8 4xl:pt-6`}
           >
             {item_second?.sub_items?.map(
               (item_third: any, item_third_index: number) => (
-                <div key={item_third_index}>
-                  {item_third?.url ? (
+                <div
+                  key={item_third_index}
+                  className={`${item_third?.sub_items?.length >= 7 ? 'row-span-2' : ''}`}
+                >
+                  {item_third?.url &&
+                  item_third?.title &&
+                  item_third?.title_en ? (
                     <NavigationMenu.Link
                       href={`/${language}${item_third?.url || ''}`}
                       className="block text-sm font-bold uppercase text-black 3xl:text-base"

@@ -15,8 +15,6 @@ type NewsCardProps = {
 };
 
 export default function NewsCard({ item, url, cateUrl }: NewsCardProps) {
-  console.log("🚀 ~ NewsCard ~ item:", item)
-  console.log(cateUrl);
   const trans = useTranslation();
   const language = useStoreLanguage((state: any) => state.language);
 

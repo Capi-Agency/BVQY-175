@@ -12,7 +12,7 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
       {/* Cover */}
       <div className="relative h-[200px] w-full md:h-[230px] lg:h-[360px] 2xl:h-[386px] 3xl:h-[426px] 4xl:h-[480px]">
         <NextImg
-          src={getAssetUrlById(dataDetail?.thumbnail)}
+          src={getAssetUrlById(dataDetail?.cover)}
           alt={`${dataDetail?.title}`}
           objectFit="cover"
         />

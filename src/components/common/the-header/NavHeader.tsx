@@ -132,7 +132,7 @@ export default function NavHeader() {
                           {/* Cấp 2 */}
                           {item_second?.sub_items?.length > 0 && (
                             <div
-                              className="pointer-events-none absolute left-[calc(100%+8px)] top-0 grid w-[680px] scale-95 gap-4 rounded-[6px] bg-white p-[12px_16px] opacity-0 shadow-lg transition-all duration-200 after:absolute after:-left-2 after:top-0 after:h-full after:w-2 group-hover:pointer-events-auto group-hover:scale-100 group-hover:opacity-100 grid-cols-3 2xl:p-[20px_24px] 3xl:w-[705px] 3xl:gap-6 4xl:w-[768px] 4xl:p-[24px_32px]"
+                              className="pointer-events-none absolute left-[calc(100%+8px)] top-0 flex w-fit scale-95 grid-cols-3 gap-4 rounded-[6px] bg-white p-[12px_16px] opacity-0 shadow-lg transition-all duration-200 after:absolute after:-left-2 after:top-0 after:h-full after:w-2 group-hover:pointer-events-auto group-hover:scale-100 group-hover:opacity-100 2xl:p-[20px_24px] 3xl:gap-6 4xl:p-[24px_32px]"
                               style={{
                                 boxShadow:
                                   '0 20px 25px -4px rgba(18, 26, 43, 0.10), 0 8px 8px -6px rgba(18, 26, 43, 0.04)',
@@ -140,21 +140,24 @@ export default function NavHeader() {
                             >
                               {item_second?.sub_items.map(
                                 (item_third: any, item_third_index: number) => (
-                                  <div key={item_third_index}>
+                                  <div
+                                    key={item_third_index}
+                                    className={`w-[200px] 3xl:w-[230px]`}
+                                  >
                                     {item_third?.url ? (
                                       <NavigationMenu.Link
                                         href={`/${language}${item_third?.url || ''}`}
                                         className="block text-sm font-bold uppercase text-black 3xl:text-base"
                                       >
                                         {language === 'en'
-                                          ? `${item_third?.title_en}`
-                                          : `${item_third?.title}`}
+                                          ? `${item_third?.title_en || ''}`
+                                          : `${item_third?.title || ''}`}
                                       </NavigationMenu.Link>
                                     ) : (
                                       <div className="block text-sm font-bold uppercase text-black 3xl:text-base">
                                         {language === 'en'
-                                          ? `${item_third?.title_en}`
-                                          : `${item_third?.title}`}
+                                          ? `${item_third?.title_en || ''}`
+                                          : `${item_third?.title || ''}`}
                                       </div>
                                     )}
 

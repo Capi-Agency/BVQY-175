@@ -33,6 +33,9 @@ const sectionMap: SectionMap = {
   'number-none': dynamic(() =>
     import('../components/sections/number').then((m) => m.NumberNone),
   ),
+  'number-grid': dynamic(() =>
+    import('../components/sections/number').then((m) => m.NumberGrid),
+  ),
   'gallery-with-text': dynamic(() =>
     import('../components/sections/gallery').then((m) => m.GalleryWithText),
   ),
@@ -98,7 +101,7 @@ const sectionMap: SectionMap = {
   'posts-slider': dynamic(() =>
     import('../components/sections/post-grid').then((m) => m.RelatedPost),
   ),
-  
+
   'sidebar-right-basic': dynamic(() =>
     import('../components/sections/custom').then((m) => m.SideBarRightBasic),
   ),
@@ -147,7 +150,7 @@ const sectionMap: SectionMap = {
   'hero-background-focus': dynamic(() =>
     import('../components/sections/hero').then((m) => m.HeroBackgroundsFocus),
   ),
-   'faqs-1-col': dynamic(() =>
+  'faqs-1-col': dynamic(() =>
     import('../components/sections/faq').then((m) => m.FaqsOneCol),
   ),
 };
