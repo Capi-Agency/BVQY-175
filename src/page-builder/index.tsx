@@ -7,7 +7,6 @@ import {
   SectionMap,
 } from '@/src/types/pageBuilder';
 import { EmptySection } from '../components/sections/custom';
-import SideBarRightBasic from '../components/sections/custom/SideBarRightBasic';
 
 const sectionMap: SectionMap = {
   // Home
@@ -39,9 +38,6 @@ const sectionMap: SectionMap = {
   ),
 
   // About us
-  'hero-background-focus': dynamic(() =>
-    import('../components/sections/hero').then((m) => m.HeroBackgroundsFocus),
-  ),
   'info-basic': dynamic(() =>
     import('../components/sections/information').then((m) => m.InfoBasic),
   ),
@@ -98,11 +94,11 @@ const sectionMap: SectionMap = {
     import('../components/sections/news').then((m) => m.NewsDetail),
   ),
   'posts-slider': dynamic(() =>
-    import('../components/sections/post-grid').then(
-      (m) => m.RelatedPost,
-    ),
+    import('../components/sections/post-grid').then((m) => m.RelatedPost),
   ),
-  'custom': SideBarRightBasic,
+  'sidebar-right-basic': dynamic(() =>
+    import('../components/sections/custom').then((m) => m.SideBarRightBasic),
+  ),
 
   // Department detail
   'hero-with-bottom-big-image': dynamic(() =>
@@ -142,6 +138,14 @@ const sectionMap: SectionMap = {
   // Doctor detail
   'post-detail-with-sidebar-left': dynamic(() =>
     import('../components/doctors').then((m) => m.DoctorDetail),
+  ),
+
+  // FAQs
+  'hero-background-focus': dynamic(() =>
+    import('../components/sections/hero').then((m) => m.HeroBackgroundsFocus),
+  ),
+   'faqs-1-col': dynamic(() =>
+    import('../components/sections/faq').then((m) => m.FaqsOneCol),
   ),
 };
 

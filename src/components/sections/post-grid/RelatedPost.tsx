@@ -9,7 +9,6 @@ import NewsCard from '../news/NewsCard';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { getAssetUrlById } from '@/src/utils/image';
 import NextImg from '../../common/next-img';
-import { fnGetListItemByEndpoint } from '@/src/services/common';
 import { useParams } from 'next/navigation';
 import { getListNews } from '@/src/services/news';
 

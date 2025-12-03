@@ -19,13 +19,12 @@ import { getOffsetY } from '@/src/utils/gsap';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useTranslate } from '@/src/hooks/useTranslate';
+import useTranslation from '@/src/hooks/use-translation';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
 export default function NewsListCard({ data }: CommonSection) {
-  const { trans } = useTranslate();
-
+  const trans = useTranslation();
   // Animation
   const { conditions } = useGsapMatchMedia();
   const containerRef = useRef<any>(null);
@@ -69,7 +68,7 @@ export default function NewsListCard({ data }: CommonSection) {
           grid: 'auto',
         },
         duration: 0.3,
-        onComplete: () => {
+        onStart: () => {
           fetchData();
         },
       });
@@ -89,7 +88,7 @@ export default function NewsListCard({ data }: CommonSection) {
         sort: isSort,
         category: category || '',
         keyword: search || '',
-        offset: 1
+        offset: 1,
       });
       setDataNews(response);
     } catch (error) {
@@ -194,7 +193,7 @@ export default function NewsListCard({ data }: CommonSection) {
               {dataNews?.length > 0 &&
                 dataNews?.map((item: any, index: number) => (
                   <div
-                    key={item?.short_content?.slug ?? index}
+                    key={item?.slug ?? index}
                     className="news-card col-span-1 origin-center scale-[0.9] opacity-0"
                   >
                     <NewsCard
@@ -251,7 +250,7 @@ export default function NewsListCard({ data }: CommonSection) {
             </div>
           ) : (
             <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
-              {trans('no-data-label')}
+              {trans('Không có dữ liệu', 'No data available')}
             </div>
           )}
         </div>

@@ -6,15 +6,17 @@ import { CommonSection } from '@/src/types/pageBuilder';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
 import useStoreLanguage from '@/src/store/store';
-import { fnGetListItemByEndpoint } from '@/src/services/common';
 import { getListNews } from '@/src/services/news';
 import { useParams } from 'next/navigation';
+import useTranslation from '@/src/hooks/use-translation';
 
 export default function HotNewsHero({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
   const [dataNews, setDataNews] = useState<any>([]);
   const param = useParams() || {};
   const category = (param?.cate as string) || '';
+
+  const t = useTranslation();
 
   useEffect(() => {
     (async () => {
@@ -46,20 +48,20 @@ export default function HotNewsHero({ data }: CommonSection) {
             ></h2>
           )}
           {dataNews?.length > 0 &&
-            dataNews?.map(({ short_content }: any, index: number) => {
-              const cateUrl =
-                category || short_content?.categories?.[0]?.slug || '';
+            dataNews?.map((news: any, index: number) => {
+              console.log("🚀 ~ HotNewsHero ~ news:", news)
+              const cateUrl = category || news?.categories?.[0]?.category?.slug || '';
 
               return (
                 <Link
                   key={index}
-                  href={`/${language}${data?.buttons?.[0]?.url}/${cateUrl}/${short_content?.slug}`}
+                  href={`/${language}${data?.buttons?.[0]?.url}/${cateUrl}/${news?.slug}`}
                   aria-label="Xem chi tiết tin tức"
                   className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-11 3xl:gap-[52px] 4xl:gap-[60px]"
                 >
                   <div className="relative aspect-video overflow-hidden">
                     <NextImg
-                      src={getAssetUrlById(short_content?.thumbnail?.id)}
+                      src={getAssetUrlById(news?.thumbnail)}
                       alt="news thumbnail"
                       objectFit="cover"
                     />
@@ -67,13 +69,13 @@ export default function HotNewsHero({ data }: CommonSection) {
 
                   <div className="flex flex-col items-stretch justify-center">
                     <div className="line-clamp-3 text-xl font-semibold uppercase text-primary-600 lg:text-2xl 2xl:text-[28px] 2xl:!leading-[1.5] 3xl:text-[30px] 4xl:text-[32px]">
-                      {short_content?.title}
+                      {t(news?.title, news?.title_en)}
                     </div>
 
                     <div
                       className="line-clamp-3 pt-1.5 text-sm font-normal text-black lg:pt-2 xl:text-base 2xl:pt-3 4xl:pt-4"
                       dangerouslySetInnerHTML={{
-                        __html: short_content?.blurb,
+                        __html: t(news?.blurb, news?.blurb_en),
                       }}
                     ></div>
 
@@ -86,7 +88,7 @@ export default function HotNewsHero({ data }: CommonSection) {
                           />
                         </div>
                         <p className="text-sm font-medium text-black lg:text-base 3xl:text-lg 4xl:text-xl">
-                          {formatDate(short_content?.date_published)}
+                          {formatDate(news?.date_published)}
                         </p>
                       </div>
 

@@ -1,19 +1,12 @@
 'use client';
 import NextImg from '@/src/components/common/next-img';
-import useStoreLanguage from '@/src/store/store';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
-import RegisterFollowNews from './RegisterFollowNews';
 import { CommonSection } from '@/src/types/pageBuilder';
-import { useEffect, useState } from 'react';
-import { fnGetListitem } from '@/src/services/common';
-import Link from 'next/link';
+import useTranslation from '@/src/hooks/use-translation';
 
 export default function NewsDetail({ data, dataDetail }: CommonSection) {
-  const language = useStoreLanguage((state: any) => state.language);
-  // Helper để chọn nội dung theo ngôn ngữ
-  const t = (vi: string, en: string) => (language === 'en' ? en : vi);
-
+  const trans = useTranslation();
   return (
     <section className="container my-10 lg:my-12 2xl:my-[72px] 3xl:my-20">
       {/* Cover */}
@@ -44,7 +37,7 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
             <h1
               className="mb-5 text-lg font-bold !leading-normal text-primary-600 lg:mb-6 lg:text-2xl xl:mb-7 xl:text-[28px] 3xl:mb-8 3xl:text-[30px] 4xl:text-[32px]"
               dangerouslySetInnerHTML={{
-                __html: t(dataDetail?.title, dataDetail?.title_en),
+                __html: trans(dataDetail?.title, dataDetail?.title_en),
               }}
             ></h1>
           </div>
@@ -53,7 +46,7 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
           <div
             className="text-sm font-bold text-gray-950 lg:text-base 3xl:text-lg"
             dangerouslySetInnerHTML={{
-              __html: t(dataDetail?.blurb, dataDetail?.blurb_en),
+              __html: trans(dataDetail?.blurb, dataDetail?.blurb_en),
             }}
           ></div>
 
@@ -61,7 +54,7 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
           <div
             className="content-wrapper !text-sm font-normal text-gray-950 lg:!text-base 3xl:!text-lg"
             dangerouslySetInnerHTML={{
-              __html: t(dataDetail?.content, dataDetail?.content_en),
+              __html: trans(dataDetail?.content, dataDetail?.content_en),
             }}
           ></div>
         </div>

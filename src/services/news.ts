@@ -4,6 +4,7 @@ import { readItems } from '@directus/sdk';
 import { customEndpoint } from '@directus/sdk';
 
 /** Lấy danh sách item - có bộ lọc/ phân trang */
+
 export const getListNews = async ({
   category = '',
   collection,
@@ -12,7 +13,6 @@ export const getListNews = async ({
   sort = true,
   keyword = '',
   offset = 0,
-
 }: {
   collection: string;
   limit?: number;
@@ -56,8 +56,18 @@ export const getListNews = async ({
         offset,
         sort: sort ? '-date_published' : 'date_published',
         filter,
-        fields: ['*', 'categories.category.title', 'categories.category.slug'],
-        disableCache: true
+        fields: [
+          'slug',
+          'title',
+          'title_en',
+          'blurb',
+          'blurb_en',
+          'thumbnail',
+          'date_published',
+          'categories.category.title',
+          'categories.category.slug',
+        ],
+        disableCache: true,
       }),
     );
 
@@ -66,8 +76,6 @@ export const getListNews = async ({
     console.log('err in getListNews: ', error);
   }
 };
-
-
 
 /** Trả về tổng số item */
 export const getTotalNewsCount = async ({
@@ -119,7 +127,7 @@ export const getTotalNewsCount = async ({
         filter,
         fields: ['slug'],
         limit: -1,
-        disableCache: true
+        disableCache: true,
       }),
     );
 
