@@ -14,13 +14,13 @@ export default function Feature4Col({ data }: CommonSection) {
 
   return (
     <section className="bg-white py-10 md:py-6 lg:py-10 xl:py-[52px] 2xl:py-[64px] 3xl:py-[72px] 4xl:py-[80px]">
-      <div className="grid-cols-1 gap-6 md:container md:grid md:grid-cols-3 md:gap-4 lg:gap-6 xl:grid-cols-4 2xl:gap-7 3xl:gap-8 4xl:gap-10">
+      <div className="grid-cols-1 gap-6 md:container md:grid md:grid-cols-3 md:gap-4 xl:gap-4 xl:grid-cols-4 2xl:gap-6 3xl:gap-8">
         <div className="px-6 md:col-span-2 md:px-0 lg:col-span-1">
           <div className="section-sub-title">{data?.subtitle}</div>
           {data?.title && <h1 className="section-title mt-1">{data?.title}</h1>}
 
           <div
-            className="mt-2 text-sm font-normal text-[#3F3F46] lg:mt-4 2xl:mt-6 2xl:text-base"
+            className="mt-2 text-sm font-normal text-[#3F3F46] lg:mt-4 3xl:mt-6 2xl:text-base"
             dangerouslySetInnerHTML={{
               __html: data?.blurb as string,
             }}

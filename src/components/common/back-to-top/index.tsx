@@ -67,7 +67,7 @@ export default function BackToTop() {
       <div
         ref={backToTopRef}
         onClick={() => handleScrollTo()}
-        className="2lg:right-10 fixed bottom-8 right-4 z-50 flex size-10 cursor-pointer items-center justify-center rounded-full bg-white opacity-0 hover:bg-primary-100 lg:size-11 xl:size-12 3xl:size-14"
+        className="fixed bottom-3 right-3 md:right-5 md:bottom-5 z-50 flex size-10 cursor-pointer items-center justify-center rounded-full bg-white opacity-0 hover:bg-primary-100 lg:size-11 xl:size-12 3xl:size-14"
         style={{
           boxShadow:
             '0 10px 12.5px -2.5px rgba(18, 26, 43, 0.05), 0 3.333px 5px -2.5px rgba(18, 26, 43, 0.05)',

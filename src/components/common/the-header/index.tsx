@@ -45,10 +45,10 @@ export default function TheHeader({ data }: Props) {
           <Link
             href="/"
             aria-label="Chuyển đến trang chủ"
-            className="relative h-[52px] w-[214px] md:h-[56px] md:w-[230px] lg:h-[64px] lg:w-[262px] 2xl:h-[72px] 2xl:w-[296px] 4xl:h-[80px] 4xl:w-[328px]"
+            className="relative h-[40px] w-[230px] md:h-[46px] md:w-[274px] lg:h-[64px] lg:w-[382px] 2xl:h-[72px] 2xl:w-[430px] 4xl:h-[80px] 4xl:w-[478px]"
           >
             <NextImg
-              src="/assets/logo/primary_logo.svg"
+              src="/assets/logo/long_primary_logo.svg"
               alt="Military hospital logo"
             />
           </Link>
