@@ -126,30 +126,17 @@ export const getTotalNewsCount = async ({
       ];
     }
 
-
-    // const response = await directusClientWithRest.request<DirectusFilterCountMeta>(
-    //   readItems(collection, {
-    //     filter,
-    //     fields: ['slug'],
-    //     limit: -1,
-    //     disableCache: true,
-    //     meta: 'filter_count',
-    //   }),
-    // );
-    // console.log(response)
-    // return (response?.meta as any)?.filter_count;
-
     // Lấy tất cả id matching filter
     const response = await directusClientWithRest.request(
       aggregate(collection, {
-        aggregate: { count: 'slug' },
+        aggregate: { countDistinct: 'slug' },
         query: {
           filter
         },
       }),
     );
 
-    return (response?.[0]?.count as any)?.slug ?? 0;
+    return (response?.[0]?.countDistinct as any)?.slug ?? 0;
 
   } catch (error) {
     console.log('Error fetching news count:', error);

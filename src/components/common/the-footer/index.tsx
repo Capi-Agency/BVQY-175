@@ -200,6 +200,8 @@ export default function TheFooter({ data }: any) {
               <NextImg src="/assets/images/dmca.png" alt="DMCA protected" />
             </Link> */}
             <a
+              target="_blank"
+              rel="noopener"
               href="//www.dmca.com/Protection/Status.aspx?ID=3fea7e96-c255-4e43-955e-8d80a85d3048"
               title="DMCA.com Protection Status"
               className="dmca-badge"

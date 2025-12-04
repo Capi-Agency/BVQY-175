@@ -19,6 +19,8 @@ export default function InfoBasicR({ data }: CommonSection) {
             alt="Quy mô background"
           />
           <Link
+            target="_blank"
+            rel="noopener"
             aria-label="Xem bản đồ"
             href={data?.buttons?.[1]?.url}
             className="btn-danger absolute bottom-2 right-2 z-[10] bg-primary-100 text-primary-500 xl:bottom-4 xl:right-4 4xl:bottom-6 4xl:right-6"
