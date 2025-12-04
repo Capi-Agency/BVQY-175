@@ -18,6 +18,19 @@ export default function InfoBasicR({ data }: CommonSection) {
             objectFit="cover"
             alt="Quy mô background"
           />
+          <Link
+            aria-label="Xem bản đồ"
+            href={data?.buttons?.[1]?.url}
+            className="btn-danger absolute bottom-2 right-2 z-[10] bg-primary-100 text-primary-500 xl:bottom-4 xl:right-4 4xl:bottom-6 4xl:right-6"
+          >
+            {data?.buttons?.[1]?.title}
+            <div className="relative size-5 2xl:size-6">
+              <NextImg
+                src={'/assets/icons/compass-navigation.svg'}
+                alt="icon"
+              />
+            </div>
+          </Link>
         </div>
 
         <div className="space-y-5 lg:basis-1/2 xl:space-y-7 3xl:space-y-8 4xl:space-y-10">
@@ -45,15 +58,12 @@ export default function InfoBasicR({ data }: CommonSection) {
 
           <Link
             href={`/${language}${data?.buttons?.[0]?.url}`}
-            className="btn-danger"
+            className="mt-6 flex items-center gap-2 font-medium text-gray-950 group-hover:text-primary-50 lg:mt-0 lg:text-lg xl:mt-6"
             aria-label="Xem chi tiết cơ sở vật chất"
           >
             {data?.buttons?.[0]?.title}
             <div className="relative size-5 2xl:size-6">
-              <NextImg
-                src={getAssetUrlById(data?.buttons?.[0]?.icon?.id)}
-                alt="icon"
-              />
+              <NextImg src={'/assets/icons/arrow_right_black.svg'} alt="icon" />
             </div>
           </Link>
         </div>

@@ -741,11 +741,23 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
             </div>
           </Link> */}
 
-          <Link
+          {/* <Link
             href={`/vi/doi-ngu-bac-si/${slug}`}
             locale="vi"
             className="btn-view-detail w-full justify-center"
             aria-label="Xem chi tiết bác sĩ"
+          >
+            Xem chi tiết
+            <img
+              src="/assets/icons/arrow_right_black.svg"
+              alt="arrow right"
+              className="size-6 group-hover:brightness-0 group-hover:invert"
+            />
+          </Link> */}
+
+          <Link
+            href={'/vi/doi-ngu-bac-si/' + slug}
+            className="mt-6 flex items-center gap-2 font-medium text-gray-950 group-hover:text-primary-50 lg:mt-0 lg:text-lg xl:mt-6"
           >
             Xem chi tiết
             <img
