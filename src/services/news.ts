@@ -1,4 +1,4 @@
-import { readItem } from '@directus/sdk';
+import { aggregate, readItem } from '@directus/sdk';
 import { directusClient, directusClientWithRest } from '@/src/lib/directus';
 import { readItems } from '@directus/sdk';
 import { customEndpoint } from '@directus/sdk';
@@ -121,17 +121,26 @@ export const getTotalNewsCount = async ({
       ];
     }
 
+    // const response = await directusClientWithRest.request(
+    //   readItems(collection, {
+    //     filter,
+    //     fields: ['slug'],
+    //     limit: -1,
+    //     disableCache: true,
+    //   }),
+    // );
+    // return response.length;
+
     // Lấy tất cả id matching filter
-    const items = await directusClientWithRest.request(
-      readItems(collection, {
+    const response = await directusClientWithRest.request(
+      aggregate(collection, {
+        aggregate: { countDistinct: 'slug' },
         filter,
-        fields: ['slug'],
-        limit: -1,
-        disableCache: true,
       }),
     );
 
-    return items.length;
+    return (response?.[0]?.countDistinct as any)?.slug ?? 0;
+
   } catch (error) {
     console.log('Error fetching news count:', error);
     return 0;

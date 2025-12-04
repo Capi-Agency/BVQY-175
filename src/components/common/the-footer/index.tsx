@@ -6,6 +6,7 @@ import { useMetadata } from '@/src/providers/MetadataProvider';
 import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
 import RegisterFormFooter from './RegisterFormFooter';
+import CustomLink from '../custom-link';
 
 export default function TheFooter({ data }: any) {
   const language = useStoreLanguage((state: any) => state.language);
@@ -116,15 +117,15 @@ export default function TheFooter({ data }: any) {
                   <div className="mt-5 space-y-4">
                     {item?.sub_items?.map(
                       (sub_item: any, sub_item_index: number) => (
-                        <Link
+                        <CustomLink
                           key={sub_item_index}
-                          href={`/${language}${sub_item?.url}`}
+                          href={sub_item?.url}
                           className="block w-fit text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base"
                         >
                           {language === 'en'
                             ? `${sub_item?.title_en}`
                             : `${sub_item?.title}`}
-                        </Link>
+                        </CustomLink>
                       ),
                     )}
                   </div>
@@ -141,7 +142,7 @@ export default function TheFooter({ data }: any) {
             <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
 
             <div className="mt-5 flex gap-3">
-              {contact_information.facebook_url && (
+              {contact_information?.facebook_url && (
                 <Link
                   href={`${contact_information?.facebook_url}`}
                   target="_blank"
@@ -155,7 +156,7 @@ export default function TheFooter({ data }: any) {
                   />
                 </Link>
               )}
-              {contact_information.youtube_url && (
+              {contact_information?.youtube_url && (
                 <Link
                   href={`${contact_information?.youtube_url}`}
                   target="_blank"
@@ -167,7 +168,7 @@ export default function TheFooter({ data }: any) {
                 </Link>
               )}
 
-              {contact_information.zalo_url && (
+              {contact_information?.zalo_url && (
                 <Link
                   href={`${contact_information?.zalo_url}`}
                   target="_blank"
