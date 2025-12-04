@@ -205,6 +205,7 @@ export default function TheFooter({ data }: any) {
               className="dmca-badge"
             >
               <img
+                className="h-[50px] w-[100px] 2xl:h-[58px] 2xl:w-[116px] 4xl:h-[66px] 4xl:w-[132px]"
                 src="https://images.dmca.com/Badges/dmca-badge-w250-2x1-04.png?ID=3fea7e96-c255-4e43-955e-8d80a85d3048"
                 alt="DMCA.com Protection Status"
               />
