@@ -72,6 +72,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                     subTitle={custom?.sub_title}
                     isLogo={custom?.is_logo}
                     isHover={custom?.is_hover}
+                    isRounded={custom?.is_rounded}
                   />
                 </SwiperSlide>
               ))}
@@ -87,6 +88,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                       subTitle={custom?.sub_title}
                       isLogo={custom?.is_logo}
                       isHover={custom?.is_hover}
+                      isRounded={custom?.is_rounded}
                       avatarRatio="3/4"
                     />
                   </div>
@@ -118,6 +120,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                       subTitle={custom?.sub_title}
                       isLogo={custom?.is_logo}
                       isHover={custom?.is_hover}
+                      isRounded={custom?.is_rounded}
                     />
                   </SwiperSlide>
                 ))}

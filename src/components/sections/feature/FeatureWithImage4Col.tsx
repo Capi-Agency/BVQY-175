@@ -8,6 +8,7 @@ import useStoreLanguage from '@/src/store/store';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import CustomLink from '../../common/custom-link';
 export default function FeatureWithImage4Col({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
 
@@ -16,9 +17,9 @@ export default function FeatureWithImage4Col({ data }: CommonSection) {
       <div className="py-10 md:py-6 2xl:py-8 4xl:py-10">
         <div className="container grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-4 2xl:flex 2xl:items-stretch 3xl:gap-6">
           {data?.buttons?.map((button: any, index: number) => (
-            <Link
+            <CustomLink
               key={index}
-              href={`/${language}${button?.url}`}
+              href={button?.url}
               aria-label={button?.title}
               className="group flex items-center gap-3 bg-white p-[12px_24px] transition-colors duration-200 hover:bg-secondary md:p-[12px_40px] lg:p-[12px_80px] xl:p-[12px_120px] 2xl:flex-1 2xl:p-[12px_16px] 3xl:gap-4 3xl:p-[12px_20px] 4xl:p-[12px_24px]"
               style={{
@@ -40,7 +41,7 @@ export default function FeatureWithImage4Col({ data }: CommonSection) {
                   {button?.blurb}
                 </div>
               </div>
-            </Link>
+            </CustomLink>
           ))}
         </div>
       </div>
