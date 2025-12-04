@@ -7,6 +7,7 @@ import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
 import RegisterFormFooter from './RegisterFormFooter';
 import CustomLink from '../custom-link';
+import Script from 'next/script';
 
 export default function TheFooter({ data }: any) {
   const language = useStoreLanguage((state: any) => state.language);
@@ -189,8 +190,7 @@ export default function TheFooter({ data }: any) {
                 alt="Bộ công thương"
               />
             </div>
-
-            <Link
+            {/* <Link
               target="_blank"
               rel="noopener"
               href={`${contact_information?.dmca_url || '/'}`}
@@ -198,7 +198,19 @@ export default function TheFooter({ data }: any) {
               className="relative h-[50px] w-[100px] 2xl:h-[58px] 2xl:w-[116px] 4xl:h-[66px] 4xl:w-[132px]"
             >
               <NextImg src="/assets/images/dmca.png" alt="DMCA protected" />
-            </Link>
+            </Link> */}
+            <a
+              href="//www.dmca.com/Protection/Status.aspx?ID=3fea7e96-c255-4e43-955e-8d80a85d3048"
+              title="DMCA.com Protection Status"
+              className="dmca-badge"
+            >
+              <img
+                className="h-[50px] w-[100px] 2xl:h-[58px] 2xl:w-[116px] 4xl:h-[66px] 4xl:w-[132px]"
+                src="https://images.dmca.com/Badges/dmca-badge-w250-2x1-04.png?ID=3fea7e96-c255-4e43-955e-8d80a85d3048"
+                alt="DMCA.com Protection Status"
+              />
+            </a>
+            <Script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></Script>
           </div>
           {/* End: social network */}
         </div>
