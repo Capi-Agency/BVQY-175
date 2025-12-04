@@ -134,12 +134,15 @@ export const getTotalNewsCount = async ({
     // Lấy tất cả id matching filter
     const response = await directusClientWithRest.request(
       aggregate(collection, {
-        aggregate: { countDistinct: 'slug' },
-        filter,
+        aggregate: { count: 'slug' },
+        query: {
+          filter
+        }
       }),
     );
 
-    return (response?.[0]?.countDistinct as any)?.slug ?? 0;
+    console.log(response?.[0]?.count?.slug)
+    return (response?.[0]?.count as any)?.slug ?? 0;
 
   } catch (error) {
     console.log('Error fetching news count:', error);
