@@ -29,7 +29,7 @@ export default function NewsCard({ item, url, cateUrl }: NewsCardProps) {
       {/* cover */}
       <div className="relative aspect-video">
         <NextImg
-          src={getAssetUrlById(item?.thumbnail)}
+          src={getAssetUrlById(item?.thumbnail?.id || item?.thumbnail)}
           alt="post cover"
           objectFit="cover"
         />

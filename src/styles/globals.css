@@ -87,10 +87,10 @@ body {}
   .content-wrapper img {
     border-radius: 6px;
     margin: 0 auto;
-    max-width: 1058px;
+    /* max-width: 1058px; */
     aspect-ratio: auto;
     object-fit: cover;
-    width: 100%;
+    /* width: 100%; */
   }
 
   .content-wrapper figcaption,

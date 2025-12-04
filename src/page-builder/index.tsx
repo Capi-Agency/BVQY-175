@@ -153,6 +153,13 @@ const sectionMap: SectionMap = {
   'faqs-1-col': dynamic(() =>
     import('../components/sections/faq').then((m) => m.FaqsOneCol),
   ),
+
+  // Cổng dịch vụ công
+  'content-danh-cho-nguoi-benh': dynamic(() =>
+    import('../components/sections/custom').then(
+      (m) => m.ContentDanhChoNguoiBenh,
+    ),
+  ),
 };
 
 type PageBuilderProps = {
