@@ -68,6 +68,7 @@ export const getListNews = async ({
           'categories.category.slug',
         ],
         disableCache: true,
+        // meta: 'filter_count',
       }),
     );
 
@@ -76,6 +77,10 @@ export const getListNews = async ({
     console.log('err in getListNews: ', error);
   }
 };
+
+interface DirectusFilterCountMeta {
+  meta: { filter_count: number };
+}
 
 /** Trả về tổng số item */
 export const getTotalNewsCount = async ({
@@ -121,15 +126,18 @@ export const getTotalNewsCount = async ({
       ];
     }
 
-    // const response = await directusClientWithRest.request(
+
+    // const response = await directusClientWithRest.request<DirectusFilterCountMeta>(
     //   readItems(collection, {
     //     filter,
     //     fields: ['slug'],
     //     limit: -1,
     //     disableCache: true,
+    //     meta: 'filter_count',
     //   }),
     // );
-    // return response.length;
+    // console.log(response)
+    // return (response?.meta as any)?.filter_count;
 
     // Lấy tất cả id matching filter
     const response = await directusClientWithRest.request(
@@ -137,11 +145,10 @@ export const getTotalNewsCount = async ({
         aggregate: { count: 'slug' },
         query: {
           filter
-        }
+        },
       }),
     );
 
-    console.log(response?.[0]?.count?.slug)
     return (response?.[0]?.count as any)?.slug ?? 0;
 
   } catch (error) {
