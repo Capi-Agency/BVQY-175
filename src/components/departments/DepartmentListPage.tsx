@@ -1,17 +1,19 @@
 'use client';
 import NextImg from '@/src/components/common/next-img';
-import { getChildDepartments } from '@/src/services/department';
+import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
+import {
+  getPositionFixed,
+  handleScrollToDepartmentPage,
+} from '@/src/utils/gsap';
 import { getAssetUrlById } from '@/src/utils/image';
+import { removeVietnameseMarks } from '@/src/utils/validate';
 import { useGSAP } from '@gsap/react';
 import clsx from 'clsx';
-import Link from 'next/link';
-import { useEffect, useReducer, useRef, useState } from 'react';
-import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
+import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { getOffsetY, getPositionFixed, handleScrollTo } from '@/src/utils/gsap';
-import gsap from 'gsap';
-import { removeVietnameseMarks } from '@/src/utils/validate';
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
@@ -260,7 +262,9 @@ const DepartmentDetailPage = ({
                 {parentGroups?.slice(0, 3)?.map((group: any, index: number) => {
                   return (
                     <div
-                      onClick={() => handleScrollTo(group?.slug, conditions)}
+                      onClick={() =>
+                        handleScrollToDepartmentPage(group?.slug, conditions)
+                      }
                       key={'group_' + index}
                       className={clsx(
                         'group relative flex flex-1 cursor-pointer items-center justify-center gap-2.5 overflow-hidden px-[18px] py-3 shadow-lg transition-all hover:bg-primary-600 md:px-5 md:py-4 lg:gap-3 xl:w-fit xl:flex-1 3xl:w-full 3xl:justify-start',
@@ -403,7 +407,7 @@ const DepartmentSlideCard = ({ group }: { group: any }) => {
   const { conditions } = useGsapMatchMedia();
   return (
     <button
-      onClick={() => handleScrollTo(group?.slug, conditions)}
+      onClick={() => handleScrollToDepartmentPage(group?.slug, conditions)}
       className="group relative cursor-pointer space-y-5 bg-white p-5 shadow-lg transition-all hover:bg-primary-600 lg:w-[calc((100%-24px*2)/3)]"
     >
       {/* cover */}
