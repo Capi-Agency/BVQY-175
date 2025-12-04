@@ -21,10 +21,7 @@ export default async function RootLayout({
   const metadata = await fnGetMetadata();
 
   return (
-    <html
-      lang="vi"
-      suppressHydrationWarning
-    >
+    <html lang="vi" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/assets/logo/favicon.ico" sizes="any" />
         <link

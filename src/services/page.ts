@@ -1,94 +1,92 @@
-import { directusClient } from "@/src/lib/directus"
+import { directusClientWithRest } from "@/src/lib/directus";
+import { readItem, readItems } from "@directus/sdk";
 
+/* ============================
+   GET PAGE CONTENT BY SLUG
+============================ */
 export const fnGetPageBySlug = async (slug: string) => {
   try {
-    const query = `
-    query {
-      pages_by_id (id: "${slug}") {
-        raw_content
-      }
-    }
-  `
-    const response = await directusClient.query(query)
+    const res = await directusClientWithRest.request(
+      readItem("pages", slug, {
+        fields: ["raw_content"],
+      })
+    );
 
-    const pageContent = response?.pages_by_id?.raw_content
-    return pageContent
+    return res?.raw_content ?? null;
   } catch (error) {
-    console.log("Error getting page: ", error)
+    console.error("Error getting page content: ", error);
+    return null;
   }
-}
+};
 
+/* ============================
+   GET PAGE SCHEMA BY SLUG
+============================ */
 export const fnGetSchemaBySlug = async (slug: string) => {
   try {
-    const query = `
-    query {
-      pages_by_id (id: "${slug}") {
-        metadata
-      }
-    }
-  `
-    const response = await directusClient.query(query)
-    const schema = response?.pages_by_id?.metadata
-    return schema
-  } catch (error) {
-    console.log("Error getting page: ", error)
-  }
-}
+    const res = await directusClientWithRest.request(
+      readItem("pages", slug, {
+        fields: ["metadata"],
+      })
+    );
 
+    return res?.metadata ?? null;
+  } catch (error) {
+    console.error("Error getting page schema: ", error);
+    return null;
+  }
+};
+
+/* ============================
+   GET ALL PAGE SLUGS
+============================ */
 export const fnGetAllPageSlug = async () => {
   try {
-    const query = `
-      query {
-        pages {
-          slug
-        }
-      }
-    `
-    const response = await directusClient.query(query)
-    return response?.pages
+    const res = await directusClientWithRest.request(
+      readItems("pages", {
+        fields: ["slug"],
+      })
+    );
+
+    return res ?? [];
   } catch (error) {
-    console.log("Error getting page: ", error)
+    console.error("Error getting page slugs: ", error);
+    return [];
   }
-}
+};
 
-
+/* ============================
+   GET TOP NAV BY SLUG (REST)
+============================ */
 export const fnGetTopNavBySlug = async (slug: string) => {
   try {
-    const query = `
-    query {
-      top_navigation_by_id (id: "${slug}") {
-        raw_content
-      }
-    }
-  `
-    const response = await directusClient.query(query)
+    const res = await directusClientWithRest.request(
+      readItem("top_navigation", slug, {
+        fields: ["raw_content"],
+      })
+    );
 
-    const pageContent = response?.top_navigation_by_id?.raw_content
-    return pageContent
+    return res?.raw_content ?? null;
   } catch (error) {
-    console.log("Error getting page: ", error)
+    console.error("Error getting top navigation: ", error);
+    return null;
   }
-}
+};
 
-
+/* ============================
+   GET BOTTOM NAV BY SLUG (REST)
+============================ */
 export const fnGetBottomNavBySlug = async (slug: string) => {
   try {
-    const query = `
-    query {
-      bottom_navigation_by_id (id: "${slug}") {
-        raw_content
-      }
-    }
-  `
-    const response = await directusClient.query(query)
+    const res = await directusClientWithRest.request(
+      readItem("bottom_navigation", slug, {
+        fields: ["raw_content"],
+      })
+    );
 
-    const pageContent = response?.bottom_navigation_by_id?.raw_content
-    return pageContent
+    return res?.raw_content ?? null;
   } catch (error) {
-    console.log("Error getting page: ", error)
+    console.error("Error getting bottom navigation: ", error);
+    return null;
   }
-}
-
-
-
-
+};
