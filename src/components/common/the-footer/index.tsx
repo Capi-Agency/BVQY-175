@@ -9,7 +9,7 @@ import RegisterFormFooter from './RegisterFormFooter';
 import CustomLink from '../custom-link';
 import Script from 'next/script';
 
-export default function TheFooter({ data }: any) {
+export default function TheFooter() {
   const language = useStoreLanguage((state: any) => state.language);
   const { trans } = useTranslate();
   const { contact_information, bottom_navigation } = useMetadata();
@@ -52,7 +52,7 @@ export default function TheFooter({ data }: any) {
 
         <div className="flex flex-col gap-6 md:flex-row md:flex-wrap md:gap-x-4 md:gap-y-6 xl:flex-nowrap xl:justify-between">
           {/* Start: contact info */}
-          <div className="w-full md:w-[256px] lg:w-[432px] xl:w-[320px] 3xl:w-[352px]">
+          <div className="w-full md:w-full lg:w-[432px] xl:w-[320px] 3xl:w-[352px]">
             <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
               {trans('contact-label')}
             </h2>

@@ -22,6 +22,7 @@ import { useMetadata } from '@/src/providers/MetadataProvider';
 import { getAssetUrlById } from '@/src/utils/image';
 import { useTranslate } from '@/src/hooks/useTranslate';
 import Link from 'next/link';
+import CustomLink from '../custom-link';
 
 type MobileMenuProps = {
   changeLanguage: (value: string) => void;
@@ -199,14 +200,14 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                                 asChild
                                 className="border-none outline-none"
                               >
-                                <Link
-                                  href={`/${language}${item?.url || ''}`}
+                                <CustomLink
+                                  href={item?.url || ''}
                                   className="text-sm font-bold uppercase text-black"
                                 >
                                   {language === 'en'
                                     ? `${item?.title_en}`
                                     : `${item?.title}`}{' '}
-                                </Link>
+                                </CustomLink>
                               </DialogClose>
                             ) : (
                               <AccordionTrigger className="text-sm font-bold uppercase text-black">
@@ -264,14 +265,14 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                                       key={item_second_index}
                                       className="w-fit"
                                     >
-                                      <Link
-                                        href={`/${language}${item_second?.url || ''}`}
+                                      <CustomLink
+                                        href={item_second?.url || ''}
                                         className="text-sm font-medium text-[#18181B]"
                                       >
                                         {language === 'en'
                                           ? `${item_second?.title_en}`
                                           : `${item_second?.title}`}{' '}
-                                      </Link>
+                                      </CustomLink>
                                     </DialogClose>
                                   ),
                               )}
@@ -284,14 +285,14 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                             onClick={() => smoother?.paused(false)}
                             asChild
                           >
-                            <Link
-                              href={`/${language}${item?.url || ''}`}
+                            <CustomLink
+                              href={item?.url || ''}
                               className="text-sm font-bold uppercase text-black"
                             >
                               {language === 'en'
                                 ? `${item?.title_en}`
                                 : `${item?.title}`}
-                            </Link>
+                            </CustomLink>
                           </DialogClose>
                         </AccordionItem>
                       );
@@ -393,14 +394,14 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                                     asChild
                                     className="border-none outline-none"
                                   >
-                                    <Link
-                                      href={`/${language}${item_third?.url || ''}`}
+                                    <CustomLink
+                                      href={item_third?.url || ''}
                                       className="text-start text-sm font-bold uppercase text-black"
                                     >
                                       {language === 'en'
                                         ? `${item_third?.title_en}`
                                         : `${item_third?.title}`}
-                                    </Link>
+                                    </CustomLink>
                                   </DialogClose>
                                 ) : (
                                   <AccordionTrigger className="text-start text-sm font-bold uppercase text-black">
@@ -455,14 +456,14 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                                         key={item_fourth_index}
                                         className="w-fit"
                                       >
-                                        <Link
-                                          href={`/${language}${item_fourth?.url || ''}`}
+                                        <CustomLink
+                                          href={item_fourth?.url || ''}
                                           className="text-sm font-medium text-[#18181B]"
                                         >
                                           {language === 'en'
                                             ? `${item_fourth?.title_en}`
                                             : `${item_fourth?.title}`}{' '}
-                                        </Link>
+                                        </CustomLink>
                                       </DialogClose>
                                     ),
                                 )}
@@ -478,14 +479,14 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                               }}
                               asChild
                             >
-                              <Link
-                                href={`/${language}${item_third?.url || ''}`}
+                              <CustomLink
+                                href={item_third?.url || ''}
                                 className="text-sm font-bold uppercase text-black"
                               >
                                 {language === 'en'
                                   ? `${item_third?.title_en}`
                                   : `${item_third?.title}`}
-                              </Link>
+                              </CustomLink>
                             </DialogClose>
                           </AccordionItem>
                         );

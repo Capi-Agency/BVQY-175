@@ -4,6 +4,7 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import ContactCta from './ContactCta';
 import useStoreLanguage from '@/src/store/store';
 import Link from 'next/link';
+import CustomLink from '../custom-link';
 
 export default function MegaMenuContent({ item }: any) {
   const language = useStoreLanguage((state: any) => state.language);
@@ -42,14 +43,15 @@ export default function MegaMenuContent({ item }: any) {
                   {item_third?.url &&
                   item_third?.title &&
                   item_third?.title_en ? (
-                    <NavigationMenu.Link
-                      href={`/${language}${item_third?.url || ''}`}
+                    <CustomLink
+                      href={item_third?.url || ''}
+                      asNavigationLink
                       className="block text-sm font-bold uppercase text-black 3xl:text-base"
                     >
                       {language === 'en'
                         ? `${item_third?.title_en || ''}`
                         : `${item_third?.title || ''}`}
-                    </NavigationMenu.Link>
+                    </CustomLink>
                   ) : (
                     <div className="block text-sm font-bold uppercase text-black 3xl:text-base">
                       {language === 'en'
@@ -64,15 +66,16 @@ export default function MegaMenuContent({ item }: any) {
                     {item_third?.sub_items?.map(
                       (item_fourth: any, item_fourth_index: number) =>
                         item_fourth?.url ? (
-                          <NavigationMenu.Link
+                          <CustomLink
                             key={item_fourth_index}
-                            href={`/${language}${item_fourth?.url || ''}`}
+                            href={item_fourth?.url || ''}
+                            asNavigationLink
                             className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[10px]"
                           >
                             {language === 'en'
                               ? `${item_fourth?.title_en}`
                               : `${item_fourth?.title}`}
-                          </NavigationMenu.Link>
+                          </CustomLink>
                         ) : (
                           <div
                             key={item_fourth_index}
