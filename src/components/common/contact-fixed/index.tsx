@@ -53,7 +53,7 @@ export default function ContactFixed() {
                     <TooltipTrigger asChild>
                         <button
                             onClick={() => setIsOpenMenu((prev: boolean) => !prev)}
-                            className='relative z-[51] size-10 cursor-pointer rounded-[6px] bg-[#E50000] flex justify-center items-center lg:size-11 xl:size-12 3xl:size-14'>
+                            className='relative z-[51] size-11 cursor-pointer rounded-[6px] bg-[#E50000] flex justify-center items-center lg:size-11 xl:size-12'>
                             <div className={`relative size-5 lg:size-6`}>
                                 <NextImg src="/assets/icons/phone_contact.svg" alt="plus icon" />
                             </div>
@@ -63,14 +63,14 @@ export default function ContactFixed() {
                     <TooltipContent
                         side="right"
                         align="center"
-                        className="rounded-md bg-[#E50000] text-sm xl:text-base text-white p-[4px_6px] xl:p-[6px_8px]"
+                        className="rounded-md bg-[#E50000] text-sm xl:text-base text-white p-[6px_8px]"
                     >
                         {isOpenMenu ? trans("Đóng", "Close") : trans("Liên hệ", "Contact")}
                         <TooltipArrow className="fill-[#E50000]" />
                     </TooltipContent>
                 </TooltipRoot>
 
-                <div className={`${isOpenMenu ? "pointer-events-auto" : "pointer-events-none"} absolute z-[50] pb-1 xl:pb-2 3xl:pb-3 left-0 top-0 -translate-y-full flex flex-col gap-1 xl:gap-2 3xl:gap-3`}>
+                <div className={`${isOpenMenu ? "pointer-events-auto" : "pointer-events-none"} absolute z-[50] pb-2 xl:pb-3 left-0 top-0 -translate-y-full flex flex-col gap-2 xl:gap-3`}>
                     {data?.map((item: any, index: number) => (
                         <div key={index} className={`${isOpenMenu ? "translate-y-0 opacity-100" : "translate-y-[80%] opacity-0"} transition-all duration-200`}
                             style={{
@@ -83,7 +83,7 @@ export default function ContactFixed() {
                                         target={item?.isTargetBlank ? "_blank" : undefined}
                                         rel={item?.isTargetBlank ? "noopener" : undefined}
                                         href={item?.url}
-                                        className='relative flex size-10 cursor-pointer items-center justify-center rounded-[6px] lg:size-11 xl:size-12 3xl:size-14'
+                                        className='relative flex size-11 cursor-pointer items-center justify-center rounded-[6px] lg:size-11 xl:size-12'
                                         style={{
                                             backgroundColor: item?.bgColor
                                         }}
@@ -97,7 +97,7 @@ export default function ContactFixed() {
                                 <TooltipContent
                                     side="right"
                                     align="center"
-                                    className="rounded-md text-sm xl:text-base text-white p-[4px_6px] xl:p-[6px_8px]"
+                                    className="rounded-md text-sm xl:text-base text-white p-[6px_8px]"
                                     style={{
                                         backgroundColor: item?.bgColor
                                     }}

@@ -9,12 +9,6 @@ import {
   AccordionContent,
   AccordionTrigger,
 } from '../ui/accordion';
-import {
-  adminDepartmentTitleMap,
-  departmentTitleMap,
-  hospitalTitleMap,
-  instituteTitleMap,
-} from '../common/doctor-card';
 import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
 import { getDoctorTitles } from '@/src/utils/render-doctor-title';

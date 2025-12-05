@@ -8,108 +8,32 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import CustomLink from '../../common/custom-link';
 export default function FeatureWithImage4Col({ data }: CommonSection) {
-
   return (
-    <section>
-      <div className="py-10 md:py-6 2xl:py-8 4xl:py-10">
-        <div className="container grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-4 2xl:flex 2xl:items-stretch 3xl:gap-6">
-          {data?.buttons?.map((button: any, index: number) => (
+    <section className="py-8 lg:py-9 xl:py-10 2xl:py-12 3xl:py-14 4xl:py-[60px]">
+      <div className="section-sub-title text-center">{data?.subtitle}</div>
+      {data?.title && (
+        <h1 className="section-title mt-1 text-center">{data?.title}</h1>
+      )}
+
+      <div className="container pt-8 md:pt-8 lg:pt-10 xl:pt-11 2xl:pt-12 3xl:pt-14">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-y-10 lg:grid-cols-4 lg:gap-x-6 xl:grid-cols-5 2xl:grid-cols-6 4xl:gap-y-12">
+          {data?.buttons?.map((item: any, index: number) => (
             <CustomLink
               key={index}
-              href={button?.url}
-              aria-label={button?.title}
-              className="group flex items-center gap-3 bg-white p-[12px_24px] transition-colors duration-200 hover:bg-secondary md:p-[12px_40px] lg:p-[12px_80px] xl:p-[12px_120px] 2xl:flex-1 2xl:p-[12px_16px] 3xl:gap-4 3xl:p-[12px_20px] 4xl:p-[12px_24px]"
-              style={{
-                boxShadow:
-                  '0 12px 15px -3px rgba(18, 26, 43, 0.05), 0 4px 6px -3px rgba(18, 26, 43, 0.05)',
-              }}
+              href={item?.url}
+              className="bg-ed-50 group relative flex flex-col items-center gap-3"
             >
-              <div className="relative size-9 duration-200 group-hover:brightness-[0] group-hover:invert group-hover:saturate-[100%] md:size-8 xl:size-9 3xl:size-11 4xl:size-12">
-                <NextImg src={getAssetUrlById(button?.icon?.id)} alt="icon" />
+              <div className="flex size-[60px] items-center justify-center rounded-[12px] bg-[#D1E6D7] lg:size-[64px] xl:size-[68px] 2xl:size-[72px] 3xl:size-[76px] 4xl:size-[80px]">
+                <div className="relative size-9 duration-200 lg:size-10 2xl:size-11 3xl:size-12">
+                  <NextImg src={getAssetUrlById(item?.icon?.id)} alt="icon" />
+                </div>
               </div>
 
-              <div className="flex-1">
-                {button?.title && (
-                  <h2 className="text-lg font-semibold leading-[1.5] text-[#09090B] transition-colors duration-200 group-hover:text-white 2xl:text-xl 4xl:text-[22px]">
-                    {button?.title}
-                  </h2>
-                )}
-                <div className="text-sm font-normal text-[#3F3F46] transition-colors duration-200 group-hover:text-white/60">
-                  {button?.blurb}
-                </div>
+              <div className="w-full text-center text-sm font-semibold !leading-[1.5] text-primary-600 md:text-base 3xl:text-lg">
+                {item?.title}
               </div>
             </CustomLink>
           ))}
-        </div>
-      </div>
-
-      <div className="pb-2 md:py-8 lg:py-9 xl:py-11 2xl:py-[52px] 4xl:py-[60px]">
-        <div className="container hidden gap-4 md:grid md:grid-cols-3 xl:flex xl:items-stretch 3xl:gap-6">
-          {data?.items?.map((item: any, index: number) => (
-            <div
-              key={index}
-              className="group relative flex flex-col items-center gap-3 bg-white p-3 duration-200 hover:bg-secondary xl:flex-1 xl:p-[16px_12px] 3xl:gap-4 3xl:p-4 4xl:gap-5 4xl:p-5"
-              style={{
-                boxShadow:
-                  '0 20px 25px -4px rgba(18, 26, 43, 0.10), 0 8px 8px -6px rgba(18, 26, 43, 0.04)',
-              }}
-            >
-              <div className="relative size-8 duration-200 group-hover:brightness-[0] group-hover:invert group-hover:saturate-[100%] lg:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
-                <NextImg src={getAssetUrlById(item?.cover?.id)} alt="icon" />
-              </div>
-              <div
-                className="w-full text-center text-sm font-medium text-[#71717A] duration-200 group-hover:text-white 3xl:text-base"
-                dangerouslySetInnerHTML={{
-                  __html: item?.title as string,
-                }}
-              ></div>
-
-              <div className="absolute left-0 top-1/2 hidden aspect-[204/136] w-[90%] -translate-y-1/2 group-hover:block">
-                <NextImg src="/assets/images/arrow_bg.png" alt="icon" />
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="w-full md:hidden">
-          <Swiper
-            touchEventsTarget="container"
-            grabCursor={true}
-            slidesPerView={'auto'}
-            loop={false}
-            spaceBetween={16}
-            speed={700}
-            className="w-full !px-6"
-          >
-            {data?.items?.map((item: any, index: number) => (
-              <SwiperSlide key={index} className="!w-[220px] pb-6">
-                <div
-                  key={index}
-                  className="group relative flex flex-col items-center gap-3 bg-white p-3 duration-200 hover:bg-secondary xl:flex-1 xl:p-[16px_12px] 3xl:gap-4 3xl:p-4 4xl:gap-5 4xl:p-5"
-                  style={{
-                    boxShadow:
-                      '0 12px 15px -3px rgba(18, 26, 43, 0.05), 0 4px 6px -3px rgba(18, 26, 43, 0.05)',
-                  }}
-                >
-                  <div className="relative size-8 duration-200 group-hover:brightness-[0] group-hover:invert group-hover:saturate-[100%] xl:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
-                    <NextImg
-                      src={getAssetUrlById(item?.cover?.id)}
-                      alt="icon"
-                    />
-                  </div>
-                  <div
-                    className="w-full text-center text-sm font-medium text-[#71717A] duration-200 group-hover:text-white 3xl:text-base"
-                    dangerouslySetInnerHTML={{
-                      __html: item?.title as string,
-                    }}
-                  ></div>
-
-                  <div className="absolute left-0 top-1/2 hidden aspect-[204/136] w-[90%] -translate-y-1/2 group-hover:block">
-                    <NextImg src="/assets/images/arrow_bg.png" alt="icon" />
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
         </div>
       </div>
     </section>

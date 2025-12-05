@@ -1,6 +1,6 @@
 import { CommonSection } from '@/src/types/pageBuilder';
-import Link from 'next/link';
 import React from 'react';
+import CustomLink from '../../common/custom-link';
 
 export default function ContentCongDichVuCong({ data }: CommonSection) {
   const button = data?.buttons?.[0];
@@ -15,12 +15,12 @@ export default function ContentCongDichVuCong({ data }: CommonSection) {
           )}
 
           {button && (
-            <Link
+            <CustomLink
               href={button.url}
               className="flex h-[50px] w-fit items-center justify-center rounded-md bg-primary-700 px-[20px] text-center text-[16px] font-bold text-white md:px-[40px] md:text-[18px] xl:px-[50px] xl:text-[20px]"
             >
               {button.title}
-            </Link>
+            </CustomLink>
           )}
 
           <div

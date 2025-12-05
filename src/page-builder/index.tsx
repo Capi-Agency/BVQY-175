@@ -39,6 +39,9 @@ const sectionMap: SectionMap = {
   'gallery-with-text': dynamic(() =>
     import('../components/sections/gallery').then((m) => m.GalleryWithText),
   ),
+  'review-split-with-text': dynamic(() =>
+    import('../components/sections/review').then((m) => m.ReviewSplitWithText),
+  ),
 
   // About us
   'info-basic': dynamic(() =>

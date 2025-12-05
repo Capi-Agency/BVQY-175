@@ -24,7 +24,7 @@ export default function BackToTop() {
         opacity: 1,
       });
       gsap.set(contactRef.current, {
-        yPercent: 120,
+        yPercent: 130,
         opacity: 1,
       });
 
@@ -50,7 +50,7 @@ export default function BackToTop() {
             ease: 'power2.out',
           });
           gsap.to(contactRef.current, {
-            yPercent: 120,
+            yPercent: 130,
             duration: 0.5,
             ease: 'power2.out',
           });
@@ -80,7 +80,7 @@ export default function BackToTop() {
 
   return (
     <div ref={containerRef}>
-      <div className='fixed bottom-6 right-6 md:right-8 md:bottom-8 lg:bottom-6 lg:right-6 3xl:right-8 3xl:bottom-8 z-50 flex flex-col items-center gap-1 xl:gap-2'>
+      <div className='fixed bottom-6 right-6 md:right-8 md:bottom-8 lg:bottom-6 lg:right-6 3xl:right-8 3xl:bottom-8 z-50 flex flex-col items-center gap-2 xl:gap-3'>
         <div ref={contactRef}>
           <ContactFixed />
         </div>
@@ -88,7 +88,7 @@ export default function BackToTop() {
         <div
           ref={backToTopRef}
           onClick={() => handleScrollTo()}
-          className=" flex size-10 cursor-pointer items-center justify-center rounded-[6px] bg-white opacity-0 hover:bg-primary-100 lg:size-11 xl:size-12 3xl:size-14"
+          className="flex size-11 cursor-pointer items-center justify-center rounded-[6px] bg-white opacity-0 hover:bg-primary-100 lg:size-11 xl:size-12"
           style={{
             boxShadow:
               '0 10px 12.5px -2.5px rgba(18, 26, 43, 0.05), 0 3.333px 5px -2.5px rgba(18, 26, 43, 0.05)',

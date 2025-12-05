@@ -78,10 +78,6 @@ export const getListNews = async ({
   }
 };
 
-interface DirectusFilterCountMeta {
-  meta: { filter_count: number };
-}
-
 /** Trả về tổng số item */
 export const getTotalNewsCount = async ({
   collection,
@@ -102,21 +98,6 @@ export const getTotalNewsCount = async ({
           },
         },
       };
-    }
-
-    if (keyword) {
-      filter._or = [
-        {
-          title: {
-            _icontains: keyword,
-          },
-        },
-        {
-          blurb: {
-            _icontains: keyword,
-          },
-        },
-      ];
     }
 
     if (keyword) {

@@ -10,6 +10,7 @@ export default function SideBarRightBasic({ data }: CommonSection) {
   const [cateData, setCateData] = useState<any>([]);
   const language = useStoreLanguage((state: any) => state.language);
   const sidebarRef = useRef<HTMLDivElement>(null!);
+  const [hasSidebarContainer, setHasSidebarContainer] = useState(false);
 
   useEffect(() => {
     if (!data.collections) return;
@@ -28,35 +29,41 @@ export default function SideBarRightBasic({ data }: CommonSection) {
     const sidebarContainer = document.querySelector('.sidebar-container');
     if (sidebarContainer) {
       sidebarContainer?.appendChild?.(sidebarRef.current);
+      setHasSidebarContainer(true);
+    } else {
+      setHasSidebarContainer(false);
     }
   }, [cateData]);
 
   return (
     <div ref={sidebarRef} className="w-full">
       {/*  Tags  */}
-      <h3 className="mb-2 text-base font-semibold text-gray-950 lg:mb-4 lg:text-lg 3xl:mb-5">
-        {data?.title}
-      </h3>
+      {hasSidebarContainer && (
+        <>
+          <h3 className="mb-2 text-base font-semibold text-gray-950 lg:mb-4 lg:text-lg 3xl:mb-5">
+            {data?.title}
+          </h3>
+          {cateData?.map((cate: any, index: number) => (
+            <Link
+              href={`/${language}${data?.buttons?.[0]?.url}/${cate?.slug}`}
+              key={cate?.slug || index}
+              className="block border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 lg:py-3 lg:text-base"
+            >
+              {language === 'en' ? cate?.title_en : cate?.title}
+            </Link>
+          ))}
 
-      {cateData?.map((cate: any, index: number) => (
-        <Link
-          href={`/${language}${data?.buttons?.[0]?.url}/${cate?.slug}`}
-          key={cate?.slug || index}
-          className="block border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 lg:py-3 lg:text-base"
-        >
-          {language === 'en' ? cate?.title_en : cate?.title}
-        </Link>
-      ))}
-
-      {data?.items?.map((item: any, index: number) => (
-        <CustomLink
-          href={item?.buttons?.[0]?.url}
-          key={index}
-          className="block border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 lg:py-3 lg:text-base"
-        >
-          {item?.buttons?.[0]?.title}
-        </CustomLink>
-      ))}
+          {data?.items?.map((item: any, index: number) => (
+            <CustomLink
+              href={item?.buttons?.[0]?.url}
+              key={index}
+              className="block border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 lg:py-3 lg:text-base"
+            >
+              {item?.buttons?.[0]?.title}
+            </CustomLink>
+          ))}
+        </>
+      )}
     </div>
   );
 }
