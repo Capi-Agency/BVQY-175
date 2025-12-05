@@ -1,16 +1,13 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
-import Link from 'next/link';
-import useStoreLanguage from '@/src/store/store';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import CustomLink from '../../common/custom-link';
 export default function FeatureWithImage4Col({ data }: CommonSection) {
-  const language = useStoreLanguage((state: any) => state.language);
 
   return (
     <section>

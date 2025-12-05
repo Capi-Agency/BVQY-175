@@ -4,6 +4,7 @@ import useStoreLanguage from '@/src/store/store';
 import { CommonSection } from '@/src/types/pageBuilder';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
+import CustomLink from '../../common/custom-link';
 
 export default function SideBarRightBasic({ data }: CommonSection) {
   const [cateData, setCateData] = useState<any>([]);
@@ -48,13 +49,13 @@ export default function SideBarRightBasic({ data }: CommonSection) {
       ))}
 
       {data?.items?.map((item: any, index: number) => (
-        <Link
-          href={`/${language}${item?.buttons?.[0]?.url}`}
+        <CustomLink
+          href={item?.buttons?.[0]?.url}
           key={index}
           className="block border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 lg:py-3 lg:text-base"
         >
           {item?.buttons?.[0]?.title}
-        </Link>
+        </CustomLink>
       ))}
     </div>
   );
