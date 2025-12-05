@@ -6,9 +6,13 @@ import { cn } from '@/src/lib/utils';
 
 const TooltipProvider = TooltipPrimitive.Provider;
 
-const Tooltip = TooltipPrimitive.Root;
+const TooltipRoot = TooltipPrimitive.Root;
 
 const TooltipTrigger = TooltipPrimitive.Trigger;
+
+const TooltipPortal = TooltipPrimitive.Portal;
+
+const TooltipArrow = TooltipPrimitive.TooltipArrow;
 
 const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
@@ -23,7 +27,8 @@ const TooltipContent = React.forwardRef<
     )}
     {...props}
   />
+
 ));
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
+export { TooltipRoot, TooltipTrigger, TooltipContent, TooltipProvider, TooltipPortal, TooltipArrow };

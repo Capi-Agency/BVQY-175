@@ -12,6 +12,7 @@ import ScrollSmoothWrapper from '../components/animation/ScrollSmoothWrapper';
 import TheHeader from '../components/common/the-header';
 import TheFooter from '../components/common/the-footer';
 import BackToTop from '../components/common/back-to-top';
+import ContactFixed from '../components/common/contact-fixed';
 
 export default async function RootLayout({
   children,
@@ -77,6 +78,7 @@ export default async function RootLayout({
               <ScrollSmootherProvider>
                 <TheHeader />
                 <BackToTop />
+                <ContactFixed />
                 <ScrollSmoothWrapper>
                   {children}
                   <TheFooter />

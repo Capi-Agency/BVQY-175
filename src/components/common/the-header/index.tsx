@@ -37,7 +37,7 @@ export default function TheHeader() {
   return (
     <header className="fixed left-0 top-0 z-[100] w-full">
       <div className="bg-white py-[6px] shadow-md xl:py-2 2xl:py-[10px] 4xl:py-3">
-        <div className="container relative flex items-center justify-between">
+        <div className="container relative flex items-center justify-between py-[6px] md:py-[5px] lg:py-0">
           <Link
             href="/"
             aria-label="Chuyển đến trang chủ"

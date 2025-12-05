@@ -14,7 +14,7 @@ export const fnGetPageBySlug = async (slug: string) => {
 
     return res?.raw_content ?? null;
   } catch (error) {
-    console.error("Error getting page content: ", error);
+    console.log("Error getting page content: ", error);
     return null;
   }
 };
@@ -32,7 +32,7 @@ export const fnGetSchemaBySlug = async (slug: string) => {
 
     return res?.metadata ?? null;
   } catch (error) {
-    console.error("Error getting page schema: ", error);
+    console.log("Error getting page schema: ", error);
     return null;
   }
 };
@@ -50,7 +50,7 @@ export const fnGetAllPageSlug = async () => {
 
     return res ?? [];
   } catch (error) {
-    console.error("Error getting page slugs: ", error);
+    console.log("Error getting page slugs: ", error);
     return [];
   }
 };
@@ -68,7 +68,7 @@ export const fnGetTopNavBySlug = async (slug: string) => {
 
     return res?.raw_content ?? null;
   } catch (error) {
-    console.error("Error getting top navigation: ", error);
+    console.log("Error getting top navigation: ", error);
     return null;
   }
 };
