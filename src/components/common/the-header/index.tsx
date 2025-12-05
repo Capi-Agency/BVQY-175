@@ -10,11 +10,7 @@ import NavHeader from './NavHeader';
 import MobileMenu from './MenuMobile';
 import { updateSlugLanguage } from '@/src/utils/language';
 
-type Props = {
-  data: any;
-};
-
-export default function TheHeader({ data }: Props) {
+export default function TheHeader() {
   const { contact_information } = useMetadata();
   const language = useStoreLanguage((state: any) => state.language);
   const updateLanguage = useStoreLanguage((state: any) => state.updateLanguage);

@@ -75,11 +75,11 @@ export default async function RootLayout({
           <MetadataProvider value={metadata}>
             <GsapMatchMediaProvider>
               <ScrollSmootherProvider>
-                <TheHeader data={{ default: true, slug: 'top-nav' }} />
+                <TheHeader />
                 <BackToTop />
                 <ScrollSmoothWrapper>
                   {children}
-                  <TheFooter data={{ default: true, slug: 'bottom-nav' }} />
+                  <TheFooter />
                 </ScrollSmoothWrapper>
               </ScrollSmootherProvider>
             </GsapMatchMediaProvider>
