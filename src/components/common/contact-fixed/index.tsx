@@ -42,78 +42,74 @@ export default function ContactFixed() {
     ], [contact_information])
 
     return (
-        <div
-            className="fixed bottom-3 left-3 md:left-5 md:bottom-5 z-50 "
+        <div className='relative z-[50]'
             style={{
                 boxShadow:
                     '0 10px 12.5px -2.5px rgba(18, 26, 43, 0.05), 0 3.333px 5px -2.5px rgba(18, 26, 43, 0.05)',
             }}
         >
+            <TooltipProvider delayDuration={100}>
+                <TooltipRoot>
+                    <TooltipTrigger asChild>
+                        <button
+                            onClick={() => setIsOpenMenu((prev: boolean) => !prev)}
+                            className='relative z-[51] size-10 cursor-pointer rounded-[6px] bg-[#E50000] flex justify-center items-center lg:size-11 xl:size-12 3xl:size-14'>
+                            <div className={`relative size-5 lg:size-6`}>
+                                <NextImg src="/assets/icons/phone_contact.svg" alt="plus icon" />
+                            </div>
+                        </button>
+                    </TooltipTrigger>
 
-            <div className='relative'>
-                <TooltipProvider delayDuration={100}>
-                    <TooltipRoot>
-                        <TooltipTrigger asChild>
-                            <button
-                                onClick={() => setIsOpenMenu((prev: boolean) => !prev)}
-                                className='relative z-[51] size-10 cursor-pointer rounded-[6px] bg-[#3B82F6] flex justify-center items-center lg:size-11 xl:size-12 3xl:size-14'>
-                                <div className={`${isOpenMenu ? "rotate-[135deg]" : "rotate-0"} transition-all duration-200 origin-center relative size-5 lg:size-6`}>
-                                    <NextImg src="/assets/icons/plus_contact.svg" alt="plus icon" />
-                                </div>
-                            </button>
-                        </TooltipTrigger>
+                    <TooltipContent
+                        side="right"
+                        align="center"
+                        className="rounded-md bg-[#E50000] text-sm xl:text-base text-white p-[4px_6px] xl:p-[6px_8px]"
+                    >
+                        {isOpenMenu ? trans("Đóng", "Close") : trans("Liên hệ", "Contact")}
+                        <TooltipArrow className="fill-[#E50000]" />
+                    </TooltipContent>
+                </TooltipRoot>
 
-                        <TooltipContent
-                            side="right"
-                            align="center"
-                            className="rounded-md bg-[#3B82F6] text-sm xl:text-base text-white p-[4px_6px] xl:p-[6px_8px]"
+                <div className={`${isOpenMenu ? "pointer-events-auto" : "pointer-events-none"} absolute z-[50] pb-1 xl:pb-2 3xl:pb-3 left-0 top-0 -translate-y-full flex flex-col gap-1 xl:gap-2 3xl:gap-3`}>
+                    {data?.map((item: any, index: number) => (
+                        <div key={index} className={`${isOpenMenu ? "translate-y-0 opacity-100" : "translate-y-[80%] opacity-0"} transition-all duration-200`}
+                            style={{
+                                transitionDelay: `${(data?.length - index) * 50}ms`
+                            }}
                         >
-                            {isOpenMenu ? trans("Đóng", "Close") : trans("Liên hệ", "Contact")}
-                            <TooltipArrow className="fill-[#3B82F6]" />
-                        </TooltipContent>
-                    </TooltipRoot>
-
-                    <div className={`${isOpenMenu ? "pointer-events-auto" : "pointer-events-none"} absolute z-[50] pb-1 xl:pb-2 3xl:pb-3 left-0 top-0 -translate-y-full flex flex-col gap-1 xl:gap-2 3xl:gap-3`}>
-                        {data?.map((item: any, index: number) => (
-                            <div key={index} className={`${isOpenMenu ? "translate-y-0 opacity-100" : "translate-y-[80%] opacity-0"} transition-all duration-200`}
-                                style={{
-                                    transitionDelay: `${(data?.length - index) * 50}ms`
-                                }}
-                            >
-                                <TooltipRoot open={isOpenMenu} delayDuration={1000}>
-                                    <TooltipTrigger asChild>
-                                        <a
-                                            target={item?.isTargetBlank ? "_blank" : undefined}
-                                            rel={item?.isTargetBlank ? "noopener" : undefined}
-                                            href={item?.url}
-                                            className='relative flex size-10 cursor-pointer items-center justify-center rounded-[6px] lg:size-11 xl:size-12 3xl:size-14'
-                                            style={{
-                                                backgroundColor: item?.bgColor
-                                            }}
-                                        >
-                                            <div className="relative size-5 lg:size-6">
-                                                <NextImg src={item?.icon} alt="contact icon" />
-                                            </div>
-                                        </a>
-                                    </TooltipTrigger>
-
-                                    <TooltipContent
-                                        side="right"
-                                        align="center"
-                                        className="rounded-md text-sm xl:text-base text-white p-[4px_6px] xl:p-[6px_8px]"
+                            <TooltipRoot open={isOpenMenu} delayDuration={1000}>
+                                <TooltipTrigger asChild>
+                                    <a
+                                        target={item?.isTargetBlank ? "_blank" : undefined}
+                                        rel={item?.isTargetBlank ? "noopener" : undefined}
+                                        href={item?.url}
+                                        className='relative flex size-10 cursor-pointer items-center justify-center rounded-[6px] lg:size-11 xl:size-12 3xl:size-14'
                                         style={{
                                             backgroundColor: item?.bgColor
                                         }}
                                     >
-                                        {item?.title}
-                                        <TooltipArrow style={{ fill: item?.bgColor }} />
-                                    </TooltipContent>
-                                </TooltipRoot>
-                            </div>
-                        ))}
-                    </div>
-                </TooltipProvider>
-            </div>
+                                        <div className="relative size-5 lg:size-6">
+                                            <NextImg src={item?.icon} alt="contact icon" />
+                                        </div>
+                                    </a>
+                                </TooltipTrigger>
+
+                                <TooltipContent
+                                    side="right"
+                                    align="center"
+                                    className="rounded-md text-sm xl:text-base text-white p-[4px_6px] xl:p-[6px_8px]"
+                                    style={{
+                                        backgroundColor: item?.bgColor
+                                    }}
+                                >
+                                    {item?.title}
+                                    <TooltipArrow style={{ fill: item?.bgColor }} />
+                                </TooltipContent>
+                            </TooltipRoot>
+                        </div>
+                    ))}
+                </div>
+            </TooltipProvider>
         </div>
     );
 }

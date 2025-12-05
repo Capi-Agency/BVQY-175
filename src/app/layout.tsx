@@ -78,7 +78,6 @@ export default async function RootLayout({
               <ScrollSmootherProvider>
                 <TheHeader />
                 <BackToTop />
-                <ContactFixed />
                 <ScrollSmoothWrapper>
                   {children}
                   <TheFooter />
