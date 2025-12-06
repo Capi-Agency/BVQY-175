@@ -42,13 +42,13 @@ export default function ContactCta() {
         </a>
       </div>
 
-      <div className="absolute bottom-0 right-0 z-[1] aspect-[2/3] w-[160px] 2xl:w-[180px] 4xl:w-[200px]">
+      {/* <div className="absolute bottom-0 right-0 z-[1] aspect-[2/3] w-[160px] 2xl:w-[180px] 4xl:w-[200px]">
         <NextImg
           src="/assets/images/tran_quoc_viet_cover.png"
           alt="cover"
           objectFit="cover"
         />
-      </div>
+      </div> */}
 
       <div className="pointer-events-none absolute inset-0 size-full opacity-70 mix-blend-soft-light">
         <NextImg
