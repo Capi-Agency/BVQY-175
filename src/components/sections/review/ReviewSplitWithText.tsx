@@ -198,22 +198,64 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
     setLoading(true);
 
     try {
-      if (!executeRecaptcha) return;
-      const token = await executeRecaptcha('contact_form');
+      // if (!executeRecaptcha) {
+      //   throw new Error('reCAPTCHA chưa sẵn sàng!');
+      // }
+      // const token = await executeRecaptcha('review_form');
 
-      const verifyRes = await fetch('/api/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token }),
+      // const verifyRes = await fetch('/api/verify', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ token }),
+      // });
+
+      // const verifyData = await verifyRes.json();
+      // if (!verifyRes.ok || !verifyData.success) {
+      //   toast.error(
+      //     trans(
+      //       'Xác minh Captcha không thành công!',
+      //       'Captcha verification failed!',
+      //     ),
+      //     {
+      //       style: {
+      //         padding: 16,
+      //         borderRadius: 16,
+      //         color: '#80122E',
+      //         backgroundColor: '#FCECF0',
+      //       },
+      //     },
+      //   );
+      //   setLoading(false);
+      //   return;
+      // }
+
+      const response = await fnSendReview({
+        ...data,
+        title: 'Đánh giá chất lượng',
       });
 
-      await verifyRes.json();
-
-      if (!verifyRes.ok) {
-        alert('Captcha failed');
-        return;
+      if (!response) {
+        throw new Error(
+          trans(
+            'Xảy ra lỗi, xin vui lòng thử lại!',
+            'An error occurred, please try again!',
+          ),
+        );
       }
-
+      toast.success(
+        trans(
+          'Cảm ơn bạn đã đánh giá chất lượng!',
+          'Thank you for rating the quality!',
+        ),
+        {
+          style: {
+            padding: 16,
+            borderRadius: 16,
+            color: '#136C34',
+            backgroundColor: '#F4FCF7',
+          },
+        },
+      );
       reset(initialValue);
     } catch (error) {
       toast.error(
@@ -234,89 +276,6 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
       setLoading(false);
     }
   };
-
-  // const onSubmit: SubmitHandler<Review> = async (data) => {
-  //   setLoading(true);
-
-  //   try {
-  //     if (!executeRecaptcha) {
-  //       throw new Error('reCAPTCHA chưa sẵn sàng!');
-  //     }
-  //     const token = await executeRecaptcha('review_form');
-
-  //     const verifyRes = await fetch('/api/verify', {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify({ token }),
-  //     });
-
-  //     const verifyData = await verifyRes.json();
-  //     if (!verifyRes.ok || !verifyData.success) {
-  //       toast.error(
-  //         trans(
-  //           'Xác minh Captcha không thành công!',
-  //           'Captcha verification failed!',
-  //         ),
-  //         {
-  //           style: {
-  //             padding: 16,
-  //             borderRadius: 16,
-  //             color: '#80122E',
-  //             backgroundColor: '#FCECF0',
-  //           },
-  //         },
-  //       );
-  //       setLoading(false);
-  //       return;
-  //     }
-
-  //     const response = await fnSendReview({
-  //       ...data,
-  //       title: 'Đánh giá chất lượng',
-  //     });
-
-  //     if (!response) {
-  //       throw new Error(
-  //         trans(
-  //           'Xảy ra lỗi, xin vui lòng thử lại!',
-  //           'An error occurred, please try again!',
-  //         ),
-  //       );
-  //     }
-  //     toast.success(
-  //       trans(
-  //         'Cảm ơn bạn đã đánh giá chất lượng!',
-  //         'Thank you for rating the quality!',
-  //       ),
-  //       {
-  //         style: {
-  //           padding: 16,
-  //           borderRadius: 16,
-  //           color: '#136C34',
-  //           backgroundColor: '#F4FCF7',
-  //         },
-  //       },
-  //     );
-  //     reset(initialValue);
-  //   } catch (error) {
-  //     toast.error(
-  //       trans(
-  //         'Xảy ra lỗi, xin vui lòng thử lại!',
-  //         'An error occurred, please try again!',
-  //       ),
-  //       {
-  //         style: {
-  //           padding: 16,
-  //           borderRadius: 16,
-  //           color: '#80122E',
-  //           backgroundColor: '#FCECF0',
-  //         },
-  //       },
-  //     );
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
 
   return (
     <div className="bg-[#155628] py-10 lg:py-12 xl:py-14 2xl:py-16 3xl:py-[72px] 4xl:py-[80px]">
