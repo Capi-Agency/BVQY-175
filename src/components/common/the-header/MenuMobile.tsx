@@ -56,7 +56,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
           <DialogDescription>Mobile menu</DialogDescription>
         </div>
 
-        <div className="container flex h-full flex-col items-stretch overflow-hidden">
+        <div className="container flex h-screen flex-col items-stretch overflow-hidden">
           {/* header */}
           <div className="flex items-center justify-between py-[6px]">
             {/* Logo 175 */}

@@ -150,7 +150,7 @@ export default function TheFooter() {
                   target="_blank"
                   rel="noopener"
                   aria-label="Facebook bệnh viện 175"
-                  className="relative size-8"
+                  className="relative size-8 md:size-9"
                 >
                   <NextImg
                     src="/assets/icons/facebook.svg"
@@ -164,7 +164,7 @@ export default function TheFooter() {
                   target="_blank"
                   rel="noopener"
                   aria-label="Youtube bệnh viện 175"
-                  className="relative size-8"
+                  className="relative size-8 md:size-9"
                 >
                   <NextImg src="/assets/icons/youtube.svg" alt="youtube logo" />
                 </Link>
@@ -176,7 +176,7 @@ export default function TheFooter() {
                   target="_blank"
                   rel="noopener"
                   aria-label="Zalo bệnh viện 175"
-                  className="relative size-8"
+                  className="relative size-8 md:size-9"
                 >
                   <NextImg src="/assets/icons/zalo.svg" alt="zalo logo" />
                 </Link>
@@ -220,7 +220,7 @@ export default function TheFooter() {
 
         {/* Start: policy */}
         <div>
-          <div className="flex w-full items-stretch justify-center gap-3 text-xs font-medium text-white md:text-nowrap 3xl:text-sm">
+          <div className="flex w-full items-stretch justify-center gap-3 text-xs font-medium text-white md:text-nowrap lg:text-sm">
             {contact_information?.security_url && (
               <>
                 <Link
@@ -249,9 +249,9 @@ export default function TheFooter() {
             )}
           </div>
 
-          <div className="mb-3 mt-4 h-[1px] w-full bg-[#00A032] xl:mt-6"></div>
+          <div className="my-3 h-[1px] w-full bg-[#00A032] xl:my-4 3xl:mb-5"></div>
 
-          <div className="text-center text-sm font-normal tracking-normal text-white md:tracking-wider">
+          <div className="text-center text-sm 2xl:text-base font-normal tracking-normal text-white md:tracking-wider">
             {trans('copy-right-label')}
           </div>
         </div>

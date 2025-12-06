@@ -200,155 +200,159 @@ const LeaderCard = ({
           expanded ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0',
         )}
       >
-        <div className="2xl:space-8 relative z-0 space-y-6 overflow-hidden rounded-b-[6px] bg-primary-50 p-4 md:p-[32px_16px] lg:rounded-b-xl lg:p-6 xl:space-y-7 xl:p-[40px_32px] 2xl:rounded-b-[20px] 2xl:p-[48px_32px] 3xl:space-y-9 3xl:rounded-b-[24px] 3xl:p-[52px_32px] 4xl:space-y-10 4xl:p-[60px_40px]">
-          {item?.content?.contents?.[0] && (
-            <div className="space-y-2">
-              <div className="flex items-start gap-2 md:gap-3 lg:gap-4 3xl:gap-6 4xl:gap-6">
-                <div className="relative size-6 md:size-7 lg:size-8 xl:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
-                  <NextImg
-                    src="/assets/icons/brief.svg"
-                    alt="brief"
-                    objectFit="cover"
-                  />
+        {(item?.content?.contents?.[0] ||
+          item?.cover?.length > 1 ||
+          item?.content?.contents?.[1]) && (
+          <div className="2xl:space-8 relative z-0 space-y-6 overflow-hidden rounded-b-[6px] bg-primary-50 p-4 md:p-[32px_16px] lg:rounded-b-xl lg:p-6 xl:space-y-7 xl:p-[40px_32px] 2xl:rounded-b-[20px] 2xl:p-[48px_32px] 3xl:space-y-9 3xl:rounded-b-[24px] 3xl:p-[52px_32px] 4xl:space-y-10 4xl:p-[60px_40px]">
+            {item?.content?.contents?.[0] && (
+              <div className="space-y-2">
+                <div className="flex items-start gap-2 md:gap-3 lg:gap-4 3xl:gap-6 4xl:gap-6">
+                  <div className="relative size-6 md:size-7 lg:size-8 xl:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
+                    <NextImg
+                      src="/assets/icons/brief.svg"
+                      alt="brief"
+                      objectFit="cover"
+                    />
+                  </div>
+                  <div className="flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
+                    <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
+                      {trans('doctor-education-label')}
+                    </h3>
+                    <div
+                      className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
+                      dangerouslySetInnerHTML={{
+                        __html: item?.content?.contents?.[0],
+                      }}
+                    ></div>
+                  </div>
                 </div>
-                <div className="flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
-                  <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
-                    {trans('doctor-education-label')}
-                  </h3>
-                  <div
-                    className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
-                    dangerouslySetInnerHTML={{
-                      __html: item?.content?.contents?.[0],
-                    }}
-                  ></div>
-                </div>
-              </div>
 
-              <div
-                className="text-sm font-normal text-gray-700 md:hidden lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
-                dangerouslySetInnerHTML={{
-                  __html: item?.content?.contents?.[0],
-                }}
-              ></div>
-            </div>
-          )}
-
-          {item?.cover?.length > 1 && (
-            <div className="space-y-2 md:space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6">
-              <div className="flex items-start gap-2 md:gap-3 lg:gap-4 3xl:gap-6 4xl:gap-6">
-                <div className="relative size-6 md:size-7 lg:size-8 xl:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
-                  <NextImg
-                    src="/assets/icons/image.svg"
-                    alt="image"
-                    objectFit="cover"
-                  />
-                </div>
-                <div className="relative flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
-                  <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
-                    {trans('doctor-activity-label')}
-                  </h3>
-                </div>
-              </div>
-
-              <div className="relative w-full overflow-hidden">
-                <Swiper
-                  touchEventsTarget="container"
-                  grabCursor={true}
-                  slidesPerView={1.2}
-                  loop={false}
-                  spaceBetween={16}
-                  speed={700}
-                  breakpoints={{
-                    768: {
-                      slidesPerView: 2.1,
-                    },
-                    1024: {
-                      slidesPerView: 2.5,
-                      spaceBetween: 20,
-                    },
-                    1280: {
-                      slidesPerView: 3,
-                      spaceBetween: 20,
-                    },
-                    1600: {
-                      slidesPerView: 3,
-                      spaceBetween: 24,
-                    },
+                <div
+                  className="text-sm font-normal text-gray-700 md:hidden lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
+                  dangerouslySetInnerHTML={{
+                    __html: item?.content?.contents?.[0],
                   }}
-                  className="!w-full !flex-1"
-                >
-                  {item?.cover
-                    ?.slice(1)
-                    .map((itemCover: any, indexCover: number) => (
-                      <SwiperSlide key={indexCover}>
-                        <div className="relative aspect-[4/3] overflow-hidden rounded-[6px]">
-                          <NextImg
-                            src={getAssetUrlById(itemCover?.id)}
-                            alt="image"
-                            objectFit="cover"
-                          />
-                        </div>
-                      </SwiperSlide>
-                    ))}
-                </Swiper>
+                ></div>
               </div>
-            </div>
-          )}
+            )}
 
-          {item?.content?.contents?.[1] && (
-            <div className="space-y-2">
-              <div className="flex items-start gap-2 md:gap-3 lg:gap-4 3xl:gap-6 4xl:gap-6">
-                <div className="relative size-6 md:size-7 lg:size-8 xl:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
+            {item?.cover?.length > 1 && (
+              <div className="space-y-2 md:space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6">
+                <div className="flex items-start gap-2 md:gap-3 lg:gap-4 3xl:gap-6 4xl:gap-6">
+                  <div className="relative size-6 md:size-7 lg:size-8 xl:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
+                    <NextImg
+                      src="/assets/icons/image.svg"
+                      alt="image"
+                      objectFit="cover"
+                    />
+                  </div>
+                  <div className="relative flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
+                    <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
+                      {trans('doctor-activity-label')}
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="relative w-full overflow-hidden">
+                  <Swiper
+                    touchEventsTarget="container"
+                    grabCursor={true}
+                    slidesPerView={1.2}
+                    loop={false}
+                    spaceBetween={16}
+                    speed={700}
+                    breakpoints={{
+                      768: {
+                        slidesPerView: 2.1,
+                      },
+                      1024: {
+                        slidesPerView: 2.5,
+                        spaceBetween: 20,
+                      },
+                      1280: {
+                        slidesPerView: 3,
+                        spaceBetween: 20,
+                      },
+                      1600: {
+                        slidesPerView: 3,
+                        spaceBetween: 24,
+                      },
+                    }}
+                    className="!w-full !flex-1"
+                  >
+                    {item?.cover
+                      ?.slice(1)
+                      .map((itemCover: any, indexCover: number) => (
+                        <SwiperSlide key={indexCover}>
+                          <div className="relative aspect-[4/3] overflow-hidden rounded-[6px]">
+                            <NextImg
+                              src={getAssetUrlById(itemCover?.id)}
+                              alt="image"
+                              objectFit="cover"
+                            />
+                          </div>
+                        </SwiperSlide>
+                      ))}
+                  </Swiper>
+                </div>
+              </div>
+            )}
+
+            {item?.content?.contents?.[1] && (
+              <div className="space-y-2">
+                <div className="flex items-start gap-2 md:gap-3 lg:gap-4 3xl:gap-6 4xl:gap-6">
+                  <div className="relative size-6 md:size-7 lg:size-8 xl:size-9 2xl:size-10 3xl:size-11 4xl:size-12">
+                    <NextImg
+                      src="/assets/icons/medal.svg"
+                      alt="medal"
+                      objectFit="cover"
+                    />
+                  </div>
+                  <div className="flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
+                    <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
+                      {trans('doctor-awards-label')}
+                    </h3>
+                    <div
+                      className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
+                      dangerouslySetInnerHTML={{
+                        __html: item?.content?.contents?.[1],
+                      }}
+                    ></div>
+                  </div>
+                </div>
+
+                <div
+                  className="text-sm font-normal text-gray-700 md:hidden lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
+                  dangerouslySetInnerHTML={{
+                    __html: item?.content?.contents?.[1],
+                  }}
+                ></div>
+              </div>
+            )}
+
+            <div className="flex justify-center">
+              <div
+                onClick={() => setExpanded(false)}
+                className={clsx(
+                  'flex cursor-pointer items-center justify-center gap-1 text-sm font-bold text-[#E50000] transition-all duration-200 lg:text-base',
+                  expanded ? 'opacity-100' : 'opacity-0',
+                )}
+              >
+                {data?.buttons?.[1]?.title}
+                <div
+                  className={
+                    'relative size-5 rotate-180 transition-all duration-200 xl:size-6'
+                  }
+                >
                   <NextImg
-                    src="/assets/icons/medal.svg"
-                    alt="medal"
-                    objectFit="cover"
+                    src={getAssetUrlById(data?.buttons?.[1]?.icon?.id)}
+                    alt="star icon"
                   />
                 </div>
-                <div className="flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
-                  <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
-                    {trans('doctor-awards-label')}
-                  </h3>
-                  <div
-                    className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
-                    dangerouslySetInnerHTML={{
-                      __html: item?.content?.contents?.[1],
-                    }}
-                  ></div>
-                </div>
-              </div>
-
-              <div
-                className="text-sm font-normal text-gray-700 md:hidden lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
-                dangerouslySetInnerHTML={{
-                  __html: item?.content?.contents?.[1],
-                }}
-              ></div>
-            </div>
-          )}
-
-          <div className="flex justify-center">
-            <div
-              onClick={() => setExpanded(false)}
-              className={clsx(
-                'flex cursor-pointer items-center justify-center gap-1 text-sm font-bold text-[#E50000] transition-all duration-200 lg:text-base',
-                expanded ? 'opacity-100' : 'opacity-0',
-              )}
-            >
-              {data?.buttons?.[1]?.title}
-              <div
-                className={
-                  'relative size-5 rotate-180 transition-all duration-200 xl:size-6'
-                }
-              >
-                <NextImg
-                  src={getAssetUrlById(data?.buttons?.[1]?.icon?.id)}
-                  alt="star icon"
-                />
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
