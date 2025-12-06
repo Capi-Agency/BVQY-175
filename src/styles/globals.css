@@ -52,6 +52,11 @@ body {}
   font-style: normal;
 }
 
+.grecaptcha-badge {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 @layer base {
   * {
     font-family: 'PlusJakartaSans', sans-serif;
@@ -62,6 +67,8 @@ body {}
     -webkit-font-feature-settings: normal;
     font-feature-settings: normal;
   }
+
+
 
   .font-plusJakartaSans * {
     font-family: 'PlusJakartaSans', sans-serif;
