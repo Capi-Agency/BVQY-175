@@ -319,7 +319,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                   onClick={() =>
                     setValue('rating', option?.rating, { shouldValidate: true })
                   }
-                  className={`${watch('rating') === option?.rating ? 'bg-primary-50 text-primary-600' : 'bg-transparent text-primary-200'} flex h-9 items-center justify-center rounded-[4px] border-[1px] border-[#E8E8E8] px-3 text-sm transition-all duration-100 hover:bg-primary-50 hover:text-primary-600 md:h-10 md:px-4 lg:text-base 2xl:h-11 2xl:px-5 2xl:text-lg 3xl:h-12 3xl:px-6`}
+                  className={`${watch('rating') === option?.rating ? 'bg-primary-50 text-primary-600' : 'bg-transparent text-primary-200'} flex h-9 items-center justify-center rounded-[4px] border-[1px] border-[#E8E8E8] px-3 text-sm transition-all duration-100 hover:bg-primary-50 hover:text-primary-600 md:h-10 md:px-4 lg:text-base 2xl:h-11 2xl:px-5 2xl:text-lg 3xl:h-12 3xl:px-5`}
                 >
                   {trans(option?.title, option?.title_en)}
                 </button>
