@@ -84,6 +84,10 @@ const sectionMap: SectionMap = {
     import('../components/sections/gallery').then((m) => m.GalleryAlternate),
   ),
 
+  'team-3-col': dynamic(() =>
+    import('../components/sections/team').then((m) => m.Team3Col),
+  ),
+
   // News
   'info-news': dynamic(() =>
     import('../components/sections/news').then((m) => m.HotNewsHero),
