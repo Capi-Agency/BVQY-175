@@ -198,36 +198,35 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
     setLoading(true);
 
     try {
-      // if (!executeRecaptcha) {
-      //   throw new Error('reCAPTCHA chưa sẵn sàng!');
-      // }
-      // const token = await executeRecaptcha('review_form');
+      if (!executeRecaptcha) {
+        throw new Error('reCAPTCHA chưa sẵn sàng!');
+      }
+      const token = await executeRecaptcha('review_form');
 
-      // const verifyRes = await fetch('/api/verify', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ token }),
-      // });
+      const verifyRes = await fetch('/api/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token }),
+      });
 
-      // const verifyData = await verifyRes.json();
-      // if (!verifyRes.ok || !verifyData.success) {
-      //   toast.error(
-      //     trans(
-      //       'Xác minh Captcha không thành công!',
-      //       'Captcha verification failed!',
-      //     ),
-      //     {
-      //       style: {
-      //         padding: 16,
-      //         borderRadius: 16,
-      //         color: '#80122E',
-      //         backgroundColor: '#FCECF0',
-      //       },
-      //     },
-      //   );
-      //   setLoading(false);
-      //   return;
-      // }
+      if (!verifyRes.ok) {
+        toast.error(
+          trans(
+            'Xác minh Captcha không thành công!',
+            'Captcha verification failed!',
+          ),
+          {
+            style: {
+              padding: 16,
+              borderRadius: 16,
+              color: '#80122E',
+              backgroundColor: '#FCECF0',
+            },
+          },
+        );
+        setLoading(false);
+        return;
+      }
 
       const response = await fnSendReview({
         ...data,
@@ -356,7 +355,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                     isSubmitted && (
                       <p
                         id="outlined_error_help"
-                        className={`mt-[6px] lg:mt-2 2xl:mt-3 text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
+                        className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${
                           errors[input.key as keyof Review] ? 'block' : 'hidden'
                         }`}
                       >

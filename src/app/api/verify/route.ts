@@ -13,5 +13,5 @@ export async function POST(req: Request) {
     return new Response('reCAPTCHA failed', { status: 400 });
   }
 
-  return new Response('OK');
+  return new Response('OK', { status: 200 });
 }
