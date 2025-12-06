@@ -56,7 +56,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
           <DialogDescription>Mobile menu</DialogDescription>
         </div>
 
-        <div className="container flex h-full flex-col items-stretch">
+        <div className="container flex h-full flex-col items-stretch overflow-hidden">
           {/* header */}
           <div className="flex items-center justify-between py-[6px]">
             {/* Logo 175 */}
@@ -141,7 +141,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
           </div>
 
           <div className="relative flex h-[calc(100vh-64px)] flex-col items-stretch">
-            <div className="scrollbar-hidden relative flex-1 overflow-x-hidden overflow-y-scroll pb-5 md:pb-6">
+            <div className="scrollbar-hidden relative flex-1 overflow-x-hidden overflow-y-scroll pb-[80px] md:pb-6">
               <div className="relative w-full space-y-5 md:space-y-7 lg:space-y-8">
                 {/* Danh hiệu, huân chương */}
                 <div className="flex items-center justify-center gap-6 pb-[6px] pt-5 md:hidden">
@@ -365,7 +365,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                 </div>
               </button>
 
-              <div className="scrollbar-hidden relative flex-1 overflow-x-hidden overflow-y-scroll py-5">
+              <div className="scrollbar-hidden relative flex-1 overflow-x-hidden overflow-y-scroll pb-[100px] py-5">
                 <AccordionRoot
                   key={isOpenSubMenu ? 'open' : 'closed'}
                   className="relative w-full space-y-6"

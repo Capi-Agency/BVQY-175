@@ -12,7 +12,6 @@ import ScrollSmoothWrapper from '../components/animation/ScrollSmoothWrapper';
 import TheHeader from '../components/common/the-header';
 import TheFooter from '../components/common/the-footer';
 import BackToTop from '../components/common/back-to-top';
-import ContactFixed from '../components/common/contact-fixed';
 import ReCaptchatProvider from '@/src/providers/GoogleRecaptchaProvider';
 
 export default async function RootLayout({

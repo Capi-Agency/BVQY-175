@@ -1,6 +1,5 @@
 'use client';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
 import { useRef, useState } from 'react';
 import NextImg from '../next-img';
@@ -16,11 +15,22 @@ export default function NavHeader() {
   const [isSubMenuOverflow, setIsSubMenuOverflow] = useState<boolean>(false);
 
   const menuItemsRef = useRef<(HTMLElement | null)[]>([]);
+
   const handleMouseEnter = (index: number, isMegaMenu: boolean) => {
     const item = menuItemsRef.current[index];
     if (item) {
       if (isMegaMenu) {
-        setLeftPosition(window.innerWidth * 0.1);
+        const rect = item.getBoundingClientRect();
+        const megaMenuWidth = window.innerWidth * 0.6
+        if (rect.left < window.innerWidth * 0.3) {
+          setLeftPosition(rect.left);
+        } else if (window.innerWidth - rect.right < window.innerWidth * 0.3) {
+          setLeftPosition(rect.right - megaMenuWidth);
+        } else {
+          setLeftPosition(
+            rect.left - (megaMenuWidth) / 2 + rect.width / 2,
+          );
+        }
       } else {
         const rect = item.getBoundingClientRect();
         setLeftPosition(rect.left);

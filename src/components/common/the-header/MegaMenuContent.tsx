@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import ContactCta from './ContactCta';
 import useStoreLanguage from '@/src/store/store';
-import Link from 'next/link';
 import CustomLink from '../custom-link';
 
 export default function MegaMenuContent({ item }: any) {
@@ -11,7 +10,7 @@ export default function MegaMenuContent({ item }: any) {
   const [currentTab, setCurrentTab] = useState<number>(0);
 
   return (
-    <NavigationMenu.Content className="relative flex w-[calc(100vw*0.8)] gap-6 overflow-hidden p-[12px_16px] data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft 2xl:gap-7 2xl:p-[20px_24px] 3xl:gap-8 4xl:gap-10 4xl:p-[24px_32px]">
+    <NavigationMenu.Content className="relative flex w-[calc(100vw*0.6)] gap-6 overflow-hidden p-[12px_16px] data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft 2xl:gap-7 2xl:p-[20px_24px] 3xl:gap-8 4xl:gap-10 4xl:p-[24px_32px]">
       <div className="flex-1">
         <div className="flex w-full items-stretch">
           {item?.sub_items?.map(
@@ -19,7 +18,7 @@ export default function MegaMenuContent({ item }: any) {
               <div
                 onClick={() => setCurrentTab(item_second_index)}
                 key={item_second_index}
-                className={`${currentTab === item_second_index ? 'border-primary-600 text-primary-600' : 'border-[#E4E4E7] text-[#71717A] hover:border-primary-300 hover:text-primary-400'} flex-1 cursor-pointer border-b-[2px] pb-3 text-center text-sm font-semibold uppercase transition-all duration-100 3xl:text-base 4xl:pb-4`}
+                className={`${currentTab === item_second_index ? 'border-primary-600 text-primary-600' : 'border-[#E4E4E7] text-[#71717A] hover:border-primary-300 hover:text-primary-400'} flex-1 cursor-pointer border-b-[2px] pb-3 text-center text-sm font-semibold uppercase transition-all duration-100 3xl:text-base`}
               >
                 {language === 'en'
                   ? `${item_second?.title_en}`
@@ -32,7 +31,7 @@ export default function MegaMenuContent({ item }: any) {
         {item?.sub_items?.map((item_second: any, item_second_index: number) => (
           <div
             key={item_second_index}
-            className={`${currentTab === item_second_index ? 'grid' : 'hidden'} ${item_second?.sub_items?.length === 1 ? 'grid-cols-1' : 'grid-cols-3 2xl:grid-cols-4 grid-flow-row'} gap-5 pt-4 2xl:gap-6 2xl:pt-5 3xl:gap-7 4xl:gap-8 4xl:pt-6`}
+            className={`${currentTab === item_second_index ? 'grid' : 'hidden'} ${item_second?.sub_items?.length === 1 ? 'grid-cols-1' : 'grid-flow-row grid-cols-3 2xl:grid-cols-4'} gap-5 pt-4 2xl:gap-6 2xl:pt-5 3xl:gap-7 4xl:gap-8 4xl:pt-6`}
           >
             {item_second?.sub_items?.map(
               (item_third: any, item_third_index: number) => (
@@ -95,7 +94,7 @@ export default function MegaMenuContent({ item }: any) {
         ))}
       </div>
 
-      <ContactCta />
+      {/* <ContactCta /> */}
     </NavigationMenu.Content>
   );
 }
