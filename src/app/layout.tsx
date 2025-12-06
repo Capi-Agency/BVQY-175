@@ -13,7 +13,7 @@ import TheHeader from '../components/common/the-header';
 import TheFooter from '../components/common/the-footer';
 import BackToTop from '../components/common/back-to-top';
 import ContactFixed from '../components/common/contact-fixed';
-import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import ReCaptchatProvider from '@/src/providers/GoogleRecaptchaProvider';
 
 export default async function RootLayout({
   children,
@@ -73,9 +73,7 @@ export default async function RootLayout({
           closeButton={false}
           className={'z-[99999] text-sm'}
         />
-        <GoogleReCaptchaProvider
-          reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-        >
+        <ReCaptchatProvider>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             <MetadataProvider value={metadata}>
               <GsapMatchMediaProvider>
@@ -90,7 +88,7 @@ export default async function RootLayout({
               </GsapMatchMediaProvider>
             </MetadataProvider>
           </ThemeProvider>
-        </GoogleReCaptchaProvider>
+        </ReCaptchatProvider>
       </body>
     </html>
   );
