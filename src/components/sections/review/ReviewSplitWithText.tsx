@@ -302,7 +302,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
         <div className="col-span-full xl:col-span-6">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="space-y-2 lg:space-y-3 2xl:space-y-4"
+            className="flex flex-col items-stretch justify-center gap-2 lg:gap-3 xl:h-full 2xl:gap-4"
           >
             <div
               className="section-sub-title font-semibold text-primary-200"
@@ -311,30 +311,34 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
               }}
             ></div>
 
-            <div className="flex flex-wrap gap-3 py-2 md:py-3 lg:gap-4 2xl:py-4 3xl:gap-5">
-              {reviewOptions?.map((option: any) => (
-                <button
-                  type="button"
-                  key={option?.rating}
-                  onClick={() =>
-                    setValue('rating', option?.rating, { shouldValidate: true })
-                  }
-                  className={`${watch('rating') === option?.rating ? 'bg-primary-50 text-primary-600' : 'bg-transparent text-primary-200'} flex h-9 items-center justify-center rounded-[4px] border-[1px] border-[#E8E8E8] px-3 text-sm transition-all duration-100 hover:bg-primary-50 hover:text-primary-600 md:h-10 md:px-4 lg:text-base 2xl:h-11 2xl:px-5 2xl:text-lg 3xl:h-12 3xl:px-5`}
+            <div>
+              <div className="flex flex-wrap gap-3 py-2 md:py-3 lg:gap-4 2xl:py-4 3xl:gap-5">
+                {reviewOptions?.map((option: any) => (
+                  <button
+                    type="button"
+                    key={option?.rating}
+                    onClick={() =>
+                      setValue('rating', option?.rating, {
+                        shouldValidate: true,
+                      })
+                    }
+                    className={`${watch('rating') === option?.rating ? 'bg-primary-50 text-primary-600' : 'bg-transparent text-primary-200'} flex h-9 items-center justify-center rounded-[4px] border-[1px] border-[#E8E8E8] px-3 text-sm transition-all duration-100 hover:bg-primary-50 hover:text-primary-600 md:h-10 md:px-3 lg:text-base 2xl:h-11 2xl:px-3 2xl:text-lg 3xl:h-12 3xl:px-4 4xl:px-5`}
+                  >
+                    {trans(option?.title, option?.title_en)}
+                  </button>
+                ))}
+              </div>
+              {errors.rating && isSubmitted && (
+                <p
+                  id="outlined_error_help"
+                  className={`text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
+                    errors.rating ? 'block' : 'hidden'
+                  }`}
                 >
-                  {trans(option?.title, option?.title_en)}
-                </button>
-              ))}
+                  <span className="font-medium">{errors?.rating?.message}</span>
+                </p>
+              )}
             </div>
-            {errors.rating && isSubmitted && (
-              <p
-                id="outlined_error_help"
-                className={`text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
-                  errors.rating ? 'block' : 'hidden'
-                }`}
-              >
-                <span className="font-medium">{errors?.rating?.message}</span>
-              </p>
-            )}
 
             <div className="grid grid-cols-2 gap-y-5 md:gap-x-6 md:gap-y-6 xl:gap-y-8 2xl:gap-y-9 3xl:gap-y-10">
               {inputs?.map((input: any) => (
@@ -352,7 +356,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                     isSubmitted && (
                       <p
                         id="outlined_error_help"
-                        className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
+                        className={`mt-[6px] lg:mt-2 2xl:mt-3 text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
                           errors[input.key as keyof Review] ? 'block' : 'hidden'
                         }`}
                       >

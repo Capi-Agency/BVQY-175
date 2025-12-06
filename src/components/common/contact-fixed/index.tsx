@@ -53,8 +53,8 @@ export default function ContactFixed() {
                     <TooltipTrigger asChild>
                         <button
                             onClick={() => setIsOpenMenu((prev: boolean) => !prev)}
-                            className='relative z-[51] size-11 cursor-pointer rounded-[6px] bg-[#E50000] flex justify-center items-center lg:size-11 xl:size-12'>
-                            <div className={`relative size-5 lg:size-6`}>
+                            className='relative z-[51] size-12 cursor-pointer rounded-[6px] bg-[#E50000] flex justify-center items-center lg:size-11 xl:size-12'>
+                            <div className={`relative size-6`}>
                                 <NextImg src="/assets/icons/phone_contact.svg" alt="plus icon" />
                             </div>
                         </button>
@@ -80,15 +80,15 @@ export default function ContactFixed() {
                             <TooltipRoot open={isOpenMenu} delayDuration={1000}>
                                 <TooltipTrigger asChild>
                                     <a
-                                        target={item?.isTargetBlank ? "_blank" : undefined}
+                                        target={item?.isTargetBlank ? "_blank" : "_parent"}
                                         rel={item?.isTargetBlank ? "noopener" : undefined}
                                         href={item?.url}
-                                        className='relative flex size-11 cursor-pointer items-center justify-center rounded-[6px] lg:size-11 xl:size-12'
+                                        className='relative flex size-12 cursor-pointer items-center justify-center rounded-[6px] lg:size-11 xl:size-12'
                                         style={{
                                             backgroundColor: item?.bgColor
                                         }}
                                     >
-                                        <div className="relative size-5 lg:size-6">
+                                        <div className="relative size-6">
                                             <NextImg src={item?.icon} alt="contact icon" />
                                         </div>
                                     </a>

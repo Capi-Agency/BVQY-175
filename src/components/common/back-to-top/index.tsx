@@ -88,14 +88,14 @@ export default function BackToTop() {
         <div
           ref={backToTopRef}
           onClick={() => handleScrollTo()}
-          className="flex size-11 cursor-pointer items-center justify-center rounded-[6px] bg-white opacity-0 hover:bg-primary-100 lg:size-11 xl:size-12"
+          className="flex size-12 cursor-pointer items-center justify-center rounded-[6px] bg-white opacity-0 hover:bg-primary-100 lg:size-11 xl:size-12"
           style={{
             boxShadow:
               '0 10px 12.5px -2.5px rgba(18, 26, 43, 0.05), 0 3.333px 5px -2.5px rgba(18, 26, 43, 0.05)',
           }}
         >
 
-          <div className="relative size-5 -rotate-90 lg:size-6">
+          <div className="relative -rotate-90 size-6">
             <NextImg
               src="/assets/icons/arrow_right_black.svg"
               alt="arrow_right_black"
