@@ -7,14 +7,18 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { formatDate } from '@/src/utils/validate';
+import Link from 'next/link';
 
 const CardSlider = ({ data }: CommonSection) => {
+  console.log('🚀 ~ CardSlider ~ data:', data);
   const [activeItem, setActiveItem] = useState<number>(0);
 
   const item = useMemo(
     () => data?.items?.[activeItem],
     [activeItem, data?.items],
   );
+
+  const btn = data?.buttons?.[0];
 
   return (
     <div className="bg-primary-50 py-10 md:py-6 lg:py-10 2xl:py-20 3xl:py-[100px] 4xl:py-[120px]">
@@ -94,16 +98,20 @@ const CardSlider = ({ data }: CommonSection) => {
             {item?.title}
           </p>
 
-          <h4 className="mb-4 text-[30px] font-bold leading-[1.25] text-primary-950 md:text-[32px] lg:mb-6 lg:text-[36px] xl:mb-7 xl:text-[40px] 2xl:text-[48px] 3xl:mb-8 3xl:text-[60px] 4xl:mb-10 4xl:text-[72px]">
+          <h4 className="text-[30px] font-bold leading-[1.25] text-primary-950 md:text-[32px] lg:text-[36px] xl:text-[40px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
             {new Date(item?.subtitle).getFullYear() || ''}
           </h4>
 
           <div
-            className="section-content text-justify"
+            className="section-content my-4 text-justify lg:my-6 xl:my-7 3xl:my-8 4xl:my-10"
             dangerouslySetInnerHTML={{
               __html: item?.blurb as string,
             }}
           ></div>
+
+          <Link className="btn-danger px-4" href={btn?.url || '#'}>
+            {btn?.title || ''}
+          </Link>
         </div>
 
         <div className="flex justify-center lg:basis-1/2 lg:px-[14px] xl:px-[22px] 4xl:px-10">

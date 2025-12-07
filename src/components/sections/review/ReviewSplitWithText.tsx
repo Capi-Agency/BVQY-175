@@ -41,13 +41,13 @@ const reviewOptions = [
     rating: 4,
   },
   {
-    title: '😞 Khá',
-    title_en: '😞 Rather',
+    title: '🙂 Khá',
+    title_en: '🙂 Rather',
     rating: 3,
   },
   {
-    title: '😞 Trung bình',
-    title_en: '😞 Medium',
+    title: '😐 Trung bình',
+    title_en: '😐 Medium',
     rating: 2,
   },
   {

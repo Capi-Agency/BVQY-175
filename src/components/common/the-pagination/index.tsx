@@ -22,7 +22,7 @@ const ThePagination = ({
   if (totalPage <= 1) return null;
 
   return (
-    <div className="col-span-full mt-6 flex items-center justify-center gap-[2px] md:mt-8 md:gap-1 lg:mt-10">
+    <div className="col-span-full mt-12 flex items-center justify-center gap-[2px] md:mt-14 md:gap-1 lg:mt-16">
       {/* Prev Button */}
       <button
         disabled={currentPage === 1}

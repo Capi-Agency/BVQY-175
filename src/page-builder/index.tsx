@@ -44,6 +44,9 @@ const sectionMap: SectionMap = {
   ),
 
   // About us
+  'hero-background-focus-2': dynamic(() =>
+    import('../components/sections/hero').then((m) => m.HeroBackgroundFocus2),
+  ),
   'info-basic': dynamic(() =>
     import('../components/sections/information').then((m) => m.InfoBasic),
   ),
