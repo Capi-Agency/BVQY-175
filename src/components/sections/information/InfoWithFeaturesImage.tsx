@@ -19,7 +19,7 @@ export default function InfoWithFeaturesImage({ data }: CommonSection) {
               </h1>
             )}
             <div
-              className="section-content"
+              className="section-content text-justify"
               dangerouslySetInnerHTML={{
                 __html: item?.blurb,
               }}

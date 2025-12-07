@@ -6,8 +6,8 @@
 .swiper-bullets-container .swiper-pagination-bullet {
     opacity: 100;
     background-color: #E4E4E7;
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     border-radius: 10px;
     transition: all;
     transition-duration: 400ms;
@@ -18,7 +18,7 @@
 .swiper-bullets-container .swiper-pagination-bullet-active {
     opacity: 100;
     background-color: #198039;
-    width: 24px;
+    width: 28px;
     border-radius: 10px;
 }
 
@@ -103,4 +103,13 @@
 
 .swiper-hero-background-focus .swiper-wrapper {
     transition-timing-function: ease-in-out !important;
+}
+
+
+.swiper-card-2-col .swiper-wrapper {
+    align-items: stretch !important;
+}
+
+.swiper-card-2-col .swiper-slide {
+    height: unset !important;
 }

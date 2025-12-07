@@ -44,7 +44,7 @@ export default function InfoBasicR({ data }: CommonSection) {
             )}
 
             <div
-              className="section-content"
+              className="section-content text-justify"
               dangerouslySetInnerHTML={{
                 __html: data?.contents,
               }}

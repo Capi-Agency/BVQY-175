@@ -19,7 +19,7 @@ export default function TeamSlider5Col({ data }: CommonSection) {
       <div className="container">
         <div className="section-sub-title text-center">{data?.subtitle}</div>
         {data?.title && (
-          <h1 className="section-title text-center">{data?.title}</h1>
+          <h1 className="section-title text-center mt-1">{data?.title}</h1>
         )}
       </div>
       <div className="lg:container">

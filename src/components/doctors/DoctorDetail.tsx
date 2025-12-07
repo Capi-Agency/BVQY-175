@@ -17,6 +17,34 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
   const [isViewMore, setIsViewMore] = useState<boolean>(false);
   const language = useStoreLanguage((state: any) => state.language);
 
+  const dataContent = [
+    {
+      title: 'Quá trình đào tạo',
+      content: dataDetail?.education_training,
+    },
+    {
+      title: 'Kinh nghiệm làm việc',
+      content: dataDetail?.work_experience,
+    },
+    {
+      title: 'Giải thưởng & danh hiệu',
+      content: dataDetail?.award_and_honors,
+    },
+    {
+      title: 'Thành viên của tổ chức',
+      content: dataDetail?.memberships,
+    },
+    {
+      title: 'Sách, báo, công trình nghiên cứu',
+      content: dataDetail?.research_works,
+    },
+  ];
+
+  const filteredItems = dataContent.filter(
+    (item) =>
+      item?.content && item.content.replace(/<[^>]*>/g, '').trim() !== '',
+  );
+
   return (
     <div className="bg-primary-50 py-6 md:py-10 2xl:py-[60px]">
       <div className="container grid grid-cols-11 gap-6 md:gap-7 lg:gap-8 xl:gap-10 3xl:gap-12 4xl:gap-14">
@@ -63,7 +91,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
             </div>
 
             <div
-              className={`space-y-2 text-justify text-sm font-normal text-[#09090B] lg:text-start lg:text-base xl:space-y-3`}
+              className={`space-y-2 *:text-justify text-sm font-normal text-[#09090B] lg:text-start lg:text-base xl:space-y-3`}
               dangerouslySetInnerHTML={{
                 __html: dataDetail?.bio,
               }}
@@ -154,127 +182,37 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
             <Accordion.Root
               className="w-full space-y-6 xl:space-y-8"
               type="multiple"
-              defaultValue={['item-1', 'item-2', 'item-3', 'item-4', 'item-5']}
+              defaultValue={filteredItems.map((_, index) => `item-${index}`)}
             >
-              <AccordionItem value={`item-1`} className="group pb-0">
-                <AccordionTrigger className="flex w-full items-center justify-between rounded-[6px] bg-primary-50 p-3 lg:p-[12px_16px] xl:p-4 3xl:p-5">
-                  <div className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
-                    Quá trình đào tạo
-                  </div>
+              {filteredItems?.map((item: any, index: number) => (
+                <AccordionItem
+                  value={`item-${index}`}
+                  key={index}
+                  className="group pb-0"
+                >
+                  <AccordionTrigger className="flex w-full items-center justify-between rounded-[6px] bg-primary-50 p-3 lg:p-[12px_16px] xl:p-4 3xl:p-5">
+                    <div className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
+                      {item?.title}
+                    </div>
 
-                  <div className="relative size-5 rotate-180 transition-all duration-200 group-data-[state=open]:rotate-0 lg:size-6">
-                    <NextImg
-                      src="/assets/icons/chevron_up_accordion.svg"
-                      alt="chevron_up_accordion"
-                    />
-                  </div>
-                </AccordionTrigger>
+                    <div className="relative size-5 rotate-180 transition-all duration-200 group-data-[state=open]:rotate-0 lg:size-6">
+                      <NextImg
+                        src="/assets/icons/chevron_up_accordion.svg"
+                        alt="chevron_up_accordion"
+                      />
+                    </div>
+                  </AccordionTrigger>
 
-                <AccordionContent>
-                  <div
-                    className="w-full space-y-1 pt-3 text-sm font-normal text-[#09090B] md:space-y-2 lg:pt-3 lg:text-base xl:space-y-3 [&>ul]:list-inside [&>ul]:list-disc [&>ul]:pl-2 md:[&>ul]:pl-3 lg:[&>ul]:pl-4 xl:[&>ul]:pl-5 2xl:[&>ul]:pl-6"
-                    dangerouslySetInnerHTML={{
-                      __html: dataDetail?.bio,
-                    }}
-                  ></div>
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value={`item-2`} className="group pb-0">
-                <AccordionTrigger className="flex w-full items-center justify-between rounded-[6px] bg-primary-50 p-3 lg:p-[12px_16px] xl:p-4 3xl:p-5">
-                  <div className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
-                    Kinh nghiệm làm việc
-                  </div>
-
-                  <div className="relative size-5 rotate-180 transition-all duration-200 group-data-[state=open]:rotate-0 lg:size-6">
-                    <NextImg
-                      src="/assets/icons/chevron_up_accordion.svg"
-                      alt="chevron_up_accordion"
-                    />
-                  </div>
-                </AccordionTrigger>
-
-                <AccordionContent>
-                  <div
-                    className="w-full space-y-1 pt-3 text-sm font-normal text-[#09090B] md:space-y-2 lg:pt-3 lg:text-base xl:space-y-3 [&>ul]:list-inside [&>ul]:list-disc [&>ul]:pl-2 md:[&>ul]:pl-3 lg:[&>ul]:pl-4 xl:[&>ul]:pl-5 2xl:[&>ul]:pl-6"
-                    dangerouslySetInnerHTML={{
-                      __html: dataDetail?.work_experience,
-                    }}
-                  ></div>
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value={`item-3`} className="group pb-0">
-                <AccordionTrigger className="flex w-full items-center justify-between rounded-[6px] bg-primary-50 p-3 lg:p-[12px_16px] xl:p-4 3xl:p-5">
-                  <div className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
-                    Giải thưởng & danh hiệu
-                  </div>
-
-                  <div className="relative size-5 rotate-180 transition-all duration-200 group-data-[state=open]:rotate-0 lg:size-6">
-                    <NextImg
-                      src="/assets/icons/chevron_up_accordion.svg"
-                      alt="chevron_up_accordion"
-                    />
-                  </div>
-                </AccordionTrigger>
-
-                <AccordionContent>
-                  <div
-                    className="w-full space-y-1 pt-3 text-sm font-normal text-[#09090B] md:space-y-2 lg:pt-3 lg:text-base xl:space-y-3 [&>ul]:list-inside [&>ul]:list-disc [&>ul]:pl-2 md:[&>ul]:pl-3 lg:[&>ul]:pl-4 xl:[&>ul]:pl-5 2xl:[&>ul]:pl-6"
-                    dangerouslySetInnerHTML={{
-                      __html: dataDetail?.award_and_honors,
-                    }}
-                  ></div>
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value={`item-4`} className="group pb-0">
-                <AccordionTrigger className="flex w-full items-center justify-between rounded-[6px] bg-primary-50 p-3 lg:p-[12px_16px] xl:p-4 3xl:p-5">
-                  <div className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
-                    Thành viên của tổ chức
-                  </div>
-
-                  <div className="relative size-5 rotate-180 transition-all duration-200 group-data-[state=open]:rotate-0 lg:size-6">
-                    <NextImg
-                      src="/assets/icons/chevron_up_accordion.svg"
-                      alt="chevron_up_accordion"
-                    />
-                  </div>
-                </AccordionTrigger>
-
-                <AccordionContent>
-                  <div
-                    className="w-full space-y-1 pt-3 text-sm font-normal text-[#09090B] md:space-y-2 lg:pt-3 lg:text-base xl:space-y-3 [&>ul]:list-inside [&>ul]:list-disc [&>ul]:pl-2 md:[&>ul]:pl-3 lg:[&>ul]:pl-4 xl:[&>ul]:pl-5 2xl:[&>ul]:pl-6"
-                    dangerouslySetInnerHTML={{
-                      __html: dataDetail?.memberships,
-                    }}
-                  ></div>
-                </AccordionContent>
-              </AccordionItem>
-
-              <AccordionItem value={`item-5`} className="group pb-0">
-                <AccordionTrigger className="flex w-full items-center justify-between rounded-[6px] bg-primary-50 p-3 lg:p-[12px_16px] xl:p-4 3xl:p-5">
-                  <div className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
-                    Sách, báo, công trình nghiên cứu
-                  </div>
-
-                  <div className="relative size-5 rotate-180 transition-all duration-200 group-data-[state=open]:rotate-0 lg:size-6">
-                    <NextImg
-                      src="/assets/icons/chevron_up_accordion.svg"
-                      alt="chevron_up_accordion"
-                    />
-                  </div>
-                </AccordionTrigger>
-
-                <AccordionContent>
-                  <div
-                    className="w-full space-y-1 pt-3 text-sm font-normal text-[#09090B] md:space-y-2 lg:pt-3 lg:text-base xl:space-y-3 [&>ul]:list-inside [&>ul]:list-disc [&>ul]:pl-2 md:[&>ul]:pl-3 lg:[&>ul]:pl-4 xl:[&>ul]:pl-5 2xl:[&>ul]:pl-6"
-                    dangerouslySetInnerHTML={{
-                      __html: dataDetail?.research_works,
-                    }}
-                  ></div>
-                </AccordionContent>
-              </AccordionItem>
+                  <AccordionContent>
+                    <div
+                      className="w-full space-y-1 pt-3 text-sm font-normal text-[#09090B] md:space-y-2 lg:pt-3 lg:text-base xl:space-y-3 [&>ul]:list-inside [&>ul]:list-disc [&>ul]:pl-2 md:[&>ul]:pl-3 lg:[&>ul]:pl-4 xl:[&>ul]:pl-5 2xl:[&>ul]:pl-6"
+                      dangerouslySetInnerHTML={{
+                        __html: item?.content,
+                      }}
+                    ></div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
             </Accordion.Root>
           </div>
         </div>

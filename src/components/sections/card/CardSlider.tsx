@@ -99,7 +99,7 @@ const CardSlider = ({ data }: CommonSection) => {
           </h4>
 
           <div
-            className="section-content"
+            className="section-content text-justify"
             dangerouslySetInnerHTML={{
               __html: item?.blurb as string,
             }}

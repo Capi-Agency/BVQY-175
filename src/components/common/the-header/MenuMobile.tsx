@@ -82,13 +82,9 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
 
             <div className="flex items-center gap-2">
               {/* Address button */}
-              <DialogClose
-                onClick={() => {
-                  setIsOpenSubMenu(false);
-                  smoother?.paused(false);
-                }}
-                asChild
-                className="hidden border-none outline-none md:flex"
+              <CustomLink
+                href={contact_information?.map_url}
+                className="hidden md:flex"
               >
                 <div className="btn-menu cursor-pointer">
                   <div className="relative size-5 2xl:size-6">
@@ -98,7 +94,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                     />
                   </div>
                 </div>
-              </DialogClose>
+              </CustomLink>
 
               {/* Language button */}
               <button
@@ -302,23 +298,18 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                 {/* footer */}
                 <div className="flex items-center gap-2 md:hidden">
                   {/* address button */}
-                  <DialogClose
-                    onClick={() => {
-                      setIsOpenSubMenu;
-                      smoother?.paused(false);
-                    }}
-                    asChild
-                    className="border-none outline-none"
+
+                  <CustomLink
+                    href={contact_information?.map_url}
+                    className="btn-menu"
                   >
-                    <div className="btn-menu">
-                      <div className="relative size-5 2xl:size-6">
-                        <NextImg
-                          src="/assets/icons/hospital_location.svg"
-                          alt="hospital location"
-                        />
-                      </div>
+                    <div className="relative size-5 2xl:size-6">
+                      <NextImg
+                        src="/assets/icons/hospital_location.svg"
+                        alt="hospital location"
+                      />
                     </div>
-                  </DialogClose>
+                  </CustomLink>
 
                   {/* Language button */}
                   <button
@@ -365,7 +356,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                 </div>
               </button>
 
-              <div className="scrollbar-hidden relative flex-1 overflow-x-hidden overflow-y-scroll pb-[100px] py-5">
+              <div className="scrollbar-hidden relative flex-1 overflow-x-hidden overflow-y-scroll py-5 pb-[100px]">
                 <AccordionRoot
                   key={isOpenSubMenu ? 'open' : 'closed'}
                   className="relative w-full space-y-6"

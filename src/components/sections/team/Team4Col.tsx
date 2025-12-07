@@ -18,7 +18,7 @@ export default function Team4Col({ data }: CommonSection) {
             </h2>
           )}
           <div
-            className="section-content"
+            className="section-content text-justify"
             dangerouslySetInnerHTML={{
               __html: data?.blurb,
             }}
