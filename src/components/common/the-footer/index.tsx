@@ -14,7 +14,7 @@ export default function TheFooter() {
   const { trans } = useTranslate();
   const { contact_information, bottom_navigation } = useMetadata();
   return (
-    <footer className="relative bg-primary-600 py-6 xl:py-8 3xl:py-10">
+    <footer className="relative bg-primary-600 py-6 xl:py-8 3xl:py-10 overflow-hidden">
       <div className="pointer-events-none absolute inset-0 hidden size-full select-none md:block">
         <NextImg
           src="/assets/images/footer_bg.png"

@@ -78,7 +78,7 @@ export default async function RootLayout({
               <GsapMatchMediaProvider>
                 <ScrollSmootherProvider>
                   <TheHeader />
-                  <BackToTop />
+                  {/* <BackToTop /> */}
                   <ScrollSmoothWrapper>
                     {children}
                     <TheFooter />
