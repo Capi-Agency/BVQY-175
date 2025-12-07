@@ -92,7 +92,7 @@ export default function TheHeader() {
                   </div>
                 </button>
 
-                <MobileMenu changeLanguage={changeLanguage} />
+                {/* <MobileMenu changeLanguage={changeLanguage} /> */}
 
                 <button
                   onClick={() =>
