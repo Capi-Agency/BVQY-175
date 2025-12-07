@@ -11,6 +11,7 @@ import { getAssetUrlById } from '@/src/utils/image';
 import NextImg from '../../common/next-img';
 import { useParams } from 'next/navigation';
 import { getListNews } from '@/src/services/news';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 const RelatedPosts = ({ data }: CommonSection) => {
   const language = useStoreLanguage((state: any) => state.language);
@@ -33,6 +34,8 @@ const RelatedPosts = ({ data }: CommonSection) => {
         setNewsData(response);
       } catch (error) {
         console.log('Error:', error);
+      } finally {
+        ScrollTrigger.refresh()
       }
     })();
   }, [data]);

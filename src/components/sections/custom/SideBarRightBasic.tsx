@@ -5,6 +5,7 @@ import { CommonSection } from '@/src/types/pageBuilder';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import CustomLink from '../../common/custom-link';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 export default function SideBarRightBasic({ data }: CommonSection) {
   const [cateData, setCateData] = useState<any>([]);
@@ -20,6 +21,8 @@ export default function SideBarRightBasic({ data }: CommonSection) {
         setCateData(response);
       } catch (error) {
         console.log('Error fetching data' + error);
+      } finally {
+        ScrollTrigger.refresh();
       }
     })();
   }, []);

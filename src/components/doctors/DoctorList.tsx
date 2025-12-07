@@ -13,6 +13,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 type Props = {
   data: any;
@@ -93,6 +94,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
       setTotalPage(1);
     } finally {
       setLoading(false);
+      ScrollTrigger.refresh()
     }
   }, [
     selectedDepartment,
@@ -121,6 +123,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
       console.error(err);
       setDoctors([]);
       setTotalPage(1);
+      ScrollTrigger.refresh()
     }
   }, [
     selectedDepartment?.slug,

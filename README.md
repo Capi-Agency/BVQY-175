@@ -79,7 +79,15 @@ useGSAP(() => {
 
 - Tạo modal vẫn sẽ cuộn được trang do scrollsmoother bắt sự kiện cuộn chuột và translateY #wrapper-content ===> lưu smoother vào context và gọi smoother.paused(true) khi mở modal và smoother.paused(false) khi đóng modal
 
-- Với các component gọi API như tin tức, product, sẽ render dữ liệu sau khi DOM được khỏi tạo và sau khi code ScrollSmoother chạy và sẽ làm thay đổi chiều cao của trang web dẫn tới breakpoint của scrollTrigger bị hỏng ===> gọi ScrollTrigger.refesh() sau khi gọi API. các component làm thay đổi chiểu cao của page cũng tương tự (như According, ...) (đã config vào smoothwrapper)
+- Với các component gọi API như tin tức, product, sẽ render dữ liệu sau khi DOM được khỏi tạo và sau khi code ScrollSmoother chạy và sẽ làm thay đổi chiều cao của trang web dẫn tới breakpoint của scrollTrigger bị hỏng, và làm page xuất hiện khoảng trắng(spacing) hoặc bị cắt xén mất ===> gọi ScrollTrigger.refesh() sau khi gọi API. các component làm thay đổi chiểu cao của page cũng tương tự (như According, ...) (đã config vào smoothwrapper)
+
+```jsx
+try {
+} catch {
+} finally {
+  ScrollTrigger.refresh();
+}
+```
 
 - Vùng cuộn con trong #smooth-content sẽ không thể cuộn do #smooth-content là một div transform translate ===> config  
   normalizeScroll: {
@@ -104,7 +112,7 @@ useGSAP(() => {
 }
 ```
 
-- Với các section 
+- Với các section
 
 ## Note SplitText gsap
 

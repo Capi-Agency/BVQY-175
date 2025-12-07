@@ -92,6 +92,8 @@ export default function NewsListCard({ data }: CommonSection) {
       setDataNews(response);
     } catch (error) {
       console.log('Error:', error);
+    } finally {
+      ScrollTrigger.refresh()
     }
   }
 
@@ -106,6 +108,8 @@ export default function NewsListCard({ data }: CommonSection) {
         setLength(response);
       } catch (error) {
         console.log('Error:', error);
+      } finally {
+        ScrollTrigger.refresh()
       }
     })();
   }, [data, category, search]);

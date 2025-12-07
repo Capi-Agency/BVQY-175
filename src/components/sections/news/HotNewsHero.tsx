@@ -9,6 +9,7 @@ import useStoreLanguage from '@/src/store/store';
 import { getListNews } from '@/src/services/news';
 import { useParams } from 'next/navigation';
 import useTranslation from '@/src/hooks/use-translation';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 export default function HotNewsHero({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
@@ -31,6 +32,8 @@ export default function HotNewsHero({ data }: CommonSection) {
         setDataNews(response);
       } catch (error) {
         console.log('Error:', error);
+      } finally {
+        ScrollTrigger.refresh()
       }
     })();
   }, [data, category]);

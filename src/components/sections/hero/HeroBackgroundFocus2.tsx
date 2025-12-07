@@ -4,7 +4,6 @@ import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 
 export default function HeroBackgroundFocus2({ data }: CommonSection) {
-  console.log('🚀 ~ HeroBackgroundFocus2 ~ data:', data);
   return (
     <div className="md:relative">
       <div

@@ -10,7 +10,6 @@ import { formatDate } from '@/src/utils/validate';
 import Link from 'next/link';
 
 const CardSlider = ({ data }: CommonSection) => {
-  console.log('🚀 ~ CardSlider ~ data:', data);
   const [activeItem, setActiveItem] = useState<number>(0);
 
   const item = useMemo(

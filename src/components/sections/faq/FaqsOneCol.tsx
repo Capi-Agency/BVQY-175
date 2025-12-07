@@ -14,6 +14,7 @@ import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import NextImg from '../../common/next-img';
 import useTranslation from '@/src/hooks/use-translation';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 export default function FaqsOneCol({ data }: CommonSection) {
   const trans = useTranslation();
@@ -57,6 +58,7 @@ export default function FaqsOneCol({ data }: CommonSection) {
         console.log('Error:', error);
       } finally {
         setLoading(false);
+        ScrollTrigger.refresh()
       }
     })();
   }, [data, currentPage, currentSearch]);
@@ -71,6 +73,8 @@ export default function FaqsOneCol({ data }: CommonSection) {
         setLength(response);
       } catch (error) {
         console.log('Error:', error);
+      } finally {
+        ScrollTrigger.refresh()
       }
     })();
   }, [currentSearch]);
