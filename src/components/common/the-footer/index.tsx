@@ -72,8 +72,7 @@ export default function TheFooter() {
               </a>
 
               <a
-                // href={`${contact_information?.email_url || '/'}`}
-                href="mailto:benhvien175@gmail.com"
+                href={`${contact_information?.email_url || '/'}`}
                 className="flex gap-2"
               >
                 <div className="relative size-5">

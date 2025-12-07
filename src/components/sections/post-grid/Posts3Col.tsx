@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import NewsCard from '../news/NewsCard';
 import { fnGetListItemByEndpoint } from '@/src/services/common';
 import { getListNews } from '@/src/services/news';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 const Posts3Col = ({ data }: CommonSection) => {
   const [newsData, setNewsData] = useState<any>([]);
@@ -23,6 +24,8 @@ const Posts3Col = ({ data }: CommonSection) => {
         setNewsData(response);
       } catch (error) {
         console.log('Error:', error);
+      } finally {
+        ScrollTrigger.refresh();
       }
     })();
   }, [data]);
@@ -67,10 +70,7 @@ const Posts3Col = ({ data }: CommonSection) => {
             {newsData?.length > 0 &&
               newsData?.map((item: any, index: number) => (
                 <SwiperSlide key={'post_' + index}>
-                  <NewsCard
-                    item={item}
-                    url={data?.buttons?.[0]?.url}
-                  />
+                  <NewsCard item={item} url={data?.buttons?.[0]?.url} />
                 </SwiperSlide>
               ))}
           </Swiper>
