@@ -23,7 +23,7 @@ export default function FeatureWithImage4Col({ data }: CommonSection) {
               href={item?.url}
               className="bg-ed-50 group relative flex flex-col items-center gap-3"
             >
-              <div className="flex size-[60px] items-center justify-center rounded-[12px] bg-[#D1E6D7] lg:size-[64px] xl:size-[68px] 2xl:size-[72px] 3xl:size-[76px] 4xl:size-[80px]">
+              <div className="flex size-[60px] items-center justify-center rounded-[12px] bg-[#E7F3EB] lg:size-[64px] xl:size-[68px] 2xl:size-[72px] 3xl:size-[76px] 4xl:size-[80px]">
                 <div className="relative size-9 duration-200 lg:size-10 2xl:size-11 3xl:size-12">
                   <NextImg src={getAssetUrlById(item?.icon?.id)} alt="icon" />
                 </div>
