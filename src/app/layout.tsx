@@ -79,10 +79,10 @@ export default async function RootLayout({
                 <ScrollSmootherProvider>
                   <TheHeader />
                   <BackToTop />
-                  <ScrollSmoothWrapper>
+                  {/* <ScrollSmoothWrapper> */}
                     {children}
                     <TheFooter />
-                  </ScrollSmoothWrapper>
+                  {/* </ScrollSmoothWrapper> */}
                 </ScrollSmootherProvider>
               </GsapMatchMediaProvider>
             </MetadataProvider>
