@@ -311,7 +311,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
             ></div>
 
             <div>
-              <div className="flex flex-wrap gap-3 py-2 md:py-3 lg:gap-4 2xl:py-4 3xl:gap-5">
+              <div className="flex flex-wrap gap-3 py-2 md:py-3 lg:gap-4 2xl:py-4 3xl:gap-4">
                 {reviewOptions?.map((option: any) => (
                   <button
                     type="button"
