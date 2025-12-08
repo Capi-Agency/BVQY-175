@@ -36,8 +36,8 @@ const reviewOptions = [
     rating: 5,
   },
   {
-    title: '🙂 Tốt',
-    title_en: '🙂 Good',
+    title: '😊 Tốt',
+    title_en: '😊 Good',
     rating: 4,
   },
   {
@@ -51,7 +51,7 @@ const reviewOptions = [
     rating: 2,
   },
   {
-    title: '😞 Kém',
+    title: '😞 Chưa tốt',
     title_en: '😞 Least',
     rating: 1,
   },
@@ -277,14 +277,14 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
   };
 
   return (
-    <div className="bg-[#155628] py-10 lg:py-12 xl:py-14 2xl:py-16 3xl:py-[72px] 4xl:py-[80px]">
+    <div className="bg-gray-100 py-10 lg:py-12 xl:py-14 2xl:py-16 3xl:py-[72px] 4xl:py-[80px]">
       <div className="container grid grid-cols-1 gap-6 md:gap-8 lg:gap-10 xl:grid-cols-12 xl:gap-0">
         <div className="col-span-full text-center xl:col-span-5 xl:text-start">
-          <div className="section-sub-title !text-primary-200">
+          <div className="section-sub-title !text-primary-500">
             {data?.subtitle}
           </div>
           {data?.title && (
-            <h1 className="section-title mt-1 !text-primary-50">
+            <h1 className="section-title mt-1 !text-primary-950">
               {data?.title}
             </h1>
           )}
@@ -304,7 +304,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
             className="flex flex-col items-stretch justify-center gap-2 lg:gap-3 xl:h-full 2xl:gap-4"
           >
             <div
-              className="section-sub-title font-semibold text-primary-200"
+              className="section-sub-title font-semibold text-primary-600"
               dangerouslySetInnerHTML={{
                 __html: data?.blurb,
               }}
@@ -321,7 +321,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                         shouldValidate: true,
                       })
                     }
-                    className={`${watch('rating') === option?.rating ? 'bg-primary-50 text-primary-600' : 'bg-transparent text-primary-200'} flex h-9 items-center justify-center rounded-[4px] border-[1px] border-[#E8E8E8] px-3 text-sm transition-all duration-100 hover:bg-primary-50 hover:text-primary-600 md:h-10 md:px-3 lg:text-base 2xl:h-11 2xl:px-3 2xl:text-lg 3xl:h-12 3xl:px-4 4xl:px-5`}
+                    className={`${watch('rating') === option?.rating ? 'border-primary-600 bg-primary-50 text-primary-600' : 'border-gray-400 bg-transparent text-primary-200'} flex h-9 items-center justify-center rounded-[4px] border-[2px] px-3 text-sm transition-all duration-100 hover:bg-primary-50 hover:text-primary-600 md:h-10 md:px-3 lg:text-base 2xl:h-11 2xl:px-3 2xl:text-lg 3xl:h-12 3xl:px-4 4xl:px-5`}
                   >
                     {trans(option?.title, option?.title_en)}
                   </button>
@@ -347,7 +347,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                     autoComplete="off"
                     aria-describedby="outlined_error_help"
                     type="text"
-                    className="w-full border-b-[1px] border-primary-400 bg-transparent p-[8px_12px] text-sm font-normal text-white outline-none placeholder:text-primary-400 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
+                    className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-sm font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
                     placeholder={input?.placeholder}
                   />
 
@@ -374,7 +374,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                   autoComplete="off"
                   aria-describedby="outlined_error_help"
                   placeholder={trans('Ghi chú', 'Note')}
-                  className="w-full border-b-[1px] border-primary-400 bg-transparent p-[8px_12px] text-sm font-normal text-white outline-none placeholder:text-primary-400 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
+                  className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-sm font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
                 />
                 {errors.message && isSubmitted && (
                   <p
