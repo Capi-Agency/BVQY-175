@@ -8,13 +8,13 @@ import {
   AccordionTrigger,
 } from '../../ui/accordion';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { getPaginatedPages } from '@/src/utils/pagination';
 import { getListFaq, getTotalFaqCount } from '@/src/services/faq';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import NextImg from '../../common/next-img';
 import useTranslation from '@/src/hooks/use-translation';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import PaginationPrimary from '../pagination/PaginationPrimary';
 
 export default function FaqsOneCol({ data }: CommonSection) {
   const trans = useTranslation();
@@ -37,15 +37,9 @@ export default function FaqsOneCol({ data }: CommonSection) {
       : 0;
   }, [length, data?.collection_items_limit]);
 
-  const pagination = useMemo(
-    () => getPaginatedPages(totalPage, currentPage),
-    [totalPage, currentPage],
-  );
-
   useEffect(() => {
     (async () => {
       setLoading(true);
-      console.log(currentSearch);
       try {
         const response = await getListFaq({
           collection: data?.collections,
@@ -58,7 +52,7 @@ export default function FaqsOneCol({ data }: CommonSection) {
         console.log('Error:', error);
       } finally {
         setLoading(false);
-        ScrollTrigger.refresh()
+        ScrollTrigger.refresh();
       }
     })();
   }, [data, currentPage, currentSearch]);
@@ -74,19 +68,10 @@ export default function FaqsOneCol({ data }: CommonSection) {
       } catch (error) {
         console.log('Error:', error);
       } finally {
-        ScrollTrigger.refresh()
+        ScrollTrigger.refresh();
       }
     })();
   }, [currentSearch]);
-
-  const handleChangePage = useCallback(
-    (pageNumber: number) => {
-      const params = new URLSearchParams(searchParams);
-      params.set('page', pageNumber.toString());
-      router.push(`?${params.toString()}`, { scroll: false });
-    },
-    [router, searchParams],
-  );
 
   const handleSearch = useCallback(
     (searchText: string) => {
@@ -190,58 +175,11 @@ export default function FaqsOneCol({ data }: CommonSection) {
                     ))}
                   </Accordion.Root>
 
-                  {totalPage > 1 && (
-                    <div className="col-span-full flex items-center justify-center gap-[2px] md:gap-1">
-                      <button
-                        disabled={currentPage === 1}
-                        onClick={() => {
-                          handleChangePage(currentPage - 1);
-                          handleScrollTo('faq-list', conditions);
-                        }}
-                        className="group relative flex size-9 cursor-pointer items-center justify-center rounded-[6px] bg-white transition-all duration-100 hover:bg-primary-600 disabled:hover:cursor-default md:size-10 3xl:size-11"
-                      >
-                        <div className="relative size-5 rotate-90 transition-all duration-100 group-hover:brightness-0 group-hover:invert">
-                          <NextImg
-                            src="/assets/icons/arrow_down_gray.svg"
-                            alt="arrow icon"
-                          />
-                        </div>
-                      </button>
-                      {pagination &&
-                        pagination?.map((item: any, index: any) => (
-                          <button
-                            onClick={
-                              typeof item === 'number'
-                                ? () => {
-                                    handleChangePage(item);
-                                    handleScrollTo('faq-list', conditions);
-                                  }
-                                : undefined
-                            }
-                            key={`${item}-${index}`}
-                            className={`${currentPage === item ? 'bg-primary-600 text-white' : 'bg-white text-[#71717A]'} ${item === '...' ? 'pointer-events-none cursor-default' : 'cursor-pointer'} relative h-9 min-w-9 rounded-[6px] px-3 text-center text-lg font-medium transition-all duration-100 hover:bg-primary-300 hover:text-white md:h-10 md:min-w-10 md:px-4 3xl:h-11 3xl:min-w-11`}
-                          >
-                            {item}
-                          </button>
-                        ))}
-
-                      <button
-                        disabled={currentPage === totalPage}
-                        onClick={() => {
-                          handleChangePage(currentPage + 1);
-                          handleScrollTo('faq-list', conditions);
-                        }}
-                        className="group relative flex size-9 cursor-pointer items-center justify-center rounded-[6px] bg-white transition-all duration-100 hover:bg-primary-600 disabled:hover:cursor-default md:size-10 3xl:size-11"
-                      >
-                        <div className="relative size-5 -rotate-90 transition-all duration-100 group-hover:brightness-0 group-hover:invert">
-                          <NextImg
-                            src="/assets/icons/arrow_down_gray.svg"
-                            alt="arrow icon"
-                          />
-                        </div>
-                      </button>
-                    </div>
-                  )}
+                  <PaginationPrimary
+                    currentPage={currentPage}
+                    totalPage={totalPage}
+                    idSection="faq-list"
+                  />
                 </>
               ) : (
                 <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">

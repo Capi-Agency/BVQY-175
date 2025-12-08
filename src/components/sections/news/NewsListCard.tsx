@@ -1,36 +1,25 @@
 'use client';
-import React, {
-  useEffect,
-  useMemo,
-  useState,
-  useCallback,
-  useRef,
-} from 'react';
-import NextImg from '../../common/next-img';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import NewsCard from './NewsCard';
 import { getListNews, getTotalNewsCount } from '@/src/services/news';
 import { CommonSection } from '@/src/types/pageBuilder';
-import { getPaginatedPages } from '@/src/utils/pagination';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useGSAP } from '@gsap/react';
-import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
-import { getOffsetY } from '@/src/utils/gsap';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import useTranslation from '@/src/hooks/use-translation';
+import PaginationPrimary from '../pagination/PaginationPrimary';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
 export default function NewsListCard({ data }: CommonSection) {
   const trans = useTranslation();
   // Animation
-  const { conditions } = useGsapMatchMedia();
   const containerRef = useRef<any>(null);
   const newsListRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
 
-  const router = useRouter();
   const searchParams = useSearchParams();
   const params = useParams() || {};
 
@@ -50,14 +39,7 @@ export default function NewsListCard({ data }: CommonSection) {
       : 0;
   }, [length, data?.collection_items_limit]);
 
-  const pagination = useMemo(
-    () => getPaginatedPages(totalPage, currentPage),
-    [totalPage, currentPage],
-  );
-
-  const offsetY = useMemo(() => getOffsetY(conditions), []);
-
-  const { contextSafe } = useGSAP(
+  useGSAP(
     () => {
       gsap.to(selector('.news-card'), {
         scale: 0.9,
@@ -93,7 +75,7 @@ export default function NewsListCard({ data }: CommonSection) {
     } catch (error) {
       console.log('Error:', error);
     } finally {
-      ScrollTrigger.refresh()
+      ScrollTrigger.refresh();
     }
   }
 
@@ -109,27 +91,10 @@ export default function NewsListCard({ data }: CommonSection) {
       } catch (error) {
         console.log('Error:', error);
       } finally {
-        ScrollTrigger.refresh()
+        ScrollTrigger.refresh();
       }
     })();
   }, [data, category, search]);
-
-  const handleChangePage = useCallback(
-    (pageNumber: number) => {
-      const params = new URLSearchParams(searchParams);
-      params.set('page', pageNumber.toString());
-      router.push(`?${params.toString()}`, { scroll: false });
-    },
-    [router, searchParams],
-  );
-
-  const handleClick = useCallback(
-    (pageNumber: number) => {
-      handleChangePage(pageNumber);
-      handleScrollTo();
-    },
-    [handleChangePage],
-  );
 
   useGSAP(
     () => {
@@ -152,20 +117,6 @@ export default function NewsListCard({ data }: CommonSection) {
     },
     { scope: containerRef, dependencies: [dataNews] },
   );
-
-  const handleScrollTo = contextSafe(() => {
-    if (newsListRef.current) {
-      gsap.to(window, {
-        scrollTo: {
-          y: newsListRef.current,
-          offsetY,
-          autoKill: false,
-        },
-        duration: 0.7,
-        ease: 'power2.out',
-      });
-    }
-  });
 
   return (
     <section ref={containerRef}>
@@ -199,50 +150,12 @@ export default function NewsListCard({ data }: CommonSection) {
                     />
                   </div>
                 ))}
-
-              {totalPage > 1 && (
-                <div className="col-span-full flex items-center justify-center gap-[2px] md:gap-1">
-                  <button
-                    disabled={currentPage === 1}
-                    onClick={() => handleClick(currentPage - 1)}
-                    className="group relative flex size-9 cursor-pointer items-center justify-center rounded-[6px] bg-white transition-all duration-100 hover:bg-primary-600 disabled:hover:cursor-default md:size-10 3xl:size-11"
-                  >
-                    <div className="relative size-5 rotate-90 transition-all duration-100 group-hover:brightness-0 group-hover:invert">
-                      <NextImg
-                        src="/assets/icons/arrow_down_gray.svg"
-                        alt="arrow icon"
-                      />
-                    </div>
-                  </button>
-                  {pagination &&
-                    pagination?.map((item: any, index: any) => (
-                      <button
-                        onClick={
-                          typeof item === 'number'
-                            ? () => handleClick(item)
-                            : undefined
-                        }
-                        key={`${item}-${index}`}
-                        className={`${currentPage === item ? 'bg-primary-600 text-white' : 'bg-white text-[#71717A]'} ${item === '...' ? 'pointer-events-none cursor-default' : 'cursor-pointer'} relative h-9 min-w-9 rounded-[6px] px-3 text-center text-lg font-medium transition-all duration-100 hover:bg-primary-300 hover:text-white md:h-10 md:min-w-10 md:px-4 3xl:h-11 3xl:min-w-11`}
-                      >
-                        {item}
-                      </button>
-                    ))}
-
-                  <button
-                    disabled={currentPage === totalPage}
-                    onClick={() => handleClick(currentPage + 1)}
-                    className="group relative flex size-9 cursor-pointer items-center justify-center rounded-[6px] bg-white transition-all duration-100 hover:bg-primary-600 disabled:hover:cursor-default md:size-10 3xl:size-11"
-                  >
-                    <div className="relative size-5 -rotate-90 transition-all duration-100 group-hover:brightness-0 group-hover:invert">
-                      <NextImg
-                        src="/assets/icons/arrow_down_gray.svg"
-                        alt="arrow icon"
-                      />
-                    </div>
-                  </button>
-                </div>
-              )}
+                
+              <PaginationPrimary
+                currentPage={currentPage}
+                totalPage={totalPage}
+                idSection="news-list"
+              />
             </div>
           ) : (
             <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">

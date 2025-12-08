@@ -170,6 +170,13 @@ const sectionMap: SectionMap = {
       (m) => m.ContentDanhChoNguoiBenh,
     ),
   ),
+
+  // Minestone
+    'card-1-col': dynamic(() =>
+    import('../components/sections/card').then(
+      (m) => m.Card1Col,
+    ),
+  ),
 };
 
 type PageBuilderProps = {
