@@ -186,6 +186,11 @@ const sectionMap: SectionMap = {
     import('../components/sections/card').then((m) => m.Card4Col),
   ),
 
+  // Cơ sở vật chất
+  'gallery-slider-tall': dynamic(() =>
+    import('../components/sections/gallery').then((m) => m.GallerySliderTall),
+  ),
+
   // Search
 
   // custom: dynamic(() =>

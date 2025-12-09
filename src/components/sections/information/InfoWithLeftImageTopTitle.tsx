@@ -15,9 +15,16 @@ export default function InfoWithLeftImageTopTitle({
   dataDetail,
 }: CommonSection) {
 
-  const hasContent = dataDetail?.description_images || dataDetail?.description;
+  const hasContent =
+    !!dataDetail?.description_images ||
+    !!dataDetail?.description ||
+    !!data?.blurb ||
+    !!data?.cover;
 
-  if (hasContent === null || hasContent.length === 0) return null;
+  if (!hasContent) return null;
+
+  const description = !!dataDetail ? dataDetail?.description : data?.blurb;
+  const images = !!dataDetail ? dataDetail?.description_images : data?.cover;
 
   return (
     <section className="bg-primary-50 py-6 md:py-8 lg:py-12 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]">
@@ -45,7 +52,7 @@ export default function InfoWithLeftImageTopTitle({
                 },
               }}
             >
-              {dataDetail?.description_images?.length > 0 && (
+              {images?.length > 0 && (
                 <>
                   <div className="relative aspect-[4/3]">
                     <Swiper
@@ -69,15 +76,19 @@ export default function InfoWithLeftImageTopTitle({
                       }}
                       className="!h-full !w-full"
                     >
-                      {dataDetail?.description_images?.map((item: any) => (
-                        <SwiperSlide key={item?.directus_files_id}>
+                      {images?.map((item: any) => (
+                        <SwiperSlide key={item?.directus_files_id || item?.id}>
                           <Link
-                            href={getAssetUrlById(item?.directus_files_id)}
+                            href={getAssetUrlById(
+                              item?.directus_files_id || item?.id,
+                            )}
                             data-fancybox="gallery"
                             className="relative block size-full"
                           >
                             <NextImg
-                              src={getAssetUrlById(item?.directus_files_id)}
+                              src={getAssetUrlById(
+                                item?.directus_files_id || item?.id,
+                              )}
                               alt="image"
                               objectFit="cover"
                             />
@@ -99,7 +110,7 @@ export default function InfoWithLeftImageTopTitle({
             <div
               className={`relative space-y-3 text-justify text-sm font-normal text-[#09090B] transition-all duration-700 ease-in-out xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`}
               dangerouslySetInnerHTML={{
-                __html: dataDetail?.description,
+                __html: description,
               }}
             ></div>
           </div>
