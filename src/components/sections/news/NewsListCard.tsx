@@ -17,7 +17,6 @@ export default function NewsListCard({ data }: CommonSection) {
   const trans = useTranslation();
   // Animation
   const containerRef = useRef<any>(null);
-  const newsListRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
 
   const searchParams = useSearchParams();
@@ -121,7 +120,6 @@ export default function NewsListCard({ data }: CommonSection) {
   return (
     <section ref={containerRef}>
       <div
-        ref={newsListRef}
         id="news-list"
         className="p-[24px_0_44px] lg:p-[28px_0_52px] xl:p-[32px_0_64px] 3xl:p-[32px_0_72px] 4xl:p-[40px_0_80px]"
       >
@@ -137,20 +135,19 @@ export default function NewsListCard({ data }: CommonSection) {
 
           {dataNews?.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:gap-8 4xl:gap-10">
-              {dataNews?.length > 0 &&
-                dataNews?.map((item: any, index: number) => (
-                  <div
-                    key={item?.slug ?? index}
-                    className="news-card col-span-1 origin-center scale-[0.9] opacity-0"
-                  >
-                    <NewsCard
-                      item={item}
-                      url={data?.buttons?.[0]?.url}
-                      cateUrl={category}
-                    />
-                  </div>
-                ))}
-                
+              {dataNews?.map((item: any, index: number) => (
+                <div
+                  key={item?.slug ?? index}
+                  className="news-card col-span-1 origin-center scale-[0.9] opacity-0"
+                >
+                  <NewsCard
+                    item={item}
+                    url={data?.buttons?.[0]?.url}
+                    cateUrl={category}
+                  />
+                </div>
+              ))}
+
               <PaginationPrimary
                 currentPage={currentPage}
                 totalPage={totalPage}

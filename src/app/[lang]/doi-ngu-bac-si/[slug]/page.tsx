@@ -6,7 +6,6 @@ import { cookies } from 'next/headers';
 import JsonLDProvider from '@/src/components/common/the-json-ld';
 import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
-import { fnGetDeparmentDetail } from '@/src/services/department';
 import { fnGetDoctorDetail } from '@/src/services/doctors';
 
 async function getLang() {

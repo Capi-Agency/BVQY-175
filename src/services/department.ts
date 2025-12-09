@@ -51,7 +51,7 @@ export const getChildDepartments = async (groupSlug: string) => {
   }
 };
 
-export const fnGetDeparmentDetail = async ({
+export const fnGetDepartmentDetail = async ({
   collection,
   slug,
 }: {

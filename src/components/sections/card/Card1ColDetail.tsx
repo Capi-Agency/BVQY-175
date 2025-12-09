@@ -18,10 +18,24 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
-
+import { Fancybox as NativeFancybox } from '@fancyapps/ui';
 export default function Card1ColDetail({ event, data }: any) {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const trans = useTranslation();
+
+  const fancyBoxItems = event?.images?.map((image: any) => ({
+    src: getAssetUrlById(image?.directus_files_id),
+    type: 'image',
+  }));
+
+  const fancyBoxOptions = {
+    Carousel: {
+      infinite: true,
+    },
+    Images: {
+      zoom: true,
+    },
+  };
 
   return (
     <Dialog open={isOpenModal} onOpenChange={setIsOpenModal}>
@@ -103,14 +117,7 @@ export default function Card1ColDetail({ event, data }: any) {
 
             <div className="scrollbar-hidden relative size-full space-y-6 overflow-x-hidden overflow-y-scroll">
               <Fancybox
-                options={{
-                  Carousel: {
-                    infinite: true,
-                  },
-                  Images: {
-                    zoom: true,
-                  },
-                }}
+                options={fancyBoxOptions}
                 className="w-full"
               >
                 <div className="relative aspect-video w-full overflow-hidden rounded-[12px]">
@@ -123,12 +130,23 @@ export default function Card1ColDetail({ event, data }: any) {
                     speed={700}
                     className="!h-full !w-full"
                   >
-                    {event?.images?.map((image: any) => (
+                    {event?.images?.map((image: any, index: number) => (
                       <SwiperSlide key={image?.directus_files_id}>
                         <Link
                           href={getAssetUrlById(image?.directus_files_id)}
-                          data-fancybox="gallery"
                           className="relative block size-full overflow-hidden rounded-[12px]"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (fancyBoxItems && fancyBoxItems.length > 0) {
+                              NativeFancybox.show(fancyBoxItems, {
+                                ...fancyBoxOptions,
+                                Hash: false,
+                                hideScrollbar: false,
+                                startIndex: index,
+                              });
+                            }
+                          }}
                         >
                           <NextImg
                             src={getAssetUrlById(image?.directus_files_id)}

@@ -171,10 +171,17 @@ const sectionMap: SectionMap = {
     ),
   ),
 
-  // Minestone
-    'card-1-col': dynamic(() =>
+  // Milestone
+  'card-1-col': dynamic(() =>
     import('../components/sections/card').then(
       (m) => m.Card1Col,
+    ),
+  ),
+
+  // Khối cơ quan hành chính
+  'card-3-col': dynamic(() =>
+    import('../components/sections/card').then(
+      (m) => m.Card3Col,
     ),
   ),
 };
