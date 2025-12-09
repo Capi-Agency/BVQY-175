@@ -11,24 +11,24 @@ export default function BreadcrumbBasic({ data }: CommonSection) {
   return (
     <div className="bg-primary-50">
       <div className="container flex flex-wrap items-center gap-1 py-2 text-sm md:text-base lg:gap-1.5 lg:py-2 lg:text-lg xl:py-2.5 4xl:gap-2 4xl:py-3 4xl:text-xl">
-        {data?.items?.map((item: any, index: number) => {
-          const isLast = index === data?.items?.length - 1;
+        {data?.buttons?.map((button: any, index: number) => {
+          const isLast = index === data?.buttons?.length - 1;
 
           return (
             <React.Fragment key={index}>
-              {item?.buttons?.[0]?.url ? (
+              {button?.url ? (
                 <Link
-                  href={`/${language}${item?.buttons?.[0]?.url}` || '/'}
+                  href={`/${language}${button?.url}` || '/'}
                   aria-label="Chuyển trang"
                   className={`${isLast ? 'font-semibold text-primary-600' : 'font-normal text-[#71717A] hover:text-primary-600'} block transition-colors duration-100`}
                 >
-                  {item?.buttons?.[0]?.title}
+                  {button?.title}
                 </Link>
               ) : (
                 <div
                   className={`${isLast ? 'font-semibold text-primary-600' : 'font-normal text-[#71717A] hover:text-primary-600'} block transition-colors duration-100`}
                 >
-                  {item?.buttons?.[0]?.title}
+                  {button?.title}
                 </div>
               )}
 
