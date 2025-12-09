@@ -67,6 +67,7 @@ export const fnGetDepartmentDetail = async ({
           'achievements_images.*',
           'facilities_images.*',
           'technologies_images.*',
+          'activities_images.*',
           'doctors.*.*',
         ],
       }),

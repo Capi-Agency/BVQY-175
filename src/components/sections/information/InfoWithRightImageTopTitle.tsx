@@ -10,12 +10,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
 
-export default function InfoWithLeftImageTopTitle({
+export default function InfoWithRightImageTopTitle({
   data,
   dataDetail,
 }: CommonSection) {
-
-  const hasContent = dataDetail?.description_images || dataDetail?.description;
+  const hasContent = dataDetail?.activities_images || dataDetail?.activities;
 
   if (hasContent === null || hasContent.length === 0) return null;
 
@@ -34,7 +33,7 @@ export default function InfoWithLeftImageTopTitle({
         </div>
 
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 xl:gap-8 2xl:gap-10 3xl:gap-[52px] 4xl:gap-[60px]">
-          <div>
+          <div className="lg:order-2">
             <Fancybox
               options={{
                 Carousel: {
@@ -45,7 +44,7 @@ export default function InfoWithLeftImageTopTitle({
                 },
               }}
             >
-              {dataDetail?.description_images?.length > 0 && (
+              {dataDetail?.activities_images?.length > 0 && (
                 <>
                   <div className="relative aspect-[4/3]">
                     <Swiper
@@ -64,12 +63,12 @@ export default function InfoWithLeftImageTopTitle({
                       pagination={{
                         clickable: true,
                         type: 'bullets',
-                        el: '.swiper-bullets-container.swiper-info-left-image-top-title',
+                        el: '.swiper-bullets-container.swiper-info-right-image-top-title',
                         bulletElement: 'div',
                       }}
                       className="!h-full !w-full"
                     >
-                      {dataDetail?.description_images?.map((item: any) => (
+                      {dataDetail?.activities_images?.map((item: any) => (
                         <SwiperSlide key={item?.directus_files_id}>
                           <Link
                             href={getAssetUrlById(item?.directus_files_id)}
@@ -90,16 +89,16 @@ export default function InfoWithLeftImageTopTitle({
               )}
             </Fancybox>
 
-            <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
-              <div className="swiper-bullets-container swiper-info-left-image-top-title !w-fit"></div>
+            <div className="relative mt-3 flex h-5 justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
+              <div className="swiper-bullets-container swiper-info-right-image-top-title !w-fit"></div>
             </div>
           </div>
 
-          <div className="sidebar relative pr-2 md:overflow-y-auto lg:aspect-[4/3]">
+          <div className="sidebar relative pr-2 md:overflow-y-auto lg:order-1 lg:aspect-[4/3]">
             <div
               className={`relative space-y-3 text-justify text-sm font-normal text-[#09090B] transition-all duration-700 ease-in-out xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`}
               dangerouslySetInnerHTML={{
-                __html: dataDetail?.description,
+                __html: dataDetail?.activities,
               }}
             ></div>
           </div>

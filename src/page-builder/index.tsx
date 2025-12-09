@@ -125,6 +125,11 @@ const sectionMap: SectionMap = {
       (m) => m.InfoWithLeftImageTopTitle,
     ),
   ),
+  'info-with-right-image-top-title': dynamic(() =>
+    import('../components/sections/information').then(
+      (m) => m.InfoWithRightImageTopTitle,
+    ),
+  ),
   'team-slider-4-col': dynamic(() =>
     import('../components/sections/team').then((m) => m.TeamSlider4Col),
   ),
@@ -173,17 +178,19 @@ const sectionMap: SectionMap = {
 
   // Milestone
   'card-1-col': dynamic(() =>
-    import('../components/sections/card').then(
-      (m) => m.Card1Col,
-    ),
+    import('../components/sections/card').then((m) => m.Card1Col),
   ),
 
   // Khối cơ quan hành chính
   'card-4-col': dynamic(() =>
-    import('../components/sections/card').then(
-      (m) => m.Card4Col,
-    ),
+    import('../components/sections/card').then((m) => m.Card4Col),
   ),
+
+  // Search
+
+  // custom: dynamic(() =>
+  //   import('../components/sections/custom').then((m) => m.CustomSearch),
+  // ),
 };
 
 type PageBuilderProps = {

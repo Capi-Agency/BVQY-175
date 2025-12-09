@@ -77,6 +77,7 @@ export default function FaqsOneCol({ data }: CommonSection) {
     (searchText: string) => {
       const params = new URLSearchParams(searchParams);
       params.set('s', searchText.trim());
+      params.delete('page'); 
       router.push(`?${params.toString()}`, { scroll: false });
     },
     [router, searchParams],
