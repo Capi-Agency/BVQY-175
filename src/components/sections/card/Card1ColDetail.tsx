@@ -41,7 +41,7 @@ export default function Card1ColDetail({ event, data }: any) {
     <Dialog open={isOpenModal} onOpenChange={setIsOpenModal}>
       <DialogTrigger asChild>
         {
-          <div className="grid cursor-pointer grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-11 3xl:gap-[52px] 4xl:gap-[60px]">
+          <div className="grid cursor-pointer grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-11 3xl:gap-[52px] 4xl:gap-[60px]">
             <div className="relative aspect-video overflow-hidden">
               <NextImg
                 src={getAssetUrlById(event?.images?.[0]?.directus_files_id)}
@@ -92,6 +92,7 @@ export default function Card1ColDetail({ event, data }: any) {
           </div>
         }
       </DialogTrigger>
+
       <DialogContent
         onInteractOutside={(e) => e.preventDefault()}
         onScroll={(e) => e.stopPropagation()}
@@ -109,18 +110,15 @@ export default function Card1ColDetail({ event, data }: any) {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative size-[800px] overflow-y-auto rounded-[16px] bg-white p-[60px_40px_40px]"
+            className="relative h-[80vh] w-[calc(100vw-0px)] overflow-y-auto rounded-[12px] xl:rounded-[14px] 3xl:rounded-[16px] bg-white p-[40px_20px_20px] md:h-[60vh] md:w-[70vw] md:p-[40px_24px_24px] lg:h-[80vh] lg:w-[50vw] xl:p-[44px_28px_28px] 3xl:p-[48px_32px_32px] 4xl:p-[52px_40px_40px] 4xl:h-[800px] 4xl:w-[800px]"
           >
-            <DialogClose className="data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-0 top-0 p-[20px_40px] focus:outline-none disabled:pointer-events-none">
+            <DialogClose className="data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-0 top-0 p-[10px_10px] focus:outline-none disabled:pointer-events-none md:p-[10px_12px] xl:p-3 2xl:p-[12px_14px] 3xl:p-4">
               <X className="h-5 w-5 brightness-0" />
             </DialogClose>
 
             <div className="scrollbar-hidden relative size-full space-y-6 overflow-x-hidden overflow-y-scroll">
-              <Fancybox
-                options={fancyBoxOptions}
-                className="w-full"
-              >
-                <div className="relative aspect-video w-full overflow-hidden rounded-[12px]">
+              <Fancybox options={fancyBoxOptions} className="w-full">
+                <div className="relative aspect-video w-full overflow-hidden rounded-[6px] xl:rounded-[10px] 3xl:rounded-[12px]">
                   <Swiper
                     touchEventsTarget="container"
                     grabCursor={true}
@@ -134,7 +132,7 @@ export default function Card1ColDetail({ event, data }: any) {
                       <SwiperSlide key={image?.directus_files_id}>
                         <Link
                           href={getAssetUrlById(image?.directus_files_id)}
-                          className="relative block size-full overflow-hidden rounded-[12px]"
+                          className="relative block size-full overflow-hidden rounded-[6px] xl:rounded-[10px] 3xl:rounded-[12px]"
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();

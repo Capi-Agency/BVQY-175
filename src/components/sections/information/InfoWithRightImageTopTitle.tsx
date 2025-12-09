@@ -10,21 +10,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
 
-export default function InfoWithLeftImageTopTitle({
+export default function InfoWithRightImageTopTitle({
   data,
   dataDetail,
 }: CommonSection) {
+  const hasContent = dataDetail?.activities_images || dataDetail?.activities;
 
-  const hasContent =
-    !!dataDetail?.description_images ||
-    !!dataDetail?.description ||
-    !!data?.blurb ||
-    !!data?.cover;
-
-  if (!hasContent) return null;
-
-  const description = !!dataDetail ? dataDetail?.description : data?.blurb;
-  const images = !!dataDetail ? dataDetail?.description_images : data?.cover;
+  if (hasContent === null || hasContent.length === 0) return null;
 
   return (
     <section className="bg-primary-50 py-6 md:py-8 lg:py-12 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]">
@@ -41,7 +33,7 @@ export default function InfoWithLeftImageTopTitle({
         </div>
 
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 xl:gap-8 2xl:gap-10 3xl:gap-[52px] 4xl:gap-[60px]">
-          <div>
+          <div className="lg:order-2">
             <Fancybox
               options={{
                 Carousel: {
@@ -52,7 +44,7 @@ export default function InfoWithLeftImageTopTitle({
                 },
               }}
             >
-              {images?.length > 0 && (
+              {dataDetail?.activities_images?.length > 0 && (
                 <>
                   <div className="relative aspect-[4/3]">
                     <Swiper
@@ -71,24 +63,20 @@ export default function InfoWithLeftImageTopTitle({
                       pagination={{
                         clickable: true,
                         type: 'bullets',
-                        el: '.swiper-bullets-container.swiper-info-left-image-top-title',
+                        el: '.swiper-bullets-container.swiper-info-right-image-top-title',
                         bulletElement: 'div',
                       }}
                       className="!h-full !w-full"
                     >
-                      {images?.map((item: any) => (
-                        <SwiperSlide key={item?.directus_files_id || item?.id}>
+                      {dataDetail?.activities_images?.map((item: any) => (
+                        <SwiperSlide key={item?.directus_files_id}>
                           <Link
-                            href={getAssetUrlById(
-                              item?.directus_files_id || item?.id,
-                            )}
+                            href={getAssetUrlById(item?.directus_files_id)}
                             data-fancybox="gallery"
                             className="relative block size-full"
                           >
                             <NextImg
-                              src={getAssetUrlById(
-                                item?.directus_files_id || item?.id,
-                              )}
+                              src={getAssetUrlById(item?.directus_files_id)}
                               alt="image"
                               objectFit="cover"
                             />
@@ -101,16 +89,16 @@ export default function InfoWithLeftImageTopTitle({
               )}
             </Fancybox>
 
-            <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
-              <div className="swiper-bullets-container swiper-info-left-image-top-title !w-fit"></div>
+            <div className="relative mt-3 flex h-5 justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
+              <div className="swiper-bullets-container swiper-info-right-image-top-title !w-fit"></div>
             </div>
           </div>
 
-          <div className="sidebar relative pr-2 md:overflow-y-auto lg:aspect-[4/3]">
+          <div className="sidebar relative pr-2 md:overflow-y-auto lg:order-1 lg:aspect-[4/3]">
             <div
               className={`relative space-y-3 text-justify text-sm font-normal text-[#09090B] transition-all duration-700 ease-in-out xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`}
               dangerouslySetInnerHTML={{
-                __html: description,
+                __html: dataDetail?.activities,
               }}
             ></div>
           </div>

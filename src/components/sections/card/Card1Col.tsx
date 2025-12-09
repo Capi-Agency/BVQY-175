@@ -73,7 +73,7 @@ export default function Card1Col({ data }: CommonSection) {
   return (
     <div
       id="milestone-list"
-      className="container space-y-[80px] py-8 lg:py-12 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]"
+      className="container space-y-10 py-14 md:space-y-12 lg:space-y-14 lg:py-16 xl:py-[60px] 2xl:space-y-16 2xl:py-[80px] 3xl:space-y-[72px] 3xl:py-[100px] 4xl:space-y-[80px] 4xl:py-[120px]"
     >
       {loading ? (
         <div className="flex h-10 items-center justify-center">
@@ -88,34 +88,54 @@ export default function Card1Col({ data }: CommonSection) {
         <>
           {milestoneData?.length > 0 && (
             <Accordion.Root
-              className="w-full space-y-[80px]"
+              className="w-full space-y-12 md:space-y-12 lg:space-y-14 2xl:space-y-16 3xl:space-y-[72px] 4xl:space-y-[80px]"
               type="single"
               collapsible
             >
               <TooltipProvider delayDuration={100}>
                 {milestoneData?.map((item: any, index: number) => (
-                  <div key={index} className="flex items-stretch gap-[80px]">
+                  <div
+                    key={index}
+                    className="flex items-stretch gap-4 md:gap-6 lg:gap-10 xl:gap-12 2xl:gap-14 3xl:gap-16 4xl:gap-[80px]"
+                  >
                     <div className="relative">
                       <TooltipRoot open={true} delayDuration={0}>
                         <TooltipTrigger asChild>
-                          <div className="relative z-[2] size-8 rounded-full border-[6px] border-primary-400 bg-primary-50"></div>
+                          <div className="relative z-[2] size-5 rounded-full border-[6px] border-primary-400 bg-primary-50 lg:size-6 xl:size-7 3xl:size-8"></div>
                         </TooltipTrigger>
 
-                        <TooltipContent
-                          side="left"
-                          align="center"
-                          sideOffset={8}
-                          avoidCollisions={false}
-                          asChild={false}
-                          className="rounded-lg bg-primary-600 p-[8px_24px] text-lg text-white"
-                        >
-                          {item?.year}
-                          <TooltipArrow className="fill-primary-600" />
-                        </TooltipContent>
+                        <div className="xl:hidden">
+                          <TooltipContent
+                            side="top"
+                            align="start"
+                            sideOffset={8}
+                            alignOffset={-6}
+                            avoidCollisions={false}
+                            asChild={false}
+                            className="rounded-lg bg-primary-600 p-[6px_18px] text-sm font-semibold text-white lg:text-base xl:p-[8px_20px] 2xl:text-lg 3xl:p-[8px_24px]"
+                          >
+                            {item?.year}
+                            <TooltipArrow className="fill-primary-600" />
+                          </TooltipContent>
+                        </div>
+
+                        <div className="hidden xl:block">
+                          <TooltipContent
+                            side="left"
+                            align="center"
+                            sideOffset={8}
+                            avoidCollisions={false}
+                            asChild={false}
+                            className="rounded-lg bg-primary-600 p-[6px_18px] text-sm font-semibold text-white lg:text-base xl:p-[8px_18px] 2xl:p-[8px_20px] 2xl:text-lg 3xl:p-[8px_24px]"
+                          >
+                            {item?.year}
+                            <TooltipArrow className="fill-primary-600" />
+                          </TooltipContent>
+                        </div>
                       </TooltipRoot>
 
                       <div
-                        className={`${milestoneData?.length - 1 === index ? 'bottom-0' : '-bottom-[80px]'} absolute left-1/2 top-0 w-2 -translate-x-1/2 bg-primary-400`}
+                        className={`${milestoneData?.length - 1 === index ? 'bottom-0' : '-bottom-12 md:-bottom-12 lg:-bottom-14 2xl:-bottom-16 3xl:-bottom-[72px] 4xl:-bottom-[80px]'} absolute left-1/2 top-0 w-[3px] -translate-x-1/2 bg-primary-400 md:w-1 xl:w-[6px] 3xl:w-2`}
                       ></div>
                     </div>
 
@@ -126,11 +146,11 @@ export default function Card1Col({ data }: CommonSection) {
                         className="group w-full pb-0"
                       >
                         <AccordionTrigger className="w-full text-start">
-                          <div className="text-[32px] font-semibold uppercase !leading-[1.3] text-primary-600">
+                          <div className="line-clamp-3 text-xl font-semibold uppercase text-primary-600 lg:text-2xl 2xl:text-[28px] 2xl:!leading-[1.5] 3xl:text-[30px] 4xl:text-[32px]">
                             {item?.title}
                           </div>
                           <div
-                            className="content-wrapper pt-4"
+                            className="line-clamp-3 pt-1.5 text-sm font-normal text-black lg:pt-2 xl:text-base 2xl:pt-3 4xl:pt-4"
                             dangerouslySetInnerHTML={{
                               __html: item?.blurb,
                             }}
@@ -138,7 +158,7 @@ export default function Card1Col({ data }: CommonSection) {
                         </AccordionTrigger>
 
                         <AccordionContent>
-                          <div className="w-full space-y-[80px] py-8">
+                          <div className="w-full space-y-8 pt-6 md:space-y-6 md:pt-8 lg:space-y-8 xl:space-y-10 xl:pt-10 2xl:space-y-12 2xl:pt-12 3xl:space-y-14 3xl:pt-14 4xl:space-y-16 4xl:pt-16">
                             {item?.events?.map(
                               (event: any, eventIndex: number) => (
                                 <Card1ColDetail
@@ -151,9 +171,9 @@ export default function Card1Col({ data }: CommonSection) {
                           </div>
                         </AccordionContent>
 
-                        <div className="flex justify-center pt-6">
+                        <div className="flex justify-center pt-3 md:pt-4 xl:pt-5 2xl:pt-6">
                           <AccordionTrigger>
-                            <div className="flex items-center gap-[6px]">
+                            <div className="flex items-center gap-1 text-sm font-medium text-black md:text-base xl:gap-[6px] xl:text-lg 3xl:text-xl">
                               <span className="group-data-[state=open]:hidden">
                                 {trans('Mở rộng', 'Expand')}
                               </span>
