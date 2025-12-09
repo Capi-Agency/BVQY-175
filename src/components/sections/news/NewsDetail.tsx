@@ -9,18 +9,18 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
   const trans = useTranslation();
   return (
     <section className="container my-10 lg:my-12 2xl:my-[72px] 3xl:my-20">
-      {/* Cover */}
-      <div className="relative h-[200px] w-full md:h-[230px] lg:h-[360px] 2xl:h-[386px] 3xl:h-[426px] 4xl:h-[480px]">
-        <NextImg
-          src={getAssetUrlById(dataDetail?.cover)}
-          alt={`${dataDetail?.title}`}
-          objectFit="cover"
-        />
-      </div>
-
       <div className="mt-6 flex flex-col gap-6 md:grid md:grid-cols-[auto,220px] md:flex-row lg:mt-10 lg:grid-cols-[auto,260px] lg:gap-8 lg:px-6 xl:gap-11 xl:px-[60px] 2xl:gap-12 2xl:px-[100px] 3xl:gap-[60px] 3xl:px-[80px] 4xl:mt-[60px] 4xl:px-[160px]">
         {/* Main content */}
         <div className="space-y-4 md:space-y-6">
+          {/* Cover */}
+          <div className="relative aspect-video w-full">
+            <NextImg
+              src={getAssetUrlById(dataDetail?.cover)}
+              alt={`${dataDetail?.title}`}
+              objectFit="cover"
+            />
+          </div>
+
           <div className="space-y-2 lg:space-y-3">
             {/* Date published */}
             <div className="flex items-center gap-1.5 text-sm text-black lg:text-base 2xl:gap-2 2xl:text-lg 4xl:text-xl">
