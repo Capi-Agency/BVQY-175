@@ -56,6 +56,7 @@ export default function HeroWithBottomBigImage({
           <div className="relative aspect-[9/4] w-full overflow-hidden rounded-[6px]">
             <NextImg
               src={getAssetUrlById(dataDetail?.cover)}
+              objectFit='cover'
               alt="banner image"
             />
           </div>
