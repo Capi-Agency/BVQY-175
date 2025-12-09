@@ -26,7 +26,7 @@ export default function NewsListCard({ data }: CommonSection) {
   const [length, setLength] = useState<number>(0);
 
   // Bộ lọc
-  const category = (params?.cate as string) || '';
+  const category = (params?.cate as string) ?? data?.custom?.category ?? '';
   const currentPage = Number(searchParams.get('page')) || 1;
   const search = searchParams.get('s');
   const isSort: boolean = data?.collection_items_order === '-date_published';

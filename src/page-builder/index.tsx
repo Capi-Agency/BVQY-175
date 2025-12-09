@@ -173,16 +173,17 @@ const sectionMap: SectionMap = {
 
   // Milestone
   'card-1-col': dynamic(() =>
-    import('../components/sections/card').then(
-      (m) => m.Card1Col,
-    ),
+    import('../components/sections/card').then((m) => m.Card1Col),
   ),
 
   // Khối cơ quan hành chính
   'card-4-col': dynamic(() =>
-    import('../components/sections/card').then(
-      (m) => m.Card4Col,
-    ),
+    import('../components/sections/card').then((m) => m.Card4Col),
+  ),
+
+  // Cơ sở vật chất
+  'gallery-slider-tall': dynamic(() =>
+    import('../components/sections/gallery').then((m) => m.GallerySliderTall),
   ),
 };
 
