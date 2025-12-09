@@ -63,6 +63,7 @@ export const fnGetDepartmentDetail = async ({
       readItem(collection, slug, {
         fields: [
           '*',
+          'description_images.*',
           'achievements_images.*',
           'facilities_images.*',
           'technologies_images.*',

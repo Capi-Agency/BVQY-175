@@ -1,6 +1,6 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React, { useEffect } from 'react';
+import React from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
@@ -21,13 +21,15 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
   return (
     <div className="bg-primary-50 py-6 md:py-8 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
       <div className="container grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2 lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-[52px] 4xl:gap-[60px]">
-        <div className="lg:order-2">
+        <div className="flex flex-col items-stretch gap-2 lg:order-2 lg:aspect-[4/3] lg:gap-4 2xl:gap-5">
           <div className="space-y-1">
-            <div className="section-sub-title">{data?.subtitle}</div>
+            {data?.subtitle && (
+              <div className="section-sub-title">{data?.subtitle}</div>
+            )}
 
             {data?.title && (
               <h2
-                className="section-title mt-1"
+                className="section-title"
                 dangerouslySetInnerHTML={{
                   __html: data?.title,
                 }}
@@ -36,7 +38,7 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
           </div>
 
           <div
-            className="section-content pt-2 text-justify lg:pt-4 2xl:pt-6"
+            className="section-content sidebar relative pr-2 text-justify lg:flex-1 lg:overflow-y-auto"
             dangerouslySetInnerHTML={{
               __html: dataDetail?.technologies,
             }}

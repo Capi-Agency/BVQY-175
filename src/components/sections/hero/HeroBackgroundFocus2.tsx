@@ -21,7 +21,7 @@ export default function HeroBackgroundFocus2({ data }: CommonSection) {
         ></div>
         {/* title */}
         {data?.title && (
-          <h1 className="text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
+          <h1 className="text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px] md:!leading-[1.1]">
             {data?.title}
           </h1>
         )}

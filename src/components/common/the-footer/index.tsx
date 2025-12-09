@@ -183,7 +183,7 @@ export default function TheFooter() {
             </div>
           </div>
 
-          <div className="flex items-center gap-6 md:px-3 xl:flex-col xl:items-start xl:gap-4 2xl:gap-5 2xl:px-4 3xl:px-6 4xl:gap-6">
+          <div className="flex items-center lg:items-end gap-6 md:px-3 xl:flex-col xl:items-start xl:gap-4 2xl:gap-5 2xl:px-4 3xl:px-6 4xl:gap-6">
             <div className="relative h-[50px] w-[126px] 2xl:h-[58px] 2xl:w-[147px] 4xl:h-[66px] 4xl:w-[167px]">
               <NextImg
                 src="/assets/images/bo_cong_thuong.png"

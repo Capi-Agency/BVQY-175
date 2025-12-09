@@ -3,14 +3,20 @@ import { CommonSection } from '@/src/types/pageBuilder';
 import React, { useState } from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import Fancybox from '../../common/Fancybox';
+import Link from 'next/link';
 
 export default function InfoWithLeftImageTopTitle({
   data,
   dataDetail,
 }: CommonSection) {
-  const [isViewMore, setIsViewMore] = useState<boolean>(false);
+  // const [isViewMore, setIsViewMore] = useState<boolean>(false);
 
-  const hasContent = dataDetail?.description_image || dataDetail?.description;
+  const hasContent = dataDetail?.description_images || dataDetail?.description;
 
   if (hasContent === null || hasContent.length === 0) return null;
 
@@ -29,30 +35,83 @@ export default function InfoWithLeftImageTopTitle({
         </div>
 
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 xl:gap-8 2xl:gap-10 3xl:gap-[52px] 4xl:gap-[60px]">
-          <div className="relative aspect-[4/3]">
-            <NextImg
-              src={getAssetUrlById(dataDetail?.description_image)}
-              alt="image"
-              objectFit='cover'
-            />
+          <div>
+            <Fancybox
+              options={{
+                Carousel: {
+                  infinite: true,
+                },
+                Images: {
+                  zoom: true,
+                },
+              }}
+            >
+              {dataDetail?.description_images?.length > 0 && (
+                <>
+                  <div className="relative aspect-[4/3]">
+                    <Swiper
+                      touchEventsTarget="container"
+                      grabCursor={true}
+                      slidesPerView={1}
+                      loop={true}
+                      spaceBetween={0}
+                      speed={700}
+                      modules={[Pagination, EffectFade, Autoplay]}
+                      effect="fade"
+                      autoplay={{
+                        delay: 5000,
+                        disableOnInteraction: false,
+                      }}
+                      pagination={{
+                        clickable: true,
+                        type: 'bullets',
+                        el: '.swiper-bullets-container.swiper-info-left-image-top-title',
+                        bulletElement: 'div',
+                      }}
+                      className="!h-full !w-full"
+                    >
+                      {dataDetail?.description_images?.map((item: any) => (
+                        <SwiperSlide key={item?.directus_files_id}>
+                          <Link
+                            href={getAssetUrlById(item?.directus_files_id)}
+                            data-fancybox="gallery"
+                            className="relative block size-full"
+                          >
+                            <NextImg
+                              src={getAssetUrlById(item?.directus_files_id)}
+                              alt="image"
+                              objectFit="cover"
+                            />
+                          </Link>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </div>
+                </>
+              )}
+            </Fancybox>
+
+            <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
+              <div className="swiper-bullets-container swiper-info-left-image-top-title !w-fit"></div>
+            </div>
           </div>
 
-          <div className="relative flex flex-col items-start gap-3 xl:gap-4 2xl:gap-5 3xl:gap-6">
+          <div className="sidebar relative pr-2 md:overflow-y-auto lg:aspect-[4/3]">
             <div
-              className={`${isViewMore ? 'line-clamp-none' : 'line-clamp-[17] lg:line-clamp-[15] xl:line-clamp-[14] 2xl:line-clamp-[15] 4xl:line-clamp-[17]'} relative space-y-3 text-justify text-sm font-normal text-[#09090B] transition-all duration-700 ease-in-out xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`}
+              className={`relative space-y-3 text-justify text-sm font-normal text-[#09090B] transition-all duration-700 ease-in-out xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`}
               dangerouslySetInnerHTML={{
                 __html: dataDetail?.description,
               }}
             ></div>
 
-            <button
+            {/* <button
               onClick={() => setIsViewMore((prev: boolean) => !prev)}
               className="text-sm font-normal text-[#09090B] underline underline-offset-4 xl:text-base"
             >
               {isViewMore
                 ? data?.buttons?.[1]?.title
                 : data?.buttons?.[0]?.title}
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

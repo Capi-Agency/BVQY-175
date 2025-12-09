@@ -18,7 +18,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
-export default function Card3Col({ data }: CommonSection) {
+export default function Card4Col({ data }: CommonSection) {
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
 
@@ -108,11 +108,11 @@ export default function Card3Col({ data }: CommonSection) {
     <section ref={containerRef}>
       <div
         id="admin-depart-list"
-        className="p-[24px_0_44px] lg:p-[28px_0_52px] xl:p-[32px_0_64px] 3xl:p-[32px_0_72px] 4xl:p-[40px_0_80px]"
+        className="p-[40px_0] lg:p-[40px_0] xl:p-[48px_0] 2xl:p-[52px_0] 3xl:p-[56px_0] 4xl:p-[64px_0]"
       >
         <div className="container">
           {adminDepartData?.length > 0 ? (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:gap-8 4xl:gap-10">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 2xl:gap-5 3xl:gap-6 4xl:gap-8">
               {adminDepartData?.map((item: any, index: number) => (
                 <div
                   key={item?.slug ?? index}
@@ -121,32 +121,34 @@ export default function Card3Col({ data }: CommonSection) {
                   <CustomLink
                     href={`${data?.buttons?.[0]?.url}/${item?.slug}`}
                     aria-label="Xem chi tiết khối cơ quan hành chính"
-                    className="group relative block cursor-pointer space-y-4 bg-primary-50 p-3 text-start transition-all duration-200 hover:bg-primary-600 xl:p-4"
+                    className="group relative flex cursor-pointer flex-col justify-between gap-4 bg-primary-50 p-3 text-start transition-all duration-200 hover:bg-primary-600 md:h-full xl:p-4"
                   >
                     {/* cover */}
-                    <div className="relative aspect-video">
-                      <NextImg
-                        src={getAssetUrlById(item?.cover?.id || item?.cover)}
-                        alt="admin department cover"
-                        objectFit="cover"
-                      />
-                    </div>
-                    <div className="space-y-1">
-                      <div className="text-lg font-semibold !leading-[1.6] text-primary-1000 duration-200 group-hover:text-primary-50 xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
-                        {trans(item?.title, item?.title_en)}
+                    <div className="space-y-4">
+                      <div className="relative aspect-video">
+                        <NextImg
+                          src={getAssetUrlById(item?.cover?.id || item?.cover)}
+                          alt="admin department cover"
+                          objectFit="cover"
+                        />
                       </div>
-                      <div
-                        className="text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
-                        dangerouslySetInnerHTML={{
-                          __html: trans(
-                            item?.organizational_structure,
-                            item?.organizational_structure_en,
-                          ),
-                        }}
-                      ></div>
+
+                      <div className="space-y-1">
+                        <div className="text-lg font-semibold !leading-[1.5] text-primary-1000 duration-200 group-hover:text-primary-50 xl:text-xl 2xl:line-clamp-2 2xl:h-16 3xl:h-[66px] 3xl:text-[22px] 4xl:h-[72px] 4xl:text-2xl">
+                          {trans(item?.title, item?.title_en)}
+                        </div>
+                        <div
+                          className="text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
+                          dangerouslySetInnerHTML={{
+                            __html: trans(
+                              item?.organizational_structure,
+                              item?.organizational_structure_en,
+                            ),
+                          }}
+                        ></div>
+                      </div>
                     </div>
 
-                    {/* date published */}
                     <div className="flex justify-between">
                       <div className="flex items-center gap-1.5">
                         <span className="text-sm font-medium text-gray-950 duration-200 group-hover:text-primary-50 2xl:text-base 3xl:text-lg">

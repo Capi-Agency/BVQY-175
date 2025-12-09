@@ -179,9 +179,9 @@ const sectionMap: SectionMap = {
   ),
 
   // Khối cơ quan hành chính
-  'card-3-col': dynamic(() =>
+  'card-4-col': dynamic(() =>
     import('../components/sections/card').then(
-      (m) => m.Card3Col,
+      (m) => m.Card4Col,
     ),
   ),
 };
