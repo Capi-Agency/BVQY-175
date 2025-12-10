@@ -193,9 +193,9 @@ const sectionMap: SectionMap = {
 
   // Search
 
-  // custom: dynamic(() =>
-  //   import('../components/sections/custom').then((m) => m.CustomSearch),
-  // ),
+  custom: dynamic(() =>
+    import('../components/sections/custom').then((m) => m.CustomSearch),
+  ),
 
   // PDF view
   'pdf-viewer': dynamic(() =>

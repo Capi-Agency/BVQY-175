@@ -38,6 +38,7 @@ export default function Team4Col({ data }: CommonSection) {
               <DoctorCard
                 key={index}
                 item={item}
+                url={data?.buttons?.[0]?.url}
                 avatarType="uniform_avatar"
                 subTitle="hospital_title"
                 isHover={false}

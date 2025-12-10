@@ -8,6 +8,7 @@ import { cn } from '@/src/lib/utils';
 
 interface DoctorCardProps {
   item: any;
+  url: string;
   isLogo?: boolean;
   isHover?: boolean;
   bgColor?: string;
@@ -50,6 +51,7 @@ const adminDepartmentTitleMap: Record<string, string> = {
 
 export default function DoctorCard({
   item,
+  url = '/doi-ngu-bac-si',
   isLogo = true,
   isHover = true,
   bgColor = 'bg-white',
@@ -87,7 +89,7 @@ export default function DoctorCard({
 
   return (
     <Link
-      href={`/${language}/doi-ngu-bac-si/${item?.slug}`}
+      href={`/${language}${url}/${item?.slug}`}
       aria-label="Xem chi tiết bác sĩ"
       className="group block space-y-3 2xl:space-y-[14px] 3xl:space-y-4"
     >

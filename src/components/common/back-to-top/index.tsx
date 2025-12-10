@@ -111,7 +111,7 @@ export default function BackToTop() {
     <div ref={containerRef}>
       <div
         ref={wrapperRef}
-        className="fixed right-6 z-50 flex flex-col items-center gap-2 md:bottom-8 md:right-8 lg:bottom-6 lg:right-6 xl:gap-3 3xl:bottom-8 3xl:right-8"
+        className="fixed right-6 z-50 flex flex-col items-center gap-2 md:bottom-8 md:right-8 lg:bottom-6 lg:right-6 xl:gap-2.5 3xl:gap-3 3xl:bottom-8 3xl:right-8"
       >
         <div ref={contactRef}>
           <ContactFixed />

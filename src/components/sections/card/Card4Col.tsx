@@ -15,6 +15,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import DepartmentCard from '../../departments/DepartmentCard';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
@@ -118,51 +119,7 @@ export default function Card4Col({ data }: CommonSection) {
                   key={item?.slug ?? index}
                   className="admin-depart-card col-span-1 origin-center scale-[0.9] opacity-0"
                 >
-                  <CustomLink
-                    href={`${data?.buttons?.[0]?.url}/${item?.slug}`}
-                    aria-label="Xem chi tiết khối cơ quan hành chính"
-                    className="group relative flex cursor-pointer flex-col justify-between gap-4 bg-primary-50 p-3 text-start transition-all duration-200 hover:bg-primary-600 md:h-full xl:p-4"
-                  >
-                    {/* cover */}
-                    <div className="space-y-4">
-                      <div className="relative aspect-video">
-                        <NextImg
-                          src={getAssetUrlById(item?.cover?.id || item?.cover)}
-                          alt="admin department cover"
-                          objectFit="cover"
-                        />
-                      </div>
-
-                      <div className="space-y-1">
-                        <div className="text-lg font-semibold !leading-[1.5] text-primary-1000 duration-200 group-hover:text-primary-50 xl:text-xl 2xl:line-clamp-2 2xl:h-16 3xl:h-[66px] 3xl:text-[22px] 4xl:h-[72px] 4xl:text-2xl">
-                          {trans(item?.title, item?.title_en)}
-                        </div>
-                        <div
-                          className="text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
-                          dangerouslySetInnerHTML={{
-                            __html: trans(
-                              item?.organizational_structure,
-                              item?.organizational_structure_en,
-                            ),
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-
-                    <div className="flex justify-between">
-                      <div className="flex items-center gap-1.5">
-                        <span className="text-sm font-medium text-gray-950 duration-200 group-hover:text-primary-50 2xl:text-base 3xl:text-lg">
-                          {data?.buttons?.[0]?.title}
-                        </span>
-                        <div className="relative size-5 transition-all duration-200 group-hover:brightness-0 group-hover:invert 2xl:size-6">
-                          <NextImg
-                            src={getAssetUrlById(data?.buttons?.[0]?.icon?.id)}
-                            alt="arrow icon"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </CustomLink>
+                  <DepartmentCard item={item} url={data?.buttons?.[0]?.url} blurb='description' />
                 </div>
               ))}
 

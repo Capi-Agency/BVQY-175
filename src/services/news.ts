@@ -53,7 +53,6 @@ export const getListNews = async ({
       readItems(collection, {
         page,
         limit,
-        offset,
         sort: sort ? '-date_published' : 'date_published',
         filter,
         fields: [
@@ -67,7 +66,6 @@ export const getListNews = async ({
           'categories.category.title',
           'categories.category.slug',
         ],
-        disableCache: true,
         // meta: 'filter_count',
       }),
     );
@@ -102,8 +100,16 @@ export const getTotalNewsCount = async ({
 
     if (keyword) {
       filter._or = [
-        { title: { _icontains: keyword } },
-        { content: { _icontains: keyword } },
+        {
+          title: {
+            _icontains: keyword,
+          },
+        },
+        {
+          blurb: {
+            _icontains: keyword,
+          },
+        },
       ];
     }
 
@@ -112,13 +118,12 @@ export const getTotalNewsCount = async ({
       aggregate(collection, {
         aggregate: { countDistinct: 'slug' },
         query: {
-          filter
+          filter,
         },
       }),
     );
 
     return (response?.[0]?.countDistinct as any)?.slug ?? 0;
-
   } catch (error) {
     console.log('Error fetching news count:', error);
     return 0;

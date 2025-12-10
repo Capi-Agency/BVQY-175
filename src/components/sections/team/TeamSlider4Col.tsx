@@ -68,6 +68,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                 <SwiperSlide key={index}>
                   <DoctorCard
                     item={item?.doctor}
+                    url={data?.buttons?.[0]?.url}
                     avatarType={custom?.avatar_type}
                     subTitle={custom?.sub_title}
                     isLogo={custom?.is_logo}
@@ -84,6 +85,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                   <div key={index} className="">
                     <DoctorCard
                       item={item?.doctor}
+                      url={data?.buttons?.[0]?.url}
                       avatarType={custom?.avatar_type}
                       subTitle={custom?.sub_title}
                       isLogo={custom?.is_logo}
@@ -116,6 +118,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                   <SwiperSlide key={index}>
                     <DoctorCard
                       item={item?.doctor}
+                      url={data?.buttons?.[0]?.url}
                       avatarType={custom?.avatar_type}
                       subTitle={custom?.sub_title}
                       isLogo={custom?.is_logo}

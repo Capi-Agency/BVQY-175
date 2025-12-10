@@ -33,7 +33,7 @@ export const fnGetAdminDepartments = async ({
       readItems(collection, {
         page,
         limit,
-        fields: ['slug', 'title', 'cover.id', 'organizational_structure'],
+        fields: ['slug', 'title', 'cover.id', 'organizational_structure', 'description'],
         filter,
       }),
     );

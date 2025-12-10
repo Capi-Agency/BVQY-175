@@ -1,5 +1,5 @@
 import { directusClientWithRest } from '@/src/lib/directus';
-import { readItem, readItems } from '@directus/sdk';
+import { aggregate, readItem, readItems } from '@directus/sdk';
 
 export const getListDoctors = async ({
   limit = 6,
@@ -117,33 +117,93 @@ export const getDoctorsCount = async ({
 };
 
 export const getListDoctorPreview = async ({
+  collection,
   limit = 9,
   page = 1,
-  sort = '',
+  keyword,
 }: {
+  collection: string;
   limit?: number;
   page?: number;
-  sort?: string;
+  keyword?: string;
 }) => {
+  const filter: any = {};
+  if (keyword) {
+    filter._or = [
+      {
+        full_name: {
+          _icontains: keyword,
+        },
+      },
+      {
+        departments: {
+          department: {
+            title: {
+              _icontains: keyword,
+            },
+          },
+        },
+      },
+    ];
+  }
+
   try {
     const res = await directusClientWithRest.request(
-      readItems('doctors', {
-        fields: [
-          'slug',
-          'avatar',
-          'full_title',
-          'full_name',
-          'position',
-          'specialty',
-        ],
-        sort: sort,
+      readItems(collection, {
+        fields: ['slug', 'avatar', 'full_title', 'full_name', 'specialty'],
         limit: limit,
         page: page,
+        filter,
       }),
     );
     return res;
   } catch (error) {
     console.log('Err in getAllDoctors: ', error);
+  }
+};
+
+export const getTotalDoctorCount = async ({
+  collection,
+  keyword,
+}: {
+  collection: string;
+  keyword?: string;
+}) => {
+  try {
+    const filter: any = {};
+    if (keyword) {
+      filter._or = [
+        {
+          full_name: {
+            _icontains: keyword,
+          },
+        },
+        {
+          departments: {
+            department: {
+              title: {
+                _icontains: keyword,
+              },
+            },
+          },
+        },
+      ];
+    }
+
+    // Lấy tất cả id matching filter
+    const response = await directusClientWithRest.request(
+      aggregate(collection, {
+        aggregate: { countDistinct: 'slug' },
+        query: {
+          filter,
+        },
+      }),
+    );
+
+    return (response?.[0]?.countDistinct as any)?.slug ?? 0;
+  } catch (error) {
+    console.log('Error fetching doctor count:', error);
+    return 0;
   }
 };
 
@@ -175,7 +235,7 @@ export const fnGetDoctorDetail = async ({
           '*',
           'departments.department.*',
           'department_groups.department_groups_slug.title',
-          'department_groups.department_groups_slug.slug'
+          'department_groups.department_groups_slug.slug',
         ],
       }),
     );

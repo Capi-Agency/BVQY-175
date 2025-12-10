@@ -1,75 +1,185 @@
-// 'use client';
+'use client';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { getListDoctorPreview, getListDoctors, getTotalDoctorCount } from '@/src/services/doctors';
+import { getListNews, getTotalNewsCount } from '@/src/services/news';
+import { fnGetAdminDepartments, getTotalAdminDepartmentCount } from '@/src/services/adminDepartment';
+import { NewsCard } from '../news';
+import DoctorCard from '../../common/doctor-card';
+import PaginationPrimary from '../pagination/PaginationPrimary';
+import NextImg from '../../common/next-img';
+import useTranslation from '@/src/hooks/use-translation';
+import DepartmentCard from '../../departments/DepartmentCard';
 
-// import { getListDoctors } from '@/src/services/doctors';
-// import { getListNews } from '@/src/services/news';
-// import { useRouter, useSearchParams } from 'next/navigation';
-// import React, { useEffect, useState } from 'react';
+type SearchListContentProps = {
+    collection: any;
+    type: string;
+    limit?: number;
+    url?: string;
+    title?: string
+    setTotalAll: React.Dispatch<React.SetStateAction<number>>
+};
 
-// type SearchListContentProps = {
-//   item: any;
-//   type: string;
-// };
+export default function SearchListContent({ collection, type, limit = 6, url = "/", title = "", setTotalAll }: SearchListContentProps) {
+    const trans = useTranslation()
+    const searchParams = useSearchParams();
 
-// export default function SearchListContent({
-//   item,
-//   type,
-// }: SearchListContentProps) {
-//   const searchParams = useSearchParams();
-//   const router = useRouter();
+    const [data, setData] = useState<any>([]);
+    const [length, setLength] = useState<number>(0);
+    const [loading, setLoading] = useState(false);
 
-//   const [data, setData] = useState<any[]>([]);
-//   const [loading, setLoading] = useState(false);
+    // lấy các thông tin search
+    const pageParam = `page-${type}`;
+    const currentPage = Number(searchParams.get(pageParam) || 1);
+    const keyword = searchParams.get('s') || '';
 
-//   const pageParam = `page-${type}`;
-//   const collection = item?.buttons?.[0]?.url;
+    // Map component, hàm gọi api và total, props card theo collection
+    const cardRegistry: Record<
+        string,
+        {
+            Component: React.ComponentType<any>;
+            getList: (params: any) => Promise<any>;
+            getCount: (params: any) => Promise<number>;
+            getProps: (item: any) => Record<string, any>;
+        }
+    > = {
+        posts: {
+            Component: NewsCard,
+            getList: getListNews,
+            getCount: getTotalNewsCount,
+            getProps: (itemData) => ({ item: itemData, url }),
+        },
+        activity_posts: {
+            Component: NewsCard,
+            getList: getListNews,
+            getCount: getTotalNewsCount,
+            getProps: (itemData) => ({ item: itemData, url }),
+        },
+        for_patient_posts: {
+            Component: NewsCard,
+            getList: getListNews,
+            getCount: getTotalNewsCount,
+            getProps: (itemData) => ({ item: itemData, url }),
+        },
+        doctors: {
+            Component: DoctorCard,
+            getList: getListDoctorPreview,
+            getCount: getTotalDoctorCount,
+            getProps: (itemData) => ({ item: itemData, url, avatarType: "avatar" }),
+        },
+        departments: {
+            Component: DepartmentCard,
+            getList: fnGetAdminDepartments,
+            getCount: getTotalAdminDepartmentCount,
+            getProps: (itemData) => ({ item: itemData, url }),
+        },
+        administration_departments: {
+            Component: DepartmentCard,
+            getList: fnGetAdminDepartments,
+            getCount: getTotalAdminDepartmentCount,
+            getProps: (itemData) => ({ item: itemData, url }),
+        },
+        department_groups: {
+            Component: DepartmentCard,
+            getList: fnGetAdminDepartments,
+            getCount: getTotalAdminDepartmentCount,
+            getProps: (itemData) => ({ item: itemData, url }),
+        },
+        dependent_units: {
+            Component: DepartmentCard,
+            getList: fnGetAdminDepartments,
+            getCount: getTotalAdminDepartmentCount,
+            getProps: (itemData) => ({ item: itemData, url }),
+        },
+    };
 
-//   const page = parseInt(searchParams.get(pageParam) || '1', 10);
-//   const keyword = searchParams.get('s') || '';
+    const registry = cardRegistry[collection];
+    const CardComponent = registry?.Component;
 
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       if (!keyword) return;
-//       setLoading(true);
+    const totalPage: number = useMemo(() => (length ? Math.ceil(length / limit) : 0), [length, limit]);
 
-//       try {
-//         let response;
-//         switch (collection) {
-//           case 'posts':
-//           case 'activity_posts':
-//           case 'for_patient_posts':
-//             response = await getListNews({ collection });
-//             break;
-//           case 'department_groups': break
-//           case 'departments':
-//           case 'administration_departments':
-//           case 'dependent_units':
-//             response = await getServices(keyword, page);
-//             break;
-//           case 'doctors':
-//             res = await getListDoctors();
-//             break;
-       
-//           default:
-//             res = [];
-//         }
-//         setData(res);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
+    // gọi danh sách
+    useEffect(() => {
+        if (!registry) return;
 
-//     fetchData();
-//   }, [keyword, page, type]);
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const response = await registry.getList({ collection, keyword, limit, page: currentPage })
+                setData(response || []);
+            } catch (error) {
+                console.error('Fetch error:', error);
+                setData([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, [keyword, currentPage, type]);
 
-//   return (
-//     <div className="space-y-4 lg:space-y-5 xl:space-y-6 3xl:space-y-7 4xl:space-y-8">
-//       {item?.title && (
-//         <h1 className="text-[20px] font-semibold text-primary-600 md:text-[20px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[36px] 4xl:text-[40px]">
-//           {item?.title}
-//         </h1>
-//       )}
+    // gọi total
+    useEffect(() => {
+        if (!registry) return;
 
-//       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:gap-8 4xl:gap-10"></div>
-//     </div>
-//   );
-// }
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const response = await registry.getCount({ collection, keyword })
+
+                setLength(response || 0);
+                setTotalAll((prev: number) => prev + Number(response || 0));
+            } catch (error) {
+                console.error('Fetch error:', error);
+                setLength(0);
+                setTotalAll((prev: number) => prev + 0)
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [keyword, type]);
+
+    return (
+        <div
+            id={collection}
+            className="space-y-4 lg:space-y-5 xl:space-y-6 3xl:space-y-7 4xl:space-y-8"
+        >
+            <h1 className="text-[20px] font-semibold text-primary-600 md:text-[20px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[36px] 4xl:text-[40px]">
+                {title}
+            </h1>
+
+            {loading ? (
+                <div className="flex h-10 items-center justify-center">
+                    <div className="relative size-8 animate-spin">
+                        <NextImg
+                            src="/assets/icons/loading_spin_primary.svg"
+                            alt="loading spin"
+                        />
+                    </div>
+                </div>
+            ) : (
+                <>
+                    {CardComponent && data?.length > 0 ? (
+                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 md:gap-4">
+                            {data?.map((el: any, i: number) => <CardComponent key={i} {...registry.getProps(el)} />)}
+                        </div>
+                    ) : (
+                        <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
+                            {trans('Không có dữ liệu', 'No data available')}
+                        </div>
+                    )}
+                </>
+            )}
+
+            {totalPage > 1 && (
+                <PaginationPrimary
+                    currentPage={currentPage}
+                    totalPage={totalPage}
+                    idSection={collection}
+                    pageName={pageParam}
+                />
+            )}
+        </div>
+    );
+}

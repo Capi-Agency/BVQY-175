@@ -19,10 +19,17 @@ export default function ContactFixed() {
             isTargetBlank: false
         },
         {
-            title: "Đặt khám online",
+            title: "Đặt khám trên App",
             icon: "/assets/icons/calendar_contact.svg",
             url: contact_information?.googleplay_url || "/",
             bgColor: "#E50000",
+            isTargetBlank: true
+        },
+        {
+            title: "Đặt khám theo yêu cầu",
+            icon: "/assets/icons/zalo_contact.svg",
+            url: contact_information?.medical_appointment_url || "/",
+            bgColor: "#60A5FA",
             isTargetBlank: true
         },
         {
@@ -70,7 +77,7 @@ export default function ContactFixed() {
                     </TooltipContent>
                 </TooltipRoot>
 
-                <div className={`${isOpenMenu ? "pointer-events-auto" : "pointer-events-none"} absolute z-[50] pb-2 xl:pb-3 left-0 top-0 -translate-y-full flex flex-col gap-2 xl:gap-3`}>
+                <div className={`${isOpenMenu ? "pointer-events-auto" : "pointer-events-none"} absolute z-[50] pb-2 xl:pb-3 left-0 top-0 -translate-y-full flex flex-col gap-2 xl:gap-2.5 3xl:gap-3`}>
                     {data?.map((item: any, index: number) => (
                         <div key={index} className={`${isOpenMenu ? "translate-y-0 opacity-100" : "translate-y-[80%] opacity-0"} transition-all duration-200`}
                             style={{
