@@ -11,10 +11,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { getListNews } from '@/src/services/news';
 
 export default function Feature3Col({ data }: CommonSection) {
-  console.log('🚀 ~ Feature3Col ~ data:', data);
   const category = data?.custom?.category;
-  const [posts, setPosts] = useState([]);
-  console.log('🚀 ~ Feature3Col ~ posts:', posts);
+  const [posts, setPosts] = useState<any>([]);
   const language = useStoreLanguage((state: any) => state.language);
   const fetchPosts = async () => {
     const res = await getListNews({
@@ -151,4 +149,3 @@ export default function Feature3Col({ data }: CommonSection) {
     </section>
   );
 }
-
