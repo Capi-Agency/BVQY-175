@@ -196,6 +196,11 @@ const sectionMap: SectionMap = {
   // custom: dynamic(() =>
   //   import('../components/sections/custom').then((m) => m.CustomSearch),
   // ),
+
+  // PDF view
+  'pdf-viewer': dynamic(() =>
+    import('../components/sections/custom').then((m) => m.PDFViewer),
+  ),
 };
 
 type PageBuilderProps = {
