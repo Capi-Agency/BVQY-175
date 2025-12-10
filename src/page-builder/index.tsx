@@ -201,6 +201,9 @@ const sectionMap: SectionMap = {
   'pdf-viewer': dynamic(() =>
     import('../components/sections/custom').then((m) => m.PDFViewer),
   ),
+  'fancybox-viewer': dynamic(() =>
+    import('../components/sections/custom').then((m) => m.FancyboxViewer),
+  ),
 };
 
 type PageBuilderProps = {
