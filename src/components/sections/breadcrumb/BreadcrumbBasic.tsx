@@ -5,14 +5,20 @@ import NextImg from '../../common/next-img';
 import useStoreLanguage from '@/src/store/store';
 import { CommonSection } from '@/src/types/pageBuilder';
 
-export default function BreadcrumbBasic({ data }: CommonSection) {
+export default function BreadcrumbBasic({ data, dataDetail }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
+  const categoryTitle = dataDetail?.categories?.[0]?.category?.title || null;
+  const rawBtns = data?.buttons || [];
+  const len = rawBtns.length;
+  const buttons = categoryTitle
+    ? [...rawBtns.slice(0, len - 1), { title: categoryTitle }, rawBtns[len - 1]]
+    : rawBtns;
 
   return (
     <div className="bg-primary-50">
       <div className="container flex flex-wrap items-center gap-1 py-2 text-sm md:text-base lg:gap-1.5 lg:py-2 lg:text-lg xl:py-2.5 4xl:gap-2 4xl:py-3 4xl:text-xl">
-        {data?.buttons?.map((button: any, index: number) => {
-          const isLast = index === data?.buttons?.length - 1;
+        {buttons?.map((button: any, index: number) => {
+          const isLast = index === buttons.length - 1;
 
           return (
             <React.Fragment key={index}>
