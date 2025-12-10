@@ -230,44 +230,46 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                                   item_second?.sub_items?.length > 0 ? (
                                     <div
                                       key={item_second_index}
-                                      className="flex w-fit cursor-pointer items-center gap-1"
+                                      className="flex w-full justify-between items-center gap-1"
                                     >
-                                      {item_second?.url ? (
-                                        <DialogClose
-                                          onClick={() =>
-                                            smoother?.paused(false)
-                                          }
-                                          asChild
-                                        >
-                                          <CustomLink
-                                            href={item_second?.url || ''}
+                                      <div className='flex items-center gap-1 cursor-pointer'>
+                                        {item_second?.url ? (
+                                          <DialogClose
+                                            onClick={() =>
+                                              smoother?.paused(false)
+                                            }
+                                            asChild
+                                          >
+                                            <CustomLink
+                                              href={item_second?.url || ''}
+                                              className="text-sm font-medium text-[#18181B]"
+                                            >
+                                              {language === 'en'
+                                                ? `${item_second?.title_en}`
+                                                : `${item_second?.title}`}
+                                            </CustomLink>
+                                          </DialogClose>
+                                        ) : (
+                                          <div
+                                            onClick={() => {
+                                              setItemSecond(item_second);
+                                              setIsOpenSubMenu(true);
+                                            }}
                                             className="text-sm font-medium text-[#18181B]"
                                           >
                                             {language === 'en'
                                               ? `${item_second?.title_en}`
                                               : `${item_second?.title}`}
-                                          </CustomLink>
-                                        </DialogClose>
-                                      ) : (
-                                        <div
-                                          onClick={() => {
-                                            setItemSecond(item_second);
-                                            setIsOpenSubMenu(true);
-                                          }}
-                                          className="text-sm font-medium text-[#18181B]"
-                                        >
-                                          {language === 'en'
-                                            ? `${item_second?.title_en}`
-                                            : `${item_second?.title}`}
-                                        </div>
-                                      )}
-
-                                      <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
-                                        {item_second?.sub_items?.length === 1
-                                          ? item_second?.sub_items?.[0]
+                                          </div>
+                                        )}
+                                        <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
+                                          {item_second?.sub_items?.length === 1
+                                            ? item_second?.sub_items?.[0]
                                               ?.sub_items?.length
-                                          : item_second?.sub_items?.length}
+                                            : item_second?.sub_items?.length}
+                                        </div>
                                       </div>
+
                                       <div
                                         onClick={() => {
                                           setItemSecond(item_second);
