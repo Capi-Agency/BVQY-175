@@ -53,12 +53,12 @@ export default function TeamSlider5Col({ data }: CommonSection) {
             }}
             className="w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-0"
             // ⭐ CHỈ ĐỂ SLIDE 3 ACTIVE TRÊN MOBILE
-            onSwiper={(swiper) => {
-              if (window.innerWidth < 768) {
-                // index slide thứ 3 là 2
-                swiper.slideTo(2, 0); // 0 = không animation
-              }
-            }}
+            // onSwiper={(swiper) => {
+            //   if (window.innerWidth < 768) {
+            //     // index slide thứ 3 là 2
+            //     swiper.slideTo(2, 0); // 0 = không animation
+            //   }
+            // }}
           >
             {data?.doctors?.map((item: any, index: number) => (
               <SwiperSlide key={index}>
