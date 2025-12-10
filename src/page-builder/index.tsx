@@ -30,6 +30,9 @@ const sectionMap: SectionMap = {
   'feature-4-col': dynamic(() =>
     import('../components/sections/feature').then((m) => m.Feature4Col),
   ),
+  'feature-3-col': dynamic(() =>
+    import('../components/sections/feature').then((m) => m.Feature3Col),
+  ),
   'number-none': dynamic(() =>
     import('../components/sections/number').then((m) => m.NumberNone),
   ),
@@ -203,6 +206,11 @@ const sectionMap: SectionMap = {
   ),
   'fancybox-viewer': dynamic(() =>
     import('../components/sections/custom').then((m) => m.FancyboxViewer),
+  ),
+
+  // Thanh tich
+  'posts-2-col': dynamic(() =>
+    import('../components/sections/post-grid').then((m) => m.Posts2Col),
   ),
 };
 
