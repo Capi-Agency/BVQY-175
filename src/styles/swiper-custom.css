@@ -113,3 +113,11 @@
 .swiper-card-2-col .swiper-slide {
     height: unset !important;
 }
+
+.swiper-grid-height .swiper-wrapper {
+    align-items: stretch !important;
+}
+
+.swiper-grid-height .swiper-slide {
+    height: unset !important;
+}

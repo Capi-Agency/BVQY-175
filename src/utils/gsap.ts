@@ -81,7 +81,6 @@ export const handleScrollTo = (elementId: string, conditions: gsap.Conditions | 
 };
 
 export const handleScrollToDepartmentPage = (elementId: string, conditions: gsap.Conditions | undefined) => {
-    console.log("offsetY", getOffsetYinDepartmentPage(conditions))
     const elementTarget = document.getElementById(elementId);
     if (elementTarget && conditions) {
         gsap.to(window, {

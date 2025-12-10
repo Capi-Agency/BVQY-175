@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import NextImg from '../next-img';
 import { useMetadata } from '@/src/providers/MetadataProvider';
@@ -10,12 +10,14 @@ import NavHeader from './NavHeader';
 import MobileMenu from './MenuMobile';
 import { updateSlugLanguage } from '@/src/utils/language';
 import CustomLink from '../custom-link';
+import SearchHeader from './SearchHeader';
 
 export default function TheHeader() {
   const { contact_information } = useMetadata();
   const language = useStoreLanguage((state: any) => state.language);
   const updateLanguage = useStoreLanguage((state: any) => state.updateLanguage);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   const router = useRouter();
 
   const changeLanguage = useCallback(
@@ -33,6 +35,15 @@ export default function TheHeader() {
       updateLanguage(value);
     },
     [pathname, router, updateLanguage],
+  );
+
+  const handleSearch = useCallback(
+    (key: string, value: string) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(key, value.trim());
+      router.push(`/${language}/tim-kiem?${params.toString()}`);
+    },
+    [router, searchParams],
   );
 
   return (
@@ -83,16 +94,12 @@ export default function TheHeader() {
                   </div>
                 </CustomLink>
 
-                <button className="flex items-center justify-center md:h-9 md:w-[52px] md:rounded-[6px] md:bg-primary-600 2xl:h-10 2xl:w-[60px]">
-                  <div className="relative size-5 brightness-0 md:brightness-100 2xl:size-6">
-                    <NextImg
-                      src="/assets/icons/search_white.svg"
-                      alt="search icon"
-                    />
-                  </div>
-                </button>
+                <SearchHeader handleSearch={handleSearch} />
 
-                <MobileMenu changeLanguage={changeLanguage} />
+                <MobileMenu
+                  changeLanguage={changeLanguage}
+                  handleSearch={handleSearch}
+                />
 
                 <button
                   onClick={() =>

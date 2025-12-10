@@ -1,185 +1,256 @@
 'use client';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { getListDoctorPreview, getListDoctors, getTotalDoctorCount } from '@/src/services/doctors';
+import {
+  getListDoctorPreview,
+  getTotalDoctorCount,
+} from '@/src/services/doctors';
 import { getListNews, getTotalNewsCount } from '@/src/services/news';
-import { fnGetAdminDepartments, getTotalAdminDepartmentCount } from '@/src/services/adminDepartment';
+import {
+  fnGetAdminDepartments,
+  getTotalAdminDepartmentCount,
+} from '@/src/services/adminDepartment';
 import { NewsCard } from '../news';
 import DoctorCard from '../../common/doctor-card';
 import PaginationPrimary from '../pagination/PaginationPrimary';
-import NextImg from '../../common/next-img';
 import useTranslation from '@/src/hooks/use-translation';
 import DepartmentCard from '../../departments/DepartmentCard';
+import { cn } from '@/src/lib/utils';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 type SearchListContentProps = {
-    collection: any;
-    type: string;
-    limit?: number;
-    url?: string;
-    title?: string
-    setTotalAll: React.Dispatch<React.SetStateAction<number>>
+  collection: any;
+  type: string;
+  limit?: number;
+  url?: string;
+  title?: string;
+  setTotalAll: React.Dispatch<React.SetStateAction<number>>;
+  className?: string;
 };
 
-export default function SearchListContent({ collection, type, limit = 6, url = "/", title = "", setTotalAll }: SearchListContentProps) {
-    const trans = useTranslation()
-    const searchParams = useSearchParams();
+export default function SearchListContent({
+  collection,
+  type,
+  limit = 6,
+  url = '/',
+  title = '',
+  setTotalAll,
+  className,
+}: SearchListContentProps) {
+  const containerRef = useRef<any>(null);
+  const selector = gsap.utils.selector(containerRef);
 
-    const [data, setData] = useState<any>([]);
-    const [length, setLength] = useState<number>(0);
-    const [loading, setLoading] = useState(false);
+  const trans = useTranslation();
+  const searchParams = useSearchParams();
 
-    // lấy các thông tin search
-    const pageParam = `page-${type}`;
-    const currentPage = Number(searchParams.get(pageParam) || 1);
-    const keyword = searchParams.get('s') || '';
+  const [data, setData] = useState<any>([]);
+  const [length, setLength] = useState<number>(0);
+  const [loading, setLoading] = useState(false);
 
-    // Map component, hàm gọi api và total, props card theo collection
-    const cardRegistry: Record<
-        string,
-        {
-            Component: React.ComponentType<any>;
-            getList: (params: any) => Promise<any>;
-            getCount: (params: any) => Promise<number>;
-            getProps: (item: any) => Record<string, any>;
-        }
-    > = {
-        posts: {
-            Component: NewsCard,
-            getList: getListNews,
-            getCount: getTotalNewsCount,
-            getProps: (itemData) => ({ item: itemData, url }),
+  // lấy các thông tin search
+  const pageParam = `page-${type}`;
+  const currentPage = Number(searchParams.get(pageParam) || 1);
+  const keyword = searchParams.get('s') || '';
+  const subnet = searchParams.get('subnet') || '';
+
+  // Map component, hàm gọi api và total, props card theo collection
+  const cardRegistry: Record<
+    string,
+    {
+      Component: React.ComponentType<any>;
+      getList: (params: any) => Promise<any>;
+      getCount: (params: any) => Promise<number>;
+      getProps: (item: any) => Record<string, any>;
+    }
+  > = {
+    posts: {
+      Component: NewsCard,
+      getList: getListNews,
+      getCount: getTotalNewsCount,
+      getProps: (itemData) => ({ item: itemData, url }),
+    },
+    activity_posts: {
+      Component: NewsCard,
+      getList: getListNews,
+      getCount: getTotalNewsCount,
+      getProps: (itemData) => ({ item: itemData, url }),
+    },
+    for_patient_posts: {
+      Component: NewsCard,
+      getList: getListNews,
+      getCount: getTotalNewsCount,
+      getProps: (itemData) => ({ item: itemData, url }),
+    },
+    doctors: {
+      Component: DoctorCard,
+      getList: getListDoctorPreview,
+      getCount: getTotalDoctorCount,
+      getProps: (itemData) => ({ item: itemData, url, avatarType: 'avatar' }),
+    },
+    departments: {
+      Component: DepartmentCard,
+      getList: fnGetAdminDepartments,
+      getCount: getTotalAdminDepartmentCount,
+      getProps: (itemData) => ({ item: itemData, url }),
+    },
+    administration_departments: {
+      Component: DepartmentCard,
+      getList: fnGetAdminDepartments,
+      getCount: getTotalAdminDepartmentCount,
+      getProps: (itemData) => ({ item: itemData, url }),
+    },
+    department_groups: {
+      Component: DepartmentCard,
+      getList: fnGetAdminDepartments,
+      getCount: getTotalAdminDepartmentCount,
+      getProps: (itemData) => ({ item: itemData, url }),
+    },
+    dependent_units: {
+      Component: DepartmentCard,
+      getList: fnGetAdminDepartments,
+      getCount: getTotalAdminDepartmentCount,
+      getProps: (itemData) => ({ item: itemData, url }),
+    },
+  };
+
+  const registry = cardRegistry[collection];
+  const CardComponent = registry?.Component;
+
+  const totalPage: number = useMemo(
+    () => (length ? Math.ceil(length / limit) : 0),
+    [length, limit],
+  );
+
+  // gọi danh sách
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await registry.getList({
+        collection,
+        keyword,
+        limit,
+        page: currentPage,
+      });
+      setData(response || []);
+    } catch (error) {
+      console.error('Fetch error:', error);
+      setData([]);
+    } finally {
+      setLoading(false);
+      ScrollTrigger.refresh();
+    }
+  };
+
+  useGSAP(
+    () => {
+      if (!registry) return;
+      gsap.to(selector('.admin-depart-card'), {
+        scale: 0.9,
+        opacity: 0,
+        stagger: {
+          each: 0.1,
+          grid: 'auto',
         },
-        activity_posts: {
-            Component: NewsCard,
-            getList: getListNews,
-            getCount: getTotalNewsCount,
-            getProps: (itemData) => ({ item: itemData, url }),
+        duration: 0.3,
+        onStart: () => {
+          fetchData();
         },
-        for_patient_posts: {
-            Component: NewsCard,
-            getList: getListNews,
-            getCount: getTotalNewsCount,
-            getProps: (itemData) => ({ item: itemData, url }),
-        },
-        doctors: {
-            Component: DoctorCard,
-            getList: getListDoctorPreview,
-            getCount: getTotalDoctorCount,
-            getProps: (itemData) => ({ item: itemData, url, avatarType: "avatar" }),
-        },
-        departments: {
-            Component: DepartmentCard,
-            getList: fnGetAdminDepartments,
-            getCount: getTotalAdminDepartmentCount,
-            getProps: (itemData) => ({ item: itemData, url }),
-        },
-        administration_departments: {
-            Component: DepartmentCard,
-            getList: fnGetAdminDepartments,
-            getCount: getTotalAdminDepartmentCount,
-            getProps: (itemData) => ({ item: itemData, url }),
-        },
-        department_groups: {
-            Component: DepartmentCard,
-            getList: fnGetAdminDepartments,
-            getCount: getTotalAdminDepartmentCount,
-            getProps: (itemData) => ({ item: itemData, url }),
-        },
-        dependent_units: {
-            Component: DepartmentCard,
-            getList: fnGetAdminDepartments,
-            getCount: getTotalAdminDepartmentCount,
-            getProps: (itemData) => ({ item: itemData, url }),
-        },
+      });
+    },
+    {
+      scope: containerRef,
+      dependencies: [keyword, currentPage, subnet, type],
+    },
+  );
+
+  // gọi total
+  useEffect(() => {
+    if (!registry) return;
+
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await registry.getCount({ collection, keyword });
+
+        setLength(response || 0);
+        setTotalAll((prev: number) => prev + Number(response || 0));
+      } catch (error) {
+        console.error('Fetch error:', error);
+        setLength(0);
+        setTotalAll((prev: number) => prev + 0);
+      } finally {
+        setLoading(false);
+        ScrollTrigger.refresh();
+      }
     };
 
-    const registry = cardRegistry[collection];
-    const CardComponent = registry?.Component;
+    fetchData();
+  }, [keyword, subnet, type]);
 
-    const totalPage: number = useMemo(() => (length ? Math.ceil(length / limit) : 0), [length, limit]);
+  useGSAP(
+    () => {
+      if (!data) return;
+      ScrollTrigger.batch(selector('.admin-depart-card'), {
+        start: 'top 90%',
+        onEnter: (batch) => {
+          gsap.to(batch, {
+            opacity: 1,
+            scale: 1,
+            stagger: {
+              each: 0.05,
+              grid: 'auto',
+              ease: 'power1.out',
+            },
+            duration: 0.7,
+          });
+        },
+      });
+    },
+    { scope: containerRef, dependencies: [data] },
+  );
 
-    // gọi danh sách
-    useEffect(() => {
-        if (!registry) return;
+  return (
+    <div ref={containerRef}>
+      <div
+        id={collection}
+        className="space-y-5 lg:space-y-5 xl:space-y-6 2xl:space-y-7 4xl:space-y-8"
+      >
+        <h1 className="text-[24px] font-semibold text-primary-600 md:text-[26px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[36px] 4xl:text-[40px]">
+          {title}
+        </h1>
 
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const response = await registry.getList({ collection, keyword, limit, page: currentPage })
-                setData(response || []);
-            } catch (error) {
-                console.error('Fetch error:', error);
-                setData([]);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, [keyword, currentPage, type]);
-
-    // gọi total
-    useEffect(() => {
-        if (!registry) return;
-
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const response = await registry.getCount({ collection, keyword })
-
-                setLength(response || 0);
-                setTotalAll((prev: number) => prev + Number(response || 0));
-            } catch (error) {
-                console.error('Fetch error:', error);
-                setLength(0);
-                setTotalAll((prev: number) => prev + 0)
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [keyword, type]);
-
-    return (
-        <div
-            id={collection}
-            className="space-y-4 lg:space-y-5 xl:space-y-6 3xl:space-y-7 4xl:space-y-8"
-        >
-            <h1 className="text-[20px] font-semibold text-primary-600 md:text-[20px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px] 3xl:text-[36px] 4xl:text-[40px]">
-                {title}
-            </h1>
-
-            {loading ? (
-                <div className="flex h-10 items-center justify-center">
-                    <div className="relative size-8 animate-spin">
-                        <NextImg
-                            src="/assets/icons/loading_spin_primary.svg"
-                            alt="loading spin"
-                        />
-                    </div>
+        {CardComponent && data?.length > 0 ? (
+          <>
+            <div className={cn('grid', className)}>
+              {data?.map((el: any, i: number) => (
+                <div
+                  key={i}
+                  className="admin-depart-card col-span-1 origin-center scale-[0.9] opacity-0"
+                >
+                  <CardComponent key={i} {...registry.getProps(el)} />
                 </div>
-            ) : (
-                <>
-                    {CardComponent && data?.length > 0 ? (
-                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 md:gap-4">
-                            {data?.map((el: any, i: number) => <CardComponent key={i} {...registry.getProps(el)} />)}
-                        </div>
-                    ) : (
-                        <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
-                            {trans('Không có dữ liệu', 'No data available')}
-                        </div>
-                    )}
-                </>
-            )}
-
+              ))}
+            </div>
             {totalPage > 1 && (
+              <div className="pt-2">
                 <PaginationPrimary
-                    currentPage={currentPage}
-                    totalPage={totalPage}
-                    idSection={collection}
-                    pageName={pageParam}
+                  currentPage={currentPage}
+                  totalPage={totalPage}
+                  idSection={collection}
+                  pageName={pageParam}
                 />
+              </div>
             )}
-        </div>
-    );
+          </>
+        ) : (
+          <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
+            {trans('Không có dữ liệu', 'No data available')}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }

@@ -8,9 +8,6 @@ import {
   getTotalAdminDepartmentCount,
 } from '@/src/services/adminDepartment';
 import { CommonSection } from '@/src/types/pageBuilder';
-import { getAssetUrlById } from '@/src/utils/image';
-import NextImg from '../../common/next-img';
-import CustomLink from '../../common/custom-link';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';

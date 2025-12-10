@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import '../styles/globals.css';
 import '../styles/swiper-custom.css';
 import { ToastContainer } from 'react-toastify';
@@ -77,11 +77,13 @@ export default async function RootLayout({
             <MetadataProvider value={metadata}>
               <GsapMatchMediaProvider>
                 <ScrollSmootherProvider>
-                  <TheHeader />
+                  <Suspense fallback={<></>}>
+                    <TheHeader />
+                  </Suspense>
                   <BackToTop />
                   {/* <ScrollSmoothWrapper> */}
-                    {children}
-                    <TheFooter />
+                  {children}
+                  <TheFooter />
                   {/* </ScrollSmoothWrapper> */}
                 </ScrollSmootherProvider>
               </GsapMatchMediaProvider>

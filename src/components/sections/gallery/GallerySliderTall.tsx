@@ -20,7 +20,6 @@ const getThumbnail = (url: string) => {
 
 export default function GallerySliderTall({ data }: CommonSection) {
   const items = data?.items || [];
-  console.log('🚀 ~ GallerySliderTall ~ items:', items);
   const [activeIndex, setActiveIndex] = useState(0);
 
   if (!items.length) return null;

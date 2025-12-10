@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { DialogDescription } from '@radix-ui/react-dialog';
 import { useScrollSmoother } from '@/src/providers/ScrollSmootherProvider';
 import useStoreLanguage from '@/src/store/store';
@@ -26,16 +26,22 @@ import CustomLink from '../custom-link';
 
 type MobileMenuProps = {
   changeLanguage: (value: string) => void;
+  handleSearch: (key: string, value: string) => void;
 };
 
-export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
+export default function MobileMenu({
+  changeLanguage,
+  handleSearch,
+}: MobileMenuProps) {
   const language = useStoreLanguage((state: any) => state.language);
   const { contact_information, top_navigation } = useMetadata();
   const { trans } = useTranslate();
   const [isOpenSubMenu, setIsOpenSubMenu] = useState<boolean>(false);
   const [itemSecond, setItemSecond] = useState<any>();
-
+  const [searchText, setSearchText] = useState<string>('');
   const { smoother } = useScrollSmoother();
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
   return (
     <Dialog>
       <DialogTrigger
@@ -120,6 +126,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
 
               {/* Close button */}
               <DialogClose
+                ref={closeButtonRef}
                 onClick={() => {
                   setIsOpenSubMenu(false);
                   smoother?.paused(false);
@@ -160,6 +167,15 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                     tabIndex={1}
                     autoFocus={false}
                     type="text"
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleSearch('s', searchText);
+                        closeButtonRef.current?.click();
+                      }
+                    }}
                     className="flex-1 border-none bg-transparent text-sm font-normal text-black outline-none placeholder:text-[#52525B]"
                     placeholder={trans('search-placeholder')}
                   />
@@ -230,9 +246,9 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                                   item_second?.sub_items?.length > 0 ? (
                                     <div
                                       key={item_second_index}
-                                      className="flex w-full justify-between items-center gap-1"
+                                      className="flex w-full items-center justify-between gap-1"
                                     >
-                                      <div className='flex items-center gap-1 cursor-pointer'>
+                                      <div className="flex cursor-pointer items-center gap-1">
                                         {item_second?.url ? (
                                           <DialogClose
                                             onClick={() =>
@@ -265,7 +281,7 @@ export default function MobileMenu({ changeLanguage }: MobileMenuProps) {
                                         <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
                                           {item_second?.sub_items?.length === 1
                                             ? item_second?.sub_items?.[0]
-                                              ?.sub_items?.length
+                                                ?.sub_items?.length
                                             : item_second?.sub_items?.length}
                                         </div>
                                       </div>

@@ -12,7 +12,6 @@ import useStoreLanguage from '@/src/store/store';
 import { useTranslate } from '@/src/hooks/useTranslate';
 
 export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
-  console.log('🚀 ~ CardSliderWithLeftRightButton ~ data:', data);
   const language = useStoreLanguage((state: any) => state.language);
   const { trans } = useTranslate();
 

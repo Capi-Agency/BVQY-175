@@ -212,6 +212,14 @@ const sectionMap: SectionMap = {
   'posts-2-col': dynamic(() =>
     import('../components/sections/post-grid').then((m) => m.Posts2Col),
   ),
+
+  // Contact
+  'card-3-col': dynamic(() =>
+    import('../components/sections/card').then((m) => m.Card3Col),
+  ),
+  'cta-with-field': dynamic(() =>
+    import('../components/sections/cta').then((m) => m.CtaWithField),
+  ),
 };
 
 type PageBuilderProps = {

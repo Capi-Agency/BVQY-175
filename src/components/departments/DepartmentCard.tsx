@@ -11,7 +11,6 @@ type DepartmentCardProps = {
 }
 export default function DepartmentCard({ item, url = "/", blurb = "description" }: DepartmentCardProps) {
     const trans = useTranslation()
-    console.log("🚀 ~ DepartmentCard ~ blurb:", item?.[`${blurb}`])
 
     const content = trans(item?.[`${blurb}`], item?.[`${blurb}_en`])
 
