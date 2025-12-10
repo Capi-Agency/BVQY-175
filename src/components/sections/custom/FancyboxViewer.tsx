@@ -24,49 +24,53 @@ export default function FancyboxViewer({ data }: CommonSection) {
           },
         }}
       >
-        {images.map((image) => (
-          <div key={image?.id} className="relative aspect-video h-auto w-full">
-            <Swiper
-              touchEventsTarget="container"
-              grabCursor={true}
-              slidesPerView={1}
-              loop={true}
-              spaceBetween={0}
-              speed={700}
-              modules={[Pagination, EffectFade, Autoplay]}
-              effect="fade"
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-              }}
-              pagination={{
-                clickable: true,
-                type: 'bullets',
-                el: '.swiper-bullets-container.swiper-info-right-image',
-                bulletElement: 'div',
-              }}
-              className="!h-full !w-full"
+        {images?.length > 0 &&
+          images.map((image: any) => (
+            <div
+              key={image?.id}
+              className="relative aspect-video h-auto w-full"
             >
-              {images?.map((item: any, index: number) => (
-                <SwiperSlide key={item?.id}>
-                  <Link
-                    href={getAssetUrlById(item?.id)}
-                    data-fancybox="gallery"
-                    className="relative block size-full"
-                  >
-                    <div className="relative size-full">
-                      <NextImg
-                        src={getAssetUrlById(item?.id)}
-                        objectFit="cover"
-                        alt="facilities images"
-                      />
-                    </div>
-                  </Link>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        ))}
+              <Swiper
+                touchEventsTarget="container"
+                grabCursor={true}
+                slidesPerView={1}
+                loop={true}
+                spaceBetween={0}
+                speed={700}
+                modules={[Pagination, EffectFade, Autoplay]}
+                effect="fade"
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                }}
+                pagination={{
+                  clickable: true,
+                  type: 'bullets',
+                  el: '.swiper-bullets-container.swiper-info-right-image',
+                  bulletElement: 'div',
+                }}
+                className="!h-full !w-full"
+              >
+                {images?.map((item: any, index: number) => (
+                  <SwiperSlide key={item?.id}>
+                    <Link
+                      href={getAssetUrlById(item?.id)}
+                      data-fancybox="gallery"
+                      className="relative block size-full"
+                    >
+                      <div className="relative size-full">
+                        <NextImg
+                          src={getAssetUrlById(item?.id)}
+                          objectFit="cover"
+                          alt="facilities images"
+                        />
+                      </div>
+                    </Link>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          ))}
       </Fancybox>
 
       <p className="mt-10 text-center text-sm font-normal italic text-primary-400">
