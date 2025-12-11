@@ -212,6 +212,8 @@ export default function SearchListContent({
     { scope: containerRef, dependencies: [data] },
   );
 
+  if (data?.length === 0) return null
+
   return (
     <div ref={containerRef}>
       <div

@@ -39,7 +39,7 @@ export default function InfoWithRightImage({
           </div>
 
           <div
-            className="section-content sidebar relative pr-2 text-justify lg:flex-1 lg:overflow-y-auto"
+            className="section-content sidebar relative md:pr-2 text-justify lg:flex-1 lg:overflow-y-auto"
             dangerouslySetInnerHTML={{
               __html: dataDetail?.facilities,
             }}

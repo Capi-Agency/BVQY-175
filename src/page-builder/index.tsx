@@ -214,6 +214,9 @@ const sectionMap: SectionMap = {
   ),
 
   // Contact
+  'cta-background-image': dynamic(() =>
+    import('../components/sections/cta').then((m) => m.CtaBackgroundImage),
+  ),
   'card-3-col': dynamic(() =>
     import('../components/sections/card').then((m) => m.Card3Col),
   ),
