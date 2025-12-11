@@ -10,7 +10,7 @@ export default function CtaWithField({ data }: CommonSection) {
         <div>
           {data?.title && (
             <h2
-              className="text-[48px] font-bold !leading-[1.3] text-primary-600 md:text-[52px] lg:text-[56px] xl:text-[60px] 2xl:text-[64px] 3xl:text-[72px] 4xl:text-[80px]"
+              className="text-[40px] font-bold !leading-[1.3] text-primary-600 md:text-[44px] lg:text-[48px] xl:text-[52px] 2xl:text-[56px] 3xl:text-[64px] 4xl:text-[72px]"
               dangerouslySetInnerHTML={{
                 __html: data?.title,
               }}

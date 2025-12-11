@@ -42,7 +42,7 @@ export default function CustomSearch({ data }: CommonSection) {
 
   useEffect(() => {
     setTotalAll(0);
-  }, [searchParams]);
+  }, [keyword, subnet]);
 
   useEffect(() => {
     setSearchText(keyword);
