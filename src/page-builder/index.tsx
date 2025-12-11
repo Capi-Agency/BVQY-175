@@ -223,6 +223,9 @@ const sectionMap: SectionMap = {
   'cta-with-field': dynamic(() =>
     import('../components/sections/cta').then((m) => m.CtaWithField),
   ),
+  'embedded-map': dynamic(() =>
+    import('../components/sections/custom').then((m) => m.EmbeddedMap),
+  ),
 };
 
 type PageBuilderProps = {
