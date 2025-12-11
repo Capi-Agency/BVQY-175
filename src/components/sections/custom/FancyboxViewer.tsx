@@ -15,6 +15,16 @@ export default function FancyboxViewer({ data }: CommonSection) {
   const imageStyle = data?.custom || {};
   return (
     <section className="container py-[60px] md:py-[80px] xl:py-[120px]">
+      <div
+        className="section-content mx-auto mb-6 w-full text-justify lg:mb-8 2xl:mb-10"
+        style={{
+          maxWidth: imageStyle?.['max-width'] ?? 'auto',
+        }}
+        dangerouslySetInnerHTML={{
+          __html: data?.blurb as string,
+        }}
+      ></div>
+
       <Fancybox
         options={{
           Carousel: {
