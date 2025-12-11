@@ -27,7 +27,7 @@ export default function LanguageBtn({ changeLanguage }: LanguageBtnProps) {
         />
       </div>
       <div
-        className={`${isOpen ? 'pointer-events-auto scale-100 opacity-100' : 'pointer-events-none scale-90 opacity-0'} absolute bottom-0 right-0 z-[110] origin-center w-full translate-y-full pt-[22px] transition-all duration-200 md:pt-4 lg:pt-5 xl:pt-2 2xl:pt-3`}
+        className={`${isOpen ? 'pointer-events-auto scale-100 opacity-100' : 'pointer-events-none scale-90 opacity-0'} absolute bottom-0 right-0 z-[110] w-full origin-center translate-y-full pt-[22px] transition-all duration-200 md:pt-4 lg:pt-5 xl:pt-2 2xl:pt-3`}
       >
         <div
           className="relative w-full rounded-[6px] bg-white py-[2px]"
@@ -39,7 +39,8 @@ export default function LanguageBtn({ changeLanguage }: LanguageBtnProps) {
             if (language === item) return null;
             return (
               <button
-                  onClick={() => changeLanguage(item)}
+                onClick={() => changeLanguage(item)}
+                key={index}
                 className="w-full whitespace-nowrap text-nowrap text-start text-sm font-medium uppercase text-black transition-all duration-100 hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[10px_16px]"
               >
                 {item}

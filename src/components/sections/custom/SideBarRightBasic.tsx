@@ -46,6 +46,7 @@ export default function SideBarRightBasic({ data }: CommonSection) {
           <h3 className="mb-2 text-base font-semibold text-gray-950 lg:mb-4 lg:text-lg 3xl:mb-5">
             {data?.title}
           </h3>
+
           {cateData?.map((cate: any, index: number) => (
             <Link
               href={`/${language}${data?.buttons?.[0]?.url}/${cate?.slug}`}
@@ -56,7 +57,7 @@ export default function SideBarRightBasic({ data }: CommonSection) {
             </Link>
           ))}
 
-          {data?.buttons?.map((item: any, index: number) => (
+          {cateData?.length === 0 && data?.buttons?.map((item: any, index: number) => (
             <CustomLink
               href={item?.url}
               key={index}
