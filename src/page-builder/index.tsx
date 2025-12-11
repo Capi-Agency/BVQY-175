@@ -168,6 +168,7 @@ const sectionMap: SectionMap = {
   'hero-background-focus': dynamic(() =>
     import('../components/sections/hero').then((m) => m.HeroBackgroundsFocus),
   ),
+  
   'faqs-1-col': dynamic(() =>
     import('../components/sections/faq').then((m) => m.FaqsOneCol),
   ),

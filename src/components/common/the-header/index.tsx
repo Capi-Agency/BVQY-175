@@ -11,6 +11,7 @@ import MobileMenu from './MenuMobile';
 import { updateSlugLanguage } from '@/src/utils/language';
 import CustomLink from '../custom-link';
 import SearchHeader from './SearchHeader';
+import LanguageBtn from './LanguageBtn';
 
 export default function TheHeader() {
   const { contact_information } = useMetadata();
@@ -84,11 +85,11 @@ export default function TheHeader() {
               <div className="flex items-center gap-4 md:gap-2 2xl:gap-3">
                 <CustomLink
                   href={contact_information?.map_url}
-                  className="hidden h-9 w-[52px] items-center justify-center rounded-[6px] bg-primary-600 md:flex 2xl:h-10 2xl:w-[60px]"
+                  className="hidden h-9 w-[52px] items-center justify-center rounded-[6px] bg-primary-600 hover:bg-primary-500 md:flex 2xl:h-10 2xl:w-[60px]"
                 >
                   <div className="relative size-5 2xl:size-6">
                     <NextImg
-                      src="/assets/icons/hospital_location.svg"
+                      src="/assets/icons/map_pin.svg"
                       alt="hospital location"
                     />
                   </div>
@@ -101,26 +102,8 @@ export default function TheHeader() {
                   handleSearch={handleSearch}
                 />
 
-                <button
-                  onClick={() =>
-                    changeLanguage(`${language === 'en' ? 'vi' : 'en'}`)
-                  }
-                  className="relative hidden h-9 w-[52px] overflow-hidden rounded-[6px] xl:flex 2xl:h-10 2xl:w-[60px]"
-                >
-                  {language === 'en' ? (
-                    <NextImg
-                      src="/assets/images/flag_en.png"
-                      alt="English"
-                      objectFit="cover"
-                    />
-                  ) : (
-                    <NextImg
-                      src="/assets/images/flag_vi.png"
-                      alt="Vietnamese"
-                      objectFit="cover"
-                    />
-                  )}
-                </button>
+                <LanguageBtn changeLanguage={changeLanguage} />
+           
               </div>
 
               <a

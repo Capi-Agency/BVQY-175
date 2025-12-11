@@ -34,7 +34,7 @@ export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
     <div ref={boxRef} className="relative">
       <div
         onClick={() => setIsOpen((prev: boolean) => !prev)}
-        className="flex cursor-pointer items-center justify-center md:h-9 md:w-[52px] md:rounded-[6px] md:bg-primary-600 2xl:h-10 2xl:w-[60px]"
+        className="flex cursor-pointer items-center justify-center md:h-9 md:w-[52px] md:rounded-[6px] md:bg-primary-600 md:hover:bg-primary-500 2xl:h-10 2xl:w-[60px]"
       >
         <div className="relative size-5 brightness-0 md:brightness-100 2xl:size-6">
           <NextImg src="/assets/icons/search_white.svg" alt="search icon" />
@@ -42,16 +42,18 @@ export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
       </div>
 
       <div
-        className={`${isOpen ? 'pointer-events-auto translate-y-full opacity-100' : 'pointer-events-none translate-y-[130%] opacity-0'} absolute bottom-0 right-0 z-[110] pt-[22px] md:pt-4 lg:pt-5 xl:pt-2 transition-all duration-200 2xl:pt-3`}
+        className={`${isOpen ? 'pointer-events-auto translate-y-full opacity-100' : 'pointer-events-none translate-y-[130%] opacity-0'} absolute bottom-0 right-0 z-[110] pt-[22px] transition-all duration-200 md:pt-4 lg:pt-5 xl:pt-2 2xl:pt-3`}
       >
-        <div className="relative flex w-[80vw] md:w-[350px] items-center gap-2 rounded-[6px] bg-white px-2 lg:px-3 3xl:w-[400px]"
+        <div
+          className="relative flex w-[80vw] items-center gap-2 rounded-[6px] bg-white px-2 md:w-[350px] lg:px-3 3xl:w-[400px]"
           style={{
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)"
+            boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
           }}
         >
           <button
             onClick={() => {
               handleSearch('s', searchText);
+              inputRef.current?.blur();
               setIsOpen(false);
             }}
             className="relative size-5"
@@ -67,12 +69,13 @@ export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
             value={searchText}
             autoFocus={true}
             onChange={(e) => setSearchText(e.target.value)}
-            className="flex-1 border-none bg-transparent bg-none py-2 text-base text-gray-950 outline-none placeholder:text-gray-500 lg:py-2.5 3xl:py-3"
+            className="flex-1 border-none bg-transparent bg-none py-2.5 text-base text-gray-950 outline-none placeholder:text-gray-500 3xl:py-3"
             placeholder={trans('Tìm kiếm', 'Search')}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();
                 handleSearch('s', searchText);
+                inputRef.current?.blur();
                 setIsOpen(false);
               }
             }}

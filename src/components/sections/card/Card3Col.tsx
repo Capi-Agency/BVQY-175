@@ -39,7 +39,7 @@ export default function Card3Col({ data }: CommonSection) {
               </div>
 
               <div
-                className="text-sm font-medium text-[#09090B] md:text-base xl:text-lg 3xl:text-xl [&_li]:mt-1 [&_ul]:ml-6 [&_ul]:list-inside [&_ul]:list-disc"
+                className="text-sm font-medium text-[#09090B] md:text-base xl:text-lg 3xl:text-xl [&_li]:mt-1 [&_ul]:ml-1 [&_ul_ul]:ml-4 [&_ul]:list-inside [&_ul]:list-disc"
                 dangerouslySetInnerHTML={{
                   __html: item?.blurb,
                 }}

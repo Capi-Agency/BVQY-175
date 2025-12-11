@@ -39,7 +39,7 @@ export default function SideBarRightBasic({ data }: CommonSection) {
   }, [cateData]);
 
   return (
-    <div ref={sidebarRef} className="w-full">
+    <div ref={sidebarRef} className="w-full h-fit md:sticky md:top-[100px] lg:top-[120px] xl:top-[170px] 2xl:top-[190px] 3xl:top-[200px] 4xl:top-[220px]">
       {/*  Tags  */}
       {hasSidebarContainer && (
         <>
@@ -56,13 +56,13 @@ export default function SideBarRightBasic({ data }: CommonSection) {
             </Link>
           ))}
 
-          {data?.items?.map((item: any, index: number) => (
+          {data?.buttons?.map((item: any, index: number) => (
             <CustomLink
-              href={item?.buttons?.[0]?.url}
+              href={item?.url}
               key={index}
               className="block border-b border-gray-200 py-2.5 text-sm font-medium hover:text-primary-600 text-gray-700 transition-all duration-200 lg:py-3 lg:text-base"
             >
-              {item?.buttons?.[0]?.title}
+              {item?.title}
             </CustomLink>
           ))}
         </>
