@@ -12,6 +12,7 @@ import Link from 'next/link';
 
 export default function FancyboxViewer({ data }: CommonSection) {
   const images = data?.cover ?? [];
+  const imageStyle = data?.custom || {};
   return (
     <section className="container py-[60px] md:py-[80px] xl:py-[120px]">
       <Fancybox
@@ -29,6 +30,7 @@ export default function FancyboxViewer({ data }: CommonSection) {
             <div
               key={image?.id}
               className="relative aspect-video h-auto w-full"
+              style={imageStyle}
             >
               <Swiper
                 touchEventsTarget="container"
@@ -62,6 +64,7 @@ export default function FancyboxViewer({ data }: CommonSection) {
                         <NextImg
                           src={getAssetUrlById(item?.id)}
                           objectFit="cover"
+                          className="object-top"
                           alt="facilities images"
                         />
                       </div>
