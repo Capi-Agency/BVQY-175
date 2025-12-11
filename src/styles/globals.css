@@ -294,3 +294,8 @@ body {}
   width: 100% !important;
   height: 100% !important;
 }
+
+.custom-table th {
+  background-color: #198039;
+  color: white;
+}
