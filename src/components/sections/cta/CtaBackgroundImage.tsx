@@ -1,6 +1,6 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import 'swiper/css';
@@ -13,7 +13,7 @@ import { useMetadata } from '@/src/providers/MetadataProvider';
 import useTranslation from '@/src/hooks/use-translation';
 export default function CtaBackgroundImage({ data }: CommonSection) {
     const { contact_information } = useMetadata()
-    const {trans} = useTranslation()
+    const { trans } = useTranslation()
 
     const dataContact = useMemo(() => [
         {
@@ -53,6 +53,13 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
         },
     ], [contact_information])
 
+    const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(null);
+
+    useEffect(() => {
+        setRandomClassSwiper(
+            `swiper-custom-${Math.random().toString(36).substring(2, 9)}`
+        );
+    }, []);
 
     return (
         <section className="bg-white py-6 md:py-8 lg:py-12 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]">
@@ -70,18 +77,18 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
 
                 <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 xl:gap-8 2xl:gap-10 3xl:gap-[52px] 4xl:gap-[60px]">
                     <div className="hidden lg:block lg:order-2">
-                        <Fancybox
-                            options={{
-                                Carousel: {
-                                    infinite: true,
-                                },
-                                Images: {
-                                    zoom: true,
-                                },
-                            }}
-                        >
-                            {data?.cover?.length > 0 && (
-                                <>
+                        {data?.cover?.length > 0 && randomClassSwiper && (
+                            <>
+                                <Fancybox
+                                    options={{
+                                        Carousel: {
+                                            infinite: true,
+                                        },
+                                        Images: {
+                                            zoom: true,
+                                        },
+                                    }}
+                                >
                                     <div className="relative aspect-[4/3]">
                                         <Swiper
                                             touchEventsTarget="container"
@@ -99,7 +106,7 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
                                             pagination={{
                                                 clickable: true,
                                                 type: 'bullets',
-                                                el: '.swiper-bullets-container.swiper-cta-with-bg-image',
+                                                el: `.swiper-bullets-container.${randomClassSwiper}`,
                                                 bulletElement: 'div',
                                             }}
                                             className="!h-full !w-full"
@@ -121,13 +128,13 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
                                             ))}
                                         </Swiper>
                                     </div>
-                                </>
-                            )}
-                        </Fancybox>
+                                </Fancybox>
 
-                        <div className="relative mt-3 flex h-5 justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
-                            <div className="swiper-bullets-container swiper-cta-with-bg-image !w-fit"></div>
-                        </div>
+                                <div className="relative mt-3 flex h-5 justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
+                                    <div className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}></div>
+                                </div>
+                            </>
+                        )}
                     </div>
 
                     <div className="relative lg:order-1 space-y-6 md:space-y-7 xl:space-y-8 3xl:space-y-9 4xl:space-y-10">

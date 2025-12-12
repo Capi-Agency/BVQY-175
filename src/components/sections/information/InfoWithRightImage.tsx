@@ -1,6 +1,6 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
@@ -20,6 +20,14 @@ export default function InfoWithRightImage({
   const hasContent = blurb || (images?.length ?? 0) > 0;
 
   if (!hasContent) return null;
+
+  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(null);
+
+  useEffect(() => {
+    setRandomClassSwiper(
+      `swiper-info-right-image-${Math.random().toString(36).substring(2, 9)}`
+    );
+  }, []);
 
   return (
     <div className="bg-primary-50 py-6 md:py-8 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
@@ -58,7 +66,7 @@ export default function InfoWithRightImage({
             },
           }}
         >
-          {images?.length > 0 && (
+          {images?.length > 0 && randomClassSwiper && (
             <>
               <div className="relative aspect-[4/3] w-full md:aspect-[2/1] lg:aspect-[4/3]">
                 <Swiper
@@ -77,7 +85,7 @@ export default function InfoWithRightImage({
                   pagination={{
                     clickable: true,
                     type: 'bullets',
-                    el: '.swiper-bullets-container.swiper-info-right-image',
+                    el: `.swiper-bullets-container.${randomClassSwiper}`,
                     bulletElement: 'div',
                   }}
                   className="!h-full !w-full"
@@ -110,7 +118,7 @@ export default function InfoWithRightImage({
                 </Swiper>
               </div>
               <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
-                <div className="swiper-bullets-container swiper-info-right-image !w-fit"></div>
+                <div className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}></div>
               </div>
             </>
           )}

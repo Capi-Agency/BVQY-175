@@ -1,6 +1,6 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
@@ -13,6 +13,16 @@ import Link from 'next/link';
 export default function FancyboxViewer({ data }: CommonSection) {
   const images = data?.cover ?? [];
   const imageStyle = data?.custom || {};
+
+  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(null);
+
+  useEffect(() => {
+    setRandomClassSwiper(
+      `swiper-custom-${Math.random().toString(36).substring(2, 9)}`
+    );
+  }, []);
+
+
   return (
     <section className="container py-[60px] md:py-[80px] xl:py-[120px]">
       <div
@@ -35,7 +45,7 @@ export default function FancyboxViewer({ data }: CommonSection) {
           },
         }}
       >
-        {images?.length > 0 &&
+        {images?.length > 0 && randomClassSwiper &&
           images.map((image: any) => (
             <div
               key={image?.id}
@@ -58,7 +68,7 @@ export default function FancyboxViewer({ data }: CommonSection) {
                 pagination={{
                   clickable: true,
                   type: 'bullets',
-                  el: '.swiper-bullets-container.swiper-info-right-image',
+                  el: `.swiper-bullets-container.${randomClassSwiper}`,
                   bulletElement: 'div',
                 }}
                 className="!h-full !w-full"
