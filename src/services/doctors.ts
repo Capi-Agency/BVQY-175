@@ -136,6 +136,16 @@ export const getListDoctorPreview = async ({
         },
       },
       {
+        full_title: {
+          _icontains: keyword,
+        }
+      },
+      {
+        specialty: {
+          _icontains: keyword,
+        }
+      },
+      {
         departments: {
           department: {
             title: {
@@ -177,6 +187,16 @@ export const getTotalDoctorCount = async ({
           full_name: {
             _icontains: keyword,
           },
+        },
+        {
+          full_title: {
+            _icontains: keyword,
+          }
+        },
+        {
+          specialty: {
+            _icontains: keyword,
+          }
         },
         {
           departments: {

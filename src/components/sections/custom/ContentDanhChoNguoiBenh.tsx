@@ -31,7 +31,7 @@ export default function ContentCongDichVuCong({ data }: CommonSection) {
           )}
 
           <div
-            className="content-wrapper overflow-auto"
+            className="content-wrapper [&_ul]:ml-2 [&_ul_ul]:ml-4"
             dangerouslySetInnerHTML={{
               __html: data?.contents,
             }}

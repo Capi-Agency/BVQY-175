@@ -116,7 +116,9 @@ body {}
 
   .content-wrapper ol,
   .content-wrapper ul {
-    list-style: revert;
+    list-style: disc;
+    list-style-position: inside;
+    list-style-type: disc;
     margin: revert;
     padding-left: 1rem;
   }

@@ -120,10 +120,10 @@ export default function CustomSearch({ data }: CommonSection) {
               grabCursor={true}
               slidesPerView="auto"
               loop={false}
-              spaceBetween={24}
+              spaceBetween={20}
               breakpoints={{
                 768: {
-                  spaceBetween: 28,
+                  spaceBetween: 24,
                 },
               }}
               speed={600}
@@ -134,7 +134,10 @@ export default function CustomSearch({ data }: CommonSection) {
                   onClick={() => {
                     debouncedUpdateParam('subnet', '');
                   }}
-                  className="block cursor-pointer py-2.5 text-base font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"
+                  className={cn(
+                    'block cursor-pointer py-2.5 text-base font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base',
+                    !subnet && 'text-primary-600',
+                  )}
                 >
                   {trans('all')}
                 </div>
@@ -146,7 +149,10 @@ export default function CustomSearch({ data }: CommonSection) {
                     onClick={() => {
                       debouncedUpdateParam('subnet', button?.icon?.collection);
                     }}
-                    className="block cursor-pointer py-2.5 text-base font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"
+                    className={cn(
+                      'block cursor-pointer py-2.5 text-base font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base',
+                      subnet === button?.icon?.collection && 'text-primary-600',
+                    )}
                   >
                     {button?.title}
                   </div>
@@ -207,7 +213,10 @@ export default function CustomSearch({ data }: CommonSection) {
               onClick={() => {
                 debouncedUpdateParam('subnet', '');
               }}
-              className="block cursor-pointer border-b border-gray-200 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-2.5 lg:text-base"
+              className={cn(
+                'block cursor-pointer border-b border-gray-200 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-2.5 lg:text-base',
+                !subnet && 'text-primary-600',
+              )}
             >
               {trans('all')}
             </div>
@@ -217,7 +226,10 @@ export default function CustomSearch({ data }: CommonSection) {
                   debouncedUpdateParam('subnet', button?.icon?.collection);
                 }}
                 key={index}
-                className="block cursor-pointer border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"
+                className={cn(
+                  'block cursor-pointer border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base',
+                  subnet === button?.icon?.collection && 'text-primary-600',
+                )}
               >
                 {button?.title}
               </div>
