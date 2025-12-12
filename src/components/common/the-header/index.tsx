@@ -64,7 +64,10 @@ export default function TheHeader() {
 
           <div className="flex items-center gap-3 md:gap-4 lg:gap-6 2xl:gap-8 4xl:gap-10">
             {/* Start: medal*/}
-            <div className="hidden items-center gap-3 md:flex xl:gap-4 2xl:gap-5 4xl:gap-6">
+            <CustomLink
+              href="/thanh-tich"
+              className="hidden items-center gap-3 md:flex xl:gap-4 2xl:gap-5 4xl:gap-6"
+            >
               {contact_information?.files?.length > 0 &&
                 contact_information?.files?.map((file: any, index: number) => (
                   <div
@@ -77,7 +80,7 @@ export default function TheHeader() {
                     />
                   </div>
                 ))}
-            </div>
+            </CustomLink>
             {/* End: medal*/}
 
             {/* Start: location + search + language */}
@@ -103,7 +106,6 @@ export default function TheHeader() {
                 />
 
                 <LanguageBtn changeLanguage={changeLanguage} />
-           
               </div>
 
               <a

@@ -127,7 +127,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
 
               <div className="space-y-1 xl:space-y-2">
                 <div className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
-                  Chuyên ngành
+                  Chuyên khoa
                 </div>
                 <div className="text-sm font-normal text-[#09090B] lg:text-base">
                   {dataDetail?.specialty}
@@ -136,7 +136,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
 
               <div className="space-y-1 xl:space-y-2">
                 <div className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
-                  Chuyên khoa
+                  Đơn vị công tác
                 </div>
 
                 <div className="flex flex-wrap gap-3">

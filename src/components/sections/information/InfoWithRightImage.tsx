@@ -14,8 +14,10 @@ export default function InfoWithRightImage({
   data,
   dataDetail,
 }: CommonSection) {
-  const hasContent =
-    dataDetail?.facilities || (dataDetail?.facilities_images?.length ?? 0) > 0;
+  const blurb = dataDetail?.facilities ?? data?.blurb;
+  const images = dataDetail?.facilities_images ?? data?.cover ?? [];
+
+  const hasContent = blurb || (images?.length ?? 0) > 0;
 
   if (!hasContent) return null;
 
@@ -39,9 +41,9 @@ export default function InfoWithRightImage({
           </div>
 
           <div
-            className="section-content sidebar relative md:pr-2 text-justify lg:flex-1 lg:overflow-y-auto"
+            className="section-content sidebar relative text-justify md:pr-2 lg:flex-1 lg:overflow-y-auto"
             dangerouslySetInnerHTML={{
-              __html: dataDetail?.facilities,
+              __html: blurb,
             }}
           ></div>
         </div>
@@ -56,7 +58,7 @@ export default function InfoWithRightImage({
             },
           }}
         >
-          {dataDetail?.facilities_images?.length > 0 && (
+          {images?.length > 0 && (
             <>
               <div className="relative aspect-[4/3] w-full md:aspect-[2/1] lg:aspect-[4/3]">
                 <Swiper
@@ -69,7 +71,7 @@ export default function InfoWithRightImage({
                   modules={[Pagination, EffectFade, Autoplay]}
                   effect="fade"
                   autoplay={{
-                    delay: 5000,
+                    delay: 3000,
                     disableOnInteraction: false,
                   }}
                   pagination={{
@@ -80,25 +82,31 @@ export default function InfoWithRightImage({
                   }}
                   className="!h-full !w-full"
                 >
-                  {dataDetail?.facilities_images?.map(
-                    (item: any, index: number) => (
-                      <SwiperSlide key={item?.directus_files_id}>
+                  {images?.map((item: any, index: number) => {
+                    return (
+                      <SwiperSlide
+                        key={item?.directus_files_id || item?.id || item}
+                      >
                         <Link
-                          href={getAssetUrlById(item?.directus_files_id)}
+                          href={getAssetUrlById(
+                            item?.directus_files_id || item?.id || item,
+                          )}
                           data-fancybox="gallery"
                           className="relative block size-full"
                         >
                           <div className="relative size-full">
                             <NextImg
-                              src={getAssetUrlById(item?.directus_files_id)}
+                              src={getAssetUrlById(
+                                item?.directus_files_id || item?.id || item,
+                              )}
                               objectFit="cover"
                               alt="facilities images"
                             />
                           </div>
                         </Link>
                       </SwiperSlide>
-                    ),
-                  )}
+                    );
+                  })}
                 </Swiper>
               </div>
               <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">

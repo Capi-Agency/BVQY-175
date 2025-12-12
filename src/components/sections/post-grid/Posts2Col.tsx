@@ -29,26 +29,26 @@ const Posts2Col = ({ data }: CommonSection) => {
             speed={700}
             breakpoints={{
               768: {
-                slidesPerView: 2,
+                slidesPerView: 2.2,
               },
               1024: {
-                slidesPerView: 2,
+                slidesPerView: 3,
                 spaceBetween: 24,
               },
               1280: {
-                slidesPerView: 2,
+                slidesPerView: 3,
                 spaceBetween: 28,
               },
               1440: {
-                slidesPerView: 2,
+                slidesPerView: 3,
                 spaceBetween: 32,
               },
               1920: {
-                slidesPerView: 2,
+                slidesPerView: 3,
                 spaceBetween: 40,
               },
             }}
-            className="w-full !px-6 md:!px-0"
+            className="w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-0"
           >
             {items?.length > 0 &&
               items?.map((item: any, index: number) => (
