@@ -14,7 +14,7 @@ import PaginationPrimary from '../pagination/PaginationPrimary';
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
 export default function NewsListCard({ data }: CommonSection) {
-  const trans = useTranslation();
+  const {trans} = useTranslation();
   // Animation
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
@@ -156,7 +156,7 @@ export default function NewsListCard({ data }: CommonSection) {
             </div>
           ) : (
             <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
-              {trans('Không có dữ liệu', 'No data available')}
+              {trans('no-data-available')}
             </div>
           )}
         </div>

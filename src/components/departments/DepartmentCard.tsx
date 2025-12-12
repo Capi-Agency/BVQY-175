@@ -8,13 +8,32 @@ type DepartmentCardProps = {
     item: any;
     url: string;
     blurb?: 'organizational_structure' | 'description'
+    type?: "default" | "search"
 }
-export default function DepartmentCard({ item, url = "/", blurb = "description" }: DepartmentCardProps) {
-    const trans = useTranslation()
+export default function DepartmentCard({ item, url = "/", blurb = "description", type = "default" }: DepartmentCardProps) {
+    const { trans } = useTranslation()
 
     const content = trans(item?.[`${blurb}`], item?.[`${blurb}_en`])
 
-    return (
+    const renderSearch = () => (
+        <CustomLink
+            href={`${url}/${item?.slug}`}
+            aria-label="Xem chi tiết đơn vị"
+            className="space-y-1 block"
+        >
+            <div className="line-clamp-2 underline underline-offset-2 text-base font-semibold !leading-[1.6] text-primary-1000 duration-200 group-hover:text-primary-50 md:text-lg xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
+                {trans(item?.title, item?.title_en)}
+            </div>
+            <div
+                className="line-clamp-2 text-sm xl:text-base font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
+                dangerouslySetInnerHTML={{
+                    __html: content,
+                }}
+            ></div>
+        </CustomLink>
+    )
+
+    const renderDefault = () => (
         <CustomLink
             href={`${url}/${item?.slug}`}
             aria-label="Xem chi tiết khối cơ quan hành chính"
@@ -46,7 +65,7 @@ export default function DepartmentCard({ item, url = "/", blurb = "description" 
             <div className="flex justify-between">
                 <div className="flex items-center gap-1.5">
                     <span className="text-sm font-medium text-gray-950 duration-200 group-hover:text-primary-50 2xl:text-base 3xl:text-lg">
-                        {trans('Xem chi tiết', 'View more')}
+                        {trans('view-more-label')}
                     </span>
                     <div className="relative size-5 transition-all duration-200 group-hover:brightness-0 group-hover:invert 2xl:size-6">
                         <NextImg
@@ -58,4 +77,11 @@ export default function DepartmentCard({ item, url = "/", blurb = "description" 
             </div>
         </CustomLink>
     )
+
+    switch (type) {
+        case "search":
+            return renderSearch();
+        default:
+            return renderDefault()
+    }
 }

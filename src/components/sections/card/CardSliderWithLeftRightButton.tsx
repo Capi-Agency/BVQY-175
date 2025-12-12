@@ -9,11 +9,11 @@ import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
-import { useTranslate } from '@/src/hooks/useTranslate';
+import useTranslation from '@/src/hooks/use-translation';
 
 export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
-  const { trans } = useTranslate();
+  const { trans } = useTranslation();
 
   return (
     <div className="flex flex-col items-stretch gap-6 bg-[#F6FAF7] py-10 md:gap-8 md:py-6 lg:py-10 xl:gap-11 xl:py-11 2xl:gap-12 2xl:py-12 3xl:gap-[52px] 3xl:py-[52px] 4xl:gap-[60px] 4xl:py-[60px]">

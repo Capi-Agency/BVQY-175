@@ -6,7 +6,7 @@ import { CommonSection } from '@/src/types/pageBuilder';
 import useTranslation from '@/src/hooks/use-translation';
 
 export default function NewsDetail({ data, dataDetail }: CommonSection) {
-  const trans = useTranslation();
+  const {trans} = useTranslation();
   return (
     <section className="container my-10 lg:my-12 2xl:my-[72px] 3xl:my-20">
       <div className="mt-6 flex flex-col gap-6 md:grid md:grid-cols-[auto,220px] md:flex-row lg:mt-10 lg:grid-cols-[auto,260px] lg:gap-8 lg:px-6 xl:gap-11 xl:px-[60px] 2xl:gap-12 2xl:px-[100px] 3xl:gap-[60px] 3xl:px-[80px] 4xl:mt-[60px] 4xl:px-[160px]">

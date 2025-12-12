@@ -25,7 +25,7 @@ import Card1ColDetail from './Card1ColDetail';
 import PaginationPrimary from '../pagination/PaginationPrimary';
 
 export default function Card1Col({ data }: CommonSection) {
-  const trans = useTranslation();
+  const {trans} = useTranslation();
   const searchParams = useSearchParams();
 
   const [milestoneData, setMilestoneData] = useState<any>([]);
@@ -175,10 +175,10 @@ export default function Card1Col({ data }: CommonSection) {
                           <AccordionTrigger>
                             <div className="flex items-center gap-1 text-sm font-medium text-black md:text-base xl:gap-[6px] xl:text-lg 3xl:text-xl">
                               <span className="group-data-[state=open]:hidden">
-                                {trans('Mở rộng', 'Expand')}
+                                {trans('expand')}
                               </span>
                               <span className="hidden group-data-[state=open]:block">
-                                {trans('Rút gọn', 'Collapse')}
+                                {trans('collapse')}
                               </span>
                               <div className="relative size-5 transition-all duration-200 group-data-[state=open]:-rotate-180">
                                 <NextImg

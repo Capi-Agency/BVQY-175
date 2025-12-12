@@ -20,7 +20,7 @@ export default function Card4Col({ data }: CommonSection) {
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
 
-  const trans = useTranslation();
+  const {trans} = useTranslation();
   const searchParams = useSearchParams();
 
   const [adminDepartData, setAdminDepartData] = useState<any>([]);
@@ -128,7 +128,7 @@ export default function Card4Col({ data }: CommonSection) {
             </div>
           ) : (
             <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
-              {trans('Không có dữ liệu', 'No data available')}
+              {trans('no-data-available')}
             </div>
           )}
         </div>

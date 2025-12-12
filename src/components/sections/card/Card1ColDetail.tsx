@@ -21,7 +21,7 @@ import Link from 'next/link';
 import { Fancybox as NativeFancybox } from '@fancyapps/ui';
 export default function Card1ColDetail({ event, data }: any) {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const trans = useTranslation();
+  const {trans} = useTranslation();
 
   const fancyBoxItems = event?.images?.map((image: any) => ({
     src: getAssetUrlById(image?.directus_files_id),

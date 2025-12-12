@@ -1,9 +1,9 @@
 "use client"
-import { useTranslate } from '@/src/hooks/useTranslate';
+import useTranslation from '@/src/hooks/use-translation';
 import React from 'react';
 
 export default function EmptySection() {
-  const { trans } = useTranslate();
+  const { trans } = useTranslation();
 
   return (
     <section className="padding-top-body">

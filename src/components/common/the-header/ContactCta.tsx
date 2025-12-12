@@ -1,11 +1,11 @@
 'use client';
-import { useTranslate } from '@/src/hooks/useTranslate';
 import { useMetadata } from '@/src/providers/MetadataProvider';
 import React from 'react';
 import NextImg from '../next-img';
+import useTranslation from '@/src/hooks/use-translation';
 
 export default function ContactCta() {
-  const { trans } = useTranslate();
+  const { trans } = useTranslation();
   const { contact_information } = useMetadata();
 
   return (

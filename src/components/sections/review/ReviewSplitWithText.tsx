@@ -22,7 +22,7 @@ type Review = {
 };
 
 const initialValue: Review = {
-  rating: null,
+  rating: 5,
   name: '',
   phone: '',
   email: '',
@@ -31,34 +31,29 @@ const initialValue: Review = {
 
 const reviewOptions = [
   {
-    title: '😍 Rất tốt',
-    title_en: '😍 Very good',
+    titleKey: 'rating-very-good',
     rating: 5,
   },
   {
-    title: '😊 Tốt',
-    title_en: '😊 Good',
+    titleKey: 'rating-good',
     rating: 4,
   },
   {
-    title: '🙂 Khá',
-    title_en: '🙂 Rather',
+    titleKey: 'rating-rather',
     rating: 3,
   },
   {
-    title: '😐 Trung bình',
-    title_en: '😐 Medium',
+    titleKey: 'rating-medium',
     rating: 2,
   },
   {
-    title: '😞 Chưa tốt',
-    title_en: '😞 Least',
+    titleKey: 'rating-least',
     rating: 1,
   },
 ];
 
 export default function ReviewSplitWithText({ data }: CommonSection) {
-  const trans = useTranslation();
+  const { trans } = useTranslation();
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -70,44 +65,21 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
             .number()
             .nullable()
             .required(
-              trans('Vui lòng chọn đánh giá!', 'Please select a rating!'),
+              trans('validate-rating-required'),
             ),
           name: yup
             .string()
-            .max(
-              50,
-              trans(
-                'Vui lòng nhập không quá 50 ký tự!',
-                'Please enter no more than 50 characters!',
-              ),
-            )
-            .required(
-              trans(
-                'Vui lòng nhập tên của bạn!',
-                'Please enter your fullname!',
-              ),
-            ),
+            .max(50, trans("validate-name-length"))
+            .required(trans("validate-name-required")),
           phone: yup
             .string()
-            .max(
-              20,
-              trans(
-                'Vui lòng nhập không quá 20 ký tự!',
-                'Please enter no more than 20 characters!',
-              ),
-            )
+            .max(20, trans("validate-phone-length"))
             .required(
-              trans(
-                'Vui lòng nhập số điện thoại!',
-                'Please enter your phone number!',
-              ),
+              trans("validate-phone-required"),
             )
             .test(
               'is-valid-phone',
-              trans(
-                'Vui lòng nhập đúng định dạng số điện thoại!',
-                'Please enter correct phone number format!',
-              ),
+              trans("validate-phone-format"),
               (value) => {
                 if (!value) return false;
                 const phoneNot84 = /[0]{1}[35789]{1}[0-9]{8}$/;
@@ -125,35 +97,18 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
             .transform((value, originalValue) =>
               originalValue === '' ? null : value,
             )
-            .required(trans('Vui lòng nhập email!', 'Please enter your email!'))
-            .max(
-              50,
-              trans(
-                'Vui lòng nhập không quá 50 ký tự!',
-                'Please enter no more than 50 characters!',
-              ),
-            )
-            .email(
-              trans(
-                'Vui lòng nhập đúng định dạng email!',
-                'Please enter correct email format!',
-              ),
-            )
+            .required(trans('validate-email-required'))
+            .max(50, trans('validate-email-length'))
+            .email(trans("validate-email-format"))
             .matches(
               /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              trans(
-                'Vui lòng nhập đúng định dạng email!',
-                'Please enter correct email format!',
-              ),
+              trans("validate-email-format"),
             ),
           message: yup
             .string()
             .max(
               1000,
-              trans(
-                'Vui lòng nhập không quá 1000 ký tự!',
-                'Please enter no more than 1000 characters!',
-              ),
+              trans("validate-mess-length"),
             )
             .notRequired(),
         })
@@ -177,17 +132,17 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
     () => [
       {
         key: 'name',
-        placeholder: trans('Họ và tên', 'Fullname'),
+        placeholder: trans('name-placeholder'),
         className: 'col-span-full md:col-span-1',
       },
       {
         key: 'phone',
-        placeholder: trans('Số điện thoại', 'Phone number'),
+        placeholder: trans('phone-placeholder'),
         className: 'col-span-full md:col-span-1',
       },
       {
         key: 'email',
-        placeholder: trans('Email', 'Email'),
+        placeholder: trans('email-placeholder'),
         className: 'col-span-full',
       },
     ],
@@ -199,7 +154,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
 
     try {
       if (!executeRecaptcha) {
-        throw new Error('reCAPTCHA chưa sẵn sàng!');
+        throw new Error(trans("recapcha-not-ready"));
       }
       const token = await executeRecaptcha('review_form');
 
@@ -211,10 +166,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
 
       if (!verifyRes.ok) {
         toast.error(
-          trans(
-            'Xác minh Captcha không thành công!',
-            'Captcha verification failed!',
-          ),
+          trans("verify-recapcha-error"),
           {
             style: {
               padding: 16,
@@ -235,17 +187,11 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
 
       if (!response) {
         throw new Error(
-          trans(
-            'Xảy ra lỗi, xin vui lòng thử lại!',
-            'An error occurred, please try again!',
-          ),
+          trans("noti-error-contact"),
         );
       }
       toast.success(
-        trans(
-          'Cảm ơn bạn đã đánh giá chất lượng!',
-          'Thank you for rating the quality!',
-        ),
+        trans("noti-success-review"),
         {
           style: {
             padding: 16,
@@ -258,10 +204,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
       reset(initialValue);
     } catch (error) {
       toast.error(
-        trans(
-          'Xảy ra lỗi, xin vui lòng thử lại!',
-          'An error occurred, please try again!',
-        ),
+        trans("noti-error-contact"),
         {
           style: {
             padding: 16,
@@ -323,16 +266,15 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                     }
                     className={`${watch('rating') === option?.rating ? 'border-primary-600 bg-primary-50' : 'border-gray-400 bg-transparent'} flex h-9 items-center justify-center rounded-[4px] border-[2px] px-3 text-sm text-primary-600 transition-all duration-100 hover:bg-primary-50 md:h-10 md:px-3 lg:text-base 2xl:h-11 2xl:px-3 2xl:text-lg 3xl:h-12 3xl:px-4 4xl:px-5`}
                   >
-                    {trans(option?.title, option?.title_en)}
+                    {trans(option?.titleKey)}
                   </button>
                 ))}
               </div>
               {errors.rating && isSubmitted && (
                 <p
                   id="outlined_error_help"
-                  className={`text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
-                    errors.rating ? 'block' : 'hidden'
-                  }`}
+                  className={`text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${errors.rating ? 'block' : 'hidden'
+                    }`}
                 >
                   <span className="font-medium">{errors?.rating?.message}</span>
                 </p>
@@ -355,9 +297,8 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                     isSubmitted && (
                       <p
                         id="outlined_error_help"
-                        className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${
-                          errors[input.key as keyof Review] ? 'block' : 'hidden'
-                        }`}
+                        className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${errors[input.key as keyof Review] ? 'block' : 'hidden'
+                          }`}
                       >
                         <span className="font-medium">
                           {errors[input.key as keyof Review]?.message}
@@ -373,15 +314,14 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                   rows={3}
                   autoComplete="off"
                   aria-describedby="outlined_error_help"
-                  placeholder={trans('Ghi chú', 'Note')}
+                  placeholder={trans('note-placeholder')}
                   className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-sm font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
                 />
                 {errors.message && isSubmitted && (
                   <p
                     id="outlined_error_help"
-                    className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
-                      errors.message ? 'block' : 'hidden'
-                    }`}
+                    className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${errors.message ? 'block' : 'hidden'
+                      }`}
                   >
                     <span className="font-medium">
                       {errors?.message?.message}
@@ -396,7 +336,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                   disabled={loading}
                   className="relative w-full overflow-hidden rounded-[6px] bg-[#E50000] p-[8px_20px] text-base text-white md:w-fit lg:p-[10px_24px] lg:text-lg"
                 >
-                  {trans('Gửi ngay', 'Send now')}
+                  {trans('send-now')}
 
                   <div
                     className={`absolute inset-0 z-[1] flex size-full items-center justify-center bg-[#E50000] ${loading ? 'block' : 'hidden'}`}

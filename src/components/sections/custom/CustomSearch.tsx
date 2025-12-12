@@ -1,5 +1,5 @@
 'use client';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import NextImg from '../../common/next-img';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -7,10 +7,12 @@ import useTranslation from '@/src/hooks/use-translation';
 import SearchListContent from './SearchListContent';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { cn } from '@/src/lib/utils';
+import { debounce } from 'lodash';
 
 export default function CustomSearch({ data }: CommonSection) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const trans = useTranslation();
+  const { trans } = useTranslation();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -42,16 +44,24 @@ export default function CustomSearch({ data }: CommonSection) {
 
   useEffect(() => {
     setTotalAll(0);
+    setSearchText(keyword);
   }, [keyword, subnet]);
 
+  const debouncedUpdateParam = useMemo(
+    () => debounce(updateParam, 500, { leading: true, trailing: false }),
+    [updateParam]
+  );
+
   useEffect(() => {
-    setSearchText(keyword);
-  }, [keyword]);
+    return () => {
+      debouncedUpdateParam.cancel();
+    };
+  }, [debouncedUpdateParam]);
 
   return (
     <section className="py-8 lg:container lg:py-12 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]">
       <div className="relative flex flex-col gap-5 lg:grid lg:grid-cols-[auto,180px] lg:gap-6 xl:gap-7 2xl:gap-8 3xl:grid-cols-[auto,200px] 3xl:gap-10">
-        <div className="space-y-3 md:space-y-4 xl:space-y-8">
+        <div className="space-y-3 md:space-y-4 xl:space-y-6 3xl:space-y-7 4xl:space-y-8">
           {data?.title && (
             <h1 className="section-title px-6 text-primary-600 md:px-[calc((100vw-688px)/2)] lg:px-0">
               {data?.title}
@@ -61,7 +71,7 @@ export default function CustomSearch({ data }: CommonSection) {
           <div className="relative mx-6 flex items-center gap-2 rounded-[6px] bg-gray-100 px-2 shadow-md md:mx-[calc((100vw-688px)/2)] lg:mx-0 lg:px-3">
             <button
               onClick={() => {
-                updateParam('s', searchText);
+                debouncedUpdateParam('s', searchText);
               }}
               className="relative size-5"
             >
@@ -76,11 +86,11 @@ export default function CustomSearch({ data }: CommonSection) {
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
               className="flex-1 border-none bg-transparent bg-none py-2 text-base text-gray-950 outline-none placeholder:text-gray-500 lg:py-3 lg:text-base"
-              placeholder={trans('Tìm kiếm', 'Search')}
+              placeholder={trans('search-placeholder')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   e.preventDefault();
-                  updateParam('s', searchText);
+                  debouncedUpdateParam('s', searchText);
                 }
               }}
             />
@@ -111,11 +121,11 @@ export default function CustomSearch({ data }: CommonSection) {
               <SwiperSlide key={99} className="!w-fit">
                 <div
                   onClick={() => {
-                    updateParam('subnet', '');
+                    debouncedUpdateParam('subnet', '');
                   }}
                   className="block cursor-pointer py-2.5 text-base font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"
                 >
-                  {trans('Tất cả', 'All')}
+                  {trans('all')}
                 </div>
               </SwiperSlide>
 
@@ -123,7 +133,7 @@ export default function CustomSearch({ data }: CommonSection) {
                 <SwiperSlide key={index} className="!w-fit">
                   <div
                     onClick={() => {
-                      updateParam('subnet', button?.icon?.collection);
+                      debouncedUpdateParam('subnet', button?.icon?.collection);
                     }}
                     className="block cursor-pointer py-2.5 text-base font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"
                   >
@@ -137,14 +147,16 @@ export default function CustomSearch({ data }: CommonSection) {
             </div>
           </div>
 
-          <div className="section-content px-6 md:px-[calc((100vw-688px)/2)] lg:px-0">
-            {`${totalAll} ${trans('Kết quả tìm kiếm', 'Search results')}`}
+          <div className="text-base xl:text-lg 3xl:text-xl 4xl:text-2xl px-6 md:px-[calc((100vw-688px)/2)] lg:px-0">
+            {`${totalAll} ${trans('search-results')}`}
           </div>
 
           <div className="w-full space-y-10 px-6 md:px-[calc((100vw-688px)/2)] lg:space-y-12 lg:px-0 xl:space-y-14">
             {data?.buttons?.map((button: any, index: number) => {
               const collection = button?.icon?.collection;
               const limit = button?.icon?.limit;
+              const cardType = button?.icon?.card_type;
+              const col = button?.icon?.col;
 
               if (subnet && subnet !== collection) return null;
               return (
@@ -156,7 +168,15 @@ export default function CustomSearch({ data }: CommonSection) {
                   limit={limit}
                   url={button?.url}
                   setTotalAll={setTotalAll}
-                  className={`${limit % 4 === 0 ? 'grid-cols-2 gap-4 md:grid-cols-4 md:gap-4 lg:grid-cols-4 2xl:gap-5 3xl:gap-6' : 'grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-3 3xl:gap-6'} `}
+                  cardType={cardType}
+                  className={cn(
+                    'gap-4',
+                    {
+                      'grid-cols-1 md:grid-cols-2 lg:gap-5 2xl:gap-5 3xl:gap-6': col === 2,
+                      'grid-cols-1 lg:gap-5 xl:grid-cols-1 2xl:gap-6 3xl:gap-7': col !== 2 && col !== 4,
+                      'grid-cols-2 md:grid-cols-4 md:gap-4 lg:grid-cols-4 2xl:gap-5 3xl:gap-6': col === 4,
+                    }
+                  )}
                 />
               );
             })}
@@ -172,16 +192,16 @@ export default function CustomSearch({ data }: CommonSection) {
 
             <div
               onClick={() => {
-                updateParam('subnet', '');
+                debouncedUpdateParam('subnet', '');
               }}
               className="block cursor-pointer border-b border-gray-200 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-2.5 lg:text-base"
             >
-              {trans('Tất cả', 'All')}
+              {trans('all')}
             </div>
             {data?.buttons?.map((button: any, index: number) => (
               <div
                 onClick={() => {
-                  updateParam('subnet', button?.icon?.collection);
+                  debouncedUpdateParam('subnet', button?.icon?.collection);
                 }}
                 key={index}
                 className="block cursor-pointer border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"

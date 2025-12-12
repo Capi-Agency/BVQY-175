@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import NextImg from '../../common/next-img';
 import clsx from 'clsx';
 import { getAssetUrlById } from '@/src/utils/image';
-import { useTranslate } from '@/src/hooks/useTranslate';
+import useTranslation from '@/src/hooks/use-translation';
 
 const TeamGrid = ({ data }: CommonSection) => {
   return (
@@ -78,7 +78,7 @@ const LeaderCard = ({
   item: any;
   data: any;
 }) => {
-  const { trans } = useTranslate();
+  const { trans } = useTranslation();
   const [expanded, setExpanded] = useState(false);
 
   return (

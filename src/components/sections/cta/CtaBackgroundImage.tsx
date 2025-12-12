@@ -13,44 +13,39 @@ import { useMetadata } from '@/src/providers/MetadataProvider';
 import useTranslation from '@/src/hooks/use-translation';
 export default function CtaBackgroundImage({ data }: CommonSection) {
     const { contact_information } = useMetadata()
-    const trans = useTranslation()
+    const {trans} = useTranslation()
 
     const dataContact = useMemo(() => [
         {
-            title: "Điện thoại",
-            title_en: "Hotline",
+            titleKey: "phone-contact",
             icon: "",
             url: contact_information?.hot_line_url || "/",
             content: contact_information?.hot_line,
             isTargetBlank: false
         },
         {
-            title: "Đặt lịch qua Zalo",
-            title_en: "Book an appointment via Zalo",
+            titleKey: "book-via-zalo",
             icon: "",
             url: contact_information?.medical_appointment_url || "/",
             content: contact_information?.medical_appointment,
             isTargetBlank: true
         },
         {
-            title: "Đặt lịch qua App",
-            title_en: "Book an appointment via the App",
+            titleKey: "book-via-app",
             icon: "/assets/icons/icon_bv_contact.svg",
             url: contact_information?.googleplay_url || "/",
             content: "",
             isTargetBlank: true
         },
         {
-            title: "Email",
-            title_en: "Email",
+            titleKey: "email-contact",
             icon: "",
             url: contact_information?.email_url || "/",
             content: contact_information?.email,
             isTargetBlank: false
         },
         {
-            title: "Địa chỉ",
-            title_en: "Address",
+            titleKey: "address-contact",
             icon: "",
             url: contact_information?.address_url || "/",
             content: contact_information?.address,
@@ -139,7 +134,7 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
                         {dataContact?.map((item: any, index: number) => (
                             <div key={index} className='space-y-1'>
                                 <div className='text-[#52525B] text-sm lg:text-base 2xl:text-lg font-medium'>
-                                    {trans(item?.title, item?.title_en)}
+                                    {trans(item?.titleKey)}
                                 </div>
                                 <a
                                     target={item?.isTargetBlank ? "_blank" : "_parent"}

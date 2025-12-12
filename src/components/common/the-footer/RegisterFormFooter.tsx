@@ -1,5 +1,4 @@
 'use client';
-import { useTranslate } from '@/src/hooks/useTranslate';
 import { useMemo, useState } from 'react';
 import NextImg from '../next-img';
 import * as yup from 'yup';
@@ -8,6 +7,7 @@ import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { fnSendContact } from '@/src/services/contact';
 import useStoreLanguage from '@/src/store/store';
+import useTranslation from '@/src/hooks/use-translation';
 
 type Contact = {
   email: string;
@@ -18,7 +18,7 @@ const initialValue: Contact = {
 };
 
 export default function RegisterFormFooter() {
-  const { trans } = useTranslate();
+  const { trans } = useTranslation();
   const [loading, setLoading] = useState<boolean>(false);
   const language = useStoreLanguage((state: any) => state.language);
 
@@ -68,7 +68,7 @@ export default function RegisterFormFooter() {
       if (!response) {
         throw new Error(trans('noti-error-contact'));
       }
-      toast.success(trans('noti-success-contact'), {
+      toast.success(trans('noti-success-register'), {
         style: {
           padding: 16,
           borderRadius: 16,

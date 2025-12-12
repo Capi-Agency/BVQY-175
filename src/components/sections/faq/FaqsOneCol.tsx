@@ -17,7 +17,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import PaginationPrimary from '../pagination/PaginationPrimary';
 
 export default function FaqsOneCol({ data }: CommonSection) {
-  const trans = useTranslation();
+  const {trans} = useTranslation();
   const { conditions } = useGsapMatchMedia();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -112,7 +112,7 @@ export default function FaqsOneCol({ data }: CommonSection) {
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
               className="flex-1 border-none bg-transparent bg-none text-base text-gray-950 outline-none placeholder:text-gray-500 lg:text-base"
-              placeholder={trans('Tìm kiếm', 'Search')}
+              placeholder={trans('search-placeholder')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   e.preventDefault();
@@ -184,7 +184,7 @@ export default function FaqsOneCol({ data }: CommonSection) {
                 </>
               ) : (
                 <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
-                  {trans('Không có dữ liệu', 'No data available')}
+                  {trans('no-data-available')}
                 </div>
               )}
             </>

@@ -12,14 +12,15 @@ interface DoctorCardProps {
   isLogo?: boolean;
   isHover?: boolean;
   bgColor?: string;
+  type?: "default" | "search";
   avatarType: 'avatar' | 'uniform_avatar';
   subTitle:
-    | 'specialty'
-    | 'hospital_title'
-    | 'department_title'
-    | 'institute_title'
-    | 'admin_department_title'
-    | string;
+  | 'specialty'
+  | 'hospital_title'
+  | 'department_title'
+  | 'institute_title'
+  | 'admin_department_title'
+  | string;
   avatarRatio?: '2/3' | '5/6' | '3/4' | string;
   avatarOrigin?: 'center' | 'top' | 'left' | 'right' | 'bottom';
   isRounded?: boolean;
@@ -55,6 +56,7 @@ export default function DoctorCard({
   isLogo = true,
   isHover = true,
   bgColor = 'bg-white',
+  type = "default",
   avatarType = 'avatar',
   subTitle = 'specialty',
   avatarRatio = '2/3',
@@ -64,30 +66,30 @@ export default function DoctorCard({
   const language = useStoreLanguage((state: any) => state.language);
 
   const renderSubTitleByType: Record<DoctorCardProps['subTitle'], JSX.Element> =
-    {
-      specialty: <>{item?.specialty}</>,
-      hospital_title: (
-        <>{hospitalTitleMap[item?.hospital_title] ?? item?.hospital_title}</>
-      ),
-      institute_title: (
-        <>{instituteTitleMap[item?.institute_title] ?? item?.institute_title}</>
-      ),
-      department_title: (
-        <>
-          {departmentTitleMap[item?.department_title] ?? item?.department_title}
-        </>
-      ),
-      admin_department_title: (
-        <>
-          {adminDepartmentTitleMap[item?.admin_department_title] ??
-            item?.admin_department_title}
-        </>
-      ),
-    };
+  {
+    specialty: <>{item?.specialty}</>,
+    hospital_title: (
+      <>{hospitalTitleMap[item?.hospital_title] ?? item?.hospital_title}</>
+    ),
+    institute_title: (
+      <>{instituteTitleMap[item?.institute_title] ?? item?.institute_title}</>
+    ),
+    department_title: (
+      <>
+        {departmentTitleMap[item?.department_title] ?? item?.department_title}
+      </>
+    ),
+    admin_department_title: (
+      <>
+        {adminDepartmentTitleMap[item?.admin_department_title] ??
+          item?.admin_department_title}
+      </>
+    ),
+  };
 
   const avatarId = item?.[avatarType]?.id ?? item?.[avatarType];
 
-  return (
+  const renderDefault = () => (
     <Link
       href={`/${language}${url}/${item?.slug}`}
       aria-label="Xem chi tiết bác sĩ"
@@ -99,7 +101,7 @@ export default function DoctorCard({
           bgColor,
           isRounded && 'rounded-[8px]',
           isHover &&
-            'transition-colors duration-200 group-hover:bg-primary-600',
+          'transition-colors duration-200 group-hover:bg-primary-600',
         )}
         style={{
           aspectRatio: avatarRatio,
@@ -136,7 +138,36 @@ export default function DoctorCard({
         </div>
       </div>
     </Link>
-  );
+  )
+
+  const renderSearch = () => (
+    <Link
+      href={`/${language}${url}/${item?.slug}`}
+      aria-label="Xem chi tiết bác sĩ"
+      className="group block"
+    >
+      <div className="xl:space-y-[2px] 3xl:space-y-1">
+        <div className="text-sm font-normal text-[#3F3F46] xl:text-base">
+          {item?.full_title}
+        </div>
+
+        <div className="text-nowrap underline underline-offset-2 text-lg font-bold text-[#010502] lg:text-lg xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
+          {item?.full_name}
+        </div>
+
+        <div className="text-sm font-medium text-subTitle xl:text-base pt-[2px]">
+          {renderSubTitleByType[subTitle]}
+        </div>
+      </div>
+    </Link>
+  )
+
+  switch (type) {
+    case "search":
+      return renderSearch()
+    default:
+      return renderDefault()
+  }
 }
 
 export {

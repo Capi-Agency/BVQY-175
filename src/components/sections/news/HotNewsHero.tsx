@@ -8,8 +8,8 @@ import { formatDate } from '@/src/utils/validate';
 import useStoreLanguage from '@/src/store/store';
 import { getListNews } from '@/src/services/news';
 import { useParams } from 'next/navigation';
-import useTranslation from '@/src/hooks/use-translation';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import useTranslation from '@/src/hooks/use-translation';
 
 export default function HotNewsHero({ data }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
@@ -17,7 +17,7 @@ export default function HotNewsHero({ data }: CommonSection) {
   const param = useParams() || {};
   const category = (param?.cate as string) || '';
 
-  const t = useTranslation();
+  const {trans} = useTranslation();
 
   useEffect(() => {
     (async () => {
@@ -71,13 +71,13 @@ export default function HotNewsHero({ data }: CommonSection) {
 
                   <div className="flex flex-col items-stretch justify-center">
                     <div className="line-clamp-3 text-xl font-semibold uppercase text-primary-600 lg:text-2xl 2xl:text-[28px] 2xl:!leading-[1.5] 3xl:text-[30px] 4xl:text-[32px]">
-                      {t(news?.title, news?.title_en)}
+                      {trans(news?.title, news?.title_en)}
                     </div>
 
                     <div
                       className="line-clamp-3 pt-1.5 text-sm font-normal text-black lg:pt-2 xl:text-base 2xl:pt-3 4xl:pt-4"
                       dangerouslySetInnerHTML={{
-                        __html: t(news?.blurb, news?.blurb_en),
+                        __html: trans(news?.blurb, news?.blurb_en),
                       }}
                     ></div>
 

@@ -1,28 +1,29 @@
 'use client';
 import React from 'react';
 import NextImg from '../../common/next-img';
-import Link from 'next/link';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
 import { useTranslate } from '@/src/hooks/useTranslate';
 import useStoreLanguage from '@/src/store/store';
 import useTranslation from '@/src/hooks/use-translation';
+import CustomLink from '../../common/custom-link';
 
 type NewsCardProps = {
   item: any;
   url: string;
   cateUrl?: string;
+  type?: "default" | "search"
 };
 
-export default function NewsCard({ item, url, cateUrl }: NewsCardProps) {
-  const trans = useTranslation();
+export default function NewsCard({ item, url, cateUrl, type = "default" }: NewsCardProps) {
+  const { trans } = useTranslation();
   const language = useStoreLanguage((state: any) => state.language);
 
   const category = cateUrl || item?.categories?.[0]?.category?.slug || '';
 
-  return (
-    <Link
-      href={`/${language}${url}/${category}/${item?.slug}`}
+  const renderDefault = () => (
+    <CustomLink
+      href={`${url}/${category}/${item?.slug}`}
       aria-label="Xem chi tiết tin tức"
       className="group relative block cursor-pointer space-y-4 bg-primary-50 p-3 text-start transition-all duration-200 hover:bg-primary-600 xl:p-4"
     >
@@ -62,7 +63,7 @@ export default function NewsCard({ item, url, cateUrl }: NewsCardProps) {
         </div>
         <div className="flex items-center gap-1.5">
           <span className="text-sm font-medium text-gray-950 duration-200 group-hover:text-primary-50 2xl:text-base 3xl:text-lg">
-            {trans('Xem chi tiết', 'View more')}
+            {trans('view-more-label')}
           </span>
           <div className="relative size-5 transition-all duration-200 group-hover:brightness-0 group-hover:invert 2xl:size-6">
             <NextImg
@@ -72,6 +73,30 @@ export default function NewsCard({ item, url, cateUrl }: NewsCardProps) {
           </div>
         </div>
       </div>
-    </Link>
-  );
+    </CustomLink>
+  )
+
+  const renderSearch = () => (
+    <CustomLink
+      href={`${url}/${category}/${item?.slug}`}
+      aria-label="Xem chi tiết tin tức"
+      className="space-y-1 block">
+      <div className="line-clamp-2 underline underline-offset-2 text-base font-semibold !leading-[1.6] text-primary-1000 duration-200 group-hover:text-primary-50 md:text-lg xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
+        {trans(item?.title, item?.title_en)}
+      </div>
+      <div
+        className="line-clamp-2 text-sm xl:text-base font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
+        dangerouslySetInnerHTML={{
+          __html: trans(item?.blurb, item?.blurb_en),
+        }}
+      ></div>
+    </CustomLink>
+  )
+
+  switch (type) {
+    case 'search':
+      return renderSearch();
+    default:
+      return renderDefault();
+  }
 }

@@ -8,7 +8,7 @@ type SearchHeaderProps = {
 };
 
 export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
-  const trans = useTranslation();
+  const { trans } = useTranslation();
   const inputRef = useRef<HTMLInputElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
 
@@ -33,7 +33,11 @@ export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
   return (
     <div ref={boxRef} className="relative">
       <div
-        onClick={() => setIsOpen((prev: boolean) => !prev)}
+        onClick={() => {
+          setIsOpen((prev: boolean) => !prev);
+          inputRef.current?.focus();
+        }
+        }
         className="flex cursor-pointer items-center justify-center md:h-9 md:w-[52px] md:rounded-[6px] md:bg-primary-600 md:hover:bg-primary-500 2xl:h-10 2xl:w-[60px]"
       >
         <div className="relative size-5 brightness-0 md:brightness-100 2xl:size-6">
@@ -67,10 +71,11 @@ export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
             id="search"
             name="search"
             value={searchText}
-            autoFocus={true}
+            tabIndex={1}
+            autoFocus={false}
             onChange={(e) => setSearchText(e.target.value)}
             className="flex-1 border-none bg-transparent bg-none py-2.5 text-base text-gray-950 outline-none placeholder:text-gray-500 3xl:py-3"
-            placeholder={trans('Tìm kiếm', 'Search')}
+            placeholder={trans("search-placeholder")}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();

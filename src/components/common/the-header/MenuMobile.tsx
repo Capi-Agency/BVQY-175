@@ -20,9 +20,10 @@ import {
 } from '../../ui/dialog';
 import { useMetadata } from '@/src/providers/MetadataProvider';
 import { getAssetUrlById } from '@/src/utils/image';
-import { useTranslate } from '@/src/hooks/useTranslate';
 import Link from 'next/link';
 import CustomLink from '../custom-link';
+import LanguageBtn from './LanguageBtn';
+import useTranslation from '@/src/hooks/use-translation';
 
 type MobileMenuProps = {
   changeLanguage: (value: string) => void;
@@ -35,7 +36,7 @@ export default function MobileMenu({
 }: MobileMenuProps) {
   const language = useStoreLanguage((state: any) => state.language);
   const { contact_information, top_navigation } = useMetadata();
-  const { trans } = useTranslate();
+  const { trans } = useTranslation();
   const [isOpenSubMenu, setIsOpenSubMenu] = useState<boolean>(false);
   const [itemSecond, setItemSecond] = useState<any>();
   const [searchText, setSearchText] = useState<string>('');
@@ -95,7 +96,7 @@ export default function MobileMenu({
                 <div className="btn-menu cursor-pointer">
                   <div className="relative size-5 2xl:size-6">
                     <NextImg
-                      src="/assets/icons/hospital_location.svg"
+                      src="/assets/icons/map_pin.svg"
                       alt="hospital location"
                     />
                   </div>
@@ -103,26 +104,7 @@ export default function MobileMenu({
               </CustomLink>
 
               {/* Language button */}
-              <button
-                onClick={() =>
-                  changeLanguage(`${language === 'en' ? 'vi' : 'en'}`)
-                }
-                className="relative hidden h-9 w-[52px] overflow-hidden rounded-[6px] md:block 2xl:h-10 2xl:w-[60px]"
-              >
-                {language && language === 'en' ? (
-                  <NextImg
-                    src="/assets/images/flag_en.png"
-                    alt="English"
-                    objectFit="cover"
-                  />
-                ) : (
-                  <NextImg
-                    src="/assets/images/flag_vi.png"
-                    alt="Vietnamese"
-                    objectFit="cover"
-                  />
-                )}
-              </button>
+              <LanguageBtn changeLanguage={changeLanguage} className='hidden md:flex' />
 
               {/* Close button */}
               <DialogClose
@@ -151,12 +133,12 @@ export default function MobileMenu({
                   {contact_information?.files?.length > 0 &&
                     contact_information?.files?.map(
                       (file: any, index: number) => (
-                        <div className="relative h-[72px] w-[50px]" key={index}>
+                        <CustomLink href='/thanh-tich' className="relative block h-[72px] w-[50px]" key={index}>
                           <NextImg
                             src={getAssetUrlById(file?.directus_files_id)}
                             alt="Military hospital"
                           />
-                        </div>
+                        </CustomLink>
                       ),
                     )}
                 </div>
@@ -281,7 +263,7 @@ export default function MobileMenu({
                                         <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
                                           {item_second?.sub_items?.length === 1
                                             ? item_second?.sub_items?.[0]
-                                                ?.sub_items?.length
+                                              ?.sub_items?.length
                                             : item_second?.sub_items?.length}
                                         </div>
                                       </div>
@@ -350,33 +332,14 @@ export default function MobileMenu({
                   >
                     <div className="relative size-5 2xl:size-6">
                       <NextImg
-                        src="/assets/icons/hospital_location.svg"
+                        src="/assets/icons/map_pin.svg"
                         alt="hospital location"
                       />
                     </div>
                   </CustomLink>
 
                   {/* Language button */}
-                  <button
-                    onClick={() =>
-                      changeLanguage(`${language === 'en' ? 'vi' : 'en'}`)
-                    }
-                    className="relative h-9 w-[52px] overflow-hidden rounded-[6px] 2xl:h-10 2xl:w-[60px]"
-                  >
-                    {language && language === 'en' ? (
-                      <NextImg
-                        src="/assets/images/flag_en.png"
-                        alt="English"
-                        objectFit="cover"
-                      />
-                    ) : (
-                      <NextImg
-                        src="/assets/images/flag_vi.png"
-                        alt="Vietnamese"
-                        objectFit="cover"
-                      />
-                    )}
-                  </button>
+                  <LanguageBtn changeLanguage={changeLanguage} className='md:hidden' side='top' />
                 </div>
               </div>
             </div>

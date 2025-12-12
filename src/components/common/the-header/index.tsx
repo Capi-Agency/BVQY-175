@@ -105,7 +105,8 @@ export default function TheHeader() {
                   handleSearch={handleSearch}
                 />
 
-                <LanguageBtn changeLanguage={changeLanguage} />
+                <LanguageBtn changeLanguage={changeLanguage} className='hidden xl:flex' />
+
               </div>
 
               <a

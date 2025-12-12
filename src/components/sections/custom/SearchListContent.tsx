@@ -29,6 +29,7 @@ type SearchListContentProps = {
   title?: string;
   setTotalAll: React.Dispatch<React.SetStateAction<number>>;
   className?: string;
+  cardType?: string
 };
 
 export default function SearchListContent({
@@ -39,11 +40,12 @@ export default function SearchListContent({
   title = '',
   setTotalAll,
   className,
+  cardType = "search"
 }: SearchListContentProps) {
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
 
-  const trans = useTranslation();
+  const { trans } = useTranslation();
   const searchParams = useSearchParams();
 
   const [data, setData] = useState<any>([]);
@@ -70,49 +72,49 @@ export default function SearchListContent({
       Component: NewsCard,
       getList: getListNews,
       getCount: getTotalNewsCount,
-      getProps: (itemData) => ({ item: itemData, url }),
+      getProps: (itemData) => ({ item: itemData, url, type: cardType }),
     },
     activity_posts: {
       Component: NewsCard,
       getList: getListNews,
       getCount: getTotalNewsCount,
-      getProps: (itemData) => ({ item: itemData, url }),
+      getProps: (itemData) => ({ item: itemData, url, type: cardType }),
     },
     for_patient_posts: {
       Component: NewsCard,
       getList: getListNews,
       getCount: getTotalNewsCount,
-      getProps: (itemData) => ({ item: itemData, url }),
+      getProps: (itemData) => ({ item: itemData, url, type: cardType }),
     },
     doctors: {
       Component: DoctorCard,
       getList: getListDoctorPreview,
       getCount: getTotalDoctorCount,
-      getProps: (itemData) => ({ item: itemData, url, avatarType: 'avatar' }),
+      getProps: (itemData) => ({ item: itemData, url, avatarType: 'avatar', type: cardType }),
     },
     departments: {
       Component: DepartmentCard,
       getList: fnGetAdminDepartments,
       getCount: getTotalAdminDepartmentCount,
-      getProps: (itemData) => ({ item: itemData, url }),
+      getProps: (itemData) => ({ item: itemData, url, type: cardType }),
     },
     administration_departments: {
       Component: DepartmentCard,
       getList: fnGetAdminDepartments,
       getCount: getTotalAdminDepartmentCount,
-      getProps: (itemData) => ({ item: itemData, url }),
+      getProps: (itemData) => ({ item: itemData, url, type: cardType }),
     },
     department_groups: {
       Component: DepartmentCard,
       getList: fnGetAdminDepartments,
       getCount: getTotalAdminDepartmentCount,
-      getProps: (itemData) => ({ item: itemData, url }),
+      getProps: (itemData) => ({ item: itemData, url, type: cardType }),
     },
     dependent_units: {
       Component: DepartmentCard,
       getList: fnGetAdminDepartments,
       getCount: getTotalAdminDepartmentCount,
-      getProps: (itemData) => ({ item: itemData, url }),
+      getProps: (itemData) => ({ item: itemData, url, type: cardType }),
     },
   };
 
@@ -249,7 +251,7 @@ export default function SearchListContent({
           </>
         ) : (
           <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
-            {trans('Không có dữ liệu', 'No data available')}
+            {trans('no-data-available')}
           </div>
         )}
       </div>

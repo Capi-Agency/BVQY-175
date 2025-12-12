@@ -8,39 +8,39 @@ import { useMetadata } from '@/src/providers/MetadataProvider';
 export default function ContactFixed() {
     const { contact_information } = useMetadata()
     const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
-    const trans = useTranslation()
+    const { trans } = useTranslation()
 
     const data = useMemo(() => [
         {
-            title: "Hotline",
+            titleKey: "hotline",
             icon: "/assets/icons/phone_contact.svg",
             url: contact_information?.hot_line_url || "/",
             bgColor: "#63A978",
             isTargetBlank: false
         },
         {
-            title: "Đặt khám trên App",
+            titleKey: "book-app",
             icon: "/assets/icons/calendar_contact.svg",
             url: contact_information?.googleplay_url || "/",
             bgColor: "#E50000",
             isTargetBlank: true
         },
         {
-            title: "Đặt khám theo yêu cầu",
+            titleKey: "schedule-demand",
             icon: "/assets/icons/zalo_contact.svg",
             url: contact_information?.medical_appointment_url || "/",
             bgColor: "#60A5FA",
             isTargetBlank: true
         },
         {
-            title: "Fanpage",
+            titleKey: "fanpage",
             icon: "/assets/icons/fb_contact.svg",
             url: contact_information?.facebook_url || "/",
             bgColor: "#1877F2",
             isTargetBlank: true
         },
         {
-            title: "Email",
+            titleKey: "email",
             icon: "/assets/icons/mail_contact.svg",
             url: contact_information?.email_url || "/",
             bgColor: "#F97316",
@@ -72,7 +72,7 @@ export default function ContactFixed() {
                         align="center"
                         className="rounded-md bg-[#E50000] text-sm xl:text-base text-white p-[6px_8px]"
                     >
-                        {isOpenMenu ? trans("Đóng", "Close") : trans("Liên hệ", "Contact")}
+                        {isOpenMenu ? trans("close") : trans("contact-label")}
                         <TooltipArrow className="fill-[#E50000]" />
                     </TooltipContent>
                 </TooltipRoot>
@@ -109,7 +109,7 @@ export default function ContactFixed() {
                                         backgroundColor: item?.bgColor
                                     }}
                                 >
-                                    {item?.title}
+                                    {trans(item?.titleKey)}
                                     <TooltipArrow style={{ fill: item?.bgColor }} />
                                 </TooltipContent>
                             </TooltipRoot>

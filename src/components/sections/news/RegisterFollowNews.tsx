@@ -1,5 +1,4 @@
 'use client';
-import { useTranslate } from '@/src/hooks/useTranslate';
 import { useMemo, useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,6 +7,7 @@ import { toast } from 'react-toastify';
 import { fnSendContact } from '@/src/services/contact';
 import useStoreLanguage from '@/src/store/store';
 import NextImg from '../../common/next-img';
+import useTranslation from '@/src/hooks/use-translation';
 
 type Contact = {
   email: string;
@@ -18,7 +18,7 @@ const initialValue: Contact = {
 };
 
 export default function RegisterFollowNews() {
-  const { trans } = useTranslate();
+  const { trans } = useTranslation();
   const [loading, setLoading] = useState<boolean>(false);
   const language = useStoreLanguage((state: any) => state.language);
 
@@ -68,7 +68,7 @@ export default function RegisterFollowNews() {
       if (!response) {
         throw new Error(trans('noti-error-contact'));
       }
-      toast.success(trans('noti-success-contact'), {
+      toast.success(trans('noti-success-register'), {
         style: {
           padding: 16,
           borderRadius: 16,
