@@ -181,11 +181,13 @@ export default function CustomSearch({ data }: CommonSection) {
                   setTotalAll={setTotalAll}
                   cardType={cardType}
                   className={cn('gap-4', {
+                    'grid-cols-1 lg:gap-5 xl:grid-cols-1 2xl:gap-6 3xl:gap-7':
+                      col === 1,
                     'grid-cols-1 md:grid-cols-2 lg:gap-5 2xl:gap-5 3xl:gap-6':
                       col === 2,
-                    'grid-cols-1 lg:gap-5 xl:grid-cols-1 2xl:gap-6 3xl:gap-7':
-                      col !== 2 && col !== 4,
-                    'grid-cols-2 md:grid-cols-4 md:gap-4 lg:grid-cols-4 2xl:gap-5 3xl:gap-6':
+                    'grid-cols-1 md:grid-cols-2 md:gap-5 xl:grid-cols-3 3xl:gap-6':
+                      col === 3,
+                    'grid-cols-2 md:grid-cols-4 md:gap-4 2xl:gap-5 3xl:gap-6':
                       col === 4,
                   })}
                 />
