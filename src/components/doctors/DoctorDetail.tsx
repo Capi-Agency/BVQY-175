@@ -16,6 +16,7 @@ import { getDoctorTitles } from '@/src/utils/render-doctor-title';
 export default function DoctorDetail({ data, dataDetail }: CommonSection) {
   const [isViewMore, setIsViewMore] = useState<boolean>(false);
   const language = useStoreLanguage((state: any) => state.language);
+  const units = getWorkUnits(dataDetail, language);
 
   const dataContent = [
     {
@@ -91,7 +92,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
             </div>
 
             <div
-              className={`space-y-2 *:text-justify text-sm font-normal text-[#09090B] lg:text-start lg:text-base xl:space-y-3`}
+              className={`space-y-2 text-sm font-normal text-[#09090B] *:text-justify lg:text-start lg:text-base xl:space-y-3`}
               dangerouslySetInnerHTML={{
                 __html: dataDetail?.bio,
               }}
@@ -140,32 +141,25 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
                 </div>
 
                 <div className="flex flex-wrap gap-3">
-                  {dataDetail?.department_groups?.map(
-                    ({ department_groups_slug: group }: any, index: number) => (
+                  {units.map((unit, index) => (
+                    <React.Fragment key={index}>
                       <Link
-                        key={index}
-                        href={`/${language}/vien/${group?.slug}`}
-                        aria-label="Xem chi tiết viện"
-                        className="block text-sm font-normal text-[#09090B] underline underline-offset-2 lg:text-base"
+                        href={`/${language}/${
+                          unit.type === 'board'
+                            ? 'ban-giam-doc'
+                            : unit.type === 'group'
+                              ? 'vien'
+                              : 'chuyen-khoa'
+                        }/${unit.slug ?? ''}`}
+                        aria-label="Xem chi tiết đơn vị"
+                        className="inline-block text-sm font-normal text-[#09090B] underline underline-offset-2 lg:text-base"
                       >
-                        {language === 'en' ? group?.title_en : group?.title}
+                        {unit.title}
                       </Link>
-                    ),
-                  )}
-                  {dataDetail?.departments?.map(
-                    ({ department }: any, index: number) => (
-                      <Link
-                        key={index}
-                        href={`/${language}/chuyen-khoa/${department?.slug}`}
-                        aria-label="Xem chi tiết chuyên khoa"
-                        className="block text-sm font-normal text-[#09090B] underline underline-offset-2 lg:text-base"
-                      >
-                        {language === 'en'
-                          ? department?.title_en
-                          : department?.title}
-                      </Link>
-                    ),
-                  )}
+
+                      {index < units.length - 1 && ', '}
+                    </React.Fragment>
+                  ))}
                 </div>
               </div>
 
@@ -219,4 +213,46 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
       </div>
     </div>
   );
+}
+
+// helpers/getWorkUnits.ts
+export function getWorkUnits(dataDetail: any, language: string) {
+  const units: any[] = [];
+
+  // Nếu là giám đốc hoặc phó giám đốc → thêm Ban Giám Đốc
+  if (
+    dataDetail?.hospital_title === 'director' ||
+    dataDetail?.hospital_title === 'deputy_director'
+  ) {
+    units.push({
+      title: language === 'en' ? 'Board of Directors' : 'Ban Giám Đốc',
+      type: 'board',
+    });
+  }
+
+  // Thêm nhóm đơn vị (department_groups)
+  if (dataDetail?.department_groups) {
+    units.push(
+      ...dataDetail.department_groups.map(
+        ({ department_groups_slug: group }: any) => ({
+          slug: group?.slug,
+          title: language === 'en' ? group?.title_en : group?.title,
+          type: 'group',
+        }),
+      ),
+    );
+  }
+
+  // Thêm phòng ban (departments)
+  if (dataDetail?.departments) {
+    units.push(
+      ...dataDetail.departments.map(({ department }: any) => ({
+        slug: department?.slug,
+        title: language === 'en' ? department?.title_en : department?.title,
+        type: 'department',
+      })),
+    );
+  }
+
+  return units;
 }

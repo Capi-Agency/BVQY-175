@@ -30,7 +30,7 @@ export default function GalleryWithText({ data }: CommonSection) {
           <div className="relative aspect-video w-full overflow-hidden md:w-[250px] lg:w-[340px] xl:w-full">
             <iframe
               onClick={(e) => e.stopPropagation()}
-              title="Video giới thiệu Bệnh Viện Quân Y 175"
+              title="Video giới thiệu Bệnh viện Quân y 175"
               className="!m-0 h-full w-full object-cover !p-0"
               style={{ display: 'block', border: 'none' }}
               src={`https://www.youtube.com/embed/${embedUrl}?modestbranding=1&rel=0`}
@@ -99,7 +99,7 @@ export default function GalleryWithText({ data }: CommonSection) {
                         <NextImg
                           src={getAssetUrlById(itemCover?.id)}
                           alt="Cơ sở vật chất image"
-                          objectFit='cover'
+                          objectFit="cover"
                         />
                       </div>
                     ))}

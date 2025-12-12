@@ -39,8 +39,12 @@ export async function generateMetadata(
 
   const title =
     lang === 'en'
-      ? checkValueNull(data?.full_name_en, '')
-      : checkValueNull(data?.full_name, '');
+      ? 'Doctor ' +
+        checkValueNull(data?.full_name_en, '') +
+        ' | Military Hospital 175'
+      : 'Bác sĩ ' +
+        checkValueNull(data?.full_name, '') +
+        ' | Bệnh viện Quân y 175';
 
   const description =
     lang === 'en'
@@ -53,7 +57,7 @@ export async function generateMetadata(
 
   return {
     title,
-    keywords: 'Bệnh viện Quân Y 175',
+    keywords: 'Bệnh viện Quân y 175',
     description,
     openGraph: {
       locale: 'vi_VN',

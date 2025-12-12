@@ -1,5 +1,3 @@
-
-
 export const updateSlugLanguage = (
   slug: string,
   newLanguage: string,
@@ -111,19 +109,19 @@ export const locales: any = {
     en: 'No data available',
   },
   'make-an-appointment-title': {
-    vi: "Đặt lịch <br/> khám ngay",
-    en: "Make an <br/> appointment now"
+    vi: 'Đặt lịch <br/> khám ngay',
+    en: 'Make an <br/> appointment now',
   },
   'make-an-appointment-des': {
-    vi: "Liên hệ ngay chúng tôi để được phục vụ và sử dụng các dịch vụ khám, chữa bệnh hiện đại & cao cấp nhất.",
-    en: "Contact us now to be served and use the most modern and high-quality medical examination and treatment services."
+    vi: 'Liên hệ ngay chúng tôi để được phục vụ và sử dụng các dịch vụ khám, chữa bệnh hiện đại & cao cấp nhất.',
+    en: 'Contact us now to be served and use the most modern and high-quality medical examination and treatment services.',
   },
   'make-an-appointment-btn': {
-    vi: "Liên hệ ngay",
-    en: "Contact now"
+    vi: 'Liên hệ ngay',
+    en: 'Contact now',
   },
   'return-menu': {
-    vi: "Quay lại menu chính",
-    en: "Return to the main menu"
+    vi: 'Quay lại menu chính',
+    en: 'Return to the main menu',
   },
 };

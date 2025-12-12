@@ -56,7 +56,7 @@ export async function generateMetadata(
 
   return {
     title,
-    keywords: 'Bệnh viện Quân Y 175',
+    keywords: 'Bệnh viện Quân y 175',
     description,
     openGraph: {
       locale: 'vi_VN',
