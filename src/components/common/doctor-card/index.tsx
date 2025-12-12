@@ -125,15 +125,15 @@ export default function DoctorCard({
       </div>
 
       <div className="text-center xl:space-y-[2px] 3xl:space-y-1">
-        <div className="text-xs font-normal text-[#3F3F46] lg:text-sm 2xl:text-base">
+        <div className="text-xs font-normal text-[#3F3F46] md:text-sm 2xl:text-base">
           {item?.full_title}
         </div>
 
-        <div className="text-nowrap text-base font-bold text-[#010502] lg:text-lg 2xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
+        <div className="text-nowrap text-base font-bold text-[#010502] md:text-lg 2xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
           {item?.full_name}
         </div>
 
-        <div className="text-xs font-medium text-subTitle lg:text-sm 2xl:text-base">
+        <div className="text-xs font-medium text-subTitle md:text-sm 2xl:text-base">
           {renderSubTitleByType[subTitle]}
         </div>
       </div>

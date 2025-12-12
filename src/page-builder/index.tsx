@@ -195,7 +195,6 @@ const sectionMap: SectionMap = {
   ),
 
   // Search
-
   custom: dynamic(() =>
     import('../components/sections/custom').then((m) => m.CustomSearch),
   ),

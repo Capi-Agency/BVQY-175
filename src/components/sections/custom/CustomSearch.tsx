@@ -1,5 +1,11 @@
 'use client';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import NextImg from '../../common/next-img';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -37,7 +43,7 @@ export default function CustomSearch({ data }: CommonSection) {
       Array.from(params.keys()).forEach((k) => {
         if (k.startsWith('page-')) params.delete(k);
       });
-      router.push(`?${params.toString()}`);
+      router.push(`?${params.toString()}`, { scroll: false });
     },
     [router, searchParams],
   );
@@ -49,7 +55,7 @@ export default function CustomSearch({ data }: CommonSection) {
 
   const debouncedUpdateParam = useMemo(
     () => debounce(updateParam, 500, { leading: true, trailing: false }),
-    [updateParam]
+    [updateParam],
   );
 
   useEffect(() => {
@@ -114,7 +120,12 @@ export default function CustomSearch({ data }: CommonSection) {
               grabCursor={true}
               slidesPerView="auto"
               loop={false}
-              spaceBetween={16}
+              spaceBetween={24}
+              breakpoints={{
+                768: {
+                  spaceBetween: 28,
+                },
+              }}
               speed={600}
               className="!px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-0"
             >
@@ -147,7 +158,7 @@ export default function CustomSearch({ data }: CommonSection) {
             </div>
           </div>
 
-          <div className="text-base xl:text-lg 3xl:text-xl 4xl:text-2xl px-6 md:px-[calc((100vw-688px)/2)] lg:px-0">
+          <div className="px-6 text-base md:px-[calc((100vw-688px)/2)] lg:px-0 xl:text-lg 3xl:text-xl 4xl:text-2xl">
             {`${totalAll} ${trans('search-results')}`}
           </div>
 
@@ -169,14 +180,14 @@ export default function CustomSearch({ data }: CommonSection) {
                   url={button?.url}
                   setTotalAll={setTotalAll}
                   cardType={cardType}
-                  className={cn(
-                    'gap-4',
-                    {
-                      'grid-cols-1 md:grid-cols-2 lg:gap-5 2xl:gap-5 3xl:gap-6': col === 2,
-                      'grid-cols-1 lg:gap-5 xl:grid-cols-1 2xl:gap-6 3xl:gap-7': col !== 2 && col !== 4,
-                      'grid-cols-2 md:grid-cols-4 md:gap-4 lg:grid-cols-4 2xl:gap-5 3xl:gap-6': col === 4,
-                    }
-                  )}
+                  className={cn('gap-4', {
+                    'grid-cols-1 md:grid-cols-2 lg:gap-5 2xl:gap-5 3xl:gap-6':
+                      col === 2,
+                    'grid-cols-1 lg:gap-5 xl:grid-cols-1 2xl:gap-6 3xl:gap-7':
+                      col !== 2 && col !== 4,
+                    'grid-cols-2 md:grid-cols-4 md:gap-4 lg:grid-cols-4 2xl:gap-5 3xl:gap-6':
+                      col === 4,
+                  })}
                 />
               );
             })}

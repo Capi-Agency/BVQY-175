@@ -41,7 +41,7 @@ export default function TeamSlider5Col({ data }: CommonSection) {
                 slidesPerView: 3.3,
               },
               1024: {
-                slidesPerView: 3,
+                slidesPerView: 4,
               },
               1280: {
                 slidesPerView: 5,

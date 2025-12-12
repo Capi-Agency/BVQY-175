@@ -6,7 +6,7 @@ import { cookies } from 'next/headers';
 import JsonLDProvider from '@/src/components/common/the-json-ld';
 import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
-import { fnGetDepartmentDetail } from '@/src/services/department';
+import { fnGetAdminDepartmentDetail } from '@/src/services/adminDepartment';
 
 async function getLang() {
   const cookieStore = await cookies();
@@ -36,7 +36,7 @@ export async function generateMetadata(
   if (!slug || !idRegex.test(slug)) return notFound();
 
   const lang = await getLang();
-  const data = await fnGetDepartmentDetail({
+  const data = await fnGetAdminDepartmentDetail({
     collection: 'administration_departments',
     slug,
   });
@@ -78,7 +78,7 @@ export async function generateMetadata(
 
 const DepartmentDetailPage = async ({ params }: Props) => {
   const { slug } = await params;
-  const dataDetail = await fnGetDepartmentDetail({
+  const dataDetail = await fnGetAdminDepartmentDetail({
     collection: 'administration_departments',
     slug,
   });

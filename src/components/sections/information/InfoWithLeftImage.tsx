@@ -1,8 +1,9 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import NextImg from '../../common/next-img';
@@ -15,6 +16,15 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
     !!dataDetail?.technologies ||
     (Array.isArray(dataDetail?.technologies_images) &&
       dataDetail.technologies_images.length > 0);
+  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
+    null,
+  );
+
+  useEffect(() => {
+    setRandomClassSwiper(
+      `swiper-custom-${Math.random().toString(36).substring(2, 9)}`,
+    );
+  }, []);
 
   if (!hasContent) return null;
 
@@ -38,73 +48,75 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
           </div>
 
           <div
-            className="section-content sidebar relative md:pr-2 text-justify lg:flex-1 lg:overflow-y-auto"
+            className="section-content sidebar relative text-justify md:pr-2 lg:flex-1 lg:overflow-y-auto"
             dangerouslySetInnerHTML={{
               __html: dataDetail?.technologies,
             }}
           ></div>
         </div>
 
-        <Fancybox
-          options={{
-            Carousel: {
-              infinite: true,
-            },
-            Images: {
-              zoom: true,
-            },
-          }}
-          className="lg:order-1"
-        >
-          {dataDetail?.technologies_images?.length > 0 && (
-            <>
-              <div className="relative aspect-[4/3] w-full md:aspect-[2/1] lg:aspect-[4/3]">
-                <Swiper
-                  touchEventsTarget="container"
-                  grabCursor={true}
-                  slidesPerView={1}
-                  loop={true}
-                  spaceBetween={0}
-                  speed={700}
-                  modules={[Pagination, EffectFade, Autoplay]}
-                  effect="fade"
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                  }}
-                  pagination={{
-                    clickable: true,
-                    type: 'bullets',
-                    el: '.swiper-bullets-container.swiper-info-left-image',
-                    bulletElement: 'div',
-                  }}
-                  className="!h-full !w-full"
-                >
-                  {dataDetail?.technologies_images?.map((item: any) => (
-                    <SwiperSlide key={item?.directus_files_id}>
-                      <Link
-                        href={getAssetUrlById(item?.directus_files_id)}
-                        data-fancybox="gallery"
-                        className="relative block size-full"
-                      >
-                        <div className="relative size-full">
-                          <NextImg
-                            src={getAssetUrlById(item?.directus_files_id)}
-                            objectFit="cover"
-                            alt="facilities images"
-                          />
-                        </div>
-                      </Link>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-              <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
-                <div className="swiper-bullets-container swiper-info-left-image !w-fit"></div>
-              </div>
-            </>
-          )}
-        </Fancybox>
+        {dataDetail?.technologies_images?.length > 0 && randomClassSwiper && (
+          <Fancybox
+            options={{
+              Carousel: {
+                infinite: true,
+              },
+              Images: {
+                zoom: true,
+              },
+            }}
+            className="lg:order-1"
+          >
+            <div className="relative aspect-[4/3] w-full md:aspect-[2/1] lg:aspect-[4/3]">
+              <Swiper
+                touchEventsTarget="container"
+                grabCursor={true}
+                slidesPerView={1}
+                loop={true}
+                spaceBetween={0}
+                speed={700}
+                modules={[Pagination, EffectFade, Autoplay]}
+                effect="fade"
+                  fadeEffect={{ crossFade: true }}
+
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                }}
+                pagination={{
+                  clickable: true,
+                  type: 'bullets',
+                  el: `.swiper-bullets-container.${randomClassSwiper}`,
+                  bulletElement: 'div',
+                }}
+                className="!h-full !w-full"
+              >
+                {dataDetail?.technologies_images?.map((item: any) => (
+                  <SwiperSlide key={item?.directus_files_id}>
+                    <Link
+                      href={getAssetUrlById(item?.directus_files_id)}
+                      data-fancybox="gallery"
+                      className="relative block size-full"
+                    >
+                      <div className="relative size-full">
+                        <NextImg
+                          src={getAssetUrlById(item?.directus_files_id)}
+                          objectFit="cover"
+                          alt="facilities images"
+                        />
+                      </div>
+                    </Link>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+            <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
+              <div
+                className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}
+              ></div>
+            </div>
+          </Fancybox>
+        )}
       </div>
     </div>
   );

@@ -95,15 +95,15 @@ export default function FaqsOneCol({ data }: CommonSection) {
           )}
 
           <div className="relative flex items-center gap-2 rounded-[6px] bg-gray-100 p-2 shadow-md lg:p-3">
-            <button
+            <div
               onClick={() => {
                 handleSearch(searchText);
                 handleScrollTo('faq-list', conditions);
               }}
-              className="relative size-5"
+              className="relative size-5 cursor-pointer"
             >
               <NextImg src="/assets/icons/search_gray.svg" alt="search_gray" />
-            </button>
+            </div>
 
             <input
               type="text"

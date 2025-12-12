@@ -28,7 +28,7 @@ export default function FancyboxViewer({ data }: CommonSection) {
       <div
         className="section-content mx-auto mb-6 w-full text-justify lg:mb-8 2xl:mb-10"
         style={{
-          maxWidth: imageStyle?.['max-width'] ?? 'auto',
+          maxWidth: imageStyle?.['maxWidth'] ?? 'auto',
         }}
         dangerouslySetInnerHTML={{
           __html: data?.blurb as string,

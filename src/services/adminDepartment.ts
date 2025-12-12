@@ -84,3 +84,31 @@ export const getTotalAdminDepartmentCount = async ({
   }
 };
 
+
+export const fnGetAdminDepartmentDetail = async ({
+  collection,
+  slug,
+}: {
+  collection: string;
+  slug: string;
+}) => {
+  try {
+    const res = await directusClientWithRest.request(
+      readItem(collection, slug, {
+        fields: [
+          '*',
+          'description_images.*',
+          'achievements_images.*',
+          'facilities_images.*',
+          'technologies_images.*',
+          'activities_images.*',
+          'leaders.*.*',
+        ],
+      }),
+    );
+    return res;
+  } catch (error) {
+    console.log('error in get GetAdminDepartmentDetail: ', error);
+  }
+};
+

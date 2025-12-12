@@ -5,7 +5,7 @@ import { getAssetUrlById } from '@/src/utils/image';
 
 export default function HeroBackgroundFocus2({ data }: CommonSection) {
   return (
-    <div className="md:relative">
+    <div className="relative">
       <div
         className="flex h-full flex-col items-center gap-1 py-40 text-center md:py-[100px] lg:gap-2 lg:py-[120px] 2xl:gap-4 2xl:py-[140px] 3xl:py-40"
         style={{
@@ -13,18 +13,20 @@ export default function HeroBackgroundFocus2({ data }: CommonSection) {
         }}
       >
         {/* subtitle */}
-        <div
-          className="text-base font-normal text-gray-200 md:text-lg lg:text-xl"
-          dangerouslySetInnerHTML={{
-            __html: data?.blurb,
-          }}
-        ></div>
-        {/* title */}
-        {data?.title && (
-          <h1 className="text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px] md:!leading-[1.1]">
-            {data?.title}
-          </h1>
-        )}
+        <div className='container'>
+          <div
+            className="text-base font-normal text-gray-200 md:text-lg lg:text-xl"
+            dangerouslySetInnerHTML={{
+              __html: data?.blurb,
+            }}
+          ></div>
+          {/* title */}
+          {data?.title && (
+            <h1 className="text-[28px] font-bold text-white md:text-[40px] !leading-[1.5] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
+              {data?.title}
+            </h1>
+          )}
+        </div>
       </div>
     </div>
   );

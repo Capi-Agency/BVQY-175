@@ -21,7 +21,7 @@ export default function LanguageBtn({ changeLanguage, className, side = "bottom"
       onClick={() => setIsOpen(true)}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
-      className={cn("btn-menu relative gap-1 uppercase text-white text-sm xl:text-base flex", className)}
+      className={cn("btn-menu relative gap-1 uppercase text-white text-sm font-medium xl:text-base flex", className)}
     >
       {language}
       <div className="relative size-4">

@@ -142,7 +142,7 @@ export default function TheFooter() {
             </h2>
             <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
 
-            <div className='mt-5 flex flex-col gap-6 md:flex-row xl:flex-col'>
+            <div className='mt-5 flex flex-col gap-6 lg:gap-8 md:flex-row md:items-center xl:items-start xl:gap-6 2xl:gap-8 3xl:gap-8 4xl:gap-9 xl:flex-col'>
               <div className="flex gap-3">
                 {contact_information?.facebook_url && (
                   <Link
@@ -183,7 +183,7 @@ export default function TheFooter() {
                 )}
               </div>
 
-              <div className='gap-3 flex items-center xl:flex-col'>
+              <div className='gap-3 2xl:gap-4 flex items-center xl:flex-col'>
                 <CustomLink
                   href={contact_information?.googleplay_url}
                   className='relative block aspect-[180/50] w-[140px] lg:w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]'>
