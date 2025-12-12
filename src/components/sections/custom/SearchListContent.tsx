@@ -232,7 +232,7 @@ export default function SearchListContent({
               {data?.map((el: any, i: number) => (
                 <div
                   key={i}
-                  className="admin-depart-card col-span-1 origin-center scale-[0.9] opacity-0"
+                  className={`admin-depart-card col-span-1 scale-[0.9] opacity-0 ${cardType === "search" ? "origin-left" : "origin-center"}`}
                 >
                   <CardComponent key={i} {...registry.getProps(el)} />
                 </div>
