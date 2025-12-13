@@ -203,12 +203,12 @@ const sectionMap: SectionMap = {
   ),
 
   // PDF view
-  // 'pdf-viewer': dynamic(() =>
-  //   import('../components/sections/custom').then((m) => m.PDFViewer),
-  // ),
-  // 'fancybox-viewer': dynamic(() =>
-  //   import('../components/sections/custom').then((m) => m.FancyboxViewer),
-  // ),
+  'pdf-viewer': dynamic(() =>
+    import('../components/sections/custom').then((m) => m.PDFViewer),
+  ),
+  'fancybox-viewer': dynamic(() =>
+    import('../components/sections/custom').then((m) => m.FancyboxViewer),
+  ),
 
   // Thanh tich
   'posts-2-col': dynamic(() =>
