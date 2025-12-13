@@ -199,7 +199,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
 
                   <AccordionContent>
                     <div
-                      className="w-full px-3 lg:px-4 3xl:px-5 space-y-1 pt-3 text-sm font-normal text-[#09090B] md:space-y-2 lg:pt-3 lg:text-base xl:space-y-3 [&>ul]:list-inside [&>ul]:list-disc [&>p]:m-0"
+                      className="w-full space-y-1 px-3 pt-3 text-sm font-normal text-[#09090B] md:space-y-2 lg:px-4 lg:pt-3 lg:text-base xl:space-y-3 3xl:px-5 [&>p]:m-0 [&>ul]:list-inside [&>ul]:list-disc"
                       dangerouslySetInnerHTML={{
                         __html: item?.content,
                       }}
@@ -248,7 +248,10 @@ export function getWorkUnits(dataDetail: any, language: string) {
     units.push(
       ...dataDetail.departments.map(({ department }: any) => ({
         slug: department?.slug,
-        title: language === 'en' ? department?.title_en : department?.title,
+        title:
+          language === 'en'
+            ? department?.title_en + ` (${department.code})`
+            : department?.title + ` (${department.code})`,
         type: 'department',
       })),
     );

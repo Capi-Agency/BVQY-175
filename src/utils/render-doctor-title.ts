@@ -33,9 +33,12 @@ export const getDoctorTitles = (doctor: any) => {
 
   // ---- Department level ----
   const departmentName = doctor?.departments?.[0]?.department?.title || 'Khoa';
+  const departmentCode = doctor?.departments?.[0]?.department?.code || 'Khoa';
 
   if (doctor?.department_title && departmentMap[doctor.department_title]) {
-    titles.push(`${departmentMap[doctor.department_title]} ${departmentName}`);
+    titles.push(
+      `${departmentMap[doctor.department_title]} ${departmentName} (${departmentCode})`,
+    );
   }
 
   return titles;
