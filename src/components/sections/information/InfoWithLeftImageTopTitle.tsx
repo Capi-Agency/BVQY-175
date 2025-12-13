@@ -51,7 +51,7 @@ export default function InfoWithLeftImageTopTitle({
 
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 xl:gap-8 2xl:gap-10 3xl:gap-[52px] 4xl:gap-[60px]">
           <div>
-            {images?.length > 0 && randomClassSwiper && (
+            {images?.length > 0 && randomClassSwiper ? (
               <>
                 <Fancybox
                   options={{
@@ -113,9 +113,19 @@ export default function InfoWithLeftImageTopTitle({
                 </Fancybox>
 
                 <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
-                  <div className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}></div>
+                  <div
+                    className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}
+                  ></div>
                 </div>
               </>
+            ) : (
+              <div className="relative aspect-[4/3]">
+                <NextImg
+                  src="/assets/images/unavailable.png"
+                  alt="unavailable"
+                  objectFit="cover"
+                />
+              </div>
             )}
           </div>
 

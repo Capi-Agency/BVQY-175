@@ -1,7 +1,6 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React, { use } from 'react';
-import CustomLink from '../../common/custom-link';
+import React from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import {
   AccordionContent,
@@ -68,17 +67,17 @@ export default function FaqsDetailSplit({ data }: CommonSection) {
                   </AccordionContent>
                   <div className="flex justify-center pt-2 md:pt-3 xl:pt-4 2xl:pt-5">
                     <AccordionTrigger>
-                      <div className="flex items-center gap-1 text-sm font-medium text-black md:text-base xl:gap-[6px] xl:text-lg 3xl:text-xl">
+                      <div className="flex items-center gap-1 text-sm font-medium text-[#E50000] md:text-base xl:gap-[6px] xl:text-lg 3xl:text-xl">
                         <span className="group-data-[state=open]:hidden">
-                          {trans('view-more-label')}
+                          {data?.contents?.contents?.[0]}
                         </span>
                         <span className="hidden group-data-[state=open]:block">
-                          {trans('collapse')}
+                          {data?.contents?.contents?.[1]}
                         </span>
                         <div className="relative size-5 transition-all duration-200 group-data-[state=open]:-rotate-180">
                           <NextImg
-                            src="/assets/icons/arrow_down_black.svg"
-                            alt="arrow_down_black.svg"
+                            src="/assets/icons/arrow_down_red.svg"
+                            alt="arrow_down_red.svg"
                           />
                         </div>
                       </div>

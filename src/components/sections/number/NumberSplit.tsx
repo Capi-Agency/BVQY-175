@@ -36,7 +36,8 @@ export default function NumberSplit({ data, dataDetail }: CommonSection) {
       <div className="container">
         <div className="grid grid-cols-1 gap-4 bg-white p-4 md:p-5 lg:grid-cols-2 lg:gap-0 lg:p-6 xl:p-7 2xl:p-8 3xl:p-9 4xl:p-10">
           <div className="relative aspect-[4/3] overflow-hidden">
-            {randomClassSwiper && (
+            {randomClassSwiper &&
+            dataDetail?.achievements_images?.length > 0 ? (
               <Fancybox
                 options={{
                   Carousel: {
@@ -80,6 +81,14 @@ export default function NumberSplit({ data, dataDetail }: CommonSection) {
                   )}
                 </Swiper>
               </Fancybox>
+            ) : (
+              <div className="relative size-full">
+                <NextImg
+                  src="/assets/images/unavailable.png"
+                  alt="unavailable"
+                  objectFit="cover"
+                />
+              </div>
             )}
           </div>
 

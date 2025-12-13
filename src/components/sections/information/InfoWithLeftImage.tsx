@@ -55,7 +55,7 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
           ></div>
         </div>
 
-        {dataDetail?.technologies_images?.length > 0 && randomClassSwiper && (
+        {dataDetail?.technologies_images?.length > 0 && randomClassSwiper ? (
           <Fancybox
             options={{
               Carousel: {
@@ -77,8 +77,7 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
                 speed={700}
                 modules={[Pagination, EffectFade, Autoplay]}
                 effect="fade"
-                  fadeEffect={{ crossFade: true }}
-
+                fadeEffect={{ crossFade: true }}
                 autoplay={{
                   delay: 5000,
                   disableOnInteraction: false,
@@ -116,6 +115,14 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
               ></div>
             </div>
           </Fancybox>
+        ) : (
+          <div className="relative aspect-[4/3] w-full md:aspect-[2/1] lg:aspect-[4/3]">
+            <NextImg
+              src="/assets/images/unavailable.png"
+              alt="unavailable"
+              objectFit="cover"
+            />
+          </div>
         )}
       </div>
     </div>

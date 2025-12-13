@@ -21,11 +21,13 @@ export default function InfoWithRightImage({
 
   if (!hasContent) return null;
 
-  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(null);
+  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
+    null,
+  );
 
   useEffect(() => {
     setRandomClassSwiper(
-      `swiper-info-right-image-${Math.random().toString(36).substring(2, 9)}`
+      `swiper-info-right-image-${Math.random().toString(36).substring(2, 9)}`,
     );
   }, []);
 
@@ -66,7 +68,7 @@ export default function InfoWithRightImage({
             },
           }}
         >
-          {images?.length > 0 && randomClassSwiper && (
+          {images?.length > 0 && randomClassSwiper ? (
             <>
               <div className="relative aspect-[4/3] w-full md:aspect-[2/1] lg:aspect-[4/3]">
                 <Swiper
@@ -118,9 +120,19 @@ export default function InfoWithRightImage({
                 </Swiper>
               </div>
               <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
-                <div className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}></div>
+                <div
+                  className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}
+                ></div>
               </div>
             </>
+          ) : (
+            <div className="relative aspect-[4/3] w-full md:aspect-[2/1] lg:aspect-[4/3]">
+              <NextImg
+                src="/assets/images/unavailable.png"
+                alt="unavailable"
+                objectFit="cover"
+              />
+            </div>
           )}
         </Fancybox>
       </div>

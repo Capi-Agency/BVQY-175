@@ -260,4 +260,8 @@ export const locales: any = {
     vi: 'Địa chỉ',
     en: 'Address',
   },
+  'view-more-process': {
+    vi: 'Xem chi tiết quy trình',
+    en: 'Address',
+  },
 };
