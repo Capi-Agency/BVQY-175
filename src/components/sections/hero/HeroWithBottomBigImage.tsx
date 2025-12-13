@@ -24,7 +24,7 @@ export default function HeroWithBottomBigImage({
         <div className="flex flex-col items-stretch gap-4 pt-6 md:gap-6 md:pt-8 lg:gap-5 lg:pt-10 xl:gap-7 xl:pt-12 2xl:pt-[56px] 3xl:gap-10 3xl:pt-[64px] 4xl:pt-[72px]">
           {dataDetail?.title && (
             <h1 className="text-[28px] font-bold leading-[1.3] text-[#09090B] md:text-[32px] lg:basis-5/12 lg:text-[36px] xl:text-[40px] 2xl:basis-6/12 2xl:text-[48px] 3xl:text-[56px] 4xl:text-[64px]">
-              {`${dataDetail?.title} (${dataDetail?.code})`}
+              {dataDetail?.title} {dataDetail?.code && ` (${dataDetail.code})`}
             </h1>
           )}
 
