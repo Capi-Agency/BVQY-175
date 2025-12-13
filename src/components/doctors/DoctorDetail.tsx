@@ -159,9 +159,8 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
                         className="inline-block text-sm font-normal text-[#09090B] underline underline-offset-2 lg:text-base"
                       >
                         {unit.title}
+                        {index < units.length - 1 && ','}
                       </Link>
-
-                      {index < units.length - 1 && ', '}
                     </React.Fragment>
                   ))}
                 </div>
