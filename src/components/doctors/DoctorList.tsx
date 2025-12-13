@@ -94,7 +94,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
       setTotalPage(1);
     } finally {
       setLoading(false);
-      ScrollTrigger.refresh()
+      ScrollTrigger.refresh();
     }
   }, [
     selectedDepartment,
@@ -123,7 +123,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
       console.error(err);
       setDoctors([]);
       setTotalPage(1);
-      ScrollTrigger.refresh()
+      ScrollTrigger.refresh();
     }
   }, [
     selectedDepartment?.slug,
@@ -255,7 +255,10 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
             <img
               src="/assets/images/arrow_bg.png"
               alt="bg"
-              className="absolute right-[20%] top-1/2 -translate-y-1/2"
+              className={clsx(
+                'absolute right-[20%] top-1/2 -translate-y-1/2',
+                searchMethod === 'by_name' ? 'block' : 'hidden',
+              )}
             />
           </div>
 
@@ -286,7 +289,10 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
             <img
               src="/assets/images/arrow_bg.png"
               alt="bg"
-              className="absolute right-[20%] top-1/2 -translate-y-1/2"
+              className={clsx(
+                'absolute right-[20%] top-1/2 -translate-y-1/2',
+                searchMethod === 'by_department' ? 'block' : 'hidden',
+              )}
             />
           </div>
         </div>
