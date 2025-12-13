@@ -74,7 +74,7 @@ export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
             tabIndex={1}
             autoFocus={false}
             onChange={(e) => setSearchText(e.target.value)}
-            className="flex-1 border-none bg-transparent bg-none py-2.5 text-base text-gray-950 outline-none placeholder:text-gray-500 3xl:py-3"
+            className="flex-1 border-none bg-transparent bg-none py-3 text-base text-gray-950 outline-none placeholder:text-gray-500 3xl:py-3"
             placeholder={trans("search-placeholder")}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {

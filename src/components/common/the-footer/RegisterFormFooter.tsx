@@ -93,18 +93,18 @@ export default function RegisterFormFooter() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="mb-3 text-xs font-bold tracking-wide text-white xl:text-sm 3xl:mb-4 3xl:text-base">
+      <div className="mb-3 text-[13px] md:text-sm font-bold tracking-wide text-white xl:text-sm 3xl:mb-4 3xl:text-base">
         {trans('register-form-title')}
       </div>
 
-      <div className="h-10 3xl:h-12">
-        <div className="flex h-full w-full rounded-[6px] bg-white/20 p-[6px_6px_6px_16px] backdrop-blur-[9.5px] md:w-[300px] xl:w-[336px] xl:p-[6px_6px_6px_20px] 2xl:w-[416px]">
+      <div className="h-11 3xl:h-12">
+        <div className="flex h-full w-full gap-1 xl:gap-2 rounded-[6px] bg-white/20 p-[4px_4px_4px_12px] md:p-[6px_6px_6px_16px] backdrop-blur-[9.5px] md:w-[340px] xl:w-[350px] xl:p-[6px_6px_6px_20px] 3xl:w-[416px]">
           <input
             {...register('email')}
             autoComplete="off"
             aria-describedby="outlined_error_help"
             type="text"
-            className="flex-1 border-none bg-transparent text-xs font-normal text-white outline-none placeholder:text-white/50 xl:text-sm"
+            className="flex-1 border-none bg-transparent text-base font-normal text-white outline-none placeholder:text-white/50 xl:text-sm"
             placeholder={trans('register-placeholder')}
           />
 
@@ -113,7 +113,7 @@ export default function RegisterFormFooter() {
             type="submit"
             className="relative flex items-center gap-[6px] overflow-hidden rounded-[4px] bg-primary-600 p-[4px_12px] xl:p-[8px_16px]"
           >
-            <h3 className="text-xs font-medium text-white 3xl:text-sm">
+            <h3 className="text-sm font-medium text-white 3xl:text-sm text-nowrap">
               {trans('register-label')}
             </h3>
             <div className="relative size-4">

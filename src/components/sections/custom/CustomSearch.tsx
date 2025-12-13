@@ -91,7 +91,7 @@ export default function CustomSearch({ data }: CommonSection) {
               name="search"
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
-              className="flex-1 border-none bg-transparent bg-none py-2 text-base text-gray-950 outline-none placeholder:text-gray-500 lg:py-3 lg:text-base"
+              className="flex-1 border-none bg-transparent bg-none py-2.5 text-base text-gray-950 outline-none placeholder:text-gray-500 lg:py-3 lg:text-base"
               placeholder={trans('search-placeholder')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {

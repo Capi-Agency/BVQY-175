@@ -104,7 +104,10 @@ export default function MobileMenu({
               </CustomLink>
 
               {/* Language button */}
-              <LanguageBtn changeLanguage={changeLanguage} className='hidden md:flex' />
+              <LanguageBtn
+                changeLanguage={changeLanguage}
+                className="hidden md:flex"
+              />
 
               {/* Close button */}
               <DialogClose
@@ -133,7 +136,11 @@ export default function MobileMenu({
                   {contact_information?.files?.length > 0 &&
                     contact_information?.files?.map(
                       (file: any, index: number) => (
-                        <CustomLink href='/thanh-tich' className="relative block h-[72px] w-[50px]" key={index}>
+                        <CustomLink
+                          href="/thanh-tich"
+                          className="relative block h-[72px] w-[50px]"
+                          key={index}
+                        >
                           <NextImg
                             src={getAssetUrlById(file?.directus_files_id)}
                             alt="Military hospital"
@@ -158,10 +165,16 @@ export default function MobileMenu({
                         closeButtonRef.current?.click();
                       }
                     }}
-                    className="flex-1 border-none bg-transparent text-sm font-normal text-black outline-none placeholder:text-[#52525B]"
+                    className="flex-1 border-none bg-transparent text-base font-normal text-black outline-none placeholder:text-[#52525B]"
                     placeholder={trans('search-placeholder')}
                   />
-                  <button className="flex items-center justify-center rounded-[4px] bg-primary-600 px-3">
+                  <button
+                    onClick={() => {
+                      handleSearch('s', searchText);
+                      closeButtonRef.current?.click();
+                    }}
+                    className="flex items-center justify-center rounded-[4px] bg-primary-600 px-3"
+                  >
                     <div className="relative size-5">
                       <NextImg
                         src="/assets/icons/search_white.svg"
@@ -263,7 +276,7 @@ export default function MobileMenu({
                                         <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
                                           {item_second?.sub_items?.length === 1
                                             ? item_second?.sub_items?.[0]
-                                              ?.sub_items?.length
+                                                ?.sub_items?.length
                                             : item_second?.sub_items?.length}
                                         </div>
                                       </div>
@@ -339,7 +352,11 @@ export default function MobileMenu({
                   </CustomLink>
 
                   {/* Language button */}
-                  <LanguageBtn changeLanguage={changeLanguage} className='md:hidden' side='top' />
+                  <LanguageBtn
+                    changeLanguage={changeLanguage}
+                    className="md:hidden"
+                    side="top"
+                  />
                 </div>
               </div>
             </div>

@@ -197,7 +197,7 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
             autoComplete="off"
             aria-describedby="outlined_error_help"
             type="text"
-            className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-sm font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
+            className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-base font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
             placeholder={input?.placeholder}
           />
 
@@ -223,7 +223,7 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
           autoComplete="off"
           aria-describedby="outlined_error_help"
           placeholder={trans('note-placeholder')}
-          className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-sm font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
+          className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-base font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
         />
         {errors.message && isSubmitted && (
           <p

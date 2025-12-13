@@ -199,7 +199,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
 
                   <AccordionContent>
                     <div
-                      className="content-wrapper w-full space-y-1 px-3 pt-3 text-[#09090B] md:space-y-1 lg:px-4 lg:pt-3 xl:space-y-1 3xl:px-5 [&>ul]:list-inside list [&>p]:m-0"
+                      className="w-full px-3 lg:px-4 3xl:px-5 space-y-1 pt-3 text-sm font-normal text-[#09090B] md:space-y-2 lg:pt-3 lg:text-base xl:space-y-3 [&>ul]:list-inside [&>ul]:list-disc [&>p]:m-0"
                       dangerouslySetInnerHTML={{
                         __html: item?.content,
                       }}
