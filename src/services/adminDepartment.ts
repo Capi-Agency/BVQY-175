@@ -21,6 +21,11 @@ export const fnGetAdminDepartments = async ({
         },
       },
       {
+        code: {
+          _icontains: keyword,
+        },
+      },
+      {
         description: {
           _icontains: keyword,
         },
@@ -33,7 +38,7 @@ export const fnGetAdminDepartments = async ({
       readItems(collection, {
         page,
         limit,
-        fields: ['slug', 'title', 'cover.id', 'organizational_structure', 'description'],
+        fields: ['slug', 'title', 'code', 'cover.id', 'organizational_structure', 'description'],
         filter,
       }),
     );
@@ -56,6 +61,11 @@ export const getTotalAdminDepartmentCount = async ({
       filter._or = [
         {
           title: {
+            _icontains: keyword,
+          },
+        },
+        {
+          code: {
             _icontains: keyword,
           },
         },
