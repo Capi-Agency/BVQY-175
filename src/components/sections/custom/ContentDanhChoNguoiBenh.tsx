@@ -15,7 +15,9 @@ export default function ContentCongDichVuCong({ data }: CommonSection) {
   const button = data?.buttons?.[0];
 
   useEffect(() => {
-    const container = document.querySelector('.content-wrapper');
+    const container = document.querySelector(
+      '.content-wrapper.content-fancybox',
+    );
     if (!container) return;
 
     const images = container.querySelectorAll('img');
@@ -65,7 +67,7 @@ export default function ContentCongDichVuCong({ data }: CommonSection) {
             }}
           >
             <div
-              className="content-wrapper [&_ul]:ml-2 [&_ul_ul]:ml-4"
+              className="content-wrapper content-fancybox [&_ul]:ml-2 [&_ul_ul]:ml-4"
               dangerouslySetInnerHTML={{
                 __html: data?.contents,
               }}
