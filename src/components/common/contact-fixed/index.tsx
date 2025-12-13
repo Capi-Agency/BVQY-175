@@ -87,7 +87,7 @@ export default function ContactFixed() {
                             <TooltipRoot open={isOpenMenu} delayDuration={1000}>
                                 <TooltipTrigger asChild>
                                     <a
-                                        target={item?.isTargetBlank ? "_blank" : "_parent"}
+                                        target={item?.isTargetBlank ? "_blank" : undefined}
                                         rel={item?.isTargetBlank ? "noopener" : undefined}
                                         href={item?.url}
                                         className='relative flex size-12 cursor-pointer items-center justify-center rounded-[6px] lg:size-11 xl:size-12'

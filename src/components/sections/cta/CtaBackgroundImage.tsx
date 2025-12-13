@@ -159,7 +159,7 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
                   {trans(item?.titleKey)}
                 </div>
                 <a
-                  target={item?.isTargetBlank ? '_blank' : '_parent'}
+                  target={item?.isTargetBlank ? '_blank' : undefined}
                   rel={item?.isTargetBlank ? 'noopener' : undefined}
                   href={item?.url}
                   className="flex w-fit items-center gap-1 xl:gap-2"
