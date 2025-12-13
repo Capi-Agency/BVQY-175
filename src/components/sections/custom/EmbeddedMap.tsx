@@ -18,12 +18,12 @@ export default function EmbeddedMap({ data }: CommonSection) {
       ></div>
 
       <div className="mb-2 mt-6 flex justify-end md:mt-8 lg:mt-10 xl:mt-12">
-        <Link
-          className="font-normal italic text-primary-500"
+        <CustomLink
           href={button?.url || '#'}
+          className="font-normal italic text-primary-500"
         >
           {button?.title}
-        </Link>
+        </CustomLink>
       </div>
 
       <div

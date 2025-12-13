@@ -87,16 +87,20 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
               </div>
             </Link> */}
 
-            <div className="text-xl font-semibold text-primary-800 md:text-[22px] xl:text-2xl 2xl:text-[28px]">
-              Giới thiệu
-            </div>
+            {dataDetail?.bio && (
+              <>
+                <div className="text-xl font-semibold text-primary-800 md:text-[22px] xl:text-2xl 2xl:text-[28px]">
+                  Giới thiệu
+                </div>
 
-            <div
-              className={`space-y-2 text-sm font-normal text-[#09090B] *:text-justify lg:text-start lg:text-base xl:space-y-3`}
-              dangerouslySetInnerHTML={{
-                __html: dataDetail?.bio,
-              }}
-            ></div>
+                <div
+                  className={`space-y-2 text-sm font-normal text-[#09090B] *:text-justify lg:text-start lg:text-base xl:space-y-3`}
+                  dangerouslySetInnerHTML={{
+                    __html: dataDetail?.bio,
+                  }}
+                ></div>
+              </>
+            )}
 
             {/* <div
               className={`${isViewMore ? 'line-clamp-none' : 'line-clamp-[8] md:line-clamp-[16] lg:line-clamp-[8]'} space-y-2 text-justify text-sm font-normal text-[#09090B] lg:text-start lg:text-base xl:space-y-3`}
