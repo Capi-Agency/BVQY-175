@@ -167,7 +167,7 @@ const sectionMap: SectionMap = {
   'hero-background-focus': dynamic(() =>
     import('../components/sections/hero').then((m) => m.HeroBackgroundsFocus),
   ),
-  
+
   'faqs-1-col': dynamic(() =>
     import('../components/sections/faq').then((m) => m.FaqsOneCol),
   ),
@@ -177,6 +177,9 @@ const sectionMap: SectionMap = {
     import('../components/sections/custom').then(
       (m) => m.ContentDanhChoNguoiBenh,
     ),
+  ),
+  'faqs-detail-split': dynamic(() =>
+    import('../components/sections/faq').then((m) => m.FaqsDetailSplit),
   ),
 
   // Milestone
@@ -200,12 +203,12 @@ const sectionMap: SectionMap = {
   ),
 
   // PDF view
-  'pdf-viewer': dynamic(() =>
-    import('../components/sections/custom').then((m) => m.PDFViewer),
-  ),
-  'fancybox-viewer': dynamic(() =>
-    import('../components/sections/custom').then((m) => m.FancyboxViewer),
-  ),
+  // 'pdf-viewer': dynamic(() =>
+  //   import('../components/sections/custom').then((m) => m.PDFViewer),
+  // ),
+  // 'fancybox-viewer': dynamic(() =>
+  //   import('../components/sections/custom').then((m) => m.FancyboxViewer),
+  // ),
 
   // Thanh tich
   'posts-2-col': dynamic(() =>

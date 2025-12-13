@@ -27,13 +27,15 @@ export default function FancyboxViewer({ data }: CommonSection) {
     <section className="container py-[60px] md:py-[80px] xl:py-[120px]">
       <div
         className="section-content mx-auto mb-6 w-full text-justify lg:mb-8 2xl:mb-10"
-        style={{
-          maxWidth: imageStyle?.['maxWidth'] ?? 'auto',
-        }}
+  
         dangerouslySetInnerHTML={{
           __html: data?.blurb as string,
         }}
       ></div>
+
+       <p className="mt-10 text-center text-sm font-normal italic text-primary-400">
+        Nhấn vào hình để xem rõ hơn
+      </p>
 
       <Fancybox
         options={{
@@ -95,10 +97,6 @@ export default function FancyboxViewer({ data }: CommonSection) {
             </div>
           ))}
       </Fancybox>
-
-      <p className="mt-10 text-center text-sm font-normal italic text-primary-400">
-        Nhấn vào hình để xem rõ hơn
-      </p>
     </section>
   );
 }
