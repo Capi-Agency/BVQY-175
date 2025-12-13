@@ -21,7 +21,7 @@ export default function NavHeader() {
     if (item) {
       if (isMegaMenu) {
         const rect = item.getBoundingClientRect();
-        const megaMenuWidth = window.innerWidth * 0.6
+        const megaMenuWidth = window.innerWidth * 0.65
         if (rect.left < window.innerWidth * 0.3) {
           setLeftPosition(rect.left);
         } else if (window.innerWidth - rect.right < window.innerWidth * 0.3) {
