@@ -29,13 +29,6 @@ export default function FaqsDetailSplit({ data }: CommonSection) {
             }}
           ></div>
 
-          <div
-            className="content-wrapper [&_ul]:ml-2 [&_ul_ul]:ml-4"
-            dangerouslySetInnerHTML={{
-              __html: data?.contents,
-            }}
-          ></div>
-
           {data?.buttons?.length > 0 && (
             <Accordion.Root
               className="w-full space-y-6 xl:space-y-8"
