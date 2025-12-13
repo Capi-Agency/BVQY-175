@@ -86,9 +86,9 @@ export default function ContentCongDichVuCong({ data }: CommonSection) {
                   key={index}
                   className="group pb-0"
                 >
-                  <AccordionTrigger className="flex w-full items-center justify-between rounded-[6px] bg-primary-50 p-3 lg:p-[12px_16px] xl:p-4 3xl:p-5">
+                  <AccordionTrigger className="flex gap-2 xl:gap-3 3xl:gap-4 w-full items-center justify-between rounded-[6px] bg-primary-50 p-3 lg:p-[12px_16px] xl:p-4 3xl:p-5">
                     <div
-                      className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl"
+                      className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl flex-1"
                       dangerouslySetInnerHTML={{
                         __html: item?.title,
                       }}

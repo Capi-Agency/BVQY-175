@@ -57,6 +57,7 @@ export default async function RootLayout({
         ></meta>
 
         <meta name="robots" content="index" />
+        <meta name="format-detection" content="telephone=no" />
       </head>
 
       <body className="antialiased">

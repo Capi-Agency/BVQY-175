@@ -184,8 +184,8 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
                   key={index}
                   className="group pb-0"
                 >
-                  <AccordionTrigger className="flex w-full items-center justify-between rounded-[6px] bg-primary-50 p-3 lg:p-[12px_16px] xl:p-4 3xl:p-5">
-                    <div className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
+                  <AccordionTrigger className="flex w-full items-center justify-between gap-2 rounded-[6px] bg-primary-50 p-3 lg:p-[12px_16px] xl:gap-3 xl:p-4 3xl:gap-4 3xl:p-5">
+                    <div className="flex-1 text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
                       {item?.title}
                     </div>
 
@@ -199,7 +199,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
 
                   <AccordionContent>
                     <div
-                      className="w-full px-3 lg:px-4 3xl:px-5 space-y-1 pt-3 text-sm font-normal text-[#09090B] md:space-y-2 lg:pt-3 lg:text-base xl:space-y-3 [&>ul]:list-inside [&>ul]:list-disc"
+                      className="content-wrapper w-full space-y-1 px-3 pt-3 text-[#09090B] md:space-y-2 lg:px-4 lg:pt-3 xl:space-y-1 3xl:px-5 [&>ul]:list-inside [&>ul]:list-disc"
                       dangerouslySetInnerHTML={{
                         __html: item?.content,
                       }}
