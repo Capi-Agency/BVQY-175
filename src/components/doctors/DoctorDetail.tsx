@@ -21,23 +21,23 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
   const dataContent = [
     {
       title: 'Quá trình đào tạo',
-      content: dataDetail?.education_training,
+      content: dataDetail?.education_training || 'Đang cập nhật',
     },
     {
       title: 'Kinh nghiệm làm việc',
-      content: dataDetail?.work_experience,
+      content: dataDetail?.work_experience || 'Đang cập nhật',
     },
     {
       title: 'Giải thưởng & danh hiệu',
-      content: dataDetail?.award_and_honors,
+      content: dataDetail?.award_and_honors || 'Đang cập nhật',
     },
     {
       title: 'Thành viên của tổ chức',
-      content: dataDetail?.memberships,
+      content: dataDetail?.memberships || 'Đang cập nhật',
     },
     {
       title: 'Sách, báo, công trình nghiên cứu',
-      content: dataDetail?.research_works,
+      content: dataDetail?.research_works || 'Đang cập nhật',
     },
   ];
 
@@ -87,20 +87,18 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
               </div>
             </Link> */}
 
-            {dataDetail?.bio && (
-              <>
-                <div className="text-xl font-semibold text-primary-800 md:text-[22px] xl:text-2xl 2xl:text-[28px]">
-                  Giới thiệu
-                </div>
+            <>
+              <div className="text-xl font-semibold text-primary-800 md:text-[22px] xl:text-2xl 2xl:text-[28px]">
+                Giới thiệu
+              </div>
 
-                <div
-                  className={`space-y-2 text-sm font-normal text-[#09090B] *:text-justify lg:text-start lg:text-base xl:space-y-3`}
-                  dangerouslySetInnerHTML={{
-                    __html: dataDetail?.bio,
-                  }}
-                ></div>
-              </>
-            )}
+              <div
+                className={`space-y-2 text-sm font-normal text-[#09090B] *:text-justify lg:text-start lg:text-base xl:space-y-3`}
+                dangerouslySetInnerHTML={{
+                  __html: dataDetail?.bio || 'Đang cập nhật',
+                }}
+              ></div>
+            </>
 
             {/* <div
               className={`${isViewMore ? 'line-clamp-none' : 'line-clamp-[8] md:line-clamp-[16] lg:line-clamp-[8]'} space-y-2 text-justify text-sm font-normal text-[#09090B] lg:text-start lg:text-base xl:space-y-3`}
