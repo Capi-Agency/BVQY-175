@@ -126,7 +126,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
       ScrollTrigger.refresh();
     }
   }, [
-    selectedDepartment?.slug,
+    selectedDepartment,
     selectedLetter,
     searchMethod,
     searchText,
@@ -178,6 +178,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
             className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
             onSubmit={(e) => {
               e.preventDefault();
+              setCurrentPage(1);
               fetchDoctorCount();
               fetchDoctors();
             }}
@@ -201,6 +202,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
                     e.preventDefault();
+                    setCurrentPage(1);
                     fetchDoctorCount();
                     fetchDoctors();
                   }
