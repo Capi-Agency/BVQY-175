@@ -14,7 +14,6 @@ export default function HeroWithBottomBigImage({
     dataDetail?.date_established ||
     dataDetail?.organizational_structure ||
     dataDetail?.cover;
-    console.log('dataDetail', dataDetail);
 
   if (hasContent === null || hasContent.length === 0) return null;
 

@@ -9,6 +9,7 @@ import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
+import { cn } from '@/src/lib/utils';
 
 export default function InfoWithLeftImageTopTitle({
   data,
@@ -131,7 +132,7 @@ export default function InfoWithLeftImageTopTitle({
 
           <div className="sidebar relative md:overflow-y-auto md:pr-2 lg:aspect-[4/3]">
             <div
-              className={`relative space-y-3 text-justify text-sm font-normal text-[#09090B] transition-all duration-700 ease-in-out xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`}
+              className={cn(`relative space-y-3 text-justify text-sm font-normal text-[#09090B] transition-all duration-700 ease-in-out xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`)}
               dangerouslySetInnerHTML={{
                 __html: description,
               }}

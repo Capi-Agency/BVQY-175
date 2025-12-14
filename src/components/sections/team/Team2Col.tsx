@@ -6,12 +6,12 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import DoctorCard from '../../common/doctor-card';
 
-export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
+export default function Team2Col({ data, dataDetail }: CommonSection) {
   const description = dataDetail.leadership_board_description;
-  const doctors = dataDetail.doctors;
+  const leaders = dataDetail.leaders;
   const { custom } = data;
 
-  const hasContent = !!description || (doctors?.length ?? 0) > 0;
+  const hasContent = !!description || (leaders?.length ?? 0) > 0;
 
   if (!hasContent) return null;
   return (
@@ -40,7 +40,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
         </div>
 
         <div className="col-span-full lg:col-span-9">
-          {dataDetail?.doctors?.length > 2 ? (
+          {leaders?.length > 2 ? (
             <Swiper
               touchEventsTarget="container"
               grabCursor={true}
@@ -59,16 +59,17 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
               }}
               className="!h-full !w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-0"
             >
-              {dataDetail?.doctors?.map((item: any, index: number) => (
+              {leaders?.map((item: any, index: number) => (
                 <SwiperSlide key={index}>
                   <DoctorCard
-                    item={item?.doctor}
+                    item={item}
                     url={data?.buttons?.[0]?.url}
                     avatarType={custom?.avatar_type}
                     subTitle={custom?.sub_title}
                     isLogo={custom?.is_logo}
                     isHover={custom?.is_hover}
                     isRounded={custom?.is_rounded}
+                    isLink={custom?.is_link}
                   />
                 </SwiperSlide>
               ))}
@@ -76,10 +77,10 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
           ) : (
             <>
               <div className="hidden w-full grid-cols-2 gap-8 md:grid md:px-[calc((100vw-688px)/2)] lg:gap-6 lg:px-0 lg:pl-[80px] xl:gap-10 xl:pl-[100px] 2xl:pl-[160px] 3xl:pl-[220px] 4xl:pl-[260px]">
-                {dataDetail?.doctors?.map((item: any, index: number) => (
+                {leaders?.map((item: any, index: number) => (
                   <div key={index} className="">
                     <DoctorCard
-                      item={item?.doctor}
+                      item={item}
                       url={data?.buttons?.[0]?.url}
                       avatarType={custom?.avatar_type}
                       subTitle={custom?.sub_title}
@@ -87,6 +88,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                       isHover={custom?.is_hover}
                       isRounded={custom?.is_rounded}
                       avatarRatio="3/4"
+                    isLink={custom?.is_link}
                     />
                   </div>
                 ))}
@@ -109,16 +111,17 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                 }}
                 className="!h-full !w-full !px-6 md:!hidden md:!px-[calc((100vw-688px)/2)] lg:!px-0"
               >
-                {dataDetail?.doctors?.map((item: any, index: number) => (
+                {leaders?.map((item: any, index: number) => (
                   <SwiperSlide key={index}>
                     <DoctorCard
-                      item={item?.doctor}
+                      item={item}
                       url={data?.buttons?.[0]?.url}
                       avatarType={custom?.avatar_type}
                       subTitle={custom?.sub_title}
                       isLogo={custom?.is_logo}
                       isHover={custom?.is_hover}
                       isRounded={custom?.is_rounded}
+                    isLink={custom?.is_link}
                     />
                   </SwiperSlide>
                 ))}

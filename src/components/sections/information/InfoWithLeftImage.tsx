@@ -10,6 +10,7 @@ import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
+import { cn } from '@/src/lib/utils';
 
 export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
   const hasContent =
@@ -48,7 +49,7 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
           </div>
 
           <div
-            className="section-content sidebar relative text-justify md:pr-2 lg:flex-1 lg:overflow-y-auto"
+            className={cn("content-wrapper section-content sidebar relative text-justify md:pr-2 lg:flex-1 lg:overflow-y-auto")}
             dangerouslySetInnerHTML={{
               __html: dataDetail?.technologies,
             }}

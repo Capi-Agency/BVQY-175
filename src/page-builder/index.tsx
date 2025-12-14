@@ -135,6 +135,9 @@ const sectionMap: SectionMap = {
   'team-slider-4-col': dynamic(() =>
     import('../components/sections/team').then((m) => m.TeamSlider4Col),
   ),
+  'team-2-col': dynamic(() =>
+    import('../components/sections/team').then((m) => m.Team2Col),
+  ),
   'card-2-col-with-blurb': dynamic(() =>
     import('../components/sections/card').then((m) => m.Card2ColWithBlurb),
   ),

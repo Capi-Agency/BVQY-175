@@ -6,24 +6,26 @@ import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
 import { cn } from '@/src/lib/utils';
 
-interface DoctorCardProps {
+export interface DoctorCardProps {
   item: any;
   url: string;
   isLogo?: boolean;
   isHover?: boolean;
   bgColor?: string;
-  type?: "default" | "search";
+  type?: 'default' | 'search';
   avatarType: 'avatar' | 'uniform_avatar';
   subTitle:
-  | 'specialty'
-  | 'hospital_title'
-  | 'department_title'
-  | 'institute_title'
-  | 'admin_department_title'
-  | string;
+    | 'specialty'
+    | 'hospital_title'
+    | 'department_title'
+    | 'institute_title'
+    | 'admin_department_title'
+    | 'unit_title'
+    | string;
   avatarRatio?: '2/3' | '5/6' | '3/4' | string;
   avatarOrigin?: 'center' | 'top' | 'left' | 'right' | 'bottom';
   isRounded?: boolean;
+  isLink?: boolean;
 }
 
 const hospitalTitleMap: Record<string, string> = {
@@ -56,117 +58,143 @@ export default function DoctorCard({
   isLogo = true,
   isHover = true,
   bgColor = 'bg-white',
-  type = "default",
+  type = 'default',
   avatarType = 'avatar',
   subTitle = 'specialty',
   avatarRatio = '2/3',
   avatarOrigin = 'center',
   isRounded = true,
+  isLink = true,
 }: DoctorCardProps) {
   const language = useStoreLanguage((state: any) => state.language);
-
   const renderSubTitleByType: Record<DoctorCardProps['subTitle'], JSX.Element> =
-  {
-    specialty: <>{item?.specialty}</>,
-    hospital_title: (
-      <>{hospitalTitleMap[item?.hospital_title] ?? item?.hospital_title}</>
-    ),
-    institute_title: (
-      <>{instituteTitleMap[item?.institute_title] ?? item?.institute_title}</>
-    ),
-    department_title: (
-      <>
-        {departmentTitleMap[item?.department_title] ?? item?.department_title}
-      </>
-    ),
-    admin_department_title: (
-      <>
-        {adminDepartmentTitleMap[item?.admin_department_title] ??
-          item?.admin_department_title}
-      </>
-    ),
-  };
+    {
+      specialty: <>{item?.specialty}</>,
+      hospital_title: (
+        <>{hospitalTitleMap[item?.hospital_title] ?? item?.hospital_title}</>
+      ),
+      institute_title: (
+        <>{instituteTitleMap[item?.institute_title] ?? item?.institute_title}</>
+      ),
+      department_title: (
+        <>
+          {departmentTitleMap[item?.department_title] ?? item?.department_title}
+        </>
+      ),
+      admin_department_title: (
+        <>
+          {adminDepartmentTitleMap[item?.admin_department_title] ??
+            item?.admin_department_title}
+        </>
+      ),
+      unit_title: (
+        <>{adminDepartmentTitleMap[item?.unit_title] ?? item?.unit_title}</>
+      ),
+    };
 
   const avatarId = item?.[avatarType]?.id ?? item?.[avatarType];
 
-  const renderDefault = () => (
-    <Link
-      href={`/${language}${url}/${item?.slug}`}
-      aria-label="Xem chi tiết bác sĩ"
-      className="group block space-y-3 2xl:space-y-[14px] 3xl:space-y-4"
-    >
-      <div
-        className={cn(
-          'relative w-full overflow-hidden',
-          bgColor,
-          isRounded && 'rounded-[8px]',
-          isHover &&
-          'transition-colors duration-200 group-hover:bg-primary-600',
-        )}
-        style={{
-          aspectRatio: avatarRatio,
-        }}
-      >
-        <NextImg
-          src={getAssetUrlById(avatarId)}
-          alt="Doctor image"
-          objectFit="cover"
-          className="z-[2]"
-        />
-
-        {isLogo && (
+  const renderDefault = () => {
+    const cardContent = (
+      <>
+        <div
+          className={cn(
+            'relative w-full overflow-hidden',
+            bgColor,
+            isRounded && 'rounded-[8px]',
+            isHover &&
+              'transition-colors duration-200 group-hover:bg-primary-600',
+          )}
+          style={{
+            aspectRatio: avatarRatio,
+          }}
+        >
           <NextImg
-            src="/assets/images/doctor_card_bg.png"
-            alt="doctor card bg image"
+            src={getAssetUrlById(avatarId)}
+            alt="Doctor image"
             objectFit="cover"
-            className="z-[1] origin-center"
+            className="z-[2]"
           />
-        )}
+
+          {isLogo && (
+            <NextImg
+              src="/assets/images/doctor_card_bg.png"
+              alt="doctor card bg image"
+              objectFit="cover"
+              className="z-[1] origin-center"
+            />
+          )}
+        </div>
+
+        <div className="text-center xl:space-y-[2px] 3xl:space-y-1">
+          <div className="text-xs font-normal text-[#3F3F46] md:text-sm 2xl:text-base">
+            {item?.full_title}
+          </div>
+
+          <div className="text-nowrap text-base font-bold text-[#010502] md:text-lg 2xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
+            {item?.full_name}
+          </div>
+
+          <div className="text-xs font-medium text-subTitle md:text-sm 2xl:text-base">
+            {renderSubTitleByType[subTitle]}
+          </div>
+        </div>
+      </>
+    );
+
+    if (isLink) {
+      return (
+        <Link
+          href={`/${language}${url}/${item?.slug}`}
+          aria-label="Xem chi tiết bác sĩ"
+          className="group block space-y-3 2xl:space-y-[14px] 3xl:space-y-4"
+        >
+          {cardContent}
+        </Link>
+      );
+    }
+    return (
+      <div className="group block space-y-3 2xl:space-y-[14px] 3xl:space-y-4">
+        {cardContent}
       </div>
+    );
+  };
 
-      <div className="text-center xl:space-y-[2px] 3xl:space-y-1">
-        <div className="text-xs font-normal text-[#3F3F46] md:text-sm 2xl:text-base">
-          {item?.full_title}
-        </div>
-
-        <div className="text-nowrap text-base font-bold text-[#010502] md:text-lg 2xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
-          {item?.full_name}
-        </div>
-
-        <div className="text-xs font-medium text-subTitle md:text-sm 2xl:text-base">
-          {renderSubTitleByType[subTitle]}
-        </div>
-      </div>
-    </Link>
-  )
-
-  const renderSearch = () => (
-    <Link
-      href={`/${language}${url}/${item?.slug}`}
-      aria-label="Xem chi tiết bác sĩ"
-      className="group block"
-    >
+  const renderSearch = () => {
+    const cardContent = (
       <div className="xl:space-y-[2px] 3xl:space-y-1">
         <div className="text-sm font-normal text-[#3F3F46] xl:text-base">
           {item?.full_title}
         </div>
 
-        <div className="text-nowrap underline underline-offset-2 text-lg font-bold text-[#010502] lg:text-lg xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
+        <div className="text-nowrap text-lg font-bold text-[#010502] underline underline-offset-2 lg:text-lg xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
           {item?.full_name}
         </div>
 
-        <div className="text-sm font-medium text-subTitle xl:text-base pt-[2px]">
+        <div className="pt-[2px] text-sm font-medium text-subTitle xl:text-base">
           {renderSubTitleByType[subTitle]}
         </div>
       </div>
-    </Link>
-  )
+    );
+    if (isLink) {
+      return (
+        <Link
+          href={`/${language}${url}/${item?.slug}`}
+          aria-label="Xem chi tiết bác sĩ"
+          className="group block"
+        >
+          {cardContent}
+        </Link>
+      );
+    }
+    return <div className="group block">{cardContent}</div>;
+  };
 
   switch (type) {
-    case "search":
-      return renderSearch()
+    case 'search':
+      return renderSearch();
     default:
-      return renderDefault()
+      return renderDefault();
   }
 }
 

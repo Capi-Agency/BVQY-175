@@ -184,7 +184,7 @@ export const locales: any = {
     vi: 'Đặt khám theo yêu cầu',
     en: 'Schedule an appointment on demand.',
   },
-  fanage: {
+  fanpage: {
     vi: 'Fanpage',
     en: 'Fanpage',
   },
