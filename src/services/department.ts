@@ -70,6 +70,11 @@ export const fnGetDepartmentDetail = async ({
           'activities_images.*',
           'doctors.*.*',
         ],
+        deep: {
+          doctors: {
+            sort: ['sort'],
+          },
+        },
       }),
     );
     return res;

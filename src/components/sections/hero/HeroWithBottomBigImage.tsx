@@ -34,7 +34,9 @@ export default function HeroWithBottomBigImage({
               </div>
 
               <div className="text-base font-semibold text-[#09090B] md:text-lg lg:text-xl xl:text-2xl 2xl:text-[26px] 2xl:!leading-[1.3] 3xl:text-[28px]">
-                {formatDate(dataDetail?.date_established)}
+                {dataDetail?.date_established
+                  ? formatDate(dataDetail?.date_established)
+                  : 'Đang cập nhật'}
               </div>
             </div>
 
@@ -56,7 +58,7 @@ export default function HeroWithBottomBigImage({
           <div className="relative aspect-[9/4] w-full overflow-hidden rounded-[6px]">
             <NextImg
               src={getAssetUrlById(dataDetail?.cover)}
-              objectFit='cover'
+              objectFit="cover"
               alt="banner image"
             />
           </div>
