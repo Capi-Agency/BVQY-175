@@ -475,19 +475,19 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
 
           {/* Hiển thị kết quả */}
           <div className="mb-3 flex flex-col gap-3 md:flex-row md:items-center">
-            <div className="flex items-center gap-1.5 text-base font-medium text-gray-700">
+            <div className=" gap-1.5 text-base font-medium text-gray-700">
               <span className="text-xl font-semibold text-primary-600">
                 {totalItem}{' '}
               </span>
               kết quả phù hợp
               {(searchText || selectedLetter) && (
-                <div>
-                  với tìm kiếm{' '}
+                <span>
+                  {' '}với tìm kiếm{' '}
                   <span className="font-semibold text-primary-600">
                     {' '}
                     “{searchText || selectedLetter}”
                   </span>
-                </div>
+                </span>
               )}
             </div>
 
