@@ -3,7 +3,6 @@ import React from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
-import { useTranslate } from '@/src/hooks/useTranslate';
 import useStoreLanguage from '@/src/store/store';
 import useTranslation from '@/src/hooks/use-translation';
 import CustomLink from '../../common/custom-link';

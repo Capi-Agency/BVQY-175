@@ -1,6 +1,6 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/effect-fade';
@@ -11,21 +11,15 @@ import { getAssetUrlById } from '@/src/utils/image';
 import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
 import { cn } from '@/src/lib/utils';
+import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 
 export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
   const hasContent =
     !!dataDetail?.technologies ||
     (Array.isArray(dataDetail?.technologies_images) &&
       dataDetail.technologies_images.length > 0);
-  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
-    null,
-  );
 
-  useEffect(() => {
-    setRandomClassSwiper(
-      `swiper-custom-${Math.random().toString(36).substring(2, 9)}`,
-    );
-  }, []);
+  const { paginationClass, paginationConfig } = useSwiperPagination();
 
   if (!hasContent) return null;
 
@@ -56,7 +50,7 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
           ></div>
         </div>
 
-        {dataDetail?.technologies_images?.length > 0 && randomClassSwiper ? (
+        {dataDetail?.technologies_images?.length > 0 && paginationConfig && paginationClass ? (
           <Fancybox
             options={{
               Carousel: {
@@ -83,12 +77,7 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
                   delay: 5000,
                   disableOnInteraction: false,
                 }}
-                pagination={{
-                  clickable: true,
-                  type: 'bullets',
-                  el: `.swiper-bullets-container.${randomClassSwiper}`,
-                  bulletElement: 'div',
-                }}
+                pagination={paginationConfig}
                 className="!h-full !w-full"
               >
                 {dataDetail?.technologies_images?.map((item: any) => (
@@ -112,7 +101,7 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
             </div>
             <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
               <div
-                className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}
+                className={`${paginationClass} !w-fit`}
               ></div>
             </div>
           </Fancybox>

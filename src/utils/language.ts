@@ -1,19 +1,6 @@
-export const updateSlugLanguage = (
-  slug: string,
-  newLanguage: string,
-): string => {
-  const slugParts = slug.split('-');
-  const lastPart = slugParts[slugParts.length - 1];
-
-  if (lastPart === 'en' || lastPart === 'vi') {
-    if (newLanguage === 'vi') {
-      slugParts.pop();
-    } else {
-      slugParts[slugParts.length - 1] = 'en';
-    }
-  }
-  return slugParts.join('-');
-};
+export const langs = ['vi', 'en', 'jp', 'fr', 'de'] as const;
+export type LanguageCode = (typeof langs)[number];
+export const defaultLanguage: LanguageCode = 'vi';
 
 export const locales: any = {
   'register-form-title': {

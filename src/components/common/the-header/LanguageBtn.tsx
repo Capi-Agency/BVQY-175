@@ -3,18 +3,19 @@ import React, { useState } from 'react';
 import NextImg from '../next-img';
 import useStoreLanguage from '@/src/store/store';
 import { cn } from '@/src/lib/utils';
+import useChangeLanguage from '@/src/hooks/useChangeLanguage';
+import { langs } from '@/src/utils/language';
 
 type LanguageBtnProps = {
-  changeLanguage: (value: string) => void;
   className?: string;
   side?: "top" | "bottom"
 };
 
-export default function LanguageBtn({ changeLanguage, className, side = "bottom" }: LanguageBtnProps) {
+export default function LanguageBtn({ className, side = "bottom" }: LanguageBtnProps) {
   const language = useStoreLanguage((state: any) => state.language);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const dataLang = ['vi', 'en'];
+  const { changeLanguage } = useChangeLanguage()
 
   return (
     <div
@@ -43,7 +44,7 @@ export default function LanguageBtn({ changeLanguage, className, side = "bottom"
             boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
           }}
         >
-          {dataLang?.map((item: any, index: number) => {
+          {langs?.map((item: any, index: number) => {
             if (language === item) return null;
             return (
               <button

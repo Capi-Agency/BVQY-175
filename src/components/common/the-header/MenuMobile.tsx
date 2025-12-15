@@ -26,12 +26,10 @@ import LanguageBtn from './LanguageBtn';
 import useTranslation from '@/src/hooks/use-translation';
 
 type MobileMenuProps = {
-  changeLanguage: (value: string) => void;
   handleSearch: (key: string, value: string) => void;
 };
 
 export default function MobileMenu({
-  changeLanguage,
   handleSearch,
 }: MobileMenuProps) {
   const language = useStoreLanguage((state: any) => state.language);
@@ -105,7 +103,6 @@ export default function MobileMenu({
 
               {/* Language button */}
               <LanguageBtn
-                changeLanguage={changeLanguage}
                 className="hidden md:flex"
               />
 
@@ -276,7 +273,7 @@ export default function MobileMenu({
                                         <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
                                           {item_second?.sub_items?.length === 1
                                             ? item_second?.sub_items?.[0]
-                                                ?.sub_items?.length
+                                              ?.sub_items?.length
                                             : item_second?.sub_items?.length}
                                         </div>
                                       </div>
@@ -353,7 +350,6 @@ export default function MobileMenu({
 
                   {/* Language button */}
                   <LanguageBtn
-                    changeLanguage={changeLanguage}
                     className="md:hidden"
                     side="top"
                   />

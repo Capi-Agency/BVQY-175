@@ -1,6 +1,5 @@
 'use client';
 import CustomLink from '@/src/components/common/custom-link';
-import { useTranslate } from '@/src/hooks/useTranslate';
 import { CommonSection } from '@/src/types/pageBuilder';
 import Link from 'next/link';
 import React from 'react';
