@@ -3,21 +3,20 @@ import React, { useState } from 'react';
 import NextImg from '@/src/components/common/next-img';
 import { useMetadata } from '@/src/providers/MetadataProvider';
 import Link from 'next/link';
-import useStoreLanguage from '@/src/store/store';
 import RegisterFormFooter from './RegisterFormFooter';
 import CustomLink from '../custom-link';
 import Script from 'next/script';
 import useTranslation from '@/src/hooks/use-translation';
-
+import { getLocalizedField } from '@/src/i18n/routing';
+import { useLocale } from 'next-intl';
 
 export default function TheFooter() {
-  const language = useStoreLanguage((state: any) => state.language);
   const { trans } = useTranslation();
   const { contact_information, bottom_navigation } = useMetadata();
-
+  const locale = useLocale();
 
   return (
-    <footer className="relative bg-primary-600 py-6 xl:py-8 3xl:py-10 overflow-hidden">
+    <footer className="relative overflow-hidden bg-primary-600 py-6 xl:py-8 3xl:py-10">
       <div className="pointer-events-none absolute inset-0 hidden size-full select-none md:block">
         <NextImg
           src="/assets/images/footer_bg.png"
@@ -115,7 +114,7 @@ export default function TheFooter() {
                   className="w-full md:w-[200px] xl:w-[172px] 3xl:w-[200px]"
                 >
                   <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
-                    {language === 'en' ? `${item?.title_en}` : `${item?.title}`}
+                    {getLocalizedField(item, 'title', locale)}
                   </h2>
                   <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
                   <div className="mt-5 space-y-4">
@@ -126,9 +125,7 @@ export default function TheFooter() {
                           href={sub_item?.url}
                           className="block w-fit text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base"
                         >
-                          {language === 'en'
-                            ? `${sub_item?.title_en}`
-                            : `${sub_item?.title}`}
+                          {getLocalizedField(sub_item, 'title', locale)}
                         </CustomLink>
                       ),
                     )}
@@ -145,7 +142,7 @@ export default function TheFooter() {
             </h2>
             <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
 
-            <div className='mt-5 flex flex-col gap-6 lg:gap-8 md:flex-row md:items-center xl:items-start xl:gap-6 2xl:gap-8 3xl:gap-8 4xl:gap-9 xl:flex-col'>
+            <div className="mt-5 flex flex-col gap-6 md:flex-row md:items-center lg:gap-8 xl:flex-col xl:items-start xl:gap-6 2xl:gap-8 3xl:gap-8 4xl:gap-9">
               <div className="flex gap-3">
                 {contact_information?.facebook_url && (
                   <Link
@@ -169,7 +166,10 @@ export default function TheFooter() {
                     aria-label="Youtube bệnh viện 175"
                     className="relative size-8 md:size-9"
                   >
-                    <NextImg src="/assets/icons/youtube.svg" alt="youtube logo" />
+                    <NextImg
+                      src="/assets/icons/youtube.svg"
+                      alt="youtube logo"
+                    />
                   </Link>
                 )}
 
@@ -181,29 +181,39 @@ export default function TheFooter() {
                     aria-label="Zalo bệnh viện 175"
                     className="relative size-8 md:size-9"
                   >
-                    <NextImg src="/assets/icons/zalo_contact.svg" alt="zalo logo" />
+                    <NextImg
+                      src="/assets/icons/zalo_contact.svg"
+                      alt="zalo logo"
+                    />
                   </Link>
                 )}
               </div>
 
-              <div className='gap-3 2xl:gap-4 flex items-center xl:flex-col'>
+              <div className="flex items-center gap-3 xl:flex-col 2xl:gap-4">
                 <CustomLink
                   href={contact_information?.googleplay_url}
-                  className='relative block aspect-[180/50] w-[140px] lg:w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]'>
-                  <NextImg src="/assets/images/gg_play_cta.png" alt="gg play cta" />
+                  className="relative block aspect-[180/50] w-[140px] lg:w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]"
+                >
+                  <NextImg
+                    src="/assets/images/gg_play_cta.png"
+                    alt="gg play cta"
+                  />
                 </CustomLink>
 
                 <CustomLink
                   href={contact_information?.appstore_url}
-
-                  className='relative block aspect-[180/50] w-[140px] lg:w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]'>
-                  <NextImg src="/assets/images/app_store_cta.png" alt="app store cta" />
+                  className="relative block aspect-[180/50] w-[140px] lg:w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]"
+                >
+                  <NextImg
+                    src="/assets/images/app_store_cta.png"
+                    alt="app store cta"
+                  />
                 </CustomLink>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center md:items-end gap-6 md:px-0 xl:flex-col xl:items-start xl:gap-4 2xl:gap-5 4xl:gap-6">
+          <div className="flex items-center gap-6 md:items-end md:px-0 xl:flex-col xl:items-start xl:gap-4 2xl:gap-5 4xl:gap-6">
             <div className="relative h-[50px] w-[126px] 2xl:h-[58px] 2xl:w-[147px] 4xl:h-[66px] 4xl:w-[167px]">
               <NextImg
                 src="/assets/images/bo_cong_thuong.png"
@@ -262,7 +272,7 @@ export default function TheFooter() {
 
           <div className="my-3 h-[1px] w-full bg-[#00A032] xl:my-4 3xl:mb-5"></div>
 
-          <div className="text-center text-sm 2xl:text-base font-normal tracking-normal text-white md:tracking-wider">
+          <div className="text-center text-sm font-normal tracking-normal text-white md:tracking-wider 2xl:text-base">
             {trans('copy-right-label')}
           </div>
         </div>

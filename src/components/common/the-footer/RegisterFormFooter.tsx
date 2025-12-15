@@ -6,7 +6,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { fnSendContact } from '@/src/services/contact';
-import useStoreLanguage from '@/src/store/store';
 import useTranslation from '@/src/hooks/use-translation';
 import { useTranslations } from 'next-intl';
 
@@ -21,8 +20,7 @@ const initialValue: Contact = {
 export default function RegisterFormFooter() {
   const { trans } = useTranslation();
   const [loading, setLoading] = useState<boolean>(false);
-  const language = useStoreLanguage((state: any) => state.language);
-  const t = useTranslations('Footer'); // namespace = "home"
+  const t = useTranslations('Footer');
 
   const CONTACT_SCHEMA = useMemo(
     () =>
@@ -42,7 +40,7 @@ export default function RegisterFormFooter() {
             ),
         })
         .required(),
-    [language],
+    [],
   );
 
   const {

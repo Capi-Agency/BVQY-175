@@ -146,6 +146,7 @@ const DepartmentDetailPage = ({
               {bannerData?.title}
             </h1>
           )}
+          
           {/* subtitle */}
           <p className="text-base font-normal text-gray-200 md:text-lg lg:text-xl">
             {bannerData?.subtitle}

@@ -1,12 +1,12 @@
 'use client';
 import React, { useState } from 'react';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import ContactCta from './ContactCta';
-import useStoreLanguage from '@/src/store/store';
 import CustomLink from '../custom-link';
+import { getLocalizedField } from '@/src/i18n/routing';
+import { useLocale } from 'next-intl';
 
 export default function MegaMenuContent({ item }: any) {
-  const language = useStoreLanguage((state: any) => state.language);
+  const locale = useLocale();
   const [currentTab, setCurrentTab] = useState<number>(0);
 
   return (
@@ -20,9 +20,7 @@ export default function MegaMenuContent({ item }: any) {
                 key={item_second_index}
                 className={`${currentTab === item_second_index ? 'border-primary-600 text-primary-600' : 'border-[#E4E4E7] text-[#71717A] hover:border-primary-300 hover:text-primary-400'} flex-1 cursor-pointer border-b-[2px] pb-3 text-center text-sm font-semibold uppercase transition-all duration-100 3xl:text-base`}
               >
-                {language === 'en'
-                  ? `${item_second?.title_en}`
-                  : `${item_second?.title}`}{' '}
+                {getLocalizedField(item_second, 'title', locale)}
               </div>
             ),
           )}
@@ -47,15 +45,11 @@ export default function MegaMenuContent({ item }: any) {
                       asNavigationLink
                       className="block text-sm font-bold uppercase text-black 3xl:text-base"
                     >
-                      {language === 'en'
-                        ? `${item_third?.title_en || ''}`
-                        : `${item_third?.title || ''}`}
+                      {getLocalizedField(item_third, 'title', locale)}
                     </CustomLink>
                   ) : (
                     <div className="block text-sm font-bold uppercase text-black 3xl:text-base">
-                      {language === 'en'
-                        ? `${item_third?.title_en || ''}`
-                        : `${item_third?.title || ''}`}
+                      {getLocalizedField(item_third, 'title', locale)}
                     </div>
                   )}
 
@@ -71,18 +65,14 @@ export default function MegaMenuContent({ item }: any) {
                             asNavigationLink
                             className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[10px]"
                           >
-                            {language === 'en'
-                              ? `${item_fourth?.title_en}`
-                              : `${item_fourth?.title}`}
+                            {getLocalizedField(item_fourth, 'title', locale)}
                           </CustomLink>
                         ) : (
                           <div
                             key={item_fourth_index}
                             className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[10px]"
                           >
-                            {language === 'en'
-                              ? `${item_fourth?.title_en}`
-                              : `${item_fourth?.title}`}
+                            {getLocalizedField(item_fourth, 'title', locale)}
                           </div>
                         ),
                     )}

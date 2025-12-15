@@ -1,66 +1,34 @@
 import JsonLDProvider from '@/src/components/common/the-json-ld';
+import { getLangSlug } from '@/src/i18n/routing';
 import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
-import { checkValueNull } from '@/src/utils/validate';
+import { createSeoData } from '@/src/utils/metadata';
 import { Metadata, ResolvingMetadata } from 'next';
-import { cookies } from 'next/headers';
-
 import { notFound } from 'next/navigation';
 
 type Props = {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 };
-
-async function getLangSlug(slug: string): Promise<string> {
-  const cookieStore = await cookies();
-  const lang = cookieStore.get('language')?.value ?? 'vi';
-  return lang === 'vi' ? slug : `${slug}-en`;
-}
 
 export async function generateMetadata(
   { params }: Props,
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const { slug } = await params;
-  const langSlug = await getLangSlug(slug);
+  const { locale, slug } = await params;
+  const langSlug = getLangSlug(locale, slug);
 
   const data = await fnGetPageBySlug(langSlug);
-  const seo = data?.seo ?? {};
-
-  return {
-    title: checkValueNull(seo?.meta_title, ''),
-    keywords: Array.isArray(seo?.meta_keyword)
-      ? seo?.meta_keyword.join(', ')
-      : '',
-    description: checkValueNull(seo?.meta_description, ''),
-    openGraph: {
-      locale: 'vi_VN',
-      alternateLocale: 'en_US',
-      siteName: checkValueNull(seo?.meta_title, ''),
-      title: checkValueNull(seo?.meta_title, ''),
-      description: checkValueNull(seo?.meta_description, ''),
-      images: seo?.meta_cover?.id
-        ? [`${process.env.NEXT_PUBLIC_ASSETS_URL}${seo?.meta_cover.id}`]
-        : [],
-      url: process.env.SITE_URL ?? '',
-      type: 'website',
-    },
-    alternates: {
-      canonical: process.env.SITE_URL ?? '',
-      languages: {
-        vi: `${process.env.SITE_URL}/vi/${slug}`,
-        en: `${process.env.SITE_URL}/en/${slug}`,
-      },
-    },
-  };
+  const seo = createSeoData(data?.seo) ?? {};
+  return seo;
 }
 
 export default async function Page({ params }: Props) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   if (!slug) {
     notFound();
   }
-  const langSlug = await getLangSlug(slug);
+
+  const langSlug = getLangSlug(locale, slug);
   const pageContent = await fnGetPageBySlug(langSlug);
   const pageSchema = pageContent?.seo?.meta_schema;
 

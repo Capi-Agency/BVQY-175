@@ -7,45 +7,28 @@ import { cookies } from 'next/headers';
 import JsonLDProvider from '@/src/components/common/the-json-ld';
 import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
-
-async function getLang() {
-  const cookieStore = await cookies();
-  const lang: string = cookieStore.get('language')?.value ?? 'vi';
-  return lang;
-}
-
-async function getLangSlugNewsDetail(): Promise<string> {
-  const lang = await getLang();
-  return lang === 'en' ? 'chi-tiet-tin-tuc-en' : 'chi-tiet-tin-tuc';
-}
+import { getLangSlug, getLocalizedField } from '@/src/i18n/routing';
 
 type Props = {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise<{ locale: string; slug: string }>;
 };
 
 export async function generateMetadata(
   { params }: Props,
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const idRegex = /^[a-zA-Z0-9-_]+$/;
   if (!slug || !idRegex.test(slug)) return notFound();
 
-  const lang = await getLang();
   const data = await getNewsDetail({ collection: 'posts', slug });
   if (!data) notFound();
 
-  const title =
-    lang === 'en'
-      ? checkValueNull(data?.title_en, '')
-      : checkValueNull(data?.title, '');
-
-  const description =
-    lang === 'en'
-      ? checkValueNull(data?.blurb_en, '')
-      : checkValueNull(data?.blurb, '');
+  const title = checkValueNull(getLocalizedField(data, 'title', locale), '');
+  const description = checkValueNull(
+    getLocalizedField(data, 'blurb', locale),
+    '',
+  );
 
   const imageUrl = data?.thumbnail?.id
     ? `${process.env.NEXT_PUBLIC_ASSETS_URL}${data.thumbnail.id}`
@@ -72,9 +55,10 @@ export async function generateMetadata(
 }
 
 const NewsDetailPage = async ({ params }: Props) => {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  const langSlug = getLangSlug(locale, 'chi-tiet-tin-tuc');
+
   const post = await getNewsDetail({ collection: 'posts', slug });
-  const langSlug = await getLangSlugNewsDetail();
   const pageContent = await fnGetPageBySlug(langSlug);
 
   const pageSchema = pageContent?.seo?.meta_schema;

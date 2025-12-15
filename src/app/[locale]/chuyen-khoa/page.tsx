@@ -1,37 +1,37 @@
 import DepartmentListPage from '@/src/components/departments/DepartmentListPage';
 import LogoSlider from '@/src/components/sections/slider/LogoSlider';
+import { getLangSlug } from '@/src/i18n/routing';
 import { getAllDepartmentGroups } from '@/src/services/department';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { createSeoData } from '@/src/utils/metadata';
 import { ResolvingMetadata, Metadata } from 'next';
-import { cookies } from 'next/headers';
 
-async function getLangSlug(): Promise<string> {
-  const cookieStore = await cookies();
-  const lang = cookieStore.get('language')?.value ?? 'vi';
-  return lang === 'en' ? 'chuyen-khoa-en' : 'chuyen-khoa';
-}
+type Props = {
+  params: Promise<{ locale: string; }>;
+};
 
 export async function generateMetadata(
-  _props: any,
+  { params }: Props,
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const langSlug = await getLangSlug();
+  const { locale } = await params;
+  const langSlug = getLangSlug(locale, "chuyen-khoa");
+
   const data = await fnGetPageBySlug(langSlug);
   const seo = createSeoData(data?.seo) ?? {};
   return seo;
 }
 
-const DepartmentListPageWrapper = async () => {
-  const langSlug = await getLangSlug();
+const DepartmentListPageWrapper = async ({ params }: Props) => {
+  const { locale } = await params;
+  const langSlug = getLangSlug(locale, "chuyen-khoa");
   const pageContent = await fnGetPageBySlug(langSlug);
 
   const departmentGroups = await getAllDepartmentGroups();
   const parentGroups = departmentGroups?.filter((d) => d.parent_group === null);
 
   const sections = pageContent?.sections;
-  const bannerData = sections.find((s: any) => s.type === 'hero-text-overlay');
-  const logoSlider = sections.find((s: any) => s.type === 'logo-slider');
+  const bannerData = sections?.find((s: any) => s.type === 'hero-text-overlay');
 
   return (
     <div>

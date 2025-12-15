@@ -7,50 +7,31 @@ import JsonLDProvider from '@/src/components/common/the-json-ld';
 import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { fnGetAdminDepartmentDetail } from '@/src/services/adminDepartment';
-
-async function getLang() {
-  const cookieStore = await cookies();
-  const lang: string = cookieStore.get('language')?.value ?? 'vi';
-  return lang;
-}
-
-async function getLangSlugDetail(): Promise<string> {
-  const lang = await getLang();
-  return lang === 'en'
-    ? 'chi-tiet-khoi-co-quan-hanh-chinh-en'
-    : 'chi-tiet-khoi-co-quan-hanh-chinh';
-}
+import { getLangSlug, getLocalizedField } from '@/src/i18n/routing';
 
 type Props = {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise<{ locale: string; slug: string }>;
 };
 
 export async function generateMetadata(
   { params }: Props,
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const idRegex = /^[a-zA-Z0-9-_]+$/;
   if (!slug || !idRegex.test(slug)) return notFound();
 
-  const lang = await getLang();
   const data = await fnGetAdminDepartmentDetail({
     collection: 'administration_departments',
     slug,
   });
   if (!data) notFound();
 
-  const title =
-    lang === 'en'
-      ? checkValueNull(data?.title_en, '')
-      : checkValueNull(data?.title, '');
-
-  const description =
-    lang === 'en'
-      ? checkValueNull(data?.description_en, '')
-      : checkValueNull(data?.description, '');
+  const title = checkValueNull(getLocalizedField(data, 'title', locale), '');
+  const description = checkValueNull(
+    getLocalizedField(data, 'description', locale),
+    '',
+  );
 
   const imageUrl = data?.cover
     ? `${process.env.NEXT_PUBLIC_ASSETS_URL}${data?.cover}`
@@ -77,12 +58,14 @@ export async function generateMetadata(
 }
 
 const DepartmentDetailPage = async ({ params }: Props) => {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  const langSlug = getLangSlug(locale, 'chi-tiet-khoi-co-quan-hanh-chinh');
+
   const dataDetail = await fnGetAdminDepartmentDetail({
     collection: 'administration_departments',
     slug,
   });
-  const langSlug = await getLangSlugDetail();
+
   const pageContent = await fnGetPageBySlug(langSlug);
 
   const pageSchema = pageContent?.seo?.meta_schema;

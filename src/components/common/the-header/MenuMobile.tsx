@@ -3,7 +3,6 @@
 import React, { useRef, useState } from 'react';
 import { DialogDescription } from '@radix-ui/react-dialog';
 import { useScrollSmoother } from '@/src/providers/ScrollSmootherProvider';
-import useStoreLanguage from '@/src/store/store';
 import NextImg from '../next-img';
 import {
   AccordionContent,
@@ -24,15 +23,15 @@ import Link from 'next/link';
 import CustomLink from '../custom-link';
 import LanguageBtn from './LanguageBtn';
 import useTranslation from '@/src/hooks/use-translation';
+import { useLocale } from 'next-intl';
+import { getLocalizedField } from '@/src/i18n/routing';
 
 type MobileMenuProps = {
   handleSearch: (key: string, value: string) => void;
 };
 
-export default function MobileMenu({
-  handleSearch,
-}: MobileMenuProps) {
-  const language = useStoreLanguage((state: any) => state.language);
+export default function MobileMenu({ handleSearch }: MobileMenuProps) {
+  const locale = useLocale();
   const { contact_information, top_navigation } = useMetadata();
   const { trans } = useTranslation();
   const [isOpenSubMenu, setIsOpenSubMenu] = useState<boolean>(false);
@@ -102,9 +101,7 @@ export default function MobileMenu({
               </CustomLink>
 
               {/* Language button */}
-              <LanguageBtn
-                className="hidden md:flex"
-              />
+              <LanguageBtn className="hidden md:flex" />
 
               {/* Close button */}
               <DialogClose
@@ -208,16 +205,12 @@ export default function MobileMenu({
                                   href={item?.url || ''}
                                   className="text-sm font-bold uppercase text-black"
                                 >
-                                  {language === 'en'
-                                    ? `${item?.title_en}`
-                                    : `${item?.title}`}{' '}
+                                  {getLocalizedField(item, 'title', locale)}
                                 </CustomLink>
                               </DialogClose>
                             ) : (
                               <AccordionTrigger className="text-sm font-bold uppercase text-black">
-                                {language === 'en'
-                                  ? `${item?.title_en}`
-                                  : `${item?.title}`}{' '}
+                                {getLocalizedField(item, 'title', locale)}
                               </AccordionTrigger>
                             )}
 
@@ -252,9 +245,11 @@ export default function MobileMenu({
                                               href={item_second?.url || ''}
                                               className="text-sm font-medium text-[#18181B]"
                                             >
-                                              {language === 'en'
-                                                ? `${item_second?.title_en}`
-                                                : `${item_second?.title}`}
+                                              {getLocalizedField(
+                                                item_second,
+                                                'title',
+                                                locale,
+                                              )}
                                             </CustomLink>
                                           </DialogClose>
                                         ) : (
@@ -265,15 +260,17 @@ export default function MobileMenu({
                                             }}
                                             className="text-sm font-medium text-[#18181B]"
                                           >
-                                            {language === 'en'
-                                              ? `${item_second?.title_en}`
-                                              : `${item_second?.title}`}
+                                            {getLocalizedField(
+                                              item_second,
+                                              'title',
+                                              locale,
+                                            )}
                                           </div>
                                         )}
                                         <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
                                           {item_second?.sub_items?.length === 1
                                             ? item_second?.sub_items?.[0]
-                                              ?.sub_items?.length
+                                                ?.sub_items?.length
                                             : item_second?.sub_items?.length}
                                         </div>
                                       </div>
@@ -302,9 +299,11 @@ export default function MobileMenu({
                                         href={item_second?.url || ''}
                                         className="text-sm font-medium text-[#18181B]"
                                       >
-                                        {language === 'en'
-                                          ? `${item_second?.title_en}`
-                                          : `${item_second?.title}`}{' '}
+                                        {getLocalizedField(
+                                          item_second,
+                                          'title',
+                                          locale,
+                                        )}
                                       </CustomLink>
                                     </DialogClose>
                                   ),
@@ -322,9 +321,7 @@ export default function MobileMenu({
                               href={item?.url || ''}
                               className="text-sm font-bold uppercase text-black"
                             >
-                              {language === 'en'
-                                ? `${item?.title_en}`
-                                : `${item?.title}`}
+                              {getLocalizedField(item, 'title', locale)}
                             </CustomLink>
                           </DialogClose>
                         </AccordionItem>
@@ -349,10 +346,7 @@ export default function MobileMenu({
                   </CustomLink>
 
                   {/* Language button */}
-                  <LanguageBtn
-                    className="md:hidden"
-                    side="top"
-                  />
+                  <LanguageBtn className="md:hidden" side="top" />
                 </div>
               </div>
             </div>
@@ -410,16 +404,20 @@ export default function MobileMenu({
                                       href={item_third?.url || ''}
                                       className="text-start text-sm font-bold uppercase text-black"
                                     >
-                                      {language === 'en'
-                                        ? `${item_third?.title_en}`
-                                        : `${item_third?.title}`}
+                                      {getLocalizedField(
+                                        item_third,
+                                        'title',
+                                        locale,
+                                      )}
                                     </CustomLink>
                                   </DialogClose>
                                 ) : (
                                   <AccordionTrigger className="text-start text-sm font-bold uppercase text-black">
-                                    {language === 'en'
-                                      ? `${item_third?.title_en}`
-                                      : `${item_third?.title}`}
+                                    {getLocalizedField(
+                                      item_third,
+                                      'title',
+                                      locale,
+                                    )}
                                   </AccordionTrigger>
                                 )}
 
@@ -444,9 +442,11 @@ export default function MobileMenu({
                                         className="flex w-fit cursor-pointer items-center gap-1"
                                       >
                                         <div className="text-sm font-medium text-[#18181B]">
-                                          {language === 'en'
-                                            ? `${item_fourth?.title_en}`
-                                            : `${item_fourth?.title}`}
+                                          {getLocalizedField(
+                                            item_fourth,
+                                            'title',
+                                            locale,
+                                          )}
                                         </div>
                                         <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
                                           {item_fourth?.sub_items?.length}
@@ -472,9 +472,11 @@ export default function MobileMenu({
                                           href={item_fourth?.url || ''}
                                           className="text-sm font-medium text-[#18181B]"
                                         >
-                                          {language === 'en'
-                                            ? `${item_fourth?.title_en}`
-                                            : `${item_fourth?.title}`}{' '}
+                                          {getLocalizedField(
+                                            item_fourth,
+                                            'title',
+                                            locale,
+                                          )}
                                         </CustomLink>
                                       </DialogClose>
                                     ),
@@ -495,9 +497,7 @@ export default function MobileMenu({
                                 href={item_third?.url || ''}
                                 className="text-sm font-bold uppercase text-black"
                               >
-                                {language === 'en'
-                                  ? `${item_third?.title_en}`
-                                  : `${item_third?.title}`}
+                                {getLocalizedField(item_third, 'title', locale)}
                               </CustomLink>
                             </DialogClose>
                           </AccordionItem>

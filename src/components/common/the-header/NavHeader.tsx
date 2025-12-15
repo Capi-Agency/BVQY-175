@@ -1,15 +1,16 @@
 'use client';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import useStoreLanguage from '@/src/store/store';
 import { useRef, useState } from 'react';
 import NextImg from '../next-img';
 import { useMetadata } from '@/src/providers/MetadataProvider';
 import MegaMenuContent from './MegaMenuContent';
 import CustomLink from '../custom-link';
+import { useLocale } from 'next-intl';
+import { getLocalizedField } from '@/src/i18n/routing';
 
 export default function NavHeader() {
+  const locale = useLocale();
   const { top_navigation } = useMetadata();
-  const language = useStoreLanguage((state: any) => state.language);
 
   const [leftPosition, setLeftPosition] = useState(0);
   const [isSubMenuOverflow, setIsSubMenuOverflow] = useState<boolean>(false);
@@ -21,15 +22,13 @@ export default function NavHeader() {
     if (item) {
       if (isMegaMenu) {
         const rect = item.getBoundingClientRect();
-        const megaMenuWidth = window.innerWidth * 0.65
+        const megaMenuWidth = window.innerWidth * 0.65;
         if (rect.left < window.innerWidth * 0.3) {
           setLeftPosition(rect.left);
         } else if (window.innerWidth - rect.right < window.innerWidth * 0.3) {
           setLeftPosition(rect.right - megaMenuWidth);
         } else {
-          setLeftPosition(
-            rect.left - (megaMenuWidth) / 2 + rect.width / 2,
-          );
+          setLeftPosition(rect.left - megaMenuWidth / 2 + rect.width / 2);
         }
       } else {
         const rect = item.getBoundingClientRect();
@@ -60,9 +59,7 @@ export default function NavHeader() {
                       asNavigationLink
                       className="relative flex items-center gap-[2px] whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:gap-1 3xl:text-base"
                     >
-                      {language === 'en'
-                        ? `${item?.title_en}`
-                        : `${item?.title}`}
+                      {getLocalizedField(item, 'title', locale)}
                       <div className="relative size-5 origin-center duration-200 group-data-[state=open]:-rotate-180 3xl:size-6">
                         <NextImg
                           src="/assets/icons/arrow_down_white.svg"
@@ -77,9 +74,8 @@ export default function NavHeader() {
                       }}
                       className="relative flex items-center gap-[2px] whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:gap-1 3xl:text-base"
                     >
-                      {language === 'en'
-                        ? `${item?.title_en}`
-                        : `${item?.title}`}{' '}
+                      {getLocalizedField(item, 'title', locale)}
+
                       <div className="relative size-5 origin-center duration-200 group-data-[state=open]:-rotate-180 3xl:size-6">
                         <NextImg
                           src="/assets/icons/arrow_down_white.svg"
@@ -111,9 +107,11 @@ export default function NavHeader() {
                               className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 group-hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[10px_16px]"
                             >
                               <div className="flex-1">
-                                {language === 'en'
-                                  ? `${item_second?.title_en}`
-                                  : `${item_second?.title}`}
+                                {getLocalizedField(
+                                  item_second,
+                                  'title',
+                                  locale,
+                                )}
                               </div>
                               {item_second?.sub_items?.length > 0 && (
                                 <div className="relative size-5 brightness-0 transition-all duration-200 group-hover:-rotate-90 group-hover:brightness-100">
@@ -127,9 +125,11 @@ export default function NavHeader() {
                           ) : (
                             <div className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 group-hover:text-primary-600 2xl:p-[6px_12px] 4xl:p-[10px_16px]">
                               <div className="flex-1">
-                                {language === 'en'
-                                  ? `${item_second?.title_en}`
-                                  : `${item_second?.title}`}
+                                {getLocalizedField(
+                                  item_second,
+                                  'title',
+                                  locale,
+                                )}
                               </div>
                               {item_second?.sub_items?.length > 0 && (
                                 <div className="relative size-5 brightness-0 transition-all duration-200 group-hover:-rotate-90 group-hover:brightness-100">
@@ -163,15 +163,19 @@ export default function NavHeader() {
                                         asNavigationLink
                                         className="block text-sm font-bold uppercase text-black 3xl:text-base"
                                       >
-                                        {language === 'en'
-                                          ? `${item_third?.title_en || ''}`
-                                          : `${item_third?.title || ''}`}
+                                        {getLocalizedField(
+                                          item_third,
+                                          'title',
+                                          locale,
+                                        )}
                                       </CustomLink>
                                     ) : (
                                       <div className="block text-sm font-bold uppercase text-black 3xl:text-base">
-                                        {language === 'en'
-                                          ? `${item_third?.title_en || ''}`
-                                          : `${item_third?.title || ''}`}
+                                        {getLocalizedField(
+                                          item_third,
+                                          'title',
+                                          locale,
+                                        )}
                                       </div>
                                     )}
 
@@ -188,18 +192,22 @@ export default function NavHeader() {
                                               asNavigationLink
                                               className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[10px]"
                                             >
-                                              {language === 'en'
-                                                ? `${item_fourth?.title_en}`
-                                                : `${item_fourth?.title}`}
+                                              {getLocalizedField(
+                                                item_fourth,
+                                                'title',
+                                                locale,
+                                              )}
                                             </CustomLink>
                                           ) : (
                                             <div
                                               key={item_fourth_index}
                                               className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[10px]"
                                             >
-                                              {language === 'en'
-                                                ? `${item_fourth?.title_en}`
-                                                : `${item_fourth?.title}`}
+                                              {getLocalizedField(
+                                                item_fourth,
+                                                'title',
+                                                locale,
+                                              )}
                                             </div>
                                           ),
                                       )}
@@ -222,7 +230,7 @@ export default function NavHeader() {
                   asNavigationLink
                   className="relative block whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:text-base"
                 >
-                  {language === 'en' ? `${item?.title_en}` : `${item?.title}`}
+                  {getLocalizedField(item, 'title', locale)}
                 </CustomLink>
               </NavigationMenu.Item>
             );

@@ -3,7 +3,6 @@ import React, { JSX } from 'react';
 import NextImg from '../next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import Link from 'next/link';
-import useStoreLanguage from '@/src/store/store';
 import { cn } from '@/src/lib/utils';
 
 export interface DoctorCardProps {
@@ -66,7 +65,6 @@ export default function DoctorCard({
   isRounded = true,
   isLink = true,
 }: DoctorCardProps) {
-  const language = useStoreLanguage((state: any) => state.language);
   const renderSubTitleByType: Record<DoctorCardProps['subTitle'], JSX.Element> =
     {
       specialty: <>{item?.specialty}</>,
@@ -145,7 +143,7 @@ export default function DoctorCard({
     if (isLink) {
       return (
         <Link
-          href={`/${language}${url}/${item?.slug}`}
+          href={`${url}/${item?.slug}`}
           aria-label="Xem chi tiết bác sĩ"
           className="group block space-y-3 2xl:space-y-[14px] 3xl:space-y-4"
         >
@@ -179,7 +177,7 @@ export default function DoctorCard({
     if (isLink) {
       return (
         <Link
-          href={`/${language}${url}/${item?.slug}`}
+          href={`${url}/${item?.slug}`}
           aria-label="Xem chi tiết bác sĩ"
           className="group block"
         >
