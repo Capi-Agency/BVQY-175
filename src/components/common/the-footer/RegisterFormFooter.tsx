@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { fnSendContact } from '@/src/services/contact';
 import useStoreLanguage from '@/src/store/store';
 import useTranslation from '@/src/hooks/use-translation';
+import { useTranslations } from 'next-intl';
 
 type Contact = {
   email: string;
@@ -21,6 +22,7 @@ export default function RegisterFormFooter() {
   const { trans } = useTranslation();
   const [loading, setLoading] = useState<boolean>(false);
   const language = useStoreLanguage((state: any) => state.language);
+  const t = useTranslations('Footer'); // namespace = "home"
 
   const CONTACT_SCHEMA = useMemo(
     () =>
@@ -94,7 +96,8 @@ export default function RegisterFormFooter() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-3 text-[13px] md:text-sm font-bold tracking-wide text-white xl:text-sm 3xl:mb-4 3xl:text-base">
-        {trans('register-form-title')}
+        {/* {trans('register-form-title')} */}
+        {t('register-form-title')}
       </div>
 
       <div className="h-11 3xl:h-12">
@@ -140,9 +143,8 @@ export default function RegisterFormFooter() {
       {errors.email && isSubmitted && (
         <p
           id="outlined_error_help"
-          className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
-            errors.email ? 'block' : 'hidden'
-          }`}
+          className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${errors.email ? 'block' : 'hidden'
+            }`}
         >
           <span className="font-semibold">
             {String(errors?.email?.message || '')}

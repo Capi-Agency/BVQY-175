@@ -9,10 +9,13 @@ import CustomLink from '../custom-link';
 import Script from 'next/script';
 import useTranslation from '@/src/hooks/use-translation';
 
+
 export default function TheFooter() {
   const language = useStoreLanguage((state: any) => state.language);
   const { trans } = useTranslation();
   const { contact_information, bottom_navigation } = useMetadata();
+
+
   return (
     <footer className="relative bg-primary-600 py-6 xl:py-8 3xl:py-10 overflow-hidden">
       <div className="pointer-events-none absolute inset-0 hidden size-full select-none md:block">
