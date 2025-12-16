@@ -20,7 +20,7 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
       <div className="container flex items-center justify-between">
         <div>
           {data?.subtitle && (
-            <p className="section-subtitle text-primary-500">
+            <p className="section-sub-title text-primary-500">
               {data?.subtitle}
             </p>
           )}
