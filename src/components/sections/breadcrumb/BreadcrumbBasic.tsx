@@ -5,14 +5,40 @@ import NextImg from '../../common/next-img';
 import useStoreLanguage from '@/src/store/store';
 import { CommonSection } from '@/src/types/pageBuilder';
 
-export default function BreadcrumbBasic({ data, dataDetail }: CommonSection) {
+export default function BreadcrumbBasic({
+  data,
+  dataDetail,
+  breadcrumbType,
+}: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
-  const categoryTitle = dataDetail?.categories?.[0]?.category?.title || null;
+
   const rawBtns = data?.buttons || [];
   const len = rawBtns.length;
-  const buttons = categoryTitle
-    ? [...rawBtns.slice(0, len - 1), { title: categoryTitle }, rawBtns[len - 1]]
-    : rawBtns;
+
+  let buttons = rawBtns;
+
+  // 👉 CASE 1: Trang chi tiết bài viết
+  if (breadcrumbType === 'post_detail_page') {
+    const categoryTitle = dataDetail?.categories?.[0]?.category?.title ?? null;
+
+    if (categoryTitle && len >= 2) {
+      buttons = [
+        ...rawBtns.slice(0, len - 1),
+        { title: categoryTitle },
+        rawBtns[len - 1],
+      ];
+    }
+  }
+
+  // 👉 CASE 2: Trang danh mục bài viết
+  if (breadcrumbType === 'post_category_page') {
+    const categoryTitle = dataDetail?.title ?? null;
+
+    if (categoryTitle) {
+      buttons = [...rawBtns, { title: categoryTitle }];
+    }
+  }
+  console.log('🚀 ~ BreadcrumbBasic ~ buttons:', buttons);
 
   return (
     <div className="bg-primary-50">

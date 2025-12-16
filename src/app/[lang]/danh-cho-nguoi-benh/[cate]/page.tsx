@@ -5,6 +5,7 @@ import { fnGetPageBySlug } from '@/src/services/page';
 import JsonLDProvider from '@/src/components/common/the-json-ld';
 import PageBuilder from '@/src/page-builder';
 import { createSeoData } from '@/src/utils/metadata';
+import { getNewsCategoryDetail, getNewsDetail } from '@/src/services/news';
 
 async function getLangSlug(): Promise<string> {
   const cookieStore = await cookies();
@@ -22,8 +23,19 @@ export async function generateMetadata(
   return seo;
 }
 
-export default async function HomePage() {
+type Props = {
+  params: Promise<{
+    cate: string;
+  }>;
+};
+
+export default async function HomePage({ params }: Props) {
   const langSlug = await getLangSlug();
+  const { cate } = await params;
+  const category = await getNewsCategoryDetail({
+    collection: 'for_patient_p_categories',
+    slug: cate,
+  });
   const pageContent = await fnGetPageBySlug(langSlug);
 
   const pageSchema = pageContent?.seo?.meta_schema;
@@ -31,7 +43,11 @@ export default async function HomePage() {
   return (
     <>
       <JsonLDProvider pageSchema={pageSchema} />
-      <PageBuilder pageContent={pageContent} />
+      <PageBuilder
+        pageContent={pageContent}
+        pageDetail={category}
+        breadcrumbType={'post_category_page'}
+      />
     </>
   );
 }

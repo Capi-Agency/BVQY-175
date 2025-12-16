@@ -150,4 +150,23 @@ export const getNewsDetail = async ({
   }
 };
 
+export const getNewsCategoryDetail = async ({
+  collection,
+  slug,
+}: {
+  collection: string;
+  slug: string;
+}) => {
+  try {
+    const res = await directusClientWithRest.request(
+      readItem(collection, slug, {
+        fields: ['*'],
+      }),
+    );
+    return res;
+  } catch (error) {
+    console.log('err in getNewsCategoryDetail: ', error);
+  }
+};
+
 // fnGetCategoriesNews
