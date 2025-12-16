@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import ContactCta from './ContactCta';
 import useStoreLanguage from '@/src/store/store';
 import CustomLink from '../custom-link';
 
@@ -94,7 +93,6 @@ export default function MegaMenuContent({ item }: any) {
         ))}
       </div>
 
-      {/* <ContactCta /> */}
     </NavigationMenu.Content>
   );
 }
