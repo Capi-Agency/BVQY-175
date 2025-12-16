@@ -56,7 +56,7 @@ const CardSlider = ({ data }: CommonSection) => {
           >
             {data?.items?.map((item: any, index: number) => {
               const isActive = index === activeItem;
-              const year = new Date(item?.subtitle).getFullYear();
+              // const year = new Date(item?.subtitle).getFullYear();
 
               return (
                 <SwiperSlide key={'dot_' + index} className="!w-fit">
@@ -78,7 +78,7 @@ const CardSlider = ({ data }: CommonSection) => {
                     <div
                       className={`${isActive ? 'text-primary-600' : 'text-[#969696]'} text-2xl font-semibold transition-all duration-200 xl:text-[28px] xl:!leading-[1.5] 4xl:text-[32px]`}
                     >
-                      {year}
+                      {item?.subtitle}
                     </div>
                   </div>
                 </SwiperSlide>
