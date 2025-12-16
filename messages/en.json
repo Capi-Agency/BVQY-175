@@ -1,5 +1,97 @@
 {
+  "Common": {
+    "close": "Đóng",
+    "submit": "Gửi",
+    "view-more": "Xem thêm",
+    "view-detail": "Xem chi tiết",
+    "no-data": "Không có dữ liệu!",
+    "empty-page": "Trang không tồn tại!",
+    "return-main-menu": "Quay lại menu chính",
+    "expand": "Mở rộng",
+    "collapse": "Thu gọn",
+    "all": "Tất cả",
+    "search-results": "Kết quả tìm kiếm",
+    "send-now": "Gửi ngay"
+  },
+  "Contact": {
+    "title": "Liên hệ",
+    "hotline": "Hotline",
+    "book-app": "Đặt khám trên App",
+    "book-via-zalo": "Đặt khám qua Zalo",
+    "book-via-app": "Đặt lịch qua App",
+    "schedule-demand": "Đặt khám theo yêu cầu",
+    "fanpage": "Fanpage",
+    "email": "Email",
+    "phone": "Điện thoại",
+    "address": "Địa chỉ",
+    "social": "Mạng xã hội"
+  },
+  "Doctor": {
+    "education": "Học vấn & Quá trình công tác",
+    "activity-image": "Hình ảnh hoạt động",
+    "awards": "Giải thưởng & Danh hiệu"
+  },
+  "Validate": {
+    "email": {
+      "required": "Vui lòng nhập email của bạn!",
+      "length": "Vui lòng nhập không quá 50 ký tự!",
+      "invalid": "Vui lòng nhập đúng định dạng email!",
+      "placeholder": "Email"
+    },
+    "name": {
+      "required": "Vui lòng nhập tên của bạn!",
+      "length": "Vui lòng nhập không quá 50 ký tự!",
+      "invalid": "Vui lòng nhập đúng định dạng tên!",
+      "placeholder": "Họ và tên"
+    },
+    "phone": {
+      "required": "Vui lòng nhập số điện thoại của bạn!",
+      "length": "Vui lòng nhập không quá 20 ký tự!",
+      "invalid": "Vui lòng nhập đúng định dạng số điện thoại!",
+      "placeholder": "Số điện thoại"
+    },
+    "message": {
+      "required": "Vui lòng nhập tin nhắn của bạn!",
+      "length": "Vui lòng nhập không quá 1000 ký tự!",
+      "invalid": "Vui lòng nhập đúng định dạng!",
+      "placeholder": "ghi chú"
+    },
+    "rating": {
+      "required": "Vui lòng chọn đánh giá của bạn!"
+    },
+    "search": {
+      "placeholder": "Tìm kiếm"
+    }
+  },
+  "Rating": {
+    "very-good": "😍 Rất tốt",
+    "good": "😊 Tốt",
+    "rather": "🙂 Khá",
+    "medium": "😐 Trung bình",
+    "least": "😞 Chưa tốt"
+  },
+  "Notification": {
+    "success": {
+      "contact": "Cảm ơn bạn đã liên hệ với chúng tôi!",
+      "review": "Cảm ơn bạn đã đánh giá chất lượng!",
+      "footer-register": "Cảm ơn bạn đã cung cấp thông tin!"
+    },
+    "error": {
+      "contact": "Xảy ra lỗi, xin vui lòng thử lại!",
+      "review": "Xảy ra lỗi, xin vui lòng thử lại!",
+      "footer-register": "Xảy ra lỗi, xin vui lòng thử lại!",
+      "verify-recapcha": "Xác minh reCaptcha không thành công!",
+      "recapcha-not-ready": "reCaptcha chưa sẵn sàng, vui lòng thử lại sau!"
+    }
+  },
   "Footer": {
-    "register-form-title": "Follow our latest news and services"
+    "register-form-title": "Theo dõi tin tức và dịch vụ mới nhất của chúng tôi",
+    "register-form-des": "Đăng ký nhận thêm các hướng dẫn giao dịch tuyệt vời từ bệnh viện 175 qua email của bạn",
+    "register-label": "Đăng ký",
+    "register-placeholder": "Địa chỉ email",
+    "social-network-label": "Mạng xã hội",
+    "policy-label": "Chính sách và bảo mật",
+    "terms-services-label": "Điều khoản và dịch vụ",
+    "copy-right-label": "Bản quyền thuộc về Bệnh viện Quân y 175 © 2025"
   }
 }

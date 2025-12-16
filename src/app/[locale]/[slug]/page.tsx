@@ -20,10 +20,9 @@ export async function generateMetadata(
   { params }: Props,
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const { locale, slug } = await params;
-  const langSlug = await getLangSlug(locale, slug);
+  const { slug } = await params;
 
-  const data = await fnGetPageBySlug(langSlug);
+  const data = await fnGetPageBySlug(slug);
   const seo = createSeoData(data?.seo) ?? {};
   return seo;
 }
@@ -36,8 +35,7 @@ export default async function Page({ params }: Props) {
     notFound();
   }
 
-  const langSlug = await getLangSlug(locale, slug);
-  const pageContent = await fnGetPageBySlug(langSlug);
+  const pageContent = await fnGetPageBySlug(slug);
   const pageSchema = pageContent?.seo?.meta_schema;
 
   return (

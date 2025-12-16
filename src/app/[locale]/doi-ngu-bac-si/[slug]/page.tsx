@@ -6,7 +6,7 @@ import JsonLDProvider from '@/src/components/common/the-json-ld';
 import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { fnGetDoctorDetail } from '@/src/services/doctors';
-import { getLangSlug, getLocalizedField } from '@/src/i18n/routing';
+import { getLangSlug } from '@/src/i18n/routing';
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -23,14 +23,8 @@ export async function generateMetadata(
   const data = await fnGetDoctorDetail({ collection: 'doctors', slug });
   if (!data) notFound();
 
-  const title = checkValueNull(
-    getLocalizedField(data, 'full_name', locale),
-    '',
-  );
-  const description = checkValueNull(
-    getLocalizedField(data, 'hospital_title', locale),
-    '',
-  );
+  const title = checkValueNull(data?.full_name, '');
+  const description = checkValueNull(data?.hospital_title, '');
 
   const imageUrl = data?.avatar
     ? `${process.env.NEXT_PUBLIC_ASSETS_URL}${data?.avatar}`

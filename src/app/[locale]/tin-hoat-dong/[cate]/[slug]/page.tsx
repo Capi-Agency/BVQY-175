@@ -3,11 +3,10 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata, ResolvingMetadata } from 'next';
 import { checkValueNull } from '@/src/utils/validate';
-import { cookies } from 'next/headers';
 import JsonLDProvider from '@/src/components/common/the-json-ld';
 import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
-import { getLangSlug, getLocalizedField } from '@/src/i18n/routing';
+import { getLangSlug } from '@/src/i18n/routing';
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -24,11 +23,8 @@ export async function generateMetadata(
   const data = await getNewsDetail({ collection: 'activity_posts', slug });
   if (!data) notFound();
 
-  const title = checkValueNull(getLocalizedField(data, 'title', locale), '');
-  const description = checkValueNull(
-    getLocalizedField(data, 'blurb', locale),
-    '',
-  );
+  const title = checkValueNull(data.title, '');
+  const description = checkValueNull(data?.blurb, '');
 
   const imageUrl = data?.thumbnail?.id
     ? `${process.env.NEXT_PUBLIC_ASSETS_URL}${data.thumbnail.id}`
