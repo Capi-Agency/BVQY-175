@@ -37,6 +37,8 @@ const hospitalTitleMap: Record<string, string> = {
 const instituteTitleMap: Record<string, string> = {
   director: 'Giám đốc Viện',
   deputy_director: 'Phó giám đốc Viện',
+  center_director: 'Giám đốc Trung tâm',
+  deputy_center_director: 'Phó giám đốc Trung tâm',
 };
 
 const departmentTitleMap: Record<string, string> = {
