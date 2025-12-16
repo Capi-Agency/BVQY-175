@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
+import useStoreLanguage from '@/src/store/store';
 import CustomLink from '../custom-link';
 import { getLocalizedField } from '@/src/i18n/routing';
 import { useLocale } from 'next-intl';

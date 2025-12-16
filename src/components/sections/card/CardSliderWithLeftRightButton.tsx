@@ -18,9 +18,9 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
       <div className="container flex items-center justify-between">
         <div>
           {data?.subtitle && (
-            <div className="section-sub-title text-primary-500">
+            <p className="section-sub-title text-primary-500">
               {data?.subtitle}
-            </div>
+            </p>
           )}
           {data?.title && (
             <h2 className="section-title uppercase text-primary-600">
