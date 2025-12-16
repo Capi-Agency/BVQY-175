@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getAssetUrlById } from '@/src/utils/image';
 import {
   DialogTrigger,
@@ -19,9 +19,20 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
 import { Fancybox as NativeFancybox } from '@fancyapps/ui';
+import { Pagination } from 'swiper/modules';
 export default function Card1ColDetail({ event, data }: any) {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const {trans} = useTranslation();
+  const { trans } = useTranslation();
+
+  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
+    null,
+  );
+
+  useEffect(() => {
+    setRandomClassSwiper(
+      `swiper-custom-${Math.random().toString(36).substring(2, 9)}`,
+    );
+  }, []);
 
   const fancyBoxItems = event?.images?.map((image: any) => ({
     src: getAssetUrlById(image?.directus_files_id),
@@ -110,53 +121,69 @@ export default function Card1ColDetail({ event, data }: any) {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative h-[80vh] w-[calc(100vw-0px)] overflow-y-auto rounded-[12px] xl:rounded-[14px] 3xl:rounded-[16px] bg-white p-[40px_20px_20px] md:h-[60vh] md:w-[70vw] md:p-[40px_24px_24px] lg:h-[80vh] lg:w-[50vw] xl:p-[44px_28px_28px] 3xl:p-[48px_32px_32px] 4xl:p-[52px_40px_40px] 4xl:h-[800px] 4xl:w-[800px]"
+            className="relative h-[80vh] w-[calc(100vw-0px)] overflow-y-auto rounded-[12px] bg-white p-[40px_20px_20px] md:h-[60vh] md:w-[70vw] md:p-[40px_24px_24px] lg:h-[80vh] lg:w-[50vw] xl:rounded-[14px] xl:p-[44px_28px_28px] 3xl:rounded-[16px] 3xl:p-[48px_32px_32px] 4xl:h-[800px] 4xl:w-[800px] 4xl:p-[52px_40px_40px]"
           >
             <DialogClose className="data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-0 top-0 p-[10px_10px] focus:outline-none disabled:pointer-events-none md:p-[10px_12px] xl:p-3 2xl:p-[12px_14px] 3xl:p-4">
               <X className="h-5 w-5 brightness-0" />
             </DialogClose>
 
             <div className="scrollbar-hidden relative size-full space-y-6 overflow-x-hidden overflow-y-scroll">
-              <Fancybox options={fancyBoxOptions} className="w-full">
-                <div className="relative aspect-video w-full overflow-hidden rounded-[6px] xl:rounded-[10px] 3xl:rounded-[12px]">
-                  <Swiper
-                    touchEventsTarget="container"
-                    grabCursor={true}
-                    slidesPerView={1}
-                    loop={true}
-                    spaceBetween={12}
-                    speed={700}
-                    className="!h-full !w-full"
-                  >
-                    {event?.images?.map((image: any, index: number) => (
-                      <SwiperSlide key={image?.directus_files_id}>
-                        <Link
-                          href={getAssetUrlById(image?.directus_files_id)}
-                          className="relative block size-full overflow-hidden rounded-[6px] xl:rounded-[10px] 3xl:rounded-[12px]"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            if (fancyBoxItems && fancyBoxItems.length > 0) {
-                              NativeFancybox.show(fancyBoxItems, {
-                                ...fancyBoxOptions,
-                                Hash: false,
-                                hideScrollbar: false,
-                                startIndex: index,
-                              });
-                            }
-                          }}
-                        >
-                          <NextImg
-                            src={getAssetUrlById(image?.directus_files_id)}
-                            objectFit="cover"
-                            alt="facilities images"
-                          />
-                        </Link>
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                </div>
-              </Fancybox>
+              <div  className="w-full">
+                {randomClassSwiper && (
+                  <>
+                    <div className="relative aspect-video w-full overflow-hidden rounded-[6px] xl:rounded-[10px] 3xl:rounded-[12px]">
+                      <Swiper
+                        touchEventsTarget="container"
+                        grabCursor={true}
+                        slidesPerView={1}
+                        loop={true}
+                        spaceBetween={12}
+                        speed={700}
+                        modules={[Pagination]}
+                        pagination={{
+                          clickable: true,
+                          type: 'bullets',
+                          el: `.swiper-bullets-container.${randomClassSwiper}`,
+                          bulletElement: 'div',
+                        }}
+                        className="!h-full !w-full"
+                      >
+                        {event?.images?.map((image: any, index: number) => (
+                          <SwiperSlide key={image?.directus_files_id}>
+                            <Link
+                              href={getAssetUrlById(image?.directus_files_id)}
+                              className="relative block size-full overflow-hidden rounded-[6px] xl:rounded-[10px] 3xl:rounded-[12px]"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                if (fancyBoxItems && fancyBoxItems.length > 0) {
+                                  NativeFancybox.show(fancyBoxItems, {
+                                    ...fancyBoxOptions,
+                                    Hash: false,
+                                    hideScrollbar: false,
+                                    startIndex: index,
+                                  });
+                                }
+                              }}
+                            >
+                              <NextImg
+                                src={getAssetUrlById(image?.directus_files_id)}
+                                objectFit="cover"
+                                alt="facilities images"
+                              />
+                            </Link>
+                          </SwiperSlide>
+                        ))}
+                      </Swiper>
+                    </div>
+                    <div className="relative mt-2 flex h-5 justify-center xl:mt-3 3xl:mt-4">
+                      <div
+                        className={`swiper-bullets-container ${randomClassSwiper} !w-fit cursor-pointer`}
+                      ></div>
+                    </div>
+                  </>
+                )}
+              </div>
 
               <div className="h-[1px] bg-[#E8E8E8]"></div>
               <div
