@@ -133,7 +133,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
                   Chuyên khoa
                 </div>
                 <div className="text-sm font-normal text-[#09090B] lg:text-base">
-                  {dataDetail?.specialty}
+                  {dataDetail?.specialty || 'Đang cập nhật'}
                 </div>
               </div>
 
@@ -168,7 +168,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
                   Số năm kinh nghiệm
                 </div>
                 <div className="text-sm font-normal text-[#09090B] lg:text-base">
-                  {dataDetail?.year_of_experience}
+                  {dataDetail?.year_of_experience || 'Đang cập nhật'}
                 </div>
               </div>
             </div>

@@ -7,11 +7,15 @@ const hospitalMap: Record<string, string> = {
 const instituteMap: Record<string, string> = {
   director: 'Giám đốc',
   deputy_director: 'Phó giám đốc',
+  center_director: 'Giám đốc',
+  deputy_center_director: 'Phó giám đốc',
 };
 
 const departmentMap: Record<string, string> = {
   head_of_department: 'Chủ nhiệm',
   deputy_head_of_department: 'Phó Chủ nhiệm',
+  acting_head_of_department: 'Phụ trách Chủ nhiệm',
+  acting_deputy_head_of_department: 'Phụ trách Phó Chủ nhiệm',
   head_nurse: 'Điều dưỡng trưởng',
 };
 
@@ -33,7 +37,7 @@ export const getDoctorTitles = (doctor: any) => {
 
   // ---- Department level ----
   const departmentName = doctor?.departments?.[0]?.department?.title || 'Khoa';
-  const departmentCode = doctor?.departments?.[0]?.department?.code || 'Khoa';
+  const departmentCode = doctor?.departments?.[0]?.department?.code;
 
   if (doctor?.department_title && departmentMap[doctor.department_title]) {
     titles.push(

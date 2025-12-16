@@ -38,7 +38,14 @@ export const fnGetAdminDepartments = async ({
       readItems(collection, {
         page,
         limit,
-        fields: ['slug', 'title', 'code', 'cover.id', 'organizational_structure', 'description'],
+        fields: [
+          'slug',
+          'title',
+          'code',
+          'cover.id',
+          'organizational_structure',
+          'description',
+        ],
         filter,
       }),
     );
@@ -94,7 +101,6 @@ export const getTotalAdminDepartmentCount = async ({
   }
 };
 
-
 export const fnGetAdminDepartmentDetail = async ({
   collection,
   slug,
@@ -114,6 +120,11 @@ export const fnGetAdminDepartmentDetail = async ({
           'activities_images.*',
           'leaders.*.*',
         ],
+        deep: {
+          leaders: {
+            sort: ['sort'],
+          },
+        },
       }),
     );
     return res;
@@ -121,4 +132,3 @@ export const fnGetAdminDepartmentDetail = async ({
     console.log('error in get GetAdminDepartmentDetail: ', error);
   }
 };
-

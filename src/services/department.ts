@@ -22,7 +22,13 @@ export const getAllDepartmentGroups = async (keyword?: string) => {
           'departments.slug',
           'departments.code',
           'children_groups.*.*',
+          'doctors.doctor.*',
         ],
+        deep: {
+          doctors: {
+            sort: ['sort'],
+          },
+        },
         filter,
         sort: ['sort', 'title'],
       }),
@@ -70,6 +76,11 @@ export const fnGetDepartmentDetail = async ({
           'activities_images.*',
           'doctors.*.*',
         ],
+        deep: {
+          doctors: {
+            sort: ['sort'],
+          },
+        },
       }),
     );
     return res;

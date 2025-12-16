@@ -36,17 +36,23 @@ const hospitalTitleMap: Record<string, string> = {
 const instituteTitleMap: Record<string, string> = {
   director: 'Giám đốc Viện',
   deputy_director: 'Phó giám đốc Viện',
+  center_director: 'Giám đốc Trung tâm',
+  deputy_center_director: 'Phó giám đốc Trung tâm',
 };
 
 const departmentTitleMap: Record<string, string> = {
   head_of_department: 'Chủ nhiệm Khoa',
   deputy_head_of_department: 'Phó Chủ nhiệm Khoa',
+  acting_head_of_department: 'Phụ trách Chủ nhiệm Khoa',
+  acting_deputy_head_of_department: 'Phụ trách Phó Chủ nhiệm Khoa',
   head_nurse: 'Điều dưỡng trưởng',
 };
 
 const adminDepartmentTitleMap: Record<string, string> = {
   head_of_department: 'Trưởng phòng',
   deputy_head_of_department: 'Phó phòng',
+  acting_head_of_department: 'Phụ trách Trưởng phòng',
+  acting_department: 'Phụ trách Phòng',
   head_of_division: 'Trưởng ban',
   deputy_head_of_division: 'Phó ban',
 };
