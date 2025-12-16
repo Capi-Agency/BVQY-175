@@ -22,8 +22,7 @@ import { getAssetUrlById } from '@/src/utils/image';
 import Link from 'next/link';
 import CustomLink from '../custom-link';
 import LanguageBtn from './LanguageBtn';
-import useTranslation from '@/src/hooks/use-translation';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { getLocalizedField } from '@/src/i18n/routing';
 
 type MobileMenuProps = {
@@ -31,9 +30,9 @@ type MobileMenuProps = {
 };
 
 export default function MobileMenu({ handleSearch }: MobileMenuProps) {
+  const t = useTranslations();
   const locale = useLocale();
   const { contact_information, top_navigation } = useMetadata();
-  const { trans } = useTranslation();
   const [isOpenSubMenu, setIsOpenSubMenu] = useState<boolean>(false);
   const [itemSecond, setItemSecond] = useState<any>();
   const [searchText, setSearchText] = useState<string>('');
@@ -160,7 +159,7 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                       }
                     }}
                     className="flex-1 border-none bg-transparent text-base font-normal text-black outline-none placeholder:text-[#52525B]"
-                    placeholder={trans('search-placeholder')}
+                    placeholder={t('Validate.search.placeholder')}
                   />
                   <button
                     onClick={() => {
@@ -367,7 +366,7 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                   />
                 </div>
                 <div className="text-sm font-bold text-black">
-                  {trans('return-menu')}
+                  {t('Common.return-main-menu')}
                 </div>
               </button>
 

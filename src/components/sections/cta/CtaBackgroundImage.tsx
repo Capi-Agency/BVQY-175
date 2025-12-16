@@ -10,43 +10,44 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
 import { useMetadata } from '@/src/providers/MetadataProvider';
-import useTranslation from '@/src/hooks/use-translation';
+import { useTranslations } from 'next-intl';
+
 export default function CtaBackgroundImage({ data }: CommonSection) {
   const { contact_information } = useMetadata();
-  const { trans } = useTranslation();
+  const t = useTranslations('Contact');
 
   const dataContact = useMemo(
     () => [
       {
-        titleKey: 'phone-contact',
+        title: t('phone'),
         icon: '',
         url: contact_information?.hot_line_url || '/',
         content: contact_information?.hot_line,
         isTargetBlank: false,
       },
       {
-        titleKey: 'book-via-zalo',
+        title: t('book-via-zalo'),
         icon: '',
         url: contact_information?.medical_appointment_url || '/',
         content: contact_information?.medical_appointment,
         isTargetBlank: true,
       },
       {
-        titleKey: 'book-via-app',
+        title: t('book-via-app'),
         icon: '/assets/icons/icon_bv_contact.svg',
         url: contact_information?.googleplay_url || '/',
         content: '',
         isTargetBlank: true,
       },
       {
-        titleKey: 'email-contact',
+        title: t('email'),
         icon: '',
         url: contact_information?.email_url || '/',
         content: contact_information?.email,
         isTargetBlank: false,
       },
       {
-        titleKey: 'address-contact',
+        title: t('address'),
         icon: '',
         url: contact_information?.address_url || '/',
         content: contact_information?.address,
@@ -156,7 +157,7 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
             {dataContact?.map((item: any, index: number) => (
               <div key={index} className="space-y-1">
                 <div className="text-sm font-medium text-[#52525B] lg:text-base 2xl:text-lg">
-                  {trans(item?.titleKey)}
+                  {item?.title}
                 </div>
                 <a
                   target={item?.isTargetBlank ? '_blank' : undefined}

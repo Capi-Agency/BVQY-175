@@ -2,45 +2,45 @@
 import React, { useMemo, useState } from 'react';
 import NextImg from '../next-img';
 import { TooltipProvider, TooltipContent, TooltipRoot, TooltipTrigger, TooltipArrow } from '../../ui/tooltip';
-import useTranslation from '@/src/hooks/use-translation';
 import { useMetadata } from '@/src/providers/MetadataProvider';
+import { useTranslations } from 'next-intl';
 
 export default function ContactFixed() {
     const { contact_information } = useMetadata()
     const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false)
-    const { trans } = useTranslation()
+    const t = useTranslations()
 
     const data = useMemo(() => [
         {
-            titleKey: "hotline",
+            title: t("Contact.hotline"),
             icon: "/assets/icons/phone_contact.svg",
             url: contact_information?.hot_line_url || "/",
             bgColor: "#63A978",
             isTargetBlank: false
         },
         {
-            titleKey: "book-app",
+            title: t("Contact.book-app"),
             icon: "/assets/icons/calendar_contact.svg",
             url: contact_information?.googleplay_url || "/",
             bgColor: "#E50000",
             isTargetBlank: true
         },
         {
-            titleKey: "schedule-demand",
+            title: t("Contact.schedule-demand"),
             icon: "/assets/icons/zalo_contact.svg",
             url: contact_information?.medical_appointment_url || "/",
             bgColor: "#60A5FA",
             isTargetBlank: true
         },
         {
-            titleKey: "fanpage",
+            title: t("Contact.fanpage"),
             icon: "/assets/icons/fb_contact.svg",
             url: contact_information?.facebook_url || "/",
             bgColor: "#1877F2",
             isTargetBlank: true
         },
         {
-            titleKey: "email",
+            title: t("Contact.email"),
             icon: "/assets/icons/mail_contact.svg",
             url: contact_information?.email_url || "/",
             bgColor: "#F97316",
@@ -72,7 +72,7 @@ export default function ContactFixed() {
                         align="center"
                         className="rounded-md bg-[#E50000] text-sm xl:text-base text-white p-[6px_8px]"
                     >
-                        {isOpenMenu ? trans("close") : trans("contact-label")}
+                        {isOpenMenu ? t("Common.close") : t("Contact.title")}
                         <TooltipArrow className="fill-[#E50000]" />
                     </TooltipContent>
                 </TooltipRoot>
@@ -109,7 +109,7 @@ export default function ContactFixed() {
                                         backgroundColor: item?.bgColor
                                     }}
                                 >
-                                    {trans(item?.titleKey)}
+                                    {item?.title}
                                     <TooltipArrow style={{ fill: item?.bgColor }} />
                                 </TooltipContent>
                             </TooltipRoot>

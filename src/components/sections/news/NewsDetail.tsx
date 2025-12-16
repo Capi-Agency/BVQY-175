@@ -3,10 +3,8 @@ import NextImg from '@/src/components/common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
 import { CommonSection } from '@/src/types/pageBuilder';
-import useTranslation from '@/src/hooks/use-translation';
 
 export default function NewsDetail({ data, dataDetail }: CommonSection) {
-  const {trans} = useTranslation();
   return (
     <section className="container my-10 lg:my-12 2xl:my-[72px] 3xl:my-20">
       <div className="mt-6 flex flex-col gap-6 md:grid md:grid-cols-[auto,220px] md:flex-row lg:mt-10 lg:grid-cols-[auto,260px] lg:gap-8 lg:px-6 xl:gap-11 xl:px-[60px] 2xl:gap-12 2xl:px-[100px] 3xl:gap-[60px] 3xl:px-[80px] 4xl:mt-[60px] 4xl:px-[160px]">
@@ -37,7 +35,7 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
             <h1
               className="mb-5 text-lg font-bold !leading-normal text-primary-600 lg:mb-6 lg:text-2xl xl:mb-7 xl:text-[28px] 3xl:mb-8 3xl:text-[30px] 4xl:text-[32px]"
               dangerouslySetInnerHTML={{
-                __html: trans(dataDetail?.title, dataDetail?.title_en),
+                __html: dataDetail?.title,
               }}
             ></h1>
           </div>
@@ -46,7 +44,7 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
           <div
             className="text-sm font-bold text-gray-950 lg:text-base 3xl:text-lg"
             dangerouslySetInnerHTML={{
-              __html: trans(dataDetail?.blurb, dataDetail?.blurb_en),
+              __html: dataDetail?.blurb,
             }}
           ></div>
 
@@ -54,7 +52,7 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
           <div
             className="content-wrapper !text-sm font-normal text-gray-950 lg:!text-base 3xl:!text-lg"
             dangerouslySetInnerHTML={{
-              __html: trans(dataDetail?.content, dataDetail?.content_en),
+              __html: dataDetail?.content,
             }}
           ></div>
         </div>

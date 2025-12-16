@@ -6,7 +6,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { fnSendContact } from '@/src/services/contact';
 import NextImg from '../../common/next-img';
-import useTranslation from '@/src/hooks/use-translation';
+import { useTranslations } from 'next-intl';
 
 type Contact = {
   email: string;
@@ -17,7 +17,7 @@ const initialValue: Contact = {
 };
 
 export default function RegisterFollowNews() {
-  const { trans } = useTranslation();
+  const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
 
   const CONTACT_SCHEMA = useMemo(
@@ -29,12 +29,12 @@ export default function RegisterFollowNews() {
             .transform((value, originalValue) =>
               originalValue === '' ? null : value,
             )
-            .required(trans('validate-email-required'))
-            .max(50, trans('validate-email-length'))
-            .email(trans('validate-email-format'))
+            .required(t('Validate.email.required'))
+            .max(50, t('Validate.email.length'))
+            .email(t('Validate.email.invalid'))
             .matches(
               /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              trans('validate-email-format'),
+              t('Validate.email.invalid'),
             ),
         })
         .required(),
@@ -64,9 +64,9 @@ export default function RegisterFollowNews() {
       });
 
       if (!response) {
-        throw new Error(trans('noti-error-contact'));
+        throw new Error(t('Notification.error.footer-register'));
       }
-      toast.success(trans('noti-success-register'), {
+      toast.success(t('Notification.success.footer-register'), {
         style: {
           padding: 16,
           borderRadius: 16,
@@ -76,7 +76,7 @@ export default function RegisterFollowNews() {
       });
       reset(initialValue);
     } catch (error) {
-      toast.error(trans('noti-error-contact'), {
+      toast.error(t('Notification.error.footer-register'), {
         style: {
           padding: 16,
           borderRadius: 16,
@@ -96,10 +96,10 @@ export default function RegisterFollowNews() {
     >
       <div className="space-y-2">
         <p className="text-base font-semibold text-black">
-          {trans('register-form-title')}
+          {t('Footer.register-follow-news')}
         </p>
         <p className="text-sm font-normal text-black">
-          {trans('register-form-des')}
+          {t('Footer.register-form-des')}
         </p>
       </div>
 
@@ -132,7 +132,7 @@ export default function RegisterFollowNews() {
         type="submit"
         className="relative flex w-fit items-center gap-2 overflow-hidden rounded-[6px] bg-primary-600 px-4 py-2 text-sm text-white"
       >
-        {trans('register-label')}
+        {t('Footer.register-label')}
         <div className="relative size-4">
           <NextImg
             src="/assets/icons/arrow_right_white.svg"

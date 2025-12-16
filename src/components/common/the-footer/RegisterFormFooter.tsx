@@ -3,10 +3,9 @@ import { useMemo, useState } from 'react';
 import NextImg from '../next-img';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { fnSendContact } from '@/src/services/contact';
-import useTranslation from '@/src/hooks/use-translation';
 import { useTranslations } from 'next-intl';
 
 type Contact = {
@@ -18,9 +17,8 @@ const initialValue: Contact = {
 };
 
 export default function RegisterFormFooter() {
-  const { trans } = useTranslation();
   const [loading, setLoading] = useState<boolean>(false);
-  const t = useTranslations('Footer');
+  const t = useTranslations();
 
   const CONTACT_SCHEMA = useMemo(
     () =>
@@ -31,12 +29,12 @@ export default function RegisterFormFooter() {
             .transform((value, originalValue) =>
               originalValue === '' ? null : value,
             )
-            .required(trans('validate-email-required'))
-            .max(50, trans('validate-email-length'))
-            .email(trans('validate-email-format'))
+            .required(t('Validate.email.required'))
+            .max(50, t('Validate.email.length'))
+            .email(t('Validate.email.invalid'))
             .matches(
               /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              trans('validate-email-format'),
+              t('Validate.email.invalid'),
             ),
         })
         .required(),
@@ -66,9 +64,9 @@ export default function RegisterFormFooter() {
       });
 
       if (!response) {
-        throw new Error(trans('noti-error-contact'));
+        throw new Error(t('Notification.error.footer-register'));
       }
-      toast.success(trans('noti-success-register'), {
+      toast.success(t('Notification.success.footer-register'), {
         style: {
           padding: 16,
           borderRadius: 16,
@@ -78,7 +76,7 @@ export default function RegisterFormFooter() {
       });
       reset(initialValue);
     } catch (error) {
-      toast.error(trans('noti-error-contact'), {
+      toast.error(t('Notification.error.footer-register'), {
         style: {
           padding: 16,
           borderRadius: 16,
@@ -93,20 +91,19 @@ export default function RegisterFormFooter() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="mb-3 text-[13px] md:text-sm font-bold tracking-wide text-white xl:text-sm 3xl:mb-4 3xl:text-base">
-        {/* {trans('register-form-title')} */}
-        {t('register-form-title')}
+      <div className="mb-3 text-[13px] font-bold tracking-wide text-white md:text-sm xl:text-sm 3xl:mb-4 3xl:text-base">
+        {t('Footer.register-form-title')}
       </div>
 
       <div className="h-11 3xl:h-12">
-        <div className="flex h-full w-full gap-1 xl:gap-2 rounded-[6px] bg-white/20 p-[4px_4px_4px_12px] md:p-[6px_6px_6px_16px] backdrop-blur-[9.5px] md:w-[340px] xl:w-[350px] xl:p-[6px_6px_6px_20px] 3xl:w-[416px]">
+        <div className="flex h-full w-full gap-1 rounded-[6px] bg-white/20 p-[4px_4px_4px_12px] backdrop-blur-[9.5px] md:w-[340px] md:p-[6px_6px_6px_16px] xl:w-[350px] xl:gap-2 xl:p-[6px_6px_6px_20px] 3xl:w-[416px]">
           <input
             {...register('email')}
             autoComplete="off"
             aria-describedby="outlined_error_help"
             type="text"
             className="flex-1 border-none bg-transparent text-base font-normal text-white outline-none placeholder:text-white/50 xl:text-sm"
-            placeholder={trans('register-placeholder')}
+            placeholder={t('Footer.register-placeholder')}
           />
 
           <button
@@ -114,8 +111,8 @@ export default function RegisterFormFooter() {
             type="submit"
             className="relative flex items-center gap-[6px] overflow-hidden rounded-[4px] bg-primary-600 p-[4px_12px] xl:p-[8px_16px]"
           >
-            <h3 className="text-sm font-medium text-white 3xl:text-sm text-nowrap">
-              {trans('register-label')}
+            <h3 className="text-nowrap text-sm font-medium text-white 3xl:text-sm">
+              {t('Footer.register-label')}
             </h3>
             <div className="relative size-4">
               <NextImg
@@ -141,8 +138,9 @@ export default function RegisterFormFooter() {
       {errors.email && isSubmitted && (
         <p
           id="outlined_error_help"
-          className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${errors.email ? 'block' : 'hidden'
-            }`}
+          className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
+            errors.email ? 'block' : 'hidden'
+          }`}
         >
           <span className="font-semibold">
             {String(errors?.email?.message || '')}

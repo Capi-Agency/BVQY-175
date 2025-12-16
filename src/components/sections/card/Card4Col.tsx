@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import PaginationPrimary from '../pagination/PaginationPrimary';
-import useTranslation from '@/src/hooks/use-translation';
 import { useSearchParams } from 'next/navigation';
 import {
   fnGetAdminDepartments,
@@ -13,6 +12,7 @@ import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import DepartmentCard from '../../departments/DepartmentCard';
+import { useTranslations } from 'next-intl';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
@@ -20,7 +20,7 @@ export default function Card4Col({ data }: CommonSection) {
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
 
-  const {trans} = useTranslation();
+  const t = useTranslations();
   const searchParams = useSearchParams();
 
   const [adminDepartData, setAdminDepartData] = useState<any>([]);
@@ -128,7 +128,7 @@ export default function Card4Col({ data }: CommonSection) {
             </div>
           ) : (
             <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
-              {trans('no-data-available')}
+              {t('Common.no-data')}
             </div>
           )}
         </div>

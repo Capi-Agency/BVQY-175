@@ -1,21 +1,15 @@
 'use client';
-import { CommonSection } from '@/src/types/pageBuilder';
 import React from 'react';
 import NextImg from '../../common/next-img';
-import { getAssetUrlById } from '@/src/utils/image';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
-import useTranslation from '@/src/hooks/use-translation';
 import { useMemo, useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import {
-  ContactInfo,
-  fnSendContact,
-  fnSendReview,
-} from '@/src/services/contact';
+import { ContactInfo, fnSendContact } from '@/src/services/contact';
 import { cn } from '@/src/lib/utils';
+import { useTranslations } from 'next-intl';
 
 const initialValue: ContactInfo = {
   name: '',
@@ -25,7 +19,7 @@ const initialValue: ContactInfo = {
 };
 
 export default function FormContact({ buttonTitle = 'Send' }: any) {
-  const { trans } = useTranslation();
+  const t = useTranslations();
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -35,47 +29,38 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
         .object({
           name: yup
             .string()
-            .max(50, trans("validate-name-length"))
-            .required(trans("validate-name-required")),
+            .max(50, t('Validate.name.length'))
+            .required(t('Validate.name.required')),
           phone: yup
             .string()
-            .max(20, trans("validate-phone-length"))
-            .required(
-              trans("validate-phone-required"),
-            )
-            .test(
-              'is-valid-phone',
-              trans("validate-phone-format"),
-              (value) => {
-                if (!value) return false;
-                const phoneNot84 = /[0]{1}[35789]{1}[0-9]{8}$/;
-                const phone84 = /^[84]{2}[35789]{1}[0-9]{8}$/;
-                const phone024 = /^[024]{2}[23456789]{1}[0-9]{8}$/;
-                return (
-                  phoneNot84.test(value) ||
-                  phone84.test(value) ||
-                  phone024.test(value)
-                );
-              },
-            ),
+            .max(20, t('Validate.phone.length'))
+            .required(t('Validate.phone.required'))
+            .test('is-valid-phone', t('Validate.phone.invalid'), (value) => {
+              if (!value) return false;
+              const phoneNot84 = /[0]{1}[35789]{1}[0-9]{8}$/;
+              const phone84 = /^[84]{2}[35789]{1}[0-9]{8}$/;
+              const phone024 = /^[024]{2}[23456789]{1}[0-9]{8}$/;
+              return (
+                phoneNot84.test(value) ||
+                phone84.test(value) ||
+                phone024.test(value)
+              );
+            }),
           email: yup
             .string()
             .transform((value, originalValue) =>
               originalValue === '' ? null : value,
             )
-            .required(trans('validate-email-required'))
-            .max(50, trans('validate-email-length'))
-            .email(trans("validate-email-format"))
+            .required(t('Validate.email.required'))
+            .max(50, t('Validate.email.length'))
+            .email(t('Validate.email.invalid'))
             .matches(
               /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              trans("validate-email-format"),
+              t('Validate.email.invalid'),
             ),
           message: yup
             .string()
-            .max(
-              1000,
-              trans("validate-mess-length"),
-            )
+            .max(1000, t('Validate.message.length'))
             .notRequired(),
         })
         .required(),
@@ -86,7 +71,6 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
     register,
     reset,
     handleSubmit,
-    setValue,
     watch,
     formState: { errors, isSubmitted },
   } = useForm<ContactInfo>({
@@ -98,17 +82,17 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
     () => [
       {
         key: 'name',
-        placeholder: trans('name-placeholder'),
+        placeholder: t('Validate.name.placeholder'),
         className: 'col-span-full md:col-span-1',
       },
       {
         key: 'phone',
-        placeholder: trans('phone-placeholder'),
+        placeholder: t('Validate.phone.placeholder'),
         className: 'col-span-full md:col-span-1',
       },
       {
         key: 'email',
-        placeholder: trans('email-placeholder'),
+        placeholder: t('Validate.email.placeholder'),
         className: 'col-span-full',
       },
     ],
@@ -120,7 +104,7 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
 
     try {
       if (!executeRecaptcha) {
-        throw new Error(trans("recapcha-not-ready"));
+        throw new Error(t('Notification.error.recapcha-not-ready'));
       }
       const token = await executeRecaptcha('review_form');
 
@@ -131,17 +115,14 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
       });
 
       if (!verifyRes.ok) {
-        toast.error(
-          trans("verify-recapcha-error"),
-          {
-            style: {
-              padding: 16,
-              borderRadius: 16,
-              color: '#80122E',
-              backgroundColor: '#FCECF0',
-            },
+        toast.error(t('Notification.error.verify-recapcha'), {
+          style: {
+            padding: 16,
+            borderRadius: 16,
+            color: '#80122E',
+            backgroundColor: '#FCECF0',
           },
-        );
+        });
         setLoading(false);
         return;
       }
@@ -152,34 +133,26 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
       });
 
       if (!response) {
-        throw new Error(
-          trans("noti-error-contact"),
-        );
+        throw new Error(t('Notification.error.contact'));
       }
-      toast.success(
-        trans("noti-success-contact"),
-        {
-          style: {
-            padding: 16,
-            borderRadius: 16,
-            color: '#136C34',
-            backgroundColor: '#F4FCF7',
-          },
+      toast.success(t('Notification.success.contact'), {
+        style: {
+          padding: 16,
+          borderRadius: 16,
+          color: '#136C34',
+          backgroundColor: '#F4FCF7',
         },
-      );
+      });
       reset(initialValue);
     } catch (error) {
-      toast.error(
-        trans("noti-error-contact"),
-        {
-          style: {
-            padding: 16,
-            borderRadius: 16,
-            color: '#80122E',
-            backgroundColor: '#FCECF0',
-          },
+      toast.error(t('Notification.error.contact'), {
+        style: {
+          padding: 16,
+          borderRadius: 16,
+          color: '#80122E',
+          backgroundColor: '#FCECF0',
         },
-      );
+      });
     } finally {
       setLoading(false);
     }
@@ -205,8 +178,9 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
             isSubmitted && (
               <p
                 id="outlined_error_help"
-                className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${errors[input.key as keyof ContactInfo] ? 'block' : 'hidden'
-                  }`}
+                className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${
+                  errors[input.key as keyof ContactInfo] ? 'block' : 'hidden'
+                }`}
               >
                 <span className="font-medium">
                   {errors[input.key as keyof ContactInfo]?.message}
@@ -222,14 +196,15 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
           rows={3}
           autoComplete="off"
           aria-describedby="outlined_error_help"
-          placeholder={trans('note-placeholder')}
+          placeholder={t('Validate.message.placeholder')}
           className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-base font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
         />
         {errors.message && isSubmitted && (
           <p
             id="outlined_error_help"
-            className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${errors.message ? 'block' : 'hidden'
-              }`}
+            className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
+              errors.message ? 'block' : 'hidden'
+            }`}
           >
             <span className="font-medium">{errors?.message?.message}</span>
           </p>

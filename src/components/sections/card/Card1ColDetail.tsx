@@ -11,8 +11,6 @@ import {
 } from '../../ui/dialog';
 import { cn } from '@/src/lib/utils';
 import { X } from 'lucide-react';
-import Fancybox from '../../common/Fancybox';
-import useTranslation from '@/src/hooks/use-translation';
 import NextImg from '../../common/next-img';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -20,9 +18,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
 import { Fancybox as NativeFancybox } from '@fancyapps/ui';
 import { Pagination } from 'swiper/modules';
+
 export default function Card1ColDetail({ event, data }: any) {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const { trans } = useTranslation();
 
   const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
     null,
@@ -63,13 +61,13 @@ export default function Card1ColDetail({ event, data }: any) {
 
             <div className="flex flex-col items-stretch justify-center">
               <div className="line-clamp-3 text-xl font-semibold uppercase text-primary-600 lg:text-2xl 2xl:text-[28px] 2xl:!leading-[1.5] 3xl:text-[30px] 4xl:text-[32px]">
-                {trans(event?.title, event?.title_en)}
+                {event?.title}
               </div>
 
               <div
                 className="line-clamp-3 pt-1.5 text-sm font-normal text-black lg:pt-2 xl:text-base 2xl:pt-3 4xl:pt-4"
                 dangerouslySetInnerHTML={{
-                  __html: trans(event?.content, event?.content_en),
+                  __html: event?.content,
                 }}
               ></div>
 
@@ -128,7 +126,7 @@ export default function Card1ColDetail({ event, data }: any) {
             </DialogClose>
 
             <div className="scrollbar-hidden relative size-full space-y-6 overflow-x-hidden overflow-y-scroll">
-              <div  className="w-full">
+              <div className="w-full">
                 {randomClassSwiper && (
                   <>
                     <div className="relative aspect-video w-full overflow-hidden rounded-[6px] xl:rounded-[10px] 3xl:rounded-[12px]">

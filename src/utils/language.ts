@@ -55,6 +55,7 @@ export const locales: any = {
     vi: 'Vui lòng nhập đúng định dạng email!',
     en: 'Please enter correct email format!',
   },
+
   'validate-mess-length': {
     vi: 'Vui lòng nhập không quá 1000 ký tự!',
     en: 'Please enter no more than 1000 characters!',

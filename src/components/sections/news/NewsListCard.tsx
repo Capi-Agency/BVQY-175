@@ -8,13 +8,13 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import useTranslation from '@/src/hooks/use-translation';
 import PaginationPrimary from '../pagination/PaginationPrimary';
+import { useTranslations } from 'next-intl';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
 export default function NewsListCard({ data }: CommonSection) {
-  const {trans} = useTranslation();
+  const t = useTranslations("Common");
   // Animation
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
@@ -156,7 +156,7 @@ export default function NewsListCard({ data }: CommonSection) {
             </div>
           ) : (
             <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
-              {trans('no-data-available')}
+              {t('no-data')}
             </div>
           )}
         </div>

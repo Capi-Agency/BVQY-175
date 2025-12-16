@@ -6,14 +6,13 @@ import Link from 'next/link';
 import RegisterFormFooter from './RegisterFormFooter';
 import CustomLink from '../custom-link';
 import Script from 'next/script';
-import useTranslation from '@/src/hooks/use-translation';
 import { getLocalizedField } from '@/src/i18n/routing';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 export default function TheFooter() {
-  const { trans } = useTranslation();
   const { contact_information, bottom_navigation } = useMetadata();
   const locale = useLocale();
+  const t = useTranslations();
 
   return (
     <footer className="relative overflow-hidden bg-primary-600 py-6 xl:py-8 3xl:py-10">
@@ -56,7 +55,7 @@ export default function TheFooter() {
           {/* Start: contact info */}
           <div className="w-full md:w-full lg:w-[432px] xl:w-[320px] 3xl:w-[352px]">
             <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
-              {trans('contact-label')}
+              {t('Contact.title')}
             </h2>
             <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
 
@@ -138,7 +137,7 @@ export default function TheFooter() {
           {/* Start: social network */}
           <div className="md:pr-5 xl:px-3 2xl:px-4 3xl:px-6">
             <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
-              {trans('social-network-label')}
+              {t('Footer.social-network-label')}
             </h2>
             <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
 
@@ -251,7 +250,7 @@ export default function TheFooter() {
                   className="block tracking-wider"
                   aria-label="Thông tin bảo mật"
                 >
-                  {trans('policy-label')}
+                  {t('Footer.policy-label')}
                 </Link>
                 <div className="w-[1px] bg-white"></div>
               </>
@@ -265,7 +264,7 @@ export default function TheFooter() {
                 aria-label="Thông tin bảo mật"
                 className="block tracking-wider"
               >
-                {trans('terms-services-label')}
+                {t('Footer.terms-services-label')}
               </Link>
             )}
           </div>
@@ -273,7 +272,7 @@ export default function TheFooter() {
           <div className="my-3 h-[1px] w-full bg-[#00A032] xl:my-4 3xl:mb-5"></div>
 
           <div className="text-center text-sm font-normal tracking-normal text-white md:tracking-wider 2xl:text-base">
-            {trans('copy-right-label')}
+            {t('Footer.copy-right-label')}
           </div>
         </div>
         {/* End: policy */}

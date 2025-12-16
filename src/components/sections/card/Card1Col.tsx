@@ -19,13 +19,13 @@ import {
   TooltipTrigger,
   TooltipArrow,
 } from '../../ui/tooltip';
-import useTranslation from '@/src/hooks/use-translation';
 import NextImg from '../../common/next-img';
 import Card1ColDetail from './Card1ColDetail';
 import PaginationPrimary from '../pagination/PaginationPrimary';
+import { useTranslations } from 'next-intl';
 
 export default function Card1Col({ data }: CommonSection) {
-  const {trans} = useTranslation();
+  const t = useTranslations();
   const searchParams = useSearchParams();
 
   const [milestoneData, setMilestoneData] = useState<any>([]);
@@ -175,10 +175,10 @@ export default function Card1Col({ data }: CommonSection) {
                           <AccordionTrigger>
                             <div className="flex items-center gap-1 text-sm font-medium text-black md:text-base xl:gap-[6px] xl:text-lg 3xl:text-xl">
                               <span className="group-data-[state=open]:hidden">
-                                {trans('expand')}
+                                {t('Common.expand')}
                               </span>
                               <span className="hidden group-data-[state=open]:block">
-                                {trans('collapse')}
+                                {t('Common.collapse')}
                               </span>
                               <div className="relative size-5 transition-all duration-200 group-data-[state=open]:-rotate-180">
                                 <NextImg

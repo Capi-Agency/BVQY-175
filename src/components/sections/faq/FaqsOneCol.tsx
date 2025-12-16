@@ -12,12 +12,12 @@ import { getListFaq, getTotalFaqCount } from '@/src/services/faq';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import NextImg from '../../common/next-img';
-import useTranslation from '@/src/hooks/use-translation';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import PaginationPrimary from '../pagination/PaginationPrimary';
+import { useTranslations } from 'next-intl';
 
 export default function FaqsOneCol({ data }: CommonSection) {
-  const {trans} = useTranslation();
+  const t = useTranslations();
   const { conditions } = useGsapMatchMedia();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -77,7 +77,7 @@ export default function FaqsOneCol({ data }: CommonSection) {
     (searchText: string) => {
       const params = new URLSearchParams(searchParams);
       params.set('s', searchText.trim());
-      params.delete('page'); 
+      params.delete('page');
       router.push(`?${params.toString()}`, { scroll: false });
     },
     [router, searchParams],
@@ -112,7 +112,7 @@ export default function FaqsOneCol({ data }: CommonSection) {
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
               className="flex-1 border-none bg-transparent bg-none text-base text-gray-950 outline-none placeholder:text-gray-500 lg:text-base"
-              placeholder={trans('search-placeholder')}
+              placeholder={t('Validate.search.placeholder')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   e.preventDefault();
@@ -184,7 +184,7 @@ export default function FaqsOneCol({ data }: CommonSection) {
                 </>
               ) : (
                 <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
-                  {trans('no-data-available')}
+                  {t('no-data')}
                 </div>
               )}
             </>

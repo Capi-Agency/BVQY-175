@@ -13,12 +13,12 @@ import {
 import { NewsCard } from '../news';
 import DoctorCard from '../../common/doctor-card';
 import PaginationPrimary from '../pagination/PaginationPrimary';
-import useTranslation from '@/src/hooks/use-translation';
 import DepartmentCard from '../../departments/DepartmentCard';
 import { cn } from '@/src/lib/utils';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useTranslations } from 'next-intl';
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 type SearchListContentProps = {
@@ -45,7 +45,7 @@ export default function SearchListContent({
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
 
-  const { trans } = useTranslation();
+  const t = useTranslations("Common");
   const searchParams = useSearchParams();
 
   const [data, setData] = useState<any>([]);
@@ -251,7 +251,7 @@ export default function SearchListContent({
           </>
         ) : (
           <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
-            {trans('no-data-available')}
+            {t('no-data')}
           </div>
         )}
       </div>

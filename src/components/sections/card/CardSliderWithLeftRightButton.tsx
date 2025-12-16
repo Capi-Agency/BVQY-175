@@ -8,19 +8,19 @@ import { Navigation } from 'swiper/modules';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import Link from 'next/link';
-import useTranslation from '@/src/hooks/use-translation';
+import { useTranslations } from 'next-intl';
 
 export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
-  const { trans } = useTranslation();
+  const t = useTranslations();
 
   return (
     <div className="flex flex-col items-stretch gap-6 bg-[#F6FAF7] py-10 md:gap-8 md:py-6 lg:py-10 xl:gap-11 xl:py-11 2xl:gap-12 2xl:py-12 3xl:gap-[52px] 3xl:py-[52px] 4xl:gap-[60px] 4xl:py-[60px]">
       <div className="container flex items-center justify-between">
         <div>
           {data?.subtitle && (
-            <p className="section-subtitle text-primary-500">
+            <div className="section-sub-title text-primary-500">
               {data?.subtitle}
-            </p>
+            </div>
           )}
           {data?.title && (
             <h2 className="section-title uppercase text-primary-600">
@@ -148,7 +148,7 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
               <div className="flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
                 <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
                   {data?.custom?.['other-titles'] ??
-                    trans('doctor-awards-label')}
+                    t('Doctor.awards')}
                 </h3>
                 <div
                   className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"

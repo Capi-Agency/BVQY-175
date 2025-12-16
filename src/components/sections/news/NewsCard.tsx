@@ -3,18 +3,23 @@ import React from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
-import useTranslation from '@/src/hooks/use-translation';
 import CustomLink from '../../common/custom-link';
+import { useTranslations } from 'next-intl';
 
 type NewsCardProps = {
   item: any;
   url: string;
   cateUrl?: string;
-  type?: "default" | "search"
+  type?: 'default' | 'search';
 };
 
-export default function NewsCard({ item, url, cateUrl, type = "default" }: NewsCardProps) {
-  const { trans } = useTranslation();
+export default function NewsCard({
+  item,
+  url,
+  cateUrl,
+  type = 'default',
+}: NewsCardProps) {
+  const t = useTranslations('Common');
 
   const category = cateUrl || item?.categories?.[0]?.category?.slug || '';
 
@@ -34,12 +39,12 @@ export default function NewsCard({ item, url, cateUrl, type = "default" }: NewsC
       </div>
       <div className="space-y-1">
         <div className="line-clamp-2 h-[58px] text-lg font-semibold !leading-[1.6] text-primary-1000 duration-200 group-hover:text-primary-50 xl:h-[64px] xl:text-xl 3xl:h-[71px] 3xl:text-[22px] 4xl:h-[77px] 4xl:text-2xl">
-          {trans(item?.title, item?.title_en)}
+          {item?.title}
         </div>
         <div
           className="line-clamp-3 h-[60px] text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
           dangerouslySetInnerHTML={{
-            __html: trans(item?.blurb, item?.blurb_en),
+            __html: item?.blurb,
           }}
         ></div>
       </div>
@@ -60,7 +65,7 @@ export default function NewsCard({ item, url, cateUrl, type = "default" }: NewsC
         </div>
         <div className="flex items-center gap-1.5">
           <span className="text-sm font-medium text-gray-950 duration-200 group-hover:text-primary-50 2xl:text-base 3xl:text-lg">
-            {trans('view-more-label')}
+            {t('view-detail')}
           </span>
           <div className="relative size-5 transition-all duration-200 group-hover:brightness-0 group-hover:invert 2xl:size-6">
             <NextImg
@@ -71,24 +76,25 @@ export default function NewsCard({ item, url, cateUrl, type = "default" }: NewsC
         </div>
       </div>
     </CustomLink>
-  )
+  );
 
   const renderSearch = () => (
     <CustomLink
       href={`${url}/${category}/${item?.slug}`}
       aria-label="Xem chi tiết tin tức"
-      className="space-y-1 block">
-      <div className="line-clamp-2 underline underline-offset-2 text-base font-semibold !leading-[1.6] text-primary-1000 duration-200 group-hover:text-primary-50 md:text-lg xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
-        {trans(item?.title, item?.title_en)}
+      className="block space-y-1"
+    >
+      <div className="line-clamp-2 text-base font-semibold !leading-[1.6] text-primary-1000 underline underline-offset-2 duration-200 group-hover:text-primary-50 md:text-lg xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
+        {item?.title}
       </div>
       <div
-        className="line-clamp-2 text-sm xl:text-base font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
+        className="line-clamp-2 text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100 xl:text-base"
         dangerouslySetInnerHTML={{
-          __html: trans(item?.blurb, item?.blurb_en),
+          __html: item?.blurb,
         }}
       ></div>
     </CustomLink>
-  )
+  );
 
   switch (type) {
     case 'search':

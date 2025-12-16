@@ -9,16 +9,16 @@ import React, {
 import NextImg from '../../common/next-img';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { useRouter, useSearchParams } from 'next/navigation';
-import useTranslation from '@/src/hooks/use-translation';
 import SearchListContent from './SearchListContent';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { cn } from '@/src/lib/utils';
 import { debounce } from 'lodash';
+import { useTranslations } from 'next-intl';
 
 export default function CustomSearch({ data }: CommonSection) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const { trans } = useTranslation();
+  const t = useTranslations();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -92,7 +92,7 @@ export default function CustomSearch({ data }: CommonSection) {
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
               className="flex-1 border-none bg-transparent bg-none py-2.5 text-base text-gray-950 outline-none placeholder:text-gray-500 lg:py-3 lg:text-base"
-              placeholder={trans('search-placeholder')}
+              placeholder={t('Validate.search.placeholder')}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   e.preventDefault();
@@ -139,7 +139,7 @@ export default function CustomSearch({ data }: CommonSection) {
                     !subnet && 'text-primary-600',
                   )}
                 >
-                  {trans('all')}
+                  {t('Common.all')}
                 </div>
               </SwiperSlide>
 
@@ -165,7 +165,7 @@ export default function CustomSearch({ data }: CommonSection) {
           </div>
 
           <div className="px-6 text-base md:px-[calc((100vw-688px)/2)] lg:px-0 xl:text-lg 3xl:text-xl 4xl:text-2xl">
-            {`${totalAll} ${trans('search-results')}`}
+            {`${totalAll} ${t('Common.search-results')}`}
           </div>
 
           <div className="w-full space-y-10 px-6 md:px-[calc((100vw-688px)/2)] lg:space-y-12 lg:px-0 xl:space-y-14">
@@ -218,7 +218,7 @@ export default function CustomSearch({ data }: CommonSection) {
                 !subnet && 'text-primary-600',
               )}
             >
-              {trans('all')}
+              {t('Common.all')}
             </div>
             {data?.buttons?.map((button: any, index: number) => (
               <div
