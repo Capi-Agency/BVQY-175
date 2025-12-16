@@ -22,6 +22,7 @@ export const getAllDepartmentGroups = async (keyword?: string) => {
           'departments.slug',
           'departments.code',
           'children_groups.*.*',
+          'doctors.doctor.*',
         ],
         deep: {
           doctors: {
@@ -82,7 +83,6 @@ export const fnGetDepartmentDetail = async ({
         },
       }),
     );
-    console.log('🚀 ~ fnGetDepartmentDetail ~ res:', res);
     return res;
   } catch (error) {
     console.log('error in get data: ', error);

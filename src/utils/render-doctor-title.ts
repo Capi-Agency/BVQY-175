@@ -7,6 +7,8 @@ const hospitalMap: Record<string, string> = {
 const instituteMap: Record<string, string> = {
   director: 'Giám đốc',
   deputy_director: 'Phó giám đốc',
+  center_director: 'Giám đốc',
+  deputy_center_director: 'Phó giám đốc',
 };
 
 const departmentMap: Record<string, string> = {
