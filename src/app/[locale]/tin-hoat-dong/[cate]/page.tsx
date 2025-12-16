@@ -14,7 +14,7 @@ export async function generateMetadata(
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { locale } = await params;
-  const langSlug = getLangSlug(locale, 'tin-hoat-dong');
+  const langSlug = await getLangSlug(locale, 'tin-hoat-dong');
 
   const data = await fnGetPageBySlug(langSlug);
   const seo = createSeoData(data?.seo) ?? {};
@@ -23,7 +23,7 @@ export async function generateMetadata(
 
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
-  const langSlug = getLangSlug(locale, 'tin-hoat-dong');
+  const langSlug = await getLangSlug(locale, 'tin-hoat-dong');
   const pageContent = await fnGetPageBySlug(langSlug);
   const pageSchema = pageContent?.seo?.meta_schema;
 

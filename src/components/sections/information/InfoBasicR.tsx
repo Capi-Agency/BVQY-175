@@ -3,11 +3,9 @@ import { CommonSection } from '@/src/types/pageBuilder';
 import React from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
-import Link from 'next/link';
-import useStoreLanguage from '@/src/store/store';
+import { Link } from '@/src/i18n/navigation';
 
 export default function InfoBasicR({ data }: CommonSection) {
-  const language = useStoreLanguage((state: any) => state.language);
 
   return (
     <section className="bg-white py-10 md:py-8 lg:py-10 xl:py-[60px] 2xl:py-[80px] 4xl:py-[100px]">
@@ -59,7 +57,7 @@ export default function InfoBasicR({ data }: CommonSection) {
           </div>
 
           <Link
-            href={`/${language}${data?.buttons?.[0]?.url}`}
+            href={`${data?.buttons?.[0]?.url}`}
             className="mt-6 flex items-center gap-2 font-medium text-gray-950 group-hover:text-primary-50 lg:mt-0 lg:text-lg xl:mt-6"
             aria-label="Xem chi tiết cơ sở vật chất"
           >

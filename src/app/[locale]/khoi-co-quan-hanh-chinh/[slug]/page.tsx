@@ -59,7 +59,7 @@ export async function generateMetadata(
 
 const DepartmentDetailPage = async ({ params }: Props) => {
   const { locale, slug } = await params;
-  const langSlug = getLangSlug(locale, 'chi-tiet-khoi-co-quan-hanh-chinh');
+  const langSlug = await getLangSlug(locale, 'chi-tiet-khoi-co-quan-hanh-chinh');
 
   const dataDetail = await fnGetAdminDepartmentDetail({
     collection: 'administration_departments',

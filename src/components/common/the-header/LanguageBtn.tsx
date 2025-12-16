@@ -50,7 +50,7 @@ export default function LanguageBtn({
             ? 'pointer-events-auto scale-100 opacity-100'
             : 'pointer-events-none scale-90 opacity-0',
           side === 'bottom' &&
-            'bottom-0 translate-y-full pt-1 xl:pt-2 2xl:pt-3',
+          'bottom-0 translate-y-full pt-1 xl:pt-2 2xl:pt-3',
           side === 'top' && 'top-0 -translate-y-full pb-1 xl:pb-2 2xl:pb-3',
         )}
       >
@@ -68,6 +68,7 @@ export default function LanguageBtn({
                 onClick={(e) => {
                   e.preventDefault();
                   switchLocale(item);
+                  setIsOpen(false)
                 }}
                 className="w-full whitespace-nowrap text-nowrap p-[6px_10px] text-start text-sm font-medium uppercase text-black transition-all duration-100 hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[10px_16px]"
               >

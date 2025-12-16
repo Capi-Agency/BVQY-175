@@ -2,10 +2,9 @@
 import { useMemo, useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { fnSendContact } from '@/src/services/contact';
-import useStoreLanguage from '@/src/store/store';
 import NextImg from '../../common/next-img';
 import useTranslation from '@/src/hooks/use-translation';
 
@@ -20,7 +19,6 @@ const initialValue: Contact = {
 export default function RegisterFollowNews() {
   const { trans } = useTranslation();
   const [loading, setLoading] = useState<boolean>(false);
-  const language = useStoreLanguage((state: any) => state.language);
 
   const CONTACT_SCHEMA = useMemo(
     () =>
@@ -40,7 +38,7 @@ export default function RegisterFollowNews() {
             ),
         })
         .required(),
-    [language],
+    [],
   );
 
   const {

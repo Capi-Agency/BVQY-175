@@ -15,7 +15,7 @@ export async function generateMetadata(
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { locale } = await params;
-  const langSlug = getLangSlug(locale, 'doi-ngu-bac-si');
+  const langSlug = await getLangSlug(locale, 'doi-ngu-bac-si');
 
   const data = await fnGetPageBySlug(langSlug);
   const seo = createSeoData(data?.seo) ?? {};
@@ -24,7 +24,7 @@ export async function generateMetadata(
 
 const DoctorListPage = async ({ params }: Props) => {
   const { locale } = await params;
-  const langSlug = getLangSlug(locale, 'doi-ngu-bac-si');
+  const langSlug = await getLangSlug(locale, 'doi-ngu-bac-si');
   const pageContent = await fnGetPageBySlug(langSlug);
 
   const sections = pageContent?.sections || [];

@@ -1,15 +1,15 @@
 'use client';
 import { fnGetListitem } from '@/src/services/common';
-import useStoreLanguage from '@/src/store/store';
 import { CommonSection } from '@/src/types/pageBuilder';
-import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import CustomLink from '../../common/custom-link';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { getLocalizedField } from '@/src/i18n/routing';
+import { useLocale } from 'next-intl';
 
 export default function SideBarRightBasic({ data }: CommonSection) {
+  const locale = useLocale();
   const [cateData, setCateData] = useState<any>([]);
-  const language = useStoreLanguage((state: any) => state.language);
   const sidebarRef = useRef<HTMLDivElement>(null!);
   const [hasSidebarContainer, setHasSidebarContainer] = useState(false);
 
@@ -48,13 +48,13 @@ export default function SideBarRightBasic({ data }: CommonSection) {
           </h3>
 
           {cateData?.map((cate: any, index: number) => (
-            <Link
-              href={`/${language}${data?.buttons?.[0]?.url}/${cate?.slug}`}
+            <CustomLink
+              href={`${data?.buttons?.[0]?.url}/${cate?.slug}`}
               key={cate?.slug || index}
               className="block border-b border-gray-200 py-2.5 text-sm font-medium hover:text-primary-600 text-gray-700 transition-all duration-200 lg:py-3 lg:text-base"
             >
-              {language === 'en' ? cate?.title_en : cate?.title}
-            </Link>
+              {getLocalizedField(cate, 'title', locale)}
+            </CustomLink>
           ))}
 
           {cateData?.length === 0 && data?.buttons?.map((item: any, index: number) => (

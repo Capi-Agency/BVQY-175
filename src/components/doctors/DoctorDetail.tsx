@@ -10,13 +10,13 @@ import {
   AccordionTrigger,
 } from '../ui/accordion';
 import Link from 'next/link';
-import useStoreLanguage from '@/src/store/store';
 import { getDoctorTitles } from '@/src/utils/render-doctor-title';
+import { useLocale } from 'next-intl';
 
 export default function DoctorDetail({ data, dataDetail }: CommonSection) {
   const [isViewMore, setIsViewMore] = useState<boolean>(false);
-  const language = useStoreLanguage((state: any) => state.language);
-  const units = getWorkUnits(dataDetail, language);
+  const locale = useLocale();
+  const units = getWorkUnits(dataDetail, locale);
 
   const dataContent = [
     {
@@ -146,13 +146,12 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
                   {units.map((unit, index) => (
                     <React.Fragment key={index}>
                       <Link
-                        href={`/${language}/${
-                          unit.type === 'board'
+                        href={`/${unit.type === 'board'
                             ? 'ban-giam-doc'
                             : unit.type === 'group'
                               ? 'vien'
                               : 'chuyen-khoa'
-                        }/${unit.slug ?? ''}`}
+                          }/${unit.slug ?? ''}`}
                         aria-label="Xem chi tiết đơn vị"
                         className="inline-block text-sm font-normal text-[#09090B] underline underline-offset-2 lg:text-base"
                       >

@@ -2,7 +2,6 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata, ResolvingMetadata } from 'next';
 import { checkValueNull } from '@/src/utils/validate';
-import { cookies } from 'next/headers';
 import JsonLDProvider from '@/src/components/common/the-json-ld';
 import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
@@ -59,7 +58,7 @@ export async function generateMetadata(
 
 const DepartmentDetailPage = async ({ params }: Props) => {
   const { locale, slug } = await params;
-  const langSlug = getLangSlug(locale, 'chi-tiet-vien');
+  const langSlug = await getLangSlug(locale, 'chi-tiet-vien');
 
   const dataDetail = await fnGetDepartmentDetail({
     collection: 'department_groups',

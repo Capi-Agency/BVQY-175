@@ -56,7 +56,7 @@ export async function generateMetadata(
 
 const NewsDetailPage = async ({ params }: Props) => {
   const { locale, slug } = await params;
-  const langSlug = getLangSlug(locale, 'chi-tiet-tin-danh-cho-nguoi-benh');
+  const langSlug = await getLangSlug(locale, 'chi-tiet-tin-danh-cho-nguoi-benh');
 
   const post = await getNewsDetail({ collection: 'for_patient_posts', slug });
   const pageContent = await fnGetPageBySlug(langSlug);

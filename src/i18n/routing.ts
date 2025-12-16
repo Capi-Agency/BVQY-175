@@ -9,15 +9,17 @@ export const routing = defineRouting({
   localeDetection: true,
 });
 
-export const getLangSlug = (locale: string, slug: string): string => {
+export const getLangSlug = async (
+  locale: string,
+  slug: string,
+): Promise<string> => {
   return locale === routing.defaultLocale ? slug : `${slug}-${locale}`;
-}
-
+};
 
 export function getLocalizedField<T extends Record<string, any>>(
   data: T,
   baseKey: string,
-  lang: string
+  lang: string,
 ): string {
   // Nếu ngôn ngữ mặc định là "vi" thì dùng baseKey
   if (lang === routing.defaultLocale) return data?.[baseKey] ?? '';
@@ -25,4 +27,3 @@ export function getLocalizedField<T extends Record<string, any>>(
   const localizedKey = `${baseKey}_${lang}`;
   return data?.[localizedKey] ?? data?.[baseKey] ?? '';
 }
-

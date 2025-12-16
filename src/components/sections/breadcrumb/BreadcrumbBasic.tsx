@@ -1,12 +1,11 @@
 'use client';
 import Link from 'next/link';
-import React from 'react';
+import React, { use } from 'react';
 import NextImg from '../../common/next-img';
-import useStoreLanguage from '@/src/store/store';
 import { CommonSection } from '@/src/types/pageBuilder';
+import { useLocale } from 'next-intl';
 
 export default function BreadcrumbBasic({ data, dataDetail }: CommonSection) {
-  const language = useStoreLanguage((state: any) => state.language);
   const categoryTitle = dataDetail?.categories?.[0]?.category?.title || null;
   const rawBtns = data?.buttons || [];
   const len = rawBtns.length;
@@ -24,7 +23,7 @@ export default function BreadcrumbBasic({ data, dataDetail }: CommonSection) {
             <React.Fragment key={index}>
               {button?.url ? (
                 <Link
-                  href={`/${language}${button?.url}` || '/'}
+                  href={`${button?.url}` || '/'}
                   aria-label="Chuyển trang"
                   className={`${isLast ? 'font-semibold text-primary-600' : 'font-normal text-[#71717A] hover:text-primary-600'} block transition-colors duration-100`}
                 >

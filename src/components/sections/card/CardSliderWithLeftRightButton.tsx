@@ -8,11 +8,9 @@ import { Navigation } from 'swiper/modules';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import Link from 'next/link';
-import useStoreLanguage from '@/src/store/store';
 import useTranslation from '@/src/hooks/use-translation';
 
 export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
-  const language = useStoreLanguage((state: any) => state.language);
   const { trans } = useTranslation();
 
   return (
@@ -34,7 +32,7 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
         {data?.buttons && (
           <div className="hidden w-fit md:block">
             <Link
-              href={`/${language}${data?.buttons?.[0]?.url}`}
+              href={`${data?.buttons?.[0]?.url}`}
               aria-label="Chuyển đến trang thành tích"
               className="btn-danger"
             >
@@ -122,7 +120,7 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
         {data?.buttons && (
           <div className="container pt-6 md:hidden">
             <Link
-              href={`/${language}${data?.buttons?.[0]?.url}`}
+              href={`${data?.buttons?.[0]?.url}`}
               aria-label="Chuyển đến trang thành tích"
               className="btn-danger"
             >

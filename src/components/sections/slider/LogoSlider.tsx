@@ -3,15 +3,11 @@ import { CommonSection } from '@/src/types/pageBuilder';
 import React from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
-import Link from 'next/link';
-import useStoreLanguage from '@/src/store/store';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
 
 const LogoSlider = ({ data }: Partial<CommonSection>) => {
-  const language = useStoreLanguage((state: any) => state.language);
   return (
     <div className="py-10 text-center md:py-6 lg:py-8 xl:py-10 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
       <div className="section-sub-title">{data?.subtitle}</div>

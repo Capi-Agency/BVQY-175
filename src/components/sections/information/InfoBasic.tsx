@@ -3,11 +3,8 @@ import { CommonSection } from '@/src/types/pageBuilder';
 import React from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
-import useStoreLanguage from '@/src/store/store';
-import Link from 'next/link';
 
 export default function InfoBasic({ data }: CommonSection) {
-  const language = useStoreLanguage((state: any) => state.language);
 
   return (
     <section className="bg-white py-10 md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">

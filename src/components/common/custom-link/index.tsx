@@ -1,6 +1,6 @@
 'use client';
+import { Link } from '@/src/i18n/navigation';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import Link from 'next/link';
 import React from 'react';
 
 interface CustomLinkProps

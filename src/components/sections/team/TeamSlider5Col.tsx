@@ -8,11 +8,9 @@ import { Navigation } from 'swiper/modules';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import Link from 'next/link';
-import useStoreLanguage from '@/src/store/store';
 import DoctorCard from '../../common/doctor-card';
 
 export default function TeamSlider5Col({ data }: CommonSection) {
-  const language = useStoreLanguage((state: any) => state.language);
 
   return (
     <section className="bg-primary-50 py-10 md:py-6 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
@@ -95,7 +93,7 @@ export default function TeamSlider5Col({ data }: CommonSection) {
       <div className="container">
         <div className="flex justify-center pt-5 xl:pt-6 2xl:pt-7 3xl:pt-8 4xl:pt-10">
           <Link
-            href={`/${language}${data?.buttons?.[0]?.url}`}
+            href={`${data?.buttons?.[0]?.url}`}
             className="btn-danger"
             aria-label="Xem tất cả bác sĩ"
           >

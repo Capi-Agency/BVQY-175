@@ -14,9 +14,14 @@ import TheFooter from '../../components/common/the-footer';
 import BackToTop from '../../components/common/back-to-top';
 import ReCaptchatProvider from '@/src/providers/GoogleRecaptchaProvider';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
+import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/src/i18n/routing';
+
+
+export function generateStaticParams() {
+  return routing.locales.map((locale: string) => ({ locale }));
+}
 
 export default async function RootLayout({
   children,
@@ -29,6 +34,9 @@ export default async function RootLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  setRequestLocale(locale);
+
   const metadata = await fnGetMetadata();
   const messages = await getMessages({ locale });
 
