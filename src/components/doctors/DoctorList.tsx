@@ -475,14 +475,15 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
 
           {/* Hiển thị kết quả */}
           <div className="mb-3 flex flex-col gap-3 md:flex-row md:items-center">
-            <div className=" gap-1.5 text-base font-medium text-gray-700">
+            <div className="gap-1.5 text-base font-medium text-gray-700">
               <span className="text-xl font-semibold text-primary-600">
                 {totalItem}{' '}
               </span>
               kết quả phù hợp
               {(searchText || selectedLetter) && (
                 <span>
-                  {' '}với tìm kiếm{' '}
+                  {' '}
+                  với tìm kiếm{' '}
                   <span className="font-semibold text-primary-600">
                     {' '}
                     “{searchText || selectedLetter}”
@@ -715,9 +716,11 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
 
           {/* Info rows */}
           <div className="space-y-2">
-            <InfoRow icon="/assets/icons/first_aid_black.svg">
-              {specialty}
-            </InfoRow>
+            {specialty && (
+              <InfoRow icon="/assets/icons/first_aid_black.svg">
+                {specialty}
+              </InfoRow>
+            )}
 
             {isWorkingInDirectorBoard && (
               <InfoRow icon="/assets/icons/hospital_location_black.svg">
