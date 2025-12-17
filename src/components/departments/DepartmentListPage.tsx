@@ -110,7 +110,7 @@ const DepartmentDetailPage = ({
     }
 
     const text = normalizeText(searchText);
-
+    
     const newGroups = parentGroups
       .map((pGroup: any) => filterRecursive(pGroup, text))
       .filter((g: any) => {

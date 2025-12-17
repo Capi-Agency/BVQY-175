@@ -271,10 +271,6 @@ export default function TheFooter() {
           <div className="text-center text-sm 2xl:text-base font-normal tracking-normal text-white md:tracking-wide lg:tracking-normal xl:tracking-wide mt-3">
             Giao diện website mới của Bệnh viện Quân y 175. Phiên bản thử nghiệm được phát triển bởi Công ty TNHH công nghệ truyền thông Minh Khang
           </div>
-
-          <div className="text-center text-sm 2xl:text-base font-normal tracking-normal text-white md:tracking-wide lg:tracking-normal xl:tracking-wide mt-3">
-            Giao diện website mới của Bệnh viện Quân y 175. Phiên bản thử nghiệm được phát triển bởi Công ty TNHH công nghệ truyền thông Minh Khang
-          </div>
         </div>
         {/* End: policy */}
       </div>
