@@ -15,17 +15,18 @@ export const fnGetListItemByEndpoint = async (endpoint: string) => {
   return data;
 };
 
-
 export const fnGetListitem = async ({
   collection,
+  limit = 100,
 }: {
   collection: string;
+  limit?: number;
 }) => {
   try {
     const res = await directusClientWithRest.request(
       readItems(collection, {
         page: 1,
-        limit: 100,
+        limit,
         fields: ['*'],
       }),
     );

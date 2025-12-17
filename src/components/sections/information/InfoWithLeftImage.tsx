@@ -29,10 +29,12 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
 
   if (!hasContent) return null;
 
+  const hasImages = dataDetail?.technologies_images?.length > 0
+
   return (
     <div className="bg-primary-50 py-6 md:py-8 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
-      <div className="container grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-2 lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-[52px] 4xl:gap-[60px]">
-        <div className="flex flex-col items-stretch gap-2 lg:order-2 lg:aspect-[4/3] lg:gap-4 2xl:gap-5">
+      <div className={`${hasImages ? "lg:grid-cols-2" : "lg:grid-cols-1"} container grid grid-cols-1 gap-4 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-[52px] 4xl:gap-[60px]`}>
+        <div className={`${hasImages ? "lg:aspect-[4/3]" : ""} flex flex-col items-stretch gap-2 lg:order-2 lg:gap-4 2xl:gap-5`}>
           <div className="space-y-1">
             {data?.subtitle && (
               <div className="section-sub-title">{data?.subtitle}</div>
@@ -56,7 +58,7 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
           ></div>
         </div>
 
-        {dataDetail?.technologies_images?.length > 0 && randomClassSwiper ? (
+        {hasImages && randomClassSwiper ? (
           <Fancybox
             options={{
               Carousel: {

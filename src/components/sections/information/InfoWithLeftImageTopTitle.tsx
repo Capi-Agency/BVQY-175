@@ -50,95 +50,104 @@ export default function InfoWithLeftImageTopTitle({
           ></h1>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 xl:gap-8 2xl:gap-10 3xl:gap-[52px] 4xl:gap-[60px]">
-          <div>
-            {images?.length > 0 && randomClassSwiper ? (
-              <>
-                <Fancybox
-                  options={{
-                    Carousel: {
-                      infinite: true,
-                    },
-                    Images: {
-                      zoom: true,
-                    },
-                  }}
-                >
-                  <>
-                    <div className="relative aspect-[4/3]">
-                      <Swiper
-                        touchEventsTarget="container"
-                        grabCursor={true}
-                        slidesPerView={1}
-                        loop={true}
-                        spaceBetween={0}
-                        speed={700}
-                        modules={[Pagination, EffectFade, Autoplay]}
-                        effect="fade"
-                        autoplay={{
-                          delay: 5000,
-                          disableOnInteraction: false,
-                        }}
-                        pagination={{
-                          clickable: true,
-                          type: 'bullets',
-                          el: `.swiper-bullets-container.${randomClassSwiper}`,
-                          bulletElement: 'div',
-                        }}
-                        className="!h-full !w-full"
-                      >
-                        {images?.map((item: any) => (
-                          <SwiperSlide
-                            key={item?.directus_files_id || item?.id}
-                          >
-                            <Link
-                              href={getAssetUrlById(
-                                item?.directus_files_id || item?.id,
-                              )}
-                              data-fancybox="gallery"
-                              className="relative block size-full"
+        {images?.length > 0 ? (
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 xl:gap-8 2xl:gap-10 3xl:gap-[52px] 4xl:gap-[60px]">
+            <div>
+              {randomClassSwiper ? (
+                <>
+                  <Fancybox
+                    options={{
+                      Carousel: {
+                        infinite: true,
+                      },
+                      Images: {
+                        zoom: true,
+                      },
+                    }}
+                  >
+                    <>
+                      <div className="relative aspect-[4/3]">
+                        <Swiper
+                          touchEventsTarget="container"
+                          grabCursor={true}
+                          slidesPerView={1}
+                          loop={true}
+                          spaceBetween={0}
+                          speed={700}
+                          modules={[Pagination, EffectFade, Autoplay]}
+                          effect="fade"
+                          autoplay={{
+                            delay: 5000,
+                            disableOnInteraction: false,
+                          }}
+                          pagination={{
+                            clickable: true,
+                            type: 'bullets',
+                            el: `.swiper-bullets-container.${randomClassSwiper}`,
+                            bulletElement: 'div',
+                          }}
+                          className="!h-full !w-full"
+                        >
+                          {images?.map((item: any) => (
+                            <SwiperSlide
+                              key={item?.directus_files_id || item?.id}
                             >
-                              <NextImg
-                                src={getAssetUrlById(
+                              <Link
+                                href={getAssetUrlById(
                                   item?.directus_files_id || item?.id,
                                 )}
-                                alt="image"
-                                objectFit="cover"
-                              />
-                            </Link>
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
-                    </div>
-                  </>
-                </Fancybox>
+                                data-fancybox="gallery"
+                                className="relative block size-full"
+                              >
+                                <NextImg
+                                  src={getAssetUrlById(
+                                    item?.directus_files_id || item?.id,
+                                  )}
+                                  alt="image"
+                                  objectFit="cover"
+                                />
+                              </Link>
+                            </SwiperSlide>
+                          ))}
+                        </Swiper>
+                      </div>
+                    </>
+                  </Fancybox>
 
-                <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
-                  <div
-                    className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}
-                  ></div>
+                  <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
+                    <div
+                      className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}
+                    ></div>
+                  </div>
+                </>
+              ) : (
+                <div className="relative aspect-[4/3]">
+                  <NextImg
+                    src="/assets/images/unavailable.png"
+                    alt="unavailable"
+                    objectFit="cover"
+                  />
                 </div>
-              </>
-            ) : (
-              <div className="relative aspect-[4/3]">
-                <NextImg
-                  src="/assets/images/unavailable.png"
-                  alt="unavailable"
-                  objectFit="cover"
-                />
-              </div>
-            )}
-          </div>
+              )}
+            </div>
 
-          <div className="sidebar relative md:overflow-y-auto md:pr-2 lg:aspect-[4/3]">
-            <div
-              className={cn(`relative space-y-3 text-justify text-sm font-normal text-[#09090B] transition-all duration-700 ease-in-out xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`)}
-              dangerouslySetInnerHTML={{
-                __html: description,
-              }}
-            ></div>
+            <div className="sidebar relative md:overflow-y-auto md:pr-2 lg:aspect-[4/3]">
+              <div
+                className={cn(`relative space-y-3 text-justify text-sm font-normal text-[#09090B] transition-all duration-700 ease-in-out xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`)}
+                dangerouslySetInnerHTML={{
+                  __html: description,
+                }}
+              ></div>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div
+            className={cn(`relative space-y-3 text-justify text-sm font-normal text-[#09090B] xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`)}
+            dangerouslySetInnerHTML={{
+              __html: description,
+            }}
+          ></div>
+        )}
       </div>
     </section>
   );

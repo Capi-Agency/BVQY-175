@@ -17,7 +17,7 @@ export default function SideBarRightBasic({ data }: CommonSection) {
     if (!data.collections) return;
     (async () => {
       try {
-        const response = await fnGetListitem({ collection: data?.collections });
+        const response = await fnGetListitem({ collection: data?.collections, limit: data?.collection_items_limit });
         setCateData(response);
       } catch (error) {
         console.log('Error fetching data' + error);

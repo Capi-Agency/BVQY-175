@@ -52,8 +52,8 @@ export default function Card1ColDetail({ event, data }: any) {
     <Dialog open={isOpenModal} onOpenChange={setIsOpenModal}>
       <DialogTrigger asChild>
         {
-          <div className="grid cursor-pointer grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-11 3xl:gap-[52px] 4xl:gap-[60px]">
-            <div className="relative aspect-video overflow-hidden">
+          <div className="grid relative overflow-hidden rounded-[12px] border-[1px] border-primary-500 cursor-pointer grid-cols-1 gap-0 md:grid-cols-2 md:gap-4 lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-10">
+            <div className="relative w-full aspect-video overflow-hidden">
               <NextImg
                 src={getAssetUrlById(event?.images?.[0]?.directus_files_id)}
                 alt="event cover"
@@ -61,7 +61,7 @@ export default function Card1ColDetail({ event, data }: any) {
               />
             </div>
 
-            <div className="flex flex-col items-stretch justify-center">
+            <div className="flex flex-col items-stretch justify-center p-3 lg:p-4">
               <div className="line-clamp-3 text-xl font-semibold uppercase text-primary-600 lg:text-2xl 2xl:text-[28px] 2xl:!leading-[1.5] 3xl:text-[30px] 4xl:text-[32px]">
                 {trans(event?.title, event?.title_en)}
               </div>

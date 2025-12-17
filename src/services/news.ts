@@ -45,6 +45,11 @@ export const getListNews = async ({
           _icontains: keyword,
         },
       },
+      {
+        content: {
+          _icontains: keyword,
+        },
+      },
     ];
   }
 
@@ -110,6 +115,11 @@ export const getTotalNewsCount = async ({
             _icontains: keyword,
           },
         },
+        {
+          content: {
+            _icontains: keyword,
+          },
+        },
       ];
     }
 
@@ -141,7 +151,12 @@ export const getNewsDetail = async ({
   try {
     const res = await directusClientWithRest.request(
       readItem(collection, slug, {
-        fields: ['*', 'categories.category.title', 'categories.category.slug', 'files.*'],
+        fields: [
+          '*',
+          'categories.category.title',
+          'categories.category.slug',
+          'files.*',
+        ],
       }),
     );
     return res;

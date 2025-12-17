@@ -187,7 +187,7 @@ export default function MobileMenu({
 
                 {/* menu main */}
                 <AccordionRoot
-                  className="relative w-full divide-y-[1px] divide-gray-400"
+                  className="relative w-full divide-y-[1px] divide-gray-200"
                   type="single"
                   collapsible
                 >
@@ -236,7 +236,7 @@ export default function MobileMenu({
                           </div>
 
                           <AccordionContent>
-                            <div className="flex flex-col items-stretch divide-y-[1px] divide-gray-400 px-5 pb-3.5">
+                            <div className="flex flex-col items-stretch divide-y-[1px] divide-gray-200 px-5 pb-3.5">
                               {item?.sub_items?.map(
                                 (item_second: any, item_second_index: any) =>
                                   item_second?.sub_items?.length > 0 ? (
