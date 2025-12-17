@@ -91,7 +91,6 @@ const NewsDetailPage = async ({ params }: Props) => {
       <PageBuilder
         pageContent={pageContent}
         pageDetail={post}
-        breadcrumbType="post_detail_page"
       />
     </>
   );
