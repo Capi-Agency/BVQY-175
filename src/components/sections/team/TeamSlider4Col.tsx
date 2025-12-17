@@ -69,6 +69,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                     isLogo={custom?.is_logo}
                     isHover={custom?.is_hover}
                     isRounded={custom?.is_rounded}
+                    bgColor='#f4f4f5'
                   />
                 </SwiperSlide>
               ))}
@@ -87,6 +88,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                       isHover={custom?.is_hover}
                       isRounded={custom?.is_rounded}
                       avatarRatio="3/4"
+                      bgColor='#f4f4f5'
                     />
                   </div>
                 ))}
@@ -119,6 +121,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                       isLogo={custom?.is_logo}
                       isHover={custom?.is_hover}
                       isRounded={custom?.is_rounded}
+                      bgColor='#f4f4f5'
                     />
                   </SwiperSlide>
                 ))}

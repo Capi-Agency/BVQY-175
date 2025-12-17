@@ -3,9 +3,6 @@ import React from 'react';
 import DoctorCard from '../../common/doctor-card';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
-import NextImg from '../../common/next-img';
 
 export default function Team4Col({ data }: CommonSection) {
   return (
