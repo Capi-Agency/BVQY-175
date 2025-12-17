@@ -31,11 +31,6 @@ type Props = {
 
 export default async function HomePage({ params }: Props) {
   const langSlug = await getLangSlug();
-  const { cate } = await params;
-  const category = await getNewsCategoryDetail({
-    collection: 'for_patient_p_categories',
-    slug: cate,
-  });
   const pageContent = await fnGetPageBySlug(langSlug);
 
   const pageSchema = pageContent?.seo?.meta_schema;
@@ -43,11 +38,7 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <JsonLDProvider pageSchema={pageSchema} />
-      <PageBuilder
-        pageContent={pageContent}
-        pageDetail={category}
-        breadcrumbType={'post_category_page'}
-      />
+      <PageBuilder pageContent={pageContent} />
     </>
   );
 }

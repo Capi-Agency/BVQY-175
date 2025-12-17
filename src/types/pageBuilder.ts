@@ -33,7 +33,6 @@ type CommonSection = {
     url?: any;
   };
   dataDetail?: any;
-  breadcrumbType?: 'post_category_page' | 'post_detail_page';
 };
 
 // section-level fields

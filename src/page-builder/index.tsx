@@ -236,13 +236,11 @@ const sectionMap: SectionMap = {
 type PageBuilderProps = {
   pageContent: PageContent;
   pageDetail?: any;
-  breadcrumbType?: 'post_category_page' | 'post_detail_page';
 };
 
 const PageBuilder = ({
   pageContent,
   pageDetail,
-  breadcrumbType,
 }: PageBuilderProps) => {
   if (
     !pageContent ||
@@ -265,7 +263,6 @@ const PageBuilder = ({
               key={'section_' + index}
               data={section}
               {...(pageDetail ? { dataDetail: pageDetail } : {})}
-              breadcrumbType={breadcrumbType}
             />
           );
         })}

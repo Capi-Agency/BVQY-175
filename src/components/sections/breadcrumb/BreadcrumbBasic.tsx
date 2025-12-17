@@ -1,44 +1,63 @@
 'use client';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NextImg from '../../common/next-img';
 import useStoreLanguage from '@/src/store/store';
 import { CommonSection } from '@/src/types/pageBuilder';
+import { fnGetListitem } from '@/src/services/common';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useParams } from 'next/navigation';
 
 export default function BreadcrumbBasic({
   data,
-  dataDetail,
-  breadcrumbType,
 }: CommonSection) {
   const language = useStoreLanguage((state: any) => state.language);
+  const [buttons, setButtons] = useState<any[]>(data?.buttons)
+  const param = useParams() || {};
+  const category = (param?.cate as string) || ''; // danh mục tin tức
 
-  const rawBtns = data?.buttons || [];
-  const len = rawBtns.length;
+  useEffect(() => {
+    if (!data?.collections) return;
 
-  let buttons = rawBtns;
+    (async () => {
+      try {
+        const response = await fnGetListitem({ collection: data.collections });
 
-  // 👉 CASE 1: Trang chi tiết bài viết
-  if (breadcrumbType === 'post_detail_page') {
-    const categoryTitle = dataDetail?.categories?.[0]?.category?.title ?? null;
+        if (Array.isArray(response)) {
+          // Nếu có category => thêm slug vào
+          if (category) {
+            const matchedItem = response.find(
+              (item: any) => item.slug === category
+            );
 
-    if (categoryTitle && len >= 2) {
-      buttons = [
-        ...rawBtns.slice(0, len - 1),
-        { title: categoryTitle },
-        rawBtns[len - 1],
-      ];
-    }
-  }
+            if (matchedItem) {
+              const updatedButtons = buttons.map((btn: any) => {
+                if (btn?.url === '/' || btn?.url === '') return btn;
 
-  // 👉 CASE 2: Trang danh mục bài viết
-  if (breadcrumbType === 'post_category_page') {
-    const categoryTitle = dataDetail?.title ?? null;
+                if (btn?.url?.endsWith('/')) {
+                  return {
+                    ...btn,
+                    url: `${btn.url}${matchedItem.slug}`,
+                    title: matchedItem.title,
+                  };
+                }
+                return btn;
+              });
+              setButtons(updatedButtons);
+            }
+          } else {
+            const cleanedButtons = buttons.filter((btn: any) => !btn?.url?.endsWith('/') || btn?.url === '/');
+            setButtons(cleanedButtons);
+          }
+        }
+      } catch (error) {
+        console.log('Error fetching data: ' + error);
+      } finally {
+        ScrollTrigger.refresh();
+      }
+    })();
+  }, [data?.collections, category]);
 
-    if (categoryTitle) {
-      buttons = [...rawBtns, { title: categoryTitle }];
-    }
-  }
-  console.log('🚀 ~ BreadcrumbBasic ~ buttons:', buttons);
 
   return (
     <div className="bg-primary-50">
