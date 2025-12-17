@@ -67,9 +67,9 @@ export default function Card1ColDetail({ event, data }: any) {
               </div>
 
               <div
-                className="line-clamp-3 pt-1.5 text-sm font-normal text-black lg:pt-2 xl:text-base 2xl:pt-3 4xl:pt-4"
+                className="line-clamp-3 relative h-[60px] overflow-hidden mt-1.5 text-sm font-normal text-black lg:mt-2 xl:h-[72px] xl:text-base 2xl:mt-3 4xl:mt-4"
                 dangerouslySetInnerHTML={{
-                  __html: trans(event?.content, event?.content_en),
+                  __html: trans(event?.blurb, event?.blurb_en),
                 }}
               ></div>
 
@@ -128,7 +128,7 @@ export default function Card1ColDetail({ event, data }: any) {
             </DialogClose>
 
             <div className="scrollbar-hidden relative size-full space-y-6 overflow-x-hidden overflow-y-scroll">
-              <div  className="w-full">
+              <div className="w-full">
                 {randomClassSwiper && (
                   <>
                     <div className="relative aspect-video w-full overflow-hidden rounded-[6px] xl:rounded-[10px] 3xl:rounded-[12px]">
