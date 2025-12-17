@@ -8,6 +8,7 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { formatDate } from '@/src/utils/validate';
 import Link from 'next/link';
+import CustomLink from '../../common/custom-link';
 
 const CardSlider = ({ data }: CommonSection) => {
   const [activeItem, setActiveItem] = useState<number>(0);
@@ -108,9 +109,9 @@ const CardSlider = ({ data }: CommonSection) => {
             }}
           ></div>
 
-          <Link className="btn-danger px-4" href={btn?.url || '#'}>
+          <CustomLink className="btn-danger px-4" href={btn?.url}>
             {btn?.title || ''}
-          </Link>
+          </CustomLink>
         </div>
 
         <div className="flex justify-center lg:basis-1/2 lg:px-[14px] xl:px-[22px] 4xl:px-10">
