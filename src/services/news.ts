@@ -141,7 +141,7 @@ export const getNewsDetail = async ({
   try {
     const res = await directusClientWithRest.request(
       readItem(collection, slug, {
-        fields: ['*', 'categories.category.title', 'categories.category.slug'],
+        fields: ['*', 'categories.category.title', 'categories.category.slug', 'files.*'],
       }),
     );
     return res;
