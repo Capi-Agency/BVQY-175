@@ -150,7 +150,7 @@ export default function Card1Col({ data }: CommonSection) {
                             {item?.title}
                           </div>
                           <div
-                            className="relative line-clamp-3 h-[60px] mt-1.5 text-sm font-normal text-black lg:mt-2 xl:text-base 2xl:mt-3 4xl:mt-4"
+                            className="relative line-clamp-3 [&_*]:!inline h-[60px] mt-1.5 text-sm font-normal text-black lg:mt-2 xl:text-base 2xl:mt-3 4xl:mt-4"
                             dangerouslySetInnerHTML={{
                               __html: item?.blurb,
                             }}
