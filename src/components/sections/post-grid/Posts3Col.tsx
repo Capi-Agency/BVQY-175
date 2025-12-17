@@ -11,6 +11,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 const Posts3Col = ({ data }: CommonSection) => {
   const [newsData, setNewsData] = useState<any>([]);
+  const category = data?.custom?.category;
 
   useEffect(() => {
     (async () => {
@@ -19,6 +20,7 @@ const Posts3Col = ({ data }: CommonSection) => {
           collection: data?.collections,
           page: 1,
           limit: 3,
+          category,
         });
 
         setNewsData(response);

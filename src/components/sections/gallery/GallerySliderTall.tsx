@@ -1,77 +1,135 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CommonSection } from '@/src/types/pageBuilder';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import ThePagination from '@/src/components/common/the-pagination';
+import DialogVideo from '@/src/components/common/dialog-video';
 
-// Hàm lấy ID từ URL Youtube
-const getYoutubeId = (url: string) => {
+// ===== CONFIG =====
+const PAGE_SIZE = 6;
+
+// ===== Youtube helpers =====
+const getYoutubeId = (url?: string) => {
+  if (!url) return null;
   const regExp =
     /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
   const match = url.match(regExp);
   return match && match[2].length === 11 ? match[2] : null;
 };
 
-// Hàm tạo thumbnail từ ID Youtube
-const getThumbnail = (url: string) => {
+const getThumbnail = (url?: string) => {
   const id = getYoutubeId(url);
   return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : '';
 };
 
 export default function GallerySliderTall({ data }: CommonSection) {
   const items = data?.items || [];
-  const [activeIndex, setActiveIndex] = useState(0);
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // 🔑 dialog states
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
+  const [currentVideoId, setCurrentVideoId] = useState<string | null>(null);
+
+  // ===== Pagination =====
+  const totalPage = Math.ceil(items.length / PAGE_SIZE);
+  const pagedItems = items.slice(
+    (currentPage - 1) * PAGE_SIZE,
+    currentPage * PAGE_SIZE,
+  );
 
   if (!items.length) return null;
 
-  const activeVideo = items[activeIndex];
-  const activeId = getYoutubeId(activeVideo?.blurb);
+  const handleOpenVideo = (url: string) => {
+    const id = getYoutubeId(url);
+    if (!id) return;
 
-  if (items.length === 0) return null;
+    setCurrentVideoId(id);
+    setIsOpenDialog(true);
+  };
 
   return (
-    <div className="container py-10 md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
-      {/* VIDEO LỚN */}
-      <div className="mx-auto w-full">
-        <div className="aspect-video overflow-hidden rounded-lg shadow lg:rounded-xl 2xl:rounded-xl">
-          {activeId && (
-            <iframe
-              width="100%"
-              height="100%"
-              src={`https://www.youtube.com/embed/${activeId}`}
-              allowFullScreen
-              className="rounded-xl"
-            ></iframe>
-          )}
+    <div className="py-10 md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
+      <h1 className="section-title text-center">{data?.title}</h1>
+
+      {/* ===== MOBILE: SLIDER ===== */}
+      <div className="mt-6 block md:hidden">
+        <Swiper spaceBetween={16} slidesPerView={1.2} className="!ml-6">
+          {pagedItems.map((item: any, index: number) => (
+            <SwiperSlide key={index}>
+              <ThumbnailItem
+                item={item}
+                onClick={() => handleOpenVideo(item?.blurb)}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      {/* ===== DESKTOP: GRID ===== */}
+      <div className="container mx-auto mt-10 hidden grid-cols-3 gap-8 md:grid 2xl:mt-14 2xl:gap-10">
+        {pagedItems.map((item: any, index: number) => (
+          <ThumbnailItem
+            key={index}
+            item={item}
+            onClick={() => handleOpenVideo(item?.blurb)}
+          />
+        ))}
+      </div>
+
+      {/* ===== PAGINATION ===== */}
+      {totalPage > 1 && (
+        <div className="mt-10">
+          <ThePagination
+            currentPage={currentPage}
+            totalPage={totalPage}
+            setPage={setCurrentPage}
+          />
+        </div>
+      )}
+
+      {/* ===== VIDEO DIALOG (SINGLE INSTANCE) ===== */}
+      {currentVideoId && (
+        <DialogVideo
+          open={isOpenDialog}
+          onToggle={setIsOpenDialog}
+          videoUrl={currentVideoId}
+          trigger={<span />} // trigger dummy vì control bằng state
+        />
+      )}
+    </div>
+  );
+}
+
+/* ===== Thumbnail ===== */
+function ThumbnailItem({ item, onClick }: { item: any; onClick: () => void }) {
+  const thumb = getThumbnail(item?.blurb);
+
+  return (
+    <div
+      onClick={onClick}
+      className="group cursor-pointer space-y-4 overflow-hidden rounded-sm border bg-primary-50 p-2 transition hover:border-primary-600 lg:p-3 2xl:p-4"
+    >
+      <div className="relative">
+        <img
+          src={thumb}
+          className="aspect-video w-full object-cover"
+          alt={item?.title || ''}
+          loading="lazy"
+        />
+
+        {/* Play icon overlay (optional UX tốt) */}
+        <div className="pointer-events-none absolute inset-0 hidden items-center justify-center transition-all group-hover:flex">
+          <div className="flex size-10 items-center justify-center rounded-full bg-primary-600 p-6 text-white">
+            ▶
+          </div>
         </div>
       </div>
 
-      {/* THUMBNAIL LIST */}
-      <div className="mx-auto mt-6 grid grid-cols-1 gap-4 md:grid-cols-3 lg:mt-10 lg:gap-8 2xl:mt-14 2xl:gap-10">
-        {items.map((item: any, index: number) => {
-          const thumb = getThumbnail(item?.blurb);
-
-          return (
-            <div
-              key={index}
-              onClick={() => setActiveIndex(index)}
-              className={`cursor-pointer space-y-4 overflow-hidden rounded-sm border bg-primary-50 p-2 lg:p-3 2xl:p-4 ${
-                activeIndex === index
-                  ? 'border-primary-600'
-                  : 'border-primary-50'
-              }`}
-            >
-              <img
-                src={thumb}
-                className="aspect-video w-full object-cover"
-                alt={item.title}
-              />
-              <div className="text-base font-semibold leading-tight text-primary-1000 lg:text-lg 2xl:text-xl">
-                {item.title}
-              </div>
-            </div>
-          );
-        })}
+      <div className="line-clamp-3 min-h-[4em] text-sm font-medium leading-tight text-primary-1000 lg:text-lg 2xl:text-xl">
+        {item?.title}
       </div>
     </div>
   );
