@@ -62,7 +62,7 @@ export default function Card1ColDetail({ event, data }: any) {
             </div>
 
             <div className="flex flex-col items-stretch justify-center p-3 lg:p-4">
-              <div className="line-clamp-3 text-xl font-semibold uppercase text-primary-600 lg:text-2xl 2xl:text-[28px] 2xl:!leading-[1.5] 3xl:text-[30px] 4xl:text-[32px]">
+              <div className="line-clamp-3 text-xl font-semibold uppercase text-black/90 lg:text-2xl 2xl:text-[28px] 2xl:!leading-[1.5] 3xl:text-[30px] 4xl:text-[32px]">
                 {trans(event?.title, event?.title_en)}
               </div>
 
