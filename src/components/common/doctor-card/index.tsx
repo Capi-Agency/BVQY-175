@@ -14,13 +14,13 @@ export interface DoctorCardProps {
   type?: 'default' | 'search';
   avatarType: 'avatar' | 'uniform_avatar';
   subTitle:
-    | 'specialty'
-    | 'hospital_title'
-    | 'department_title'
-    | 'institute_title'
-    | 'admin_department_title'
-    | 'unit_title'
-    | string;
+  | 'specialty'
+  | 'hospital_title'
+  | 'department_title'
+  | 'institute_title'
+  | 'admin_department_title'
+  | 'unit_title'
+  | string;
   avatarRatio?: '2/3' | '5/6' | '3/4' | string;
   avatarOrigin?: 'center' | 'top' | 'left' | 'right' | 'bottom';
   isRounded?: boolean;
@@ -62,7 +62,7 @@ export default function DoctorCard({
   url = '/doi-ngu-bac-si',
   isLogo = true,
   isHover = true,
-  bgColor = 'bg-white',
+  bgColor = '#fff',
   type = 'default',
   avatarType = 'avatar',
   subTitle = 'specialty',
@@ -72,29 +72,29 @@ export default function DoctorCard({
   isLink = true,
 }: DoctorCardProps) {
   const renderSubTitleByType: Record<DoctorCardProps['subTitle'], JSX.Element> =
-    {
-      specialty: <>{item?.specialty}</>,
-      hospital_title: (
-        <>{hospitalTitleMap[item?.hospital_title] ?? item?.hospital_title}</>
-      ),
-      institute_title: (
-        <>{instituteTitleMap[item?.institute_title] ?? item?.institute_title}</>
-      ),
-      department_title: (
-        <>
-          {departmentTitleMap[item?.department_title] ?? item?.department_title}
-        </>
-      ),
-      admin_department_title: (
-        <>
-          {adminDepartmentTitleMap[item?.admin_department_title] ??
-            item?.admin_department_title}
-        </>
-      ),
-      unit_title: (
-        <>{adminDepartmentTitleMap[item?.unit_title] ?? item?.unit_title}</>
-      ),
-    };
+  {
+    specialty: <>{item?.specialty}</>,
+    hospital_title: (
+      <>{hospitalTitleMap[item?.hospital_title] ?? item?.hospital_title}</>
+    ),
+    institute_title: (
+      <>{instituteTitleMap[item?.institute_title] ?? item?.institute_title}</>
+    ),
+    department_title: (
+      <>
+        {departmentTitleMap[item?.department_title] ?? item?.department_title}
+      </>
+    ),
+    admin_department_title: (
+      <>
+        {adminDepartmentTitleMap[item?.admin_department_title] ??
+          item?.admin_department_title}
+      </>
+    ),
+    unit_title: (
+      <>{adminDepartmentTitleMap[item?.unit_title] ?? item?.unit_title}</>
+    ),
+  };
 
   const avatarId = item?.[avatarType]?.id ?? item?.[avatarType];
 
@@ -104,13 +104,13 @@ export default function DoctorCard({
         <div
           className={cn(
             'relative w-full overflow-hidden',
-            bgColor,
             isRounded && 'rounded-[8px]',
             isHover &&
-              'transition-colors duration-200 group-hover:bg-primary-600',
+            'transition-colors duration-200 group-hover:bg-primary-600',
           )}
           style={{
             aspectRatio: avatarRatio,
+            backgroundColor: bgColor
           }}
         >
           <NextImg

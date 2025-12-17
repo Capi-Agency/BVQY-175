@@ -64,7 +64,7 @@ export default function TheFooter() {
                 href={`${contact_information?.hot_line_url || '/'}`}
                 className="flex gap-2"
               >
-                <div className="relative size-5">
+                <div className="relative size-6 lg:size-5">
                   <NextImg src="/assets/icons/phone.svg" alt="phone icon" />
                 </div>
                 <span className="flex-1 text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base">
@@ -76,7 +76,7 @@ export default function TheFooter() {
                 href={`${contact_information?.email_url || '/'}`}
                 className="flex gap-2"
               >
-                <div className="relative size-5">
+                <div className="relative size-6 lg:size-5">
                   <NextImg src="/assets/icons/mail.svg" alt="mail icon" />
                 </div>
                 <span className="flex-1 text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base">
@@ -90,7 +90,7 @@ export default function TheFooter() {
                 href={`${contact_information?.address_url || '/'}`}
                 className="flex gap-2"
               >
-                <div className="relative size-5">
+                <div className="relative size-6 lg:size-5">
                   <NextImg
                     src="/assets/icons/location.svg"
                     alt="location icon"
@@ -149,7 +149,7 @@ export default function TheFooter() {
                     target="_blank"
                     rel="noopener"
                     aria-label="Facebook bệnh viện 175"
-                    className="relative size-8 md:size-9"
+                    className="relative size-9"
                   >
                     <NextImg
                       src="/assets/icons/facebook.svg"
@@ -163,7 +163,7 @@ export default function TheFooter() {
                     target="_blank"
                     rel="noopener"
                     aria-label="Youtube bệnh viện 175"
-                    className="relative size-8 md:size-9"
+                    className="relative size-9"
                   >
                     <NextImg
                       src="/assets/icons/youtube.svg"
@@ -178,7 +178,7 @@ export default function TheFooter() {
                     target="_blank"
                     rel="noopener"
                     aria-label="Zalo bệnh viện 175"
-                    className="relative size-8 md:size-9"
+                    className="relative size-9"
                   >
                     <NextImg
                       src="/assets/icons/zalo_contact.svg"
@@ -191,29 +191,22 @@ export default function TheFooter() {
               <div className="flex items-center gap-3 xl:flex-col 2xl:gap-4">
                 <CustomLink
                   href={contact_information?.googleplay_url}
-                  className="relative block aspect-[180/50] w-[140px] lg:w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]"
-                >
-                  <NextImg
-                    src="/assets/images/gg_play_cta.png"
-                    alt="gg play cta"
-                  />
+                  className='relative block aspect-[180/50] w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]'>
+                  <NextImg src="/assets/images/gg_play_cta.png" alt="gg play cta" />
                 </CustomLink>
 
                 <CustomLink
                   href={contact_information?.appstore_url}
-                  className="relative block aspect-[180/50] w-[140px] lg:w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]"
-                >
-                  <NextImg
-                    src="/assets/images/app_store_cta.png"
-                    alt="app store cta"
-                  />
+
+                  className='relative block aspect-[180/50] w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]'>
+                  <NextImg src="/assets/images/app_store_cta.png" alt="app store cta" />
                 </CustomLink>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-6 md:items-end md:px-0 xl:flex-col xl:items-start xl:gap-4 2xl:gap-5 4xl:gap-6">
-            <div className="relative h-[50px] w-[126px] 2xl:h-[58px] 2xl:w-[147px] 4xl:h-[66px] 4xl:w-[167px]">
+          <div className="flex items-center md:items-end gap-6 md:px-0 xl:flex-col xl:items-start xl:gap-4 2xl:gap-5 4xl:gap-6">
+            <div className="relative h-[54px] w-[136px] 2xl:h-[58px] 2xl:w-[147px] 4xl:h-[66px] 4xl:w-[167px]">
               <NextImg
                 src="/assets/images/bo_cong_thuong.png"
                 alt="Bộ công thương"
@@ -228,7 +221,7 @@ export default function TheFooter() {
               className="dmca-badge"
             >
               <img
-                className="h-[50px] w-[100px] 2xl:h-[58px] 2xl:w-[116px] 4xl:h-[66px] 4xl:w-[132px]"
+                className="h-[54px] w-[116px] 2xl:h-[58px] 2xl:w-[116px] 4xl:h-[66px] 4xl:w-[132px]"
                 src="https://images.dmca.com/Badges/dmca-badge-w250-2x1-04.png?ID=3fea7e96-c255-4e43-955e-8d80a85d3048"
                 alt="DMCA.com Protection Status"
               />
@@ -273,6 +266,10 @@ export default function TheFooter() {
 
           <div className="text-center text-sm font-normal tracking-normal text-white md:tracking-wider 2xl:text-base">
             {t('Footer.copy-right-label')}
+          </div>
+
+          <div className="text-center text-sm 2xl:text-base font-normal tracking-normal text-white md:tracking-wide lg:tracking-normal xl:tracking-wide mt-3">
+            Giao diện website mới của Bệnh viện Quân y 175. Phiên bản thử nghiệm được phát triển bởi Công ty TNHH công nghệ truyền thông Minh Khang
           </div>
         </div>
         {/* End: policy */}

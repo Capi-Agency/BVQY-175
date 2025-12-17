@@ -66,7 +66,11 @@ const NewsDetailPage = async ({ params }: Props) => {
   return (
     <>
       <JsonLDProvider pageSchema={pageSchema} />
-      <PageBuilder pageContent={pageContent} pageDetail={post} />
+      <PageBuilder
+        pageContent={pageContent}
+        pageDetail={post}
+        breadcrumbType="post_detail_page"
+      />
     </>
   );
 };

@@ -70,6 +70,7 @@ export default function Team2Col({ data, dataDetail }: CommonSection) {
                     isHover={custom?.is_hover}
                     isRounded={custom?.is_rounded}
                     isLink={custom?.is_link}
+                    bgColor='#f4f4f5'
                   />
                 </SwiperSlide>
               ))}
@@ -89,6 +90,7 @@ export default function Team2Col({ data, dataDetail }: CommonSection) {
                       isRounded={custom?.is_rounded}
                       avatarRatio="3/4"
                       isLink={custom?.is_link}
+                      bgColor='#f4f4f5'
                     />
                   </div>
                 ))}
@@ -122,6 +124,7 @@ export default function Team2Col({ data, dataDetail }: CommonSection) {
                       isHover={custom?.is_hover}
                       isRounded={custom?.is_rounded}
                       isLink={custom?.is_link}
+                      bgColor='#f4f4f5'
                     />
                   </SwiperSlide>
                 ))}

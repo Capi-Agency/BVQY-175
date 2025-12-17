@@ -65,7 +65,7 @@ export default function Card1ColDetail({ event, data }: any) {
               </div>
 
               <div
-                className="line-clamp-3 pt-1.5 text-sm font-normal text-black lg:pt-2 xl:text-base 2xl:pt-3 4xl:pt-4"
+                className="line-clamp-3 relative h-[60px] overflow-hidden mt-1.5 text-sm font-normal text-black lg:mt-2 xl:h-[72px] xl:text-base 2xl:mt-3 4xl:mt-4"
                 dangerouslySetInnerHTML={{
                   __html: event?.content,
                 }}
