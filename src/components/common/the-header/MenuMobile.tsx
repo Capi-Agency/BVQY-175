@@ -24,6 +24,7 @@ import Link from 'next/link';
 import CustomLink from '../custom-link';
 import LanguageBtn from './LanguageBtn';
 import useTranslation from '@/src/hooks/use-translation';
+import { cn } from '@/src/lib/utils';
 
 type MobileMenuProps = {
   changeLanguage: (value: string) => void;
@@ -186,7 +187,7 @@ export default function MobileMenu({
 
                 {/* menu main */}
                 <AccordionRoot
-                  className="relative w-full space-y-5 md:space-y-6"
+                  className="relative w-full divide-y-[1px] divide-gray-400"
                   type="single"
                   collapsible
                 >
@@ -209,7 +210,7 @@ export default function MobileMenu({
                               >
                                 <CustomLink
                                   href={item?.url || ''}
-                                  className="text-sm font-bold uppercase text-black"
+                                  className="block text-sm font-bold uppercase text-black py-4 md:py-4"
                                 >
                                   {language === 'en'
                                     ? `${item?.title_en}`
@@ -217,7 +218,7 @@ export default function MobileMenu({
                                 </CustomLink>
                               </DialogClose>
                             ) : (
-                              <AccordionTrigger className="text-sm font-bold uppercase text-black">
+                              <AccordionTrigger className="text-sm font-bold uppercase text-black py-4 md:py-4">
                                 {language === 'en'
                                   ? `${item?.title_en}`
                                   : `${item?.title}`}{' '}
@@ -235,7 +236,7 @@ export default function MobileMenu({
                           </div>
 
                           <AccordionContent>
-                            <div className="flex flex-col gap-4 px-5 pt-4">
+                            <div className="flex flex-col items-stretch divide-y-[1px] divide-gray-400 px-5 pb-3.5">
                               {item?.sub_items?.map(
                                 (item_second: any, item_second_index: any) =>
                                   item_second?.sub_items?.length > 0 ? (
@@ -253,7 +254,7 @@ export default function MobileMenu({
                                           >
                                             <CustomLink
                                               href={item_second?.url || ''}
-                                              className="text-sm font-medium text-[#18181B]"
+                                              className="block text-sm font-medium text-[#18181B] py-3.5"
                                             >
                                               {language === 'en'
                                                 ? `${item_second?.title_en}`
@@ -266,7 +267,7 @@ export default function MobileMenu({
                                               setItemSecond(item_second);
                                               setIsOpenSubMenu(true);
                                             }}
-                                            className="text-sm font-medium text-[#18181B]"
+                                            className="text-sm font-medium text-[#18181B] py-3.5"
                                           >
                                             {language === 'en'
                                               ? `${item_second?.title_en}`
@@ -299,11 +300,11 @@ export default function MobileMenu({
                                       onClick={() => smoother?.paused(false)}
                                       asChild
                                       key={item_second_index}
-                                      className="w-fit"
+                                      className="w-full"
                                     >
                                       <CustomLink
                                         href={item_second?.url || ''}
-                                        className="text-sm font-medium text-[#18181B]"
+                                        className={cn('block text-sm font-medium text-[#18181B] py-3.5')}
                                       >
                                         {language === 'en'
                                           ? `${item_second?.title_en}`
@@ -323,7 +324,7 @@ export default function MobileMenu({
                           >
                             <CustomLink
                               href={item?.url || ''}
-                              className="text-sm font-bold uppercase text-black"
+                              className="block text-sm font-bold uppercase text-black py-4 md:py-4"
                             >
                               {language === 'en'
                                 ? `${item?.title_en}`
