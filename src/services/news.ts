@@ -50,6 +50,11 @@ export const getListNews = async ({
           _icontains: keyword,
         },
       },
+      {
+        content_plain: {
+          _icontains: keyword,
+        },
+      },
     ];
   }
 
@@ -117,6 +122,11 @@ export const getTotalNewsCount = async ({
         },
         {
           content: {
+            _icontains: keyword,
+          },
+        },
+        {
+          content_plain: {
             _icontains: keyword,
           },
         },
