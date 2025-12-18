@@ -6,6 +6,7 @@ import { getAssetUrlById } from '@/src/utils/image';
 import { getDoctorTitles } from '@/src/utils/render-doctor-title';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, {
   useCallback,
   useEffect,
@@ -20,71 +21,172 @@ type Props = {
   departmentGroups: any;
 };
 
-const DoctorList = ({ data, departmentGroups }: Props) => {
-  // Quản lý filter
-  const [searchText, setSearchText] = useState('');
-  const [selectedLetter, setSelectedLetter] = useState('');
-  const [searchMethod, setSearchMethod] = useState<
-    'by_name' | 'by_department' | null
-  >(null);
+const DoctorList = ({ data, departmentGroups = [] }: Props) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Đọc query params
+  const searchText = searchParams.get('q') || '';
+  const selectedLetter = searchParams.get('letter') || '';
+  const departmentSlug = searchParams.get('department') || '';
+  const currentPage = parseInt(searchParams.get('page') || '1', 10);
+  const searchMethod = searchParams.get('method') as
+    | 'by_name'
+    | 'by_department'
+    | null;
+
+  // UI state
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [inputValue, setInputValue] = useState(searchText);
+
   const parentGroups = departmentGroups?.filter(
     (d: any) => d.parent_group === null,
   );
-  const [activeParentGroup, setActiveParentGroup] = useState(null);
+
+  const selectedDepartment = useMemo(() => {
+    if (!departmentSlug) return null;
+
+    for (const group of departmentGroups) {
+      const dept = group.departments?.find(
+        (d: any) => d.slug === departmentSlug,
+      );
+      if (dept) return dept;
+
+      if (group.children_groups) {
+        for (const childGroup of group.children_groups) {
+          const dept = childGroup.departments?.find(
+            (d: any) => d.slug === departmentSlug,
+          );
+          if (dept) return dept;
+        }
+      }
+    }
+    return null;
+  }, [departmentSlug, departmentGroups]);
+
+  const [activeParentGroup, setActiveParentGroup] = useState(
+    selectedDepartment
+      ? departmentGroups.find(
+          (g: any) =>
+            g.departments?.some((d: any) => d.slug === departmentSlug) ||
+            g.children_groups?.some((cg: any) =>
+              cg.departments?.some((d: any) => d.slug === departmentSlug),
+            ),
+        )?.slug
+      : null,
+  );
+
   const currentParentGroup = useMemo(() => {
     return departmentGroups.find((d: any) => d.slug === activeParentGroup);
   }, [activeParentGroup, departmentGroups]);
-  const [selectedDepartment, setSelectedDepartment] = useState<any>(null);
+
   const panelRef = useRef<HTMLFormElement>(null);
 
+  // Fetching state
+  const [doctors, setDoctors] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [totalItem, setTotalItem] = useState(0);
+  const [totalPage, setTotalPage] = useState(1);
+
+  // Hàm update query params
+  const updateQueryParams = (params: Record<string, string | null>) => {
+    const current = new URLSearchParams(searchParams.toString());
+
+    Object.entries(params).forEach(([key, value]) => {
+      if (value === null || value === '') {
+        current.delete(key);
+      } else {
+        current.set(key, value);
+      }
+    });
+
+    const query = current.toString();
+    router.push(query ? `?${query}` : window.location.pathname, {
+      scroll: false,
+    });
+  };
+
+  const resetFilter = () => {
+    router.push(window.location.pathname);
+  };
+
+  const setSearchMethod = (method: 'by_name' | 'by_department' | null) => {
+    updateQueryParams({
+      method,
+      letter: null,
+      department: null,
+      page: '1',
+    });
+  };
+
+  const setSelectedLetter = (letter: string) => {
+    updateQueryParams({
+      letter,
+      page: '1',
+    });
+  };
+
+  const setSelectedDepartmentBySlug = (slug: string) => {
+    updateQueryParams({
+      department: slug,
+      page: '1',
+    });
+  };
+
+  const setPage = (page: number) => {
+    updateQueryParams({
+      page: page.toString(),
+    });
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    updateQueryParams({
+      q: inputValue.toUpperCase(),
+      method: null,
+      letter: null,
+      department: null,
+      page: '1',
+    });
+  };
+
+  // Click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
         panelRef.current &&
         !panelRef.current.contains(event.target as Node)
       ) {
-        setIsDropdownOpen(false); // đóng panel
+        setIsDropdownOpen(false);
       }
     }
 
     document.addEventListener('mousedown', handleClickOutside);
-
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
-  // Quản lý fetching
-  const [doctors, setDoctors] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalItem, setTotalItem] = useState(0);
-  const [totalPage, setTotalPage] = useState(1);
+  // Sync input with query
+  useEffect(() => {
+    setInputValue(searchText);
+  }, [searchText]);
 
-  const resetFilter = () => {
-    setSearchText('');
-    setSelectedLetter('');
-    setSelectedDepartment(null);
-    setSearchMethod(null);
-    setCurrentPage(1);
-  };
-
-  // Hàm gọi API dựa trên search/filter
+  // Fetch doctors
   const fetchDoctors = useCallback(async () => {
     setLoading(true);
     try {
       const res = await getListDoctors({
         limit: 6,
         page: currentPage,
-        keyword: searchText ? searchText.trim() : undefined,
+        keyword: searchText || undefined,
         letter:
           searchMethod === 'by_name' && selectedLetter
             ? selectedLetter
             : undefined,
         departmentId:
-          searchMethod === 'by_department' && selectedDepartment
-            ? selectedDepartment?.slug
+          searchMethod === 'by_department' && departmentSlug
+            ? departmentSlug
             : undefined,
       });
       setDoctors(res || []);
@@ -96,25 +198,19 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
       setLoading(false);
       ScrollTrigger.refresh();
     }
-  }, [
-    selectedDepartment,
-    selectedLetter,
-    searchMethod,
-    searchText,
-    currentPage,
-  ]);
+  }, [selectedLetter, departmentSlug, searchMethod, searchText, currentPage]);
 
   const fetchDoctorCount = useCallback(async () => {
     try {
       const res = await getDoctorsCount({
-        keyword: searchText ? searchText.trim() : undefined,
+        keyword: searchText || undefined,
         letter:
           searchMethod === 'by_name' && selectedLetter
             ? selectedLetter
             : undefined,
         departmentId:
-          searchMethod === 'by_department' && selectedDepartment
-            ? selectedDepartment?.slug
+          searchMethod === 'by_department' && departmentSlug
+            ? departmentSlug
             : undefined,
       });
       setTotalItem(res);
@@ -125,35 +221,15 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
       setTotalPage(1);
       ScrollTrigger.refresh();
     }
-  }, [
-    selectedDepartment,
-    selectedLetter,
-    searchMethod,
-    searchText,
-    currentPage,
-  ]);
+  }, [selectedLetter, departmentSlug, searchMethod, searchText]);
 
-  // Gọi lại khi search/filter thay đổi
   useEffect(() => {
     fetchDoctorCount();
     fetchDoctors();
-  }, [selectedLetter, selectedDepartment?.slug, searchMethod, currentPage]);
-
-  useEffect(() => {
-    if (searchText === '') {
-      fetchDoctorCount();
-      fetchDoctors();
-    }
-  }, [searchText]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedLetter, selectedDepartment?.slug, searchMethod]);
+  }, [fetchDoctorCount, fetchDoctors]);
 
   return (
     <div className="bg-primary-50">
-      {/* Breadcrumb */}
-
       {/* Banner + Search box */}
       <div className="md:relative">
         <div
@@ -162,11 +238,9 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
             background: ` linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url("${getAssetUrlById(data?.cover.id)}") lightgray 50% / cover no-repeat`,
           }}
         >
-          {/* title */}
           <h1 className="text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
             {data?.title}
           </h1>
-          {/* subtitle */}
           <p className="text-base font-normal text-gray-200 md:text-lg lg:text-xl">
             {data?.subtitle}
           </p>
@@ -176,12 +250,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
         <div className="mx-auto w-full max-w-[320px] -translate-y-1/2 bg-transparent md:bottom-0 md:max-w-[600px] md:px-0 md:py-0 lg:max-w-[800px] xl:max-w-[1000px]">
           <form
             className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
-            onSubmit={(e) => {
-              e.preventDefault();
-              setCurrentPage(1);
-              fetchDoctorCount();
-              fetchDoctors();
-            }}
+            onSubmit={handleSearch}
           >
             <div className="flex flex-1 flex-col text-start">
               <label
@@ -194,19 +263,8 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                 type="text"
                 id="name"
                 name="name"
-                value={searchText}
-                onChange={(e) => {
-                  setSearchText(e.target.value.toUpperCase());
-                  setSearchMethod(null);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    setCurrentPage(1);
-                    fetchDoctorCount();
-                    fetchDoctors();
-                  }
-                }}
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value.toUpperCase())}
                 placeholder="Nhập tên bác sĩ"
                 className="text-base font-normal placeholder:text-[#0F2F64] focus:border-none focus:outline-none md:text-lg"
               />
@@ -240,7 +298,6 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
             onClick={() => setSearchMethod('by_name')}
           >
             <div className="mb-2 flex items-center gap-2.5 text-lg font-semibold text-gray-500 lg:text-xl">
-              {/* icon */}
               <div className="flex items-center justify-center rounded-[6px] bg-primary-50 p-2">
                 <img
                   src={'/assets/icons/search_by_name.svg'}
@@ -253,7 +310,6 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
             <p className="text-sm font-medium text-gray-500">
               Tìm nhanh bác sĩ theo tên
             </p>
-
             <img
               src="/assets/images/arrow_bg.png"
               alt="bg"
@@ -275,7 +331,6 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
             onClick={() => setSearchMethod('by_department')}
           >
             <div className="mb-2 flex items-center gap-2.5 text-lg font-semibold text-gray-500 lg:text-xl">
-              {/* icon */}
               <div className="flex items-center justify-center rounded-[6px] bg-primary-50 p-2">
                 <img
                   src={'/assets/icons/search_by_department.svg'}
@@ -301,34 +356,32 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
 
         <div className="bg-white p-6 lg:p-10">
           {/* Bàn phím */}
-          {searchMethod === 'by_name' ? (
+          {searchMethod === 'by_name' && (
             <div className="space-y-6 py-6">
               <h3 className="text-center text-base font-semibold text-black xl:text-lg 2xl:text-xl">
                 Tìm kiếm bác sĩ theo tên
               </h3>
               <div className="mx-auto flex flex-wrap justify-center gap-6 md:max-w-[456px] lg:max-w-[564px] xl:max-w-[648px] 2xl:max-w-[732px] 3xl:max-w-[900px]">
-                {letters.map((letter: string, index: number) => {
-                  return (
-                    <button
-                      className={clsx(
-                        'flex size-10 cursor-pointer items-center justify-center rounded-xl text-xl font-semibold hover:bg-primary-300 hover:text-primary-50 md:size-[56px] md:text-2xl lg:size-[60px] lg:text-[28px]',
-                        selectedLetter === letter
-                          ? 'bg-primary-600 text-primary-50'
-                          : 'text-gray-500',
-                      )}
-                      key={index}
-                      onClick={() => setSelectedLetter(letter)}
-                    >
-                      {letter}
-                    </button>
-                  );
-                })}
+                {letters.map((letter: string, index: number) => (
+                  <button
+                    className={clsx(
+                      'flex size-10 cursor-pointer items-center justify-center rounded-xl text-xl font-semibold hover:bg-primary-300 hover:text-primary-50 md:size-[56px] md:text-2xl lg:size-[60px] lg:text-[28px]',
+                      selectedLetter === letter
+                        ? 'bg-primary-600 text-primary-50'
+                        : 'text-gray-500',
+                    )}
+                    key={index}
+                    onClick={() => setSelectedLetter(letter)}
+                  >
+                    {letter}
+                  </button>
+                ))}
               </div>
             </div>
-          ) : null}
+          )}
 
           {/* Dropdown chuyen khoa */}
-          {searchMethod === 'by_department' ? (
+          {searchMethod === 'by_department' && (
             <div className="space-y-6 py-6">
               <h3 className="text-center text-base font-semibold text-black xl:text-lg 2xl:text-xl">
                 Tìm kiếm bác sĩ theo chuyên khoa
@@ -340,8 +393,6 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                   className="relative flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
                   onSubmit={(e) => {
                     e.preventDefault();
-                    fetchDoctorCount();
-                    fetchDoctors();
                   }}
                 >
                   <div
@@ -361,10 +412,11 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                     />
                   </div>
                   <button
-                    type="submit"
+                    type="button"
                     className="flex size-10 items-center justify-center rounded-[4px] bg-primary-600 p-3 text-white md:size-auto md:gap-4 3xl:px-8 3xl:py-4"
+                    onClick={() => setIsDropdownOpen((prev) => !prev)}
                   >
-                    <span className="hidden md:block">Tìm kiếm</span>
+                    <span className="hidden md:block">Chọn</span>
                     <img
                       src="/assets/icons/arrow_right_white.svg"
                       alt="arrow right"
@@ -379,22 +431,22 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                     )}
                   >
                     <div className="h-full md:hidden">
-                      {parentGroups.map((pGroup: any) => {
-                        return (
-                          <DepartmentDropdownItem
-                            pGroup={pGroup}
-                            isOpen={activeParentGroup === pGroup.slug}
-                            key={pGroup.slug}
-                            onClick={() => setActiveParentGroup(pGroup.slug)}
-                            setSelectedDepartment={setSelectedDepartment}
-                            setIsDropdownOpen={setIsDropdownOpen}
-                          />
-                        );
-                      })}
+                      {parentGroups.map((pGroup: any) => (
+                        <DepartmentDropdownItem
+                          pGroup={pGroup}
+                          isOpen={activeParentGroup === pGroup.slug}
+                          key={pGroup.slug}
+                          onClick={() => setActiveParentGroup(pGroup.slug)}
+                          setSelectedDepartment={(dept: any) => {
+                            setSelectedDepartmentBySlug(dept.slug);
+                            setIsDropdownOpen(false);
+                          }}
+                          setIsDropdownOpen={setIsDropdownOpen}
+                        />
+                      ))}
                     </div>
 
                     <div className="hidden md:flex md:gap-8">
-                      {/* Parent Group - left */}
                       <div className="space-y-2">
                         {parentGroups.map((pGroup: any) => {
                           const isOpen = activeParentGroup === pGroup.slug;
@@ -424,7 +476,6 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                         })}
                       </div>
 
-                      {/* Child Department - right */}
                       <div className="flex flex-1 flex-wrap gap-x-4">
                         {currentParentGroup?.departments &&
                           currentParentGroup?.departments?.map((dep: any) => (
@@ -432,7 +483,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                               key={dep.slug}
                               className="w-[calc(50%-16px)] cursor-pointer py-2.5 text-sm font-semibold text-primary-1000"
                               onClick={() => {
-                                setSelectedDepartment(dep);
+                                setSelectedDepartmentBySlug(dep.slug);
                                 setIsDropdownOpen(false);
                               }}
                             >
@@ -454,7 +505,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                                   <div
                                     key={'child_dep_' + dep.slug}
                                     onClick={() => {
-                                      setSelectedDepartment(dep);
+                                      setSelectedDepartmentBySlug(dep.slug);
                                       setIsDropdownOpen(false);
                                     }}
                                     className="cursor-pointer py-2.5 text-sm font-semibold text-primary-1000"
@@ -471,7 +522,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                 </form>
               </div>
             </div>
-          ) : null}
+          )}
 
           {/* Hiển thị kết quả */}
           <div className="mb-3 flex flex-col gap-3 md:flex-row md:items-center">
@@ -486,7 +537,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                   với tìm kiếm{' '}
                   <span className="font-semibold text-primary-600">
                     {' '}
-                    “{searchText || selectedLetter}”
+                    "{searchText || selectedLetter}"
                   </span>
                 </span>
               )}
@@ -528,7 +579,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
           <ThePagination
             currentPage={currentPage}
             totalPage={totalPage}
-            setPage={setCurrentPage}
+            setPage={setPage}
           />
         </div>
       </div>
@@ -682,7 +733,6 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
 
   return (
     <div className="flex flex-col gap-5 rounded-2xl border-[2px] border-white bg-white p-5 shadow-lg transition-all hover:border-primary-600 md:flex-row md:p-4 xl:p-4 2xl:p-5">
-      {/* Avatar */}
       <div className="flex h-full items-center justify-center">
         <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[10px] bg-gray-100 md:max-h-[280px] md:w-[192px] lg:w-[224px] xl:w-[192px] 2xl:w-[224px]">
           <NextImg
@@ -694,10 +744,8 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
         </div>
       </div>
 
-      {/* Content */}
       <div className="flex flex-1 flex-col justify-center md:px-5 lg:justify-between xl:justify-center xl:px-0 2xl:justify-between">
         <div>
-          {/* Titles */}
           <div className="text-sm font-normal text-gray-500 lg:text-base xl:text-sm 2xl:text-base">
             {full_title}
           </div>
@@ -714,7 +762,6 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
             ))}
           </div>
 
-          {/* Info rows */}
           <div className="space-y-2">
             {specialty && (
               <InfoRow icon="/assets/icons/first_aid_black.svg">
