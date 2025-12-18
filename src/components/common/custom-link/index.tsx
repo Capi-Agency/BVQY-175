@@ -1,8 +1,7 @@
 'use client';
+import { Link } from '@/src/i18n/navigation';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import Link from 'next/link';
 import React from 'react';
-import useStoreLanguage from '@/src/store/store';
 
 interface CustomLinkProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
@@ -17,11 +16,10 @@ const CustomLink = React.forwardRef<HTMLAnchorElement, CustomLinkProps>(
     { href = '', children, className = '', asNavigationLink = false, ...props },
     ref,
   ) => {
-    const language = useStoreLanguage((state) => state.language);
     const isExternal = href.startsWith('http');
     const localizedHref = isExternal
       ? href
-      : `/${language}${href.startsWith('/') ? href : `/${href}`}`;
+      : `${href.startsWith('/') ? href : `/${href}`}`;
 
     const Wrapper = asNavigationLink ? NavigationMenu.Link : React.Fragment;
     const wrapperProps = asNavigationLink ? { asChild: true } : {};
@@ -29,7 +27,7 @@ const CustomLink = React.forwardRef<HTMLAnchorElement, CustomLinkProps>(
     return (
       <Wrapper {...wrapperProps}>
         <Link
-          href={localizedHref}
+          href={localizedHref as any}
           target={isExternal ? '_blank' : undefined}
           rel={isExternal ? 'noopener noreferrer' : undefined}
           className={className}

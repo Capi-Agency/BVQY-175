@@ -1,29 +1,41 @@
 'use client';
 import React, { useState } from 'react';
 import NextImg from '../next-img';
-import useStoreLanguage from '@/src/store/store';
 import { cn } from '@/src/lib/utils';
+import { useLocale } from 'next-intl';
+import { usePathname, useRouter } from '@/src/i18n/navigation';
+import { routing } from '@/src/i18n/routing';
 
 type LanguageBtnProps = {
-  changeLanguage: (value: string) => void;
   className?: string;
-  side?: "top" | "bottom"
+  side?: 'top' | 'bottom';
 };
 
-export default function LanguageBtn({ changeLanguage, className, side = "bottom" }: LanguageBtnProps) {
-  const language = useStoreLanguage((state: any) => state.language);
+export default function LanguageBtn({
+  className,
+  side = 'bottom',
+}: LanguageBtnProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const dataLang = ['vi', 'en'];
+  const switchLocale = (newLocale: string) => {
+    router.replace(pathname, { locale: newLocale });
+    router.refresh();
+  };
 
   return (
     <div
       onClick={() => setIsOpen(true)}
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
-      className={cn("btn-menu relative gap-1 uppercase text-white text-sm font-medium xl:text-base flex", className)}
+      className={cn(
+        'btn-menu relative flex gap-1 text-sm font-medium uppercase text-white xl:text-base',
+        className,
+      )}
     >
-      {language}
+      {locale}
       <div className="relative size-4">
         <NextImg
           src="/assets/icons/arrow_down_white.svg"
@@ -32,24 +44,33 @@ export default function LanguageBtn({ changeLanguage, className, side = "bottom"
       </div>
 
       <div
-        className={cn("absolute right-0 z-[110] w-full origin-center   transition-all duration-200 ",
-          isOpen ? 'pointer-events-auto scale-100 opacity-100' : 'pointer-events-none scale-90 opacity-0',
-          side === "bottom" && "bottom-0 pt-1 xl:pt-2 2xl:pt-3 translate-y-full",
-          side === "top" && "top-0 pb-1 xl:pb-2 2xl:pb-3 -translate-y-full"
-        )}>
+        className={cn(
+          'absolute right-0 z-[110] w-full origin-center transition-all duration-200',
+          isOpen
+            ? 'pointer-events-auto scale-100 opacity-100'
+            : 'pointer-events-none scale-90 opacity-0',
+          side === 'bottom' &&
+          'bottom-0 translate-y-full pt-1 xl:pt-2 2xl:pt-3',
+          side === 'top' && 'top-0 -translate-y-full pb-1 xl:pb-2 2xl:pb-3',
+        )}
+      >
         <div
-          className="relative w-full rounded-[6px] overflow-hidden bg-white py-[2px]"
+          className="relative w-full overflow-hidden rounded-[6px] bg-white py-[2px]"
           style={{
             boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
           }}
         >
-          {dataLang?.map((item: any, index: number) => {
-            if (language === item) return null;
+          {routing?.locales?.map((item: any, index: number) => {
+            if (locale === item) return null;
             return (
               <button
-                onClick={() => changeLanguage(item)}
                 key={index}
-                className="w-full whitespace-nowrap text-nowrap text-start text-sm font-medium uppercase text-black transition-all duration-100 hover:text-primary-600 p-[6px_10px] 2xl:p-[6px_12px] 3xl:p-[10px_16px]"
+                onClick={(e) => {
+                  e.preventDefault();
+                  switchLocale(item);
+                  setIsOpen(false)
+                }}
+                className="w-full whitespace-nowrap text-nowrap p-[6px_10px] text-start text-sm font-medium uppercase text-black transition-all duration-100 hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[10px_16px]"
               >
                 {item}
               </button>

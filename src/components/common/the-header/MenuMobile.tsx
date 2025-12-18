@@ -106,7 +106,6 @@ export default function MobileMenu({
 
               {/* Language button */}
               <LanguageBtn
-                changeLanguage={changeLanguage}
                 className="hidden md:flex"
               />
 
@@ -354,7 +353,6 @@ export default function MobileMenu({
 
                   {/* Language button */}
                   <LanguageBtn
-                    changeLanguage={changeLanguage}
                     className="md:hidden"
                     side="top"
                   />

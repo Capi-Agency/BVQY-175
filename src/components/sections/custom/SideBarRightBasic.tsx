@@ -6,12 +6,20 @@ import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import CustomLink from '../../common/custom-link';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
+import { getPositionFixed } from '@/src/utils/gsap';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function SideBarRightBasic({ data }: CommonSection) {
   const [cateData, setCateData] = useState<any>([]);
   const language = useStoreLanguage((state: any) => state.language);
   const sidebarRef = useRef<HTMLDivElement>(null!);
   const [hasSidebarContainer, setHasSidebarContainer] = useState(false);
+  const containerRef = useRef<any>(null);
+  const { conditions } = useGsapMatchMedia();
 
   useEffect(() => {
     if (!data.collections) return;
@@ -27,47 +35,93 @@ export default function SideBarRightBasic({ data }: CommonSection) {
     })();
   }, []);
 
-  useEffect(() => {
-    if (!cateData) return;
-    const sidebarContainer = document.querySelector('.sidebar-container');
-    if (sidebarContainer) {
-      sidebarContainer?.appendChild?.(sidebarRef.current);
-      setHasSidebarContainer(true);
-    } else {
-      setHasSidebarContainer(false);
-    }
-  }, [cateData]);
+  // useEffect(() => {
+  //   if (!cateData) return;
+  //   const sidebarContainer = document.querySelector('.sidebar-container');
+  //   if (sidebarContainer) {
+  //     sidebarContainer?.appendChild?.(sidebarRef.current);
+  //     setHasSidebarContainer(true);
+  //   } else {
+  //     setHasSidebarContainer(false);
+  //   }
+  // }, [cateData]);
+
+  useGSAP(
+    () => {
+      if (!containerRef.current || !sidebarRef.current || !conditions) return;
+      
+      const sidebarContainer = document.querySelector(
+        '.sidebar-container',
+      ) as HTMLElement | null;
+
+      if (sidebarContainer && sidebarRef.current) {
+        if (!sidebarContainer.contains(sidebarRef.current)) {
+          sidebarContainer.appendChild(sidebarRef.current);
+        }
+        setHasSidebarContainer(true);
+      } else {
+        setHasSidebarContainer(false);
+      }
+
+      const mm = gsap.matchMedia();
+
+      mm.add('(min-width: 768px)', () => {
+        ScrollTrigger.create({
+          trigger: sidebarRef.current,
+          start: () => getPositionFixed(conditions),
+          endTrigger: sidebarContainer,
+          end: () =>
+            `+=${(sidebarContainer?.offsetHeight ?? 0) - (sidebarRef.current?.offsetHeight ?? 0)}`,
+          // end: 'max',
+          pin: true,
+          pinSpacing: false,
+          pinnedContainer: sidebarContainer,
+        });
+      });
+    },
+    {
+      scope: containerRef,
+      dependencies: [conditions, cateData],
+    },
+  );
 
   return (
-    <div ref={sidebarRef} className="w-full h-fit md:sticky md:top-[100px] lg:top-[120px] xl:top-[170px] 2xl:top-[190px] 3xl:top-[200px] 4xl:top-[220px]">
-      {/*  Tags  */}
-      {hasSidebarContainer && (
-        <>
-          <h3 className="mb-2 text-base font-semibold text-gray-950 lg:mb-4 lg:text-lg 3xl:mb-5">
-            {data?.title}
-          </h3>
+    <div ref={containerRef}>
+      <div
+        ref={sidebarRef}
+        // className="h-fit w-full md:sticky md:top-[100px] lg:top-[120px] xl:top-[170px] 2xl:top-[190px] 3xl:top-[200px] 4xl:top-[220px]"
+        className="h-fit w-full"
+      >
+        {/*  Tags  */}
+        {hasSidebarContainer && (
+          <>
+            <h3 className="mb-2 text-base font-semibold text-gray-950 lg:mb-4 lg:text-lg 3xl:mb-5">
+              {data?.title}
+            </h3>
 
-          {cateData?.map((cate: any, index: number) => (
-            <Link
-              href={`/${language}${data?.buttons?.[0]?.url}/${cate?.slug}`}
-              key={cate?.slug || index}
-              className="block border-b border-gray-200 py-2.5 text-sm font-medium hover:text-primary-600 text-gray-700 transition-all duration-200 lg:py-3 lg:text-base"
-            >
-              {language === 'en' ? cate?.title_en : cate?.title}
-            </Link>
-          ))}
+            {cateData?.map((cate: any, index: number) => (
+              <Link
+                href={`/${language}${data?.buttons?.[0]?.url}/${cate?.slug}`}
+                key={cate?.slug || index}
+                className="block border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"
+              >
+                {language === 'en' ? cate?.title_en : cate?.title}
+              </Link>
+            ))}
 
-          {cateData?.length === 0 && data?.buttons?.map((item: any, index: number) => (
-            <CustomLink
-              href={item?.url}
-              key={index}
-              className="block border-b border-gray-200 py-2.5 text-sm font-medium hover:text-primary-600 text-gray-700 transition-all duration-200 lg:py-3 lg:text-base"
-            >
-              {item?.title}
-            </CustomLink>
-          ))}
-        </>
-      )}
+            {cateData?.length === 0 &&
+              data?.buttons?.map((item: any, index: number) => (
+                <CustomLink
+                  href={item?.url}
+                  key={index}
+                  className="block border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"
+                >
+                  {item?.title}
+                </CustomLink>
+              ))}
+          </>
+        )}
+      </div>
     </div>
   );
 }
