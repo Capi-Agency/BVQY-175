@@ -15,6 +15,8 @@ import React, {
   useState,
 } from 'react';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
+import { handleScrollTo } from '@/src/utils/gsap';
 
 type Props = {
   data: any;
@@ -24,16 +26,15 @@ type Props = {
 const DoctorList = ({ data, departmentGroups = [] }: Props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { conditions } = useGsapMatchMedia();
 
   // Đọc query params
   const searchText = searchParams.get('q') || '';
   const selectedLetter = searchParams.get('letter') || '';
   const departmentSlug = searchParams.get('department') || '';
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
-  const searchMethod = searchParams.get('method') as
-    | 'by_name'
-    | 'by_department'
-    | null;
+  const searchByName = searchParams.get('searchByName') === 'true';
+  const searchByDepartment = searchParams.get('searchByDepartment') === 'true';
 
   // UI state
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -110,10 +111,17 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
     router.push(window.location.pathname);
   };
 
-  const setSearchMethod = (method: 'by_name' | 'by_department' | null) => {
+  const toggleSearchByName = () => {
     updateQueryParams({
-      method,
+      searchByName: searchByName ? null : 'true',
       letter: null,
+      page: '1',
+    });
+  };
+
+  const toggleSearchByDepartment = () => {
+    updateQueryParams({
+      searchByDepartment: searchByDepartment ? null : 'true',
       department: null,
       page: '1',
     });
@@ -143,9 +151,6 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
     e.preventDefault();
     updateQueryParams({
       q: inputValue.toUpperCase(),
-      method: null,
-      letter: null,
-      department: null,
       page: '1',
     });
   };
@@ -180,14 +185,9 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
         limit: 6,
         page: currentPage,
         keyword: searchText || undefined,
-        letter:
-          searchMethod === 'by_name' && selectedLetter
-            ? selectedLetter
-            : undefined,
+        letter: searchByName && selectedLetter ? selectedLetter : undefined,
         departmentId:
-          searchMethod === 'by_department' && departmentSlug
-            ? departmentSlug
-            : undefined,
+          searchByDepartment && departmentSlug ? departmentSlug : undefined,
       });
       setDoctors(res || []);
     } catch (err) {
@@ -198,20 +198,22 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
       setLoading(false);
       ScrollTrigger.refresh();
     }
-  }, [selectedLetter, departmentSlug, searchMethod, searchText, currentPage]);
+  }, [
+    selectedLetter,
+    departmentSlug,
+    searchByName,
+    searchByDepartment,
+    searchText,
+    currentPage,
+  ]);
 
   const fetchDoctorCount = useCallback(async () => {
     try {
       const res = await getDoctorsCount({
         keyword: searchText || undefined,
-        letter:
-          searchMethod === 'by_name' && selectedLetter
-            ? selectedLetter
-            : undefined,
+        letter: searchByName && selectedLetter ? selectedLetter : undefined,
         departmentId:
-          searchMethod === 'by_department' && departmentSlug
-            ? departmentSlug
-            : undefined,
+          searchByDepartment && departmentSlug ? departmentSlug : undefined,
       });
       setTotalItem(res);
       setTotalPage(Math.ceil(res / 6));
@@ -221,7 +223,13 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
       setTotalPage(1);
       ScrollTrigger.refresh();
     }
-  }, [selectedLetter, departmentSlug, searchMethod, searchText]);
+  }, [
+    selectedLetter,
+    departmentSlug,
+    searchByName,
+    searchByDepartment,
+    searchText,
+  ]);
 
   useEffect(() => {
     fetchDoctorCount();
@@ -291,11 +299,9 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
           <div
             className={clsx(
               'relative flex h-[100px] w-full cursor-pointer flex-col justify-center px-5 py-4 shadow-lg md:h-[120px] md:flex-1 lg:h-[140px] xl:h-[160px]',
-              searchMethod === 'by_name'
-                ? 'bg-primary-600 *:!text-gray-50'
-                : 'bg-white',
+              searchByName ? 'bg-primary-600 *:!text-gray-50' : 'bg-white',
             )}
-            onClick={() => setSearchMethod('by_name')}
+            onClick={toggleSearchByName}
           >
             <div className="mb-2 flex items-center gap-2.5 text-lg font-semibold text-gray-500 lg:text-xl">
               <div className="flex items-center justify-center rounded-[6px] bg-primary-50 p-2">
@@ -315,7 +321,7 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
               alt="bg"
               className={clsx(
                 'absolute right-[20%] top-1/2 -translate-y-1/2',
-                searchMethod === 'by_name' ? 'block' : 'hidden',
+                searchByName ? 'block' : 'hidden',
               )}
             />
           </div>
@@ -324,11 +330,11 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
           <div
             className={clsx(
               'relative flex h-[100px] w-full cursor-pointer flex-col justify-center px-5 py-4 shadow-lg md:h-[120px] md:flex-1 lg:h-[140px] xl:h-[160px]',
-              searchMethod === 'by_department'
+              searchByDepartment
                 ? 'bg-primary-600 *:!text-gray-50'
                 : 'bg-white',
             )}
-            onClick={() => setSearchMethod('by_department')}
+            onClick={toggleSearchByDepartment}
           >
             <div className="mb-2 flex items-center gap-2.5 text-lg font-semibold text-gray-500 lg:text-xl">
               <div className="flex items-center justify-center rounded-[6px] bg-primary-50 p-2">
@@ -348,7 +354,7 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
               alt="bg"
               className={clsx(
                 'absolute right-[20%] top-1/2 -translate-y-1/2',
-                searchMethod === 'by_department' ? 'block' : 'hidden',
+                searchByDepartment ? 'block' : 'hidden',
               )}
             />
           </div>
@@ -356,7 +362,7 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
 
         <div className="bg-white p-6 lg:p-10">
           {/* Bàn phím */}
-          {searchMethod === 'by_name' && (
+          {searchByName && (
             <div className="space-y-6 py-6">
               <h3 className="text-center text-base font-semibold text-black xl:text-lg 2xl:text-xl">
                 Tìm kiếm bác sĩ theo tên
@@ -381,7 +387,7 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
           )}
 
           {/* Dropdown chuyen khoa */}
-          {searchMethod === 'by_department' && (
+          {searchByDepartment && (
             <div className="space-y-6 py-6">
               <h3 className="text-center text-base font-semibold text-black xl:text-lg 2xl:text-xl">
                 Tìm kiếm bác sĩ theo chuyên khoa
@@ -525,25 +531,39 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
           )}
 
           {/* Hiển thị kết quả */}
-          <div className="mb-3 flex flex-col gap-3 md:flex-row md:items-center">
+          <div
+            className="mb-3 flex flex-col gap-3 md:flex-row md:items-center"
+            id="search_results"
+          >
             <div className="gap-1.5 text-base font-medium text-gray-700">
               <span className="text-xl font-semibold text-primary-600">
                 {totalItem}{' '}
               </span>
               kết quả phù hợp
-              {(searchText || selectedLetter) && (
-                <span>
+              {(searchText || selectedLetter || selectedDepartment) && (
+                <span> với tìm kiếm:</span>
+              )}
+              {searchText && (
+                <span className="font-semibold text-primary-600">
                   {' '}
-                  với tìm kiếm{' '}
-                  <span className="font-semibold text-primary-600">
-                    {' '}
-                    "{searchText || selectedLetter}"
-                  </span>
+                  &quot;{searchText}&quot;
+                </span>
+              )}
+              {selectedLetter && (
+                <span className="font-semibold text-primary-600">
+                  {' '}
+                  chữ cái &quot;{selectedLetter}&quot;
+                </span>
+              )}
+              {selectedDepartment && (
+                <span className="font-semibold text-primary-600">
+                  {' '}
+                  khoa &quot;{selectedDepartment.title}&quot;
                 </span>
               )}
             </div>
 
-            {(!!searchText || !!searchMethod) && (
+            {(!!searchText || !!searchByName || !!searchByDepartment) && (
               <>
                 <div className="hidden h-4 w-[1px] bg-gray-300 md:block"></div>
 
@@ -558,28 +578,49 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
             )}
           </div>
 
-          {/* Danh sách */}
-          {doctors && doctors.length > 0 ? (
-            <div className="grid grid-cols-1 gap-6 lg:gap-10 xl:grid-cols-2">
-              {doctors.map((doctor: any, index: number) => (
-                <DoctorCard key={index} doctor={doctor} />
-              ))}
-            </div>
-          ) : (
-            <div className="flex h-[300px] items-center justify-center text-center">
-              <div>
-                <p className="text-xl text-black">Không tìm thấy kết quả</p>
-                <p className="text-base text-[#6C6C71]">
-                  Không có bác sĩ phù hợp với tìm kiếm của bạn. Vui lòng thử lại
-                </p>
+          {/* Danh sách với loading overlay */}
+          <div className="relative">
+            {/* Loading Overlay */}
+            {loading && (
+              <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80 backdrop-blur-sm">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="size-12 animate-spin rounded-full border-4 border-primary-200 border-t-primary-600"></div>
+                  <p className="text-lg font-medium text-gray-700">
+                    Đang tải...
+                  </p>
+                </div>
               </div>
-            </div>
-          )}
+            )}
+
+            {/* Danh sách */}
+            {doctors && doctors.length > 0 ? (
+              <div className="grid grid-cols-1 gap-6 lg:gap-10 xl:grid-cols-2">
+                {doctors.map((doctor: any, index: number) => (
+                  <DoctorCard key={index} doctor={doctor} />
+                ))}
+              </div>
+            ) : (
+              !loading && (
+                <div className="flex h-[300px] items-center justify-center text-center">
+                  <div>
+                    <p className="text-xl text-black">Không tìm thấy kết quả</p>
+                    <p className="text-base text-[#6C6C71]">
+                      Không có bác sĩ phù hợp với tìm kiếm của bạn. Vui lòng thử
+                      lại
+                    </p>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
 
           <ThePagination
             currentPage={currentPage}
             totalPage={totalPage}
-            setPage={setPage}
+            setPage={(page: number) => {
+              setPage(page);
+              handleScrollTo('search_results', conditions);
+            }}
           />
         </div>
       </div>
