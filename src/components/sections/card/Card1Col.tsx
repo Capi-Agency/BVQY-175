@@ -25,7 +25,7 @@ import Card1ColDetail from './Card1ColDetail';
 import PaginationPrimary from '../pagination/PaginationPrimary';
 
 export default function Card1Col({ data }: CommonSection) {
-  const {trans} = useTranslation();
+  const { trans } = useTranslation();
   const searchParams = useSearchParams();
 
   const [milestoneData, setMilestoneData] = useState<any>([]);
@@ -146,11 +146,11 @@ export default function Card1Col({ data }: CommonSection) {
                         className="group w-full pb-0"
                       >
                         <AccordionTrigger className="w-full text-start">
-                          <div className="line-clamp-3 relative h-[84px] md:h-auto text-xl font-semibold uppercase text-primary-600 lg:text-2xl 2xl:text-[28px] 2xl:!leading-[1.5] 3xl:text-[30px] 4xl:text-[32px]">
+                          <div className="relative line-clamp-3 h-[84px] text-lg font-semibold uppercase text-primary-600 md:h-auto md:!leading-normal lg:text-xl 2xl:text-2xl 3xl:text-[28px]">
                             {item?.title}
                           </div>
                           <div
-                            className="relative line-clamp-3 [&_*]:!inline h-[60px] overflow-hidden mt-1.5 text-sm font-normal text-black lg:mt- xl:h-[72px] 2 xl:text-base 2xl:mt-3 4xl:mt-4"
+                            className="lg:mt- 2 relative mt-1.5 line-clamp-3 h-[60px] overflow-hidden text-sm font-normal text-black xl:h-[72px] xl:text-base 2xl:mt-3 4xl:mt-4 [&_*]:!inline"
                             dangerouslySetInnerHTML={{
                               __html: item?.blurb,
                             }}

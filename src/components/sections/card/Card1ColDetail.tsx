@@ -52,8 +52,8 @@ export default function Card1ColDetail({ event, data }: any) {
     <Dialog open={isOpenModal} onOpenChange={setIsOpenModal}>
       <DialogTrigger asChild>
         {
-          <div className="grid relative overflow-hidden rounded-[12px] border-[1px] border-primary-500 cursor-pointer grid-cols-1 gap-0 md:grid-cols-2 md:gap-4 lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-10">
-            <div className="relative w-full aspect-video overflow-hidden">
+          <div className="relative grid cursor-pointer grid-cols-1 gap-0 overflow-hidden rounded-[12px] border-[1px] border-primary-500 md:grid-cols-2 md:gap-4 lg:gap-4 xl:gap-6 2xl:gap-8 3xl:gap-10">
+            <div className="relative aspect-video w-full overflow-hidden">
               <NextImg
                 src={getAssetUrlById(event?.images?.[0]?.directus_files_id)}
                 alt="event cover"
@@ -62,12 +62,12 @@ export default function Card1ColDetail({ event, data }: any) {
             </div>
 
             <div className="flex flex-col items-stretch justify-center p-3 lg:p-4">
-              <div className="line-clamp-3 text-xl font-semibold uppercase text-black/90 lg:text-2xl 2xl:text-[28px] 2xl:!leading-[1.5] 3xl:text-[30px] 4xl:text-[32px]">
+              <div className="line-clamp-3 text-base font-semibold uppercase text-black/90 lg:text-lg 2xl:text-xl 2xl:!leading-[1.5] 3xl:text-2xl">
                 {trans(event?.title, event?.title_en)}
               </div>
 
               <div
-                className="line-clamp-3 relative h-[60px] overflow-hidden mt-1.5 text-sm font-normal text-black lg:mt-2 xl:h-[72px] xl:text-base 2xl:mt-3 4xl:mt-4"
+                className="relative mt-1.5 line-clamp-3 h-[60px] overflow-hidden text-sm font-normal text-black lg:mt-2 xl:h-[72px] xl:text-base 2xl:mt-3 4xl:mt-4"
                 dangerouslySetInnerHTML={{
                   __html: trans(event?.blurb, event?.blurb_en),
                 }}
