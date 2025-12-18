@@ -196,7 +196,7 @@ const DoctorList = ({ data, departmentGroups }: Props) => {
                 name="name"
                 value={searchText}
                 onChange={(e) => {
-                  setSearchText(e.target.value);
+                  setSearchText(e.target.value.toUpperCase());
                   setSearchMethod(null);
                 }}
                 onKeyDown={(e) => {
