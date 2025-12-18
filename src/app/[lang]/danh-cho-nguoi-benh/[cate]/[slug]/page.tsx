@@ -49,8 +49,8 @@ export async function generateMetadata(
       ? checkValueNull(data?.blurb_en, '')
       : checkValueNull(data?.blurb, '');
 
-  const imageUrl = data?.thumbnail?.id
-    ? `${process.env.NEXT_PUBLIC_ASSETS_URL}${data.thumbnail.id}`
+  const imageUrl = data?.thumbnail
+    ? `${process.env.NEXT_PUBLIC_ASSETS_URL}${data.thumbnail}`
     : '/assets/images/open_graph.png';
 
   return {

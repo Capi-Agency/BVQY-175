@@ -8,14 +8,9 @@ import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { fnGetDepartmentDetail } from '@/src/services/department';
 
-async function getLang() {
+async function getLangSlug(): Promise<string> {
   const cookieStore = await cookies();
   const lang: string = cookieStore.get('language')?.value ?? 'vi';
-  return lang;
-}
-
-async function getLangSlugNewsDetail(): Promise<string> {
-  const lang = await getLang();
   return lang === 'en' ? 'chi-tiet-vien-en' : 'chi-tiet-vien';
 }
 
@@ -32,23 +27,17 @@ export async function generateMetadata(
   const { slug } = await params;
   const idRegex = /^[a-zA-Z0-9-_]+$/;
   if (!slug || !idRegex.test(slug)) return notFound();
+  const langSlug = await getLangSlug();
 
-  const lang = await getLang();
   const data = await fnGetDepartmentDetail({
     collection: 'department_groups',
     slug,
   });
+  const pageContent = await fnGetPageBySlug(langSlug);
   if (!data) notFound();
 
-  const title =
-    lang === 'en'
-      ? checkValueNull(data?.title_en, '')
-      : checkValueNull(data?.title, '');
-
-  const description =
-    lang === 'en'
-      ? checkValueNull(data?.description_en, '')
-      : checkValueNull(data?.description, '');
+  const title = checkValueNull(data?.title, '');
+  const description = checkValueNull(pageContent?.seo?.meta_description, '');
 
   const imageUrl = data?.cover
     ? `${process.env.NEXT_PUBLIC_ASSETS_URL}${data?.cover}`
@@ -80,7 +69,7 @@ const DepartmentDetailPage = async ({ params }: Props) => {
     collection: 'department_groups',
     slug,
   });
-  const langSlug = await getLangSlugNewsDetail();
+  const langSlug = await getLangSlug();
   const pageContent = await fnGetPageBySlug(langSlug);
 
   const pageSchema = pageContent?.seo?.meta_schema;

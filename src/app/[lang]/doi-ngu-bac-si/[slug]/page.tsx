@@ -8,14 +8,9 @@ import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { fnGetDoctorDetail } from '@/src/services/doctors';
 
-async function getLang() {
+async function getLangSlug(): Promise<string> {
   const cookieStore = await cookies();
-  const lang: string = cookieStore.get('language')?.value ?? 'vi';
-  return lang;
-}
-
-async function getLangSlugDetail(): Promise<string> {
-  const lang = await getLang();
+  const lang = cookieStore.get('language')?.value ?? 'vi';
   return lang === 'en' ? 'chi-tiet-bac-si-en' : 'chi-tiet-bac-si';
 }
 
@@ -33,27 +28,15 @@ export async function generateMetadata(
   const idRegex = /^[a-zA-Z0-9-_]+$/;
   if (!slug || !idRegex.test(slug)) return notFound();
 
-  const lang = await getLang();
+  const langSlug = await getLangSlug();
   const data = await fnGetDoctorDetail({ collection: 'doctors', slug });
+  const pageContent = await fnGetPageBySlug(langSlug);
   if (!data) notFound();
 
   const title =
-    lang === 'en'
-      ? 'Doctor ' +
-        checkValueNull(data?.full_name_en, '') +
-        ' | Military Hospital 175'
-      : 'Bác sĩ ' +
-        checkValueNull(data?.full_name, '') +
-        ' | Bệnh viện Quân y 175';
+    'Bác sĩ ' + checkValueNull(data?.full_name, '') + ' | Bệnh viện Quân y 175';
 
-  const description =
-    lang === 'en'
-      ? checkValueNull(data?.hospital_title_en, '')
-      : checkValueNull(data?.hospital_title, '');
-
-  const imageUrl = data?.avatar
-    ? `${process.env.NEXT_PUBLIC_ASSETS_URL}${data?.avatar}`
-    : '/assets/images/open_graph.png';
+  const description = checkValueNull(data?.hospital_title, '');
 
   return {
     title,
@@ -65,7 +48,11 @@ export async function generateMetadata(
       siteName: title,
       title,
       description,
-      images: [imageUrl],
+      images: pageContent?.seo?.meta_cover?.id
+        ? [
+            `${process.env.NEXT_PUBLIC_ASSETS_URL}${pageContent?.seo?.meta_cover.id}`,
+          ]
+        : [],
       url: process.env.SITE_URL ?? '',
       type: 'website',
     },
@@ -78,7 +65,7 @@ export async function generateMetadata(
 const NewsDetailPage = async ({ params }: Props) => {
   const { slug } = await params;
   const dataDetail = await fnGetDoctorDetail({ collection: 'doctors', slug });
-  const langSlug = await getLangSlugDetail();
+  const langSlug = await getLangSlug();
   const pageContent = await fnGetPageBySlug(langSlug);
 
   const pageSchema = pageContent?.seo?.meta_schema;
