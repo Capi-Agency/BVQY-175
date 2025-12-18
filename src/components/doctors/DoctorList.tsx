@@ -111,32 +111,63 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
     router.push(window.location.pathname);
   };
 
+  // Thay đổi logic toggle để tự động tắt filter còn lại
   const toggleSearchByName = () => {
-    updateQueryParams({
-      searchByName: searchByName ? null : 'true',
-      letter: null,
-      page: '1',
-    });
+    if (!searchByName) {
+      // Khi bật search by name, tắt search by department
+      updateQueryParams({
+        searchByName: 'true',
+        searchByDepartment: null,
+        department: null,
+        letter: null,
+        page: '1',
+      });
+    } else {
+      // Khi tắt search by name
+      updateQueryParams({
+        searchByName: null,
+        letter: null,
+        page: '1',
+      });
+    }
   };
 
   const toggleSearchByDepartment = () => {
+    if (!searchByDepartment) {
+      // Khi bật search by department, tắt search by name
+      updateQueryParams({
+        searchByDepartment: 'true',
+        searchByName: null,
+        letter: null,
+        department: null,
+        page: '1',
+      });
+    } else {
+      // Khi tắt search by department
+      updateQueryParams({
+        searchByDepartment: null,
+        department: null,
+        page: '1',
+      });
+    }
+  };
+
+  // Thêm logic kiểm tra khi chọn chữ cái
+  const setSelectedLetter = (letter: string) => {
     updateQueryParams({
-      searchByDepartment: searchByDepartment ? null : 'true',
+      letter,
+      searchByDepartment: null,
       department: null,
       page: '1',
     });
   };
 
-  const setSelectedLetter = (letter: string) => {
-    updateQueryParams({
-      letter,
-      page: '1',
-    });
-  };
-
+  // Thêm logic kiểm tra khi chọn chuyên khoa
   const setSelectedDepartmentBySlug = (slug: string) => {
     updateQueryParams({
       department: slug,
+      searchByName: null,
+      letter: null,
       page: '1',
     });
   };
