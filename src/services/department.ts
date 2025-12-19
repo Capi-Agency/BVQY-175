@@ -80,14 +80,28 @@ export const fnGetDepartmentDetail = async ({
           doctors: {
             _filter: {
               doctor: {
-                department_title: {
-                  _in: [
-                    'head_of_department',
-                    'deputy_head_of_department',
-                    'acting_head_of_department',
-                    'acting_deputy_head_of_department',
-                  ],
-                },
+                _or: [
+                  {
+                    department_title: {
+                      _in: [
+                        'head_of_department',
+                        'deputy_head_of_department',
+                        'acting_head_of_department',
+                        'acting_deputy_head_of_department',
+                      ],
+                    },
+                  },
+                  {
+                    institute_title: {
+                      _in: [
+                        'director',
+                        'deputy_director',
+                        'center_director',
+                        'deputy_center_director',
+                      ],
+                    },
+                  },
+                ],
               },
             },
             sort: ['sort'],

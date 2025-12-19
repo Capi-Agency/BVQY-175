@@ -59,7 +59,7 @@ export default function DialogVideo({
             className="relative aspect-video w-[90%] rounded-[2px] border-[2px] border-primary-600 bg-black md:w-[80%] 2lg:w-[70%]"
           >
             <iframe
-              title="Film tập đoàn Tân Hoàng Minh"
+              title="Youtube embeded videoT"
               className="!m-0 h-full w-full object-cover !p-0"
               style={{ display: 'block', border: 'none' }}
               src={`https://www.youtube.com/embed/${videoUrl}?autoplay=1&modestbranding=1&rel=0`}
