@@ -78,6 +78,18 @@ export const fnGetDepartmentDetail = async ({
         ],
         deep: {
           doctors: {
+            _filter: {
+              doctor: {
+                department_title: {
+                  _in: [
+                    'head_of_department',
+                    'deputy_head_of_department',
+                    'acting_head_of_department',
+                    'acting_deputy_head_of_department',
+                  ],
+                },
+              },
+            },
             sort: ['sort'],
           },
         },
