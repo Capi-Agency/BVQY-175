@@ -8,35 +8,6 @@ export const routing = defineRouting({
   localeCookie: true,
   alternateLinks: true,
   localeDetection: true,
-  pathnames: {
-    '/chuyen-khoa': {
-      en: '/departments'
-    },
-    '/chuyen-khoa/[slug]': {
-      en: '/departments/[slug]'
-    },
-    '/danh-cho-nguoi-benh': {
-      en: '/for-patients'
-    },
-    '/doi-ngu-bac-si': {
-      en: '/doctors'
-    },
-    "/don-vi-truc-thuoc": {
-      en: '/dependent-units'
-    },
-    "/khoi-co-quan-hanh-chinh": {
-      en: '/administration-departments'
-    },
-    '/tin-hoat-dong': {
-      en: '/activity-posts'
-    },
-    '/tin-tuc': {
-      en: '/posts'
-    },
-    '/vien': {
-      en: '/institutes'
-    },
-  }
 });
 
 // chỉ dùng cho trang home

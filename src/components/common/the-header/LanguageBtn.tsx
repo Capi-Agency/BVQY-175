@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import NextImg from '../next-img';
 import { cn } from '@/src/lib/utils';
 import { useLocale } from 'next-intl';
-import { usePathname, useRouter } from '@/src/i18n/navigation';
+import { useRouter } from '@/src/i18n/navigation';
 import { routing } from '@/src/i18n/routing';
 
 type LanguageBtnProps = {
@@ -18,11 +18,9 @@ export default function LanguageBtn({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const locale = useLocale();
   const router = useRouter();
-  const pathname = usePathname();
 
   const switchLocale = (newLocale: string) => {
-    router.replace(pathname, { locale: newLocale });
-    router.refresh();
+    router.push('/', { locale: newLocale })
   };
 
   return (

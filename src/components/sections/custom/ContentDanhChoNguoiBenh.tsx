@@ -77,8 +77,7 @@ export default function ContentCongDichVuCong({ data }: CommonSection) {
           {data?.items?.length > 0 && (
             <Accordion.Root
               className="w-full space-y-6 xl:space-y-8"
-              type="single"
-              collapsible
+              type="multiple"
             >
               {data?.items?.map((item: any, index: number) => (
                 <AccordionItem
