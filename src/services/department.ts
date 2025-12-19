@@ -98,6 +98,8 @@ export const fnGetDepartmentDetail = async ({
                         'deputy_director',
                         'center_director',
                         'deputy_center_director',
+                        'head_of_institute',
+                        'deputy_head_of_institute',
                       ],
                     },
                   },

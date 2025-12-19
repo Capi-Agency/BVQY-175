@@ -39,6 +39,8 @@ const instituteTitleMap: Record<string, string> = {
   deputy_director: 'Phó giám đốc Viện',
   center_director: 'Giám đốc Trung tâm',
   deputy_center_director: 'Phó giám đốc Trung tâm',
+  head_of_institute: "Viện trưởng",
+  deputy_head_of_institute: "Phó viện trưởng"
 };
 
 const departmentTitleMap: Record<string, string> = {

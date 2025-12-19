@@ -20,7 +20,6 @@ export const fnGetMetadata = async (locale: Locale) => {
         // },
       }),
     );
-    console.log('🚀 ~ fnGetMetadata ~ res:', res);
 
     return res;
   } catch (error) {

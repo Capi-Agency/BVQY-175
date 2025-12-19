@@ -91,7 +91,7 @@ export default function Card1Col({ data }: CommonSection) {
         <>
           {milestoneData?.length > 0 && (
             <Accordion.Root
-              className="w-full space-y-12 md:space-y-12 lg:space-y-14 2xl:space-y-16 3xl:space-y-[72px] 4xl:space-y-[80px]"
+              className="2xl:pl-10 4xl:pl-0 w-full space-y-12 md:space-y-12 lg:space-y-14 2xl:space-y-16 3xl:space-y-[72px] 4xl:space-y-[80px]"
               type="multiple"
             >
               <TooltipProvider delayDuration={100}>
@@ -107,7 +107,7 @@ export default function Card1Col({ data }: CommonSection) {
                           <div className="relative z-[2] size-5 rounded-full border-[6px] border-primary-400 bg-primary-50 lg:size-6 xl:size-7 3xl:size-8"></div>
                         </TooltipTrigger>
 
-                        <div className="xl:hidden">
+                        <div className="2xl:hidden">
                           <TooltipContent
                             side="top"
                             align="start"
@@ -115,21 +115,21 @@ export default function Card1Col({ data }: CommonSection) {
                             alignOffset={-6}
                             avoidCollisions={false}
                             asChild={false}
-                            className="rounded-lg bg-primary-600 p-[6px_18px] text-sm font-semibold text-white lg:text-base xl:p-[8px_20px] 2xl:text-lg 3xl:p-[8px_24px]"
+                            className="rounded-lg bg-primary-600 p-[6px_10px] text-sm font-semibold text-white lg:text-base lg:p-[6px_12px]"
                           >
                             {item?.year}
                             <TooltipArrow className="fill-primary-600" />
                           </TooltipContent>
                         </div>
 
-                        <div className="hidden xl:block">
+                        <div className="hidden 2xl:block">
                           <TooltipContent
                             side="left"
                             align="center"
                             sideOffset={8}
                             avoidCollisions={false}
                             asChild={false}
-                            className="rounded-lg bg-primary-600 p-[6px_18px] text-sm font-semibold text-white lg:text-base xl:p-[8px_18px] 2xl:p-[8px_20px] 2xl:text-lg 3xl:p-[8px_24px]"
+                            className="rounded-lg bg-primary-600 text-sm font-semibold text-white lg:text-base 2xl:p-[6px_14px] 2xl:text-lg 3xl:p-[8px_16px]"
                           >
                             {item?.year}
                             <TooltipArrow className="fill-primary-600" />
@@ -153,7 +153,7 @@ export default function Card1Col({ data }: CommonSection) {
                             {item?.title}
                           </div>
                           <div
-                            className="lg:mt- 2 relative mt-1.5 line-clamp-3 h-[60px] overflow-hidden text-sm font-normal text-black xl:h-[72px] xl:text-base 2xl:mt-3 4xl:mt-4 [&_*]:!inline"
+                            className="lg:mt-2 relative mt-1.5 line-clamp-3 h-[60px] overflow-hidden text-sm font-normal text-black xl:h-[72px] xl:text-base 2xl:mt-3 4xl:mt-4 [&_*]:!inline"
                             dangerouslySetInnerHTML={{
                               __html: item?.blurb,
                             }}

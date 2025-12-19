@@ -33,7 +33,7 @@ export default function HeroWithBottomBigImage({
                 {data?.title}
               </div>
 
-              <div className="text-base font-semibold text-[#09090B] md:text-lg lg:text-xl xl:text-2xl 2xl:text-[26px] 2xl:!leading-[1.3] 3xl:text-[28px]">
+              <div className="text-base font-semibold text-[#09090B] md:text-lg xl:text-xl 2xl:text-[22px] 2xl:!leading-[1.3] 3xl:text-2xl">
                 {dataDetail?.date_established
                   ? formatDate(dataDetail?.date_established)
                   : 'Đang cập nhật'}
@@ -45,7 +45,7 @@ export default function HeroWithBottomBigImage({
                 {data?.subtitle}
               </div>
               <div
-                className="text-base font-semibold text-[#09090B] md:text-lg lg:text-xl xl:text-2xl 2xl:text-[26px] 2xl:!leading-[1.3] 3xl:text-[28px]"
+                className="text-base font-semibold text-[#09090B] md:text-lg xl:text-xl 2xl:text-[22px] 2xl:!leading-[1.3] 3xl:text-2xl"
                 dangerouslySetInnerHTML={{
                   __html: dataDetail?.organizational_structure,
                 }}

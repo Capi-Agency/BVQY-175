@@ -9,6 +9,8 @@ const instituteMap: Record<string, string> = {
   deputy_director: 'Phó giám đốc',
   center_director: 'Giám đốc',
   deputy_center_director: 'Phó giám đốc',
+  head_of_institute: 'Viện trưởng',
+  deputy_head_of_institute: 'Phó viện trưởng',
 };
 
 const departmentMap: Record<string, string> = {

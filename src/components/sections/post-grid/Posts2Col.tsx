@@ -53,7 +53,7 @@ const Posts2Col = ({ data }: CommonSection) => {
             {items?.length > 0 &&
               items?.map((item: any, index: number) => (
                 <SwiperSlide key={'post_' + index}>
-                  <div className="group relative block cursor-pointer space-y-4 bg-primary-50 p-3 text-start transition-all duration-200 hover:bg-primary-600 xl:p-4">
+                  <div className="group relative block space-y-4 bg-primary-50 p-3 text-start transition-all duration-200 hover:bg-primary-600 xl:p-4">
                     {/* cover */}
                     <div className="relative aspect-video">
                       <NextImg
