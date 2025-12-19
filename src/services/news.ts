@@ -68,9 +68,7 @@ export const getListNews = async ({
         fields: [
           'slug',
           'title',
-          'title_en',
           'blurb',
-          'blurb_en',
           'thumbnail',
           'date_published',
           'categories.category.title',

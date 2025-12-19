@@ -37,12 +37,12 @@ export default function NewsCard({ item, url, cateUrl, type = "default" }: NewsC
       </div>
       <div className="space-y-1">
         <div className="line-clamp-2 h-[58px] text-lg font-semibold !leading-[1.6] text-primary-1000 duration-200 group-hover:text-primary-50 xl:h-[64px] xl:text-xl 3xl:h-[71px] 3xl:text-[22px] 4xl:h-[77px] 4xl:text-2xl">
-          {trans(item?.title, item?.title_en)}
+          {item?.title}
         </div>
         <div
           className="line-clamp-3 h-[60px] text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
           dangerouslySetInnerHTML={{
-            __html: trans(item?.blurb, item?.blurb_en),
+            __html: item?.blurb,
           }}
         ></div>
       </div>
@@ -82,12 +82,12 @@ export default function NewsCard({ item, url, cateUrl, type = "default" }: NewsC
       aria-label="Xem chi tiết tin tức"
       className="space-y-1 block">
       <div className="line-clamp-2 underline underline-offset-2 text-base font-semibold !leading-[1.6] text-primary-1000 duration-200 group-hover:text-primary-50 md:text-lg xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
-        {trans(item?.title, item?.title_en)}
+        {item?.title}
       </div>
       <div
         className="line-clamp-2 text-sm xl:text-base font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
         dangerouslySetInnerHTML={{
-          __html: trans(item?.blurb, item?.blurb_en),
+          __html: item?.blurb,
         }}
       ></div>
     </CustomLink>

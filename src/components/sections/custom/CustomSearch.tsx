@@ -43,7 +43,7 @@ export default function CustomSearch({ data }: CommonSection) {
       Array.from(params.keys()).forEach((k) => {
         if (k.startsWith('page-')) params.delete(k);
       });
-      router.push(`?${params.toString()}`, { scroll: false });
+      router.push(`?${params.toString()}`, { scroll: true });
     },
     [router, searchParams],
   );

@@ -71,13 +71,13 @@ export default function HotNewsHero({ data }: CommonSection) {
 
                   <div className="flex flex-col items-stretch justify-center">
                     <div className="line-clamp-3 text-xl font-semibold uppercase text-primary-600 lg:text-2xl 2xl:text-[28px] 2xl:!leading-[1.5] 3xl:text-[30px] 4xl:text-[32px]">
-                      {trans(news?.title, news?.title_en)}
+                      {news?.title}
                     </div>
 
                     <div
                       className="line-clamp-3 pt-1.5 text-sm font-normal text-black lg:pt-2 xl:text-base 2xl:pt-3 4xl:pt-4"
                       dangerouslySetInnerHTML={{
-                        __html: trans(news?.blurb, news?.blurb_en),
+                        __html: news?.blurb,
                       }}
                     ></div>
 
