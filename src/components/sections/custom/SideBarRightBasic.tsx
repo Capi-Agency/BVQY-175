@@ -5,35 +5,35 @@ import { CommonSection } from '@/src/types/pageBuilder';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
 import CustomLink from '../../common/custom-link';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
-import { getPositionFixed } from '@/src/utils/gsap';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
+// import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
+// import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+// import { getPositionFixed } from '@/src/utils/gsap';
+// import { useGSAP } from '@gsap/react';
+// import gsap from 'gsap';
 
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+// gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function SideBarRightBasic({ data }: CommonSection) {
   const [cateData, setCateData] = useState<any>([]);
   const language = useStoreLanguage((state: any) => state.language);
   const sidebarRef = useRef<HTMLDivElement>(null!);
   const [hasSidebarContainer, setHasSidebarContainer] = useState(false);
-  const containerRef = useRef<any>(null);
-  const { conditions } = useGsapMatchMedia();
+  // const containerRef = useRef<any>(null);
+  // const { conditions } = useGsapMatchMedia();
 
-  // useEffect(() => {
-  //   if (!data.collections) return;
-  //   (async () => {
-  //     try {
-  //       const response = await fnGetListitem({ collection: data?.collections, limit: data?.collection_items_limit });
-  //       setCateData(response);
-  //     } catch (error) {
-  //       console.log('Error fetching data' + error);
-  //     } finally {
-  //       ScrollTrigger.refresh();
-  //     }
-  //   })();
-  // }, []);
+  useEffect(() => {
+    if (!data.collections) return;
+    (async () => {
+      try {
+        const response = await fnGetListitem({ collection: data?.collections, limit: data?.collection_items_limit });
+        setCateData(response);
+      } catch (error) {
+        console.log('Error fetching data' + error);
+      } finally {
+        // ScrollTrigger.refresh();
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     if (!cateData) return;

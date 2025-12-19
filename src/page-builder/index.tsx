@@ -6,7 +6,7 @@ import {
   PageContent,
   SectionMap,
 } from '@/src/types/pageBuilder';
-import { EmptySection } from '../components/sections/custom';
+import { EmptySection, LoadingComp } from '../components/sections/custom';
 import { Suspense } from 'react';
 
 const sectionMap: SectionMap = {
@@ -257,7 +257,7 @@ const PageBuilder = ({ pageContent, pageDetail }: PageBuilderProps) => {
           if (!SectionComp) return null;
 
           return (
-            <Suspense key={'section_' + index} fallback={<>Loading...</>}>
+            <Suspense key={'section_' + index} fallback={<LoadingComp />}>
               <SectionComp
                 data={section}
                 {...(pageDetail ? { dataDetail: pageDetail } : {})}

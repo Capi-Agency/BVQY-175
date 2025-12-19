@@ -6,3 +6,4 @@ export { default as FancyboxViewer } from './FancyboxViewer';
 export { default as CustomSearch } from './CustomSearch';
 export { default as SearchListContent } from './SearchListContent';
 export { default as EmbeddedMap } from './EmbeddedMap';
+export { default as LoadingComp } from './LoadingComp';

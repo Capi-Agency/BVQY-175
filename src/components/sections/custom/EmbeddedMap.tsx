@@ -36,7 +36,7 @@ export default function EmbeddedMap({ data }: CommonSection) {
       ></div>
 
       <p className="section-title mt-20 text-center">{data?.subtitle}</p>
-      <Link
+      <CustomLink
         href={buttonViewMap360?.url}
         className="relative block aspect-video"
       >
@@ -44,7 +44,7 @@ export default function EmbeddedMap({ data }: CommonSection) {
           src={getAssetUrlById(buttonViewMap360?.icon?.id)}
           alt="map-360"
         />
-      </Link>
+      </CustomLink>
     </div>
   );
 }
