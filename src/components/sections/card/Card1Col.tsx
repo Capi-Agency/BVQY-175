@@ -23,10 +23,13 @@ import useTranslation from '@/src/hooks/use-translation';
 import NextImg from '../../common/next-img';
 import Card1ColDetail from './Card1ColDetail';
 import PaginationPrimary from '../pagination/PaginationPrimary';
+import { handleScrollTo } from '@/src/utils/gsap';
+import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 
 export default function Card1Col({ data }: CommonSection) {
   const { trans } = useTranslation();
   const searchParams = useSearchParams();
+  const { conditions } = useGsapMatchMedia();
 
   const [milestoneData, setMilestoneData] = useState<any>([]);
   const [length, setLength] = useState<number>(0);
@@ -89,12 +92,12 @@ export default function Card1Col({ data }: CommonSection) {
           {milestoneData?.length > 0 && (
             <Accordion.Root
               className="w-full space-y-12 md:space-y-12 lg:space-y-14 2xl:space-y-16 3xl:space-y-[72px] 4xl:space-y-[80px]"
-              type="single"
-              collapsible
+              type="multiple"
             >
               <TooltipProvider delayDuration={100}>
                 {milestoneData?.map((item: any, index: number) => (
                   <div
+                    id={`milestone-${item?.id}`}
                     key={index}
                     className="flex items-stretch gap-4 md:gap-6 lg:gap-10 xl:gap-12 2xl:gap-14 3xl:gap-16 4xl:gap-[80px]"
                   >
@@ -173,7 +176,9 @@ export default function Card1Col({ data }: CommonSection) {
 
                         <div className="flex justify-center pt-3 md:pt-4 xl:pt-5 2xl:pt-6">
                           <AccordionTrigger>
-                            <div className="flex items-center gap-1 text-sm font-medium text-black md:text-base xl:gap-[6px] xl:text-lg 3xl:text-xl">
+                            <div
+                              onClick={() => handleScrollTo(`milestone-${item?.id}`, conditions)}
+                              className="flex items-center gap-1 text-sm font-medium text-black md:text-base xl:gap-[6px] xl:text-lg 3xl:text-xl">
                               <span className="group-data-[state=open]:hidden">
                                 {trans('expand')}
                               </span>

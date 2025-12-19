@@ -37,7 +37,7 @@ export default async function RootLayout({
 
   setRequestLocale(locale);
 
-  const metadata = await fnGetMetadata();
+  const metadata = await fnGetMetadata(locale);
   const messages = await getMessages({ locale });
 
   return (
@@ -93,9 +93,9 @@ export default async function RootLayout({
           className={'z-[99999] text-sm'}
         />
         <ReCaptchatProvider>
-          <NextIntlClientProvider messages={messages}>
-            <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-              <MetadataProvider value={metadata}>
+          <MetadataProvider value={metadata}>
+            <NextIntlClientProvider messages={messages}>
+              <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
                 <GsapMatchMediaProvider>
                   <ScrollSmootherProvider>
                     <Suspense fallback={<></>}>
@@ -108,9 +108,9 @@ export default async function RootLayout({
                     {/* </ScrollSmoothWrapper> */}
                   </ScrollSmootherProvider>
                 </GsapMatchMediaProvider>
-              </MetadataProvider>
-            </ThemeProvider>
-          </NextIntlClientProvider>
+              </ThemeProvider>
+            </NextIntlClientProvider>
+          </MetadataProvider>
         </ReCaptchatProvider>
       </body>
     </html>

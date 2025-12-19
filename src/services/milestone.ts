@@ -38,7 +38,7 @@ export const getListMilestone = async ({
         page,
         limit,
         filter,
-        fields: ['title', 'blurb', 'year', 'events.*.*'],
+        fields: ['id', 'title', 'blurb', 'year', 'events.*.*'],
         sort: 'sort',
       }),
     );

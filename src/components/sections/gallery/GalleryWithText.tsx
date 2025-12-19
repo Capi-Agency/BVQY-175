@@ -8,6 +8,7 @@ import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
+import Fancybox from '../../common/Fancybox';
 
 export default function GalleryWithText({ data }: CommonSection) {
   const [currentTab, setCurrentTab] = useState<number>(0);
@@ -93,17 +94,32 @@ export default function GalleryWithText({ data }: CommonSection) {
                 ></div>
 
                 {item?.cover?.length > 0 && (
-                  <div className="grid grid-cols-2 gap-3 pt-1 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-4">
-                    {item?.cover?.map((itemCover: any, coverIndex: number) => (
-                      <div key={coverIndex} className="relative aspect-square">
-                        <NextImg
-                          src={getAssetUrlById(itemCover?.id)}
-                          alt="Cơ sở vật chất image"
-                          objectFit="cover"
-                        />
-                      </div>
-                    ))}
-                  </div>
+                  <Fancybox
+                    options={{
+                      Carousel: {
+                        infinite: true,
+                      },
+                      Images: {
+                        zoom: true,
+                      },
+                    }}
+                  >
+                    <div className="grid grid-cols-2 gap-3 pt-1 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-4">
+                      {item?.cover?.map((itemCover: any, coverIndex: number) => (
+                        <Link
+                          key={coverIndex}
+                          href={getAssetUrlById(itemCover?.id)}
+                          data-fancybox="gallery"
+                          className="relative aspect-square block">
+                          <NextImg
+                            src={getAssetUrlById(itemCover?.id)}
+                            alt="Cơ sở vật chất image"
+                            objectFit="cover"
+                          />
+                        </Link>
+                      ))}
+                    </div>
+                  </Fancybox>
                 )}
 
                 {data?.buttons?.[0]?.url && (
