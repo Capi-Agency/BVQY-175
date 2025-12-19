@@ -185,6 +185,10 @@ export default function Card1ColDetail({ event, data }: any) {
                 )}
               </div>
 
+              <div className="text-base font-semibold uppercase text-black/90 2xl:text-lg 3xl:text-xl">
+                {event?.title}
+              </div>
+
               <div className="h-[1px] bg-[#E8E8E8]"></div>
               <div
                 className="space-y-2 text-sm font-medium text-[#6C6C71]"

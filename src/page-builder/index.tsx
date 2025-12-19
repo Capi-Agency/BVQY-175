@@ -7,6 +7,7 @@ import {
   SectionMap,
 } from '@/src/types/pageBuilder';
 import { EmptySection } from '../components/sections/custom';
+import { Suspense } from 'react';
 
 const sectionMap: SectionMap = {
   // Home
@@ -238,10 +239,7 @@ type PageBuilderProps = {
   pageDetail?: any;
 };
 
-const PageBuilder = ({
-  pageContent,
-  pageDetail,
-}: PageBuilderProps) => {
+const PageBuilder = ({ pageContent, pageDetail }: PageBuilderProps) => {
   if (
     !pageContent ||
     !pageContent?.sections ||
@@ -259,11 +257,12 @@ const PageBuilder = ({
           if (!SectionComp) return null;
 
           return (
-            <SectionComp
-              key={'section_' + index}
-              data={section}
-              {...(pageDetail ? { dataDetail: pageDetail } : {})}
-            />
+            <Suspense key={'section_' + index} fallback={<>Loading...</>}>
+              <SectionComp
+                data={section}
+                {...(pageDetail ? { dataDetail: pageDetail } : {})}
+              />
+            </Suspense>
           );
         })}
       </div>
