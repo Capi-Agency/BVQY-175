@@ -25,7 +25,10 @@ export default function SideBarRightBasic({ data }: CommonSection) {
     if (!data.collections) return;
     (async () => {
       try {
-        const response = await fnGetListitem({ collection: data?.collections, limit: data?.collection_items_limit });
+        const response = await fnGetListitem({
+          collection: data?.collections,
+          limit: data?.collection_items_limit,
+        });
         setCateData(response);
       } catch (error) {
         console.log('Error fetching data' + error);
@@ -36,14 +39,30 @@ export default function SideBarRightBasic({ data }: CommonSection) {
   }, []);
 
   useEffect(() => {
-    if (!cateData) return;
+    if (typeof window === 'undefined') return;
+
     const sidebarContainer = document.querySelector('.sidebar-container');
-    if (sidebarContainer) {
-      sidebarContainer?.appendChild?.(sidebarRef.current);
-      setHasSidebarContainer(true);
+    const sidebarEl = sidebarRef.current;
+
+    if (!sidebarEl) return;
+
+    if (sidebarContainer && !sidebarContainer.contains(sidebarEl)) {
+      try {
+        sidebarContainer.appendChild(sidebarEl);
+        setHasSidebarContainer(true);
+      } catch (err) {
+        console.error('Sidebar append error:', err);
+        setHasSidebarContainer(false);
+      }
     } else {
-      setHasSidebarContainer(false);
+      setHasSidebarContainer(!!sidebarContainer);
     }
+
+    return () => {
+      if (sidebarContainer && sidebarContainer.contains(sidebarEl)) {
+        sidebarContainer.removeChild(sidebarEl);
+      }
+    };
   }, [cateData]);
 
   // useGSAP(
@@ -89,7 +108,7 @@ export default function SideBarRightBasic({ data }: CommonSection) {
     <div
       ref={sidebarRef}
       className="h-fit w-full md:sticky md:top-[100px] lg:top-[120px] xl:top-[170px] 2xl:top-[190px] 3xl:top-[200px] 4xl:top-[220px]"
-    // className="h-fit w-full"
+      // className="h-fit w-full"
     >
       {/*  Tags  */}
       {hasSidebarContainer && (
@@ -102,7 +121,7 @@ export default function SideBarRightBasic({ data }: CommonSection) {
             <Link
               href={`/${language}${data?.buttons?.[0]?.url}/${cate?.slug}`}
               key={cate?.slug || index}
-              className="block border-b border-gray-200 last:border-transparent py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"
+              className="block border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 last:border-transparent hover:text-primary-600 lg:py-3 lg:text-base"
             >
               {language === 'en' ? cate?.title_en : cate?.title}
             </Link>
@@ -113,7 +132,7 @@ export default function SideBarRightBasic({ data }: CommonSection) {
               <CustomLink
                 href={item?.url}
                 key={index}
-                className="block border-b border-gray-200 last:border-transparent py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"
+                className="block border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 last:border-transparent hover:text-primary-600 lg:py-3 lg:text-base"
               >
                 {item?.title}
               </CustomLink>

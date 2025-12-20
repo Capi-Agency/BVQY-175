@@ -20,14 +20,18 @@ export default function ContentCongDichVuCong({ data }: CommonSection) {
     );
     if (!container) return;
 
-    const images = container.querySelectorAll('img');
-    images.forEach((img, index) => {
-      if (!img.hasAttribute('data-fancybox')) {
-        img.setAttribute('data-fancybox', 'gallery');
-        img.setAttribute('data-src', img.getAttribute('src') || '');
-        img.style.cursor = 'pointer';
-      }
-    });
+    try {
+      const images = container.querySelectorAll('img');
+      images.forEach((img) => {
+        if (img && !img.hasAttribute('data-fancybox')) {
+          img.setAttribute('data-fancybox', 'gallery');
+          img.setAttribute('data-src', img.getAttribute('src') || '');
+          img.style.cursor = 'pointer';
+        }
+      });
+    } catch (err) {
+      console.error('Fancybox setup error:', err);
+    }
   }, [data?.contents]);
 
   return (
@@ -85,9 +89,9 @@ export default function ContentCongDichVuCong({ data }: CommonSection) {
                   key={index}
                   className="group pb-0"
                 >
-                  <AccordionTrigger className="flex gap-2 xl:gap-3 3xl:gap-4 w-full items-center justify-between rounded-[6px] bg-primary-50 p-3 lg:p-[12px_16px] xl:p-4 3xl:p-5">
+                  <AccordionTrigger className="flex w-full items-center justify-between gap-2 rounded-[6px] bg-primary-50 p-3 lg:p-[12px_16px] xl:gap-3 xl:p-4 3xl:gap-4 3xl:p-5">
                     <div
-                      className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl flex-1"
+                      className="flex-1 text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl"
                       dangerouslySetInnerHTML={{
                         __html: item?.title,
                       }}

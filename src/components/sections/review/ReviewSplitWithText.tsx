@@ -264,7 +264,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                         shouldValidate: true,
                       })
                     }
-                    className={`${watch('rating') === option?.rating ? 'border-primary-600 bg-primary-50 text-primary-600' : 'border-gray-400 bg-transparent text-gray-500'} flex h-9 items-center justify-center font-medium rounded-[4px] border-[2px] px-3 text-sm transition-all duration-100 hover:bg-primary-50 hover:border-primary-600 md:h-10 md:px-3 lg:text-base 2xl:h-11 2xl:px-3 2xl:text-lg 3xl:h-12 3xl:px-4 4xl:px-5`}
+                    className={`${watch('rating') === option?.rating ? 'border-primary-600 bg-primary-50 text-primary-600' : 'border-gray-400 bg-transparent text-gray-500'} flex h-9 items-center justify-center font-medium rounded-[4px] border-[2px] px-3 text-sm transition-all duration-100 hover:bg-primary-50 hover:border-primary-600 hover:text-primary-600 md:h-10 md:px-3 lg:text-base 2xl:h-11 2xl:px-3 2xl:text-lg 3xl:h-12 3xl:px-4 4xl:px-5`}
                   >
                     {trans(option?.titleKey)}
                   </button>
