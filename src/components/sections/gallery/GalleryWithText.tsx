@@ -9,10 +9,12 @@ import { getAssetUrlById } from '@/src/utils/image';
 import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
 import Fancybox from '../../common/Fancybox';
+import DialogVideo from '../../common/dialog-video';
 
 export default function GalleryWithText({ data }: CommonSection) {
   const [currentTab, setCurrentTab] = useState<number>(0);
   const language = useStoreLanguage((state: any) => state.language);
+  const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
 
   const embedUrl = useMemo(() => {
     return data?.cover?.split('v=')[1].split('&')[0];
@@ -29,14 +31,23 @@ export default function GalleryWithText({ data }: CommonSection) {
           </div>
 
           <div className="relative aspect-video w-full overflow-hidden md:w-[250px] lg:w-[340px] xl:w-full">
-            <iframe
-              onClick={(e) => e.stopPropagation()}
-              title="Video giới thiệu Bệnh viện Quân y 175"
-              className="!m-0 h-full w-full object-cover !p-0"
-              style={{ display: 'block', border: 'none' }}
-              src={`https://www.youtube.com/embed/${embedUrl}?modestbranding=1&rel=0`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
+            <DialogVideo
+              open={isOpenDialog}
+              onToggle={setIsOpenDialog}
+              videoUrl={embedUrl}
+              trigger={
+                <div className="relative h-full w-full cursor-pointer">
+                  <iframe
+                    onClick={(e) => e.stopPropagation()}
+                    title="Video giới thiệu Bệnh viện Quân y 175"
+                    className="!pointer-events-none !m-0 h-full w-full object-cover !p-0"
+                    style={{ display: 'block', border: 'none' }}
+                    src={`https://www.youtube.com/embed/${embedUrl}?modestbranding=1&rel=0`}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              }
             />
           </div>
         </div>
@@ -64,7 +75,7 @@ export default function GalleryWithText({ data }: CommonSection) {
                       e.stopPropagation();
                       setCurrentTab(index);
                     }}
-                    className={`${currentTab === index ? 'text-primary-600' : 'text-[#71717A]'} relative cursor-pointer pb-2 text-sm font-medium uppercase transition-colors duration-200 2xl:text-base`}
+                    className={`${currentTab === index ? 'text-primary-600' : 'text-[#71717A]'} relative cursor-pointer pb-[6px] xl:pb-2 text-sm font-medium uppercase transition-colors duration-200 2xl:text-base`}
                   >
                     {item?.title}
                   </div>
@@ -105,19 +116,22 @@ export default function GalleryWithText({ data }: CommonSection) {
                     }}
                   >
                     <div className="grid grid-cols-2 gap-3 pt-1 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-4">
-                      {item?.cover?.map((itemCover: any, coverIndex: number) => (
-                        <Link
-                          key={coverIndex}
-                          href={getAssetUrlById(itemCover?.id)}
-                          data-fancybox="gallery"
-                          className="relative aspect-square block">
-                          <NextImg
-                            src={getAssetUrlById(itemCover?.id)}
-                            alt="Cơ sở vật chất image"
-                            objectFit="cover"
-                          />
-                        </Link>
-                      ))}
+                      {item?.cover?.map(
+                        (itemCover: any, coverIndex: number) => (
+                          <Link
+                            key={coverIndex}
+                            href={getAssetUrlById(itemCover?.id)}
+                            data-fancybox="gallery"
+                            className="relative block aspect-square"
+                          >
+                            <NextImg
+                              src={getAssetUrlById(itemCover?.id)}
+                              alt="Cơ sở vật chất image"
+                              objectFit="cover"
+                            />
+                          </Link>
+                        ),
+                      )}
                     </div>
                   </Fancybox>
                 )}

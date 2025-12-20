@@ -102,7 +102,7 @@ export default function SideBarRightBasic({ data }: CommonSection) {
             <Link
               href={`/${language}${data?.buttons?.[0]?.url}/${cate?.slug}`}
               key={cate?.slug || index}
-              className="block border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"
+              className="block border-b border-gray-200 last:border-transparent py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"
             >
               {language === 'en' ? cate?.title_en : cate?.title}
             </Link>
@@ -113,7 +113,7 @@ export default function SideBarRightBasic({ data }: CommonSection) {
               <CustomLink
                 href={item?.url}
                 key={index}
-                className="block border-b border-gray-200 py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"
+                className="block border-b border-gray-200 last:border-transparent py-2.5 text-sm font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base"
               >
                 {item?.title}
               </CustomLink>

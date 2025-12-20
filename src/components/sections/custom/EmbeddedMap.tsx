@@ -10,8 +10,9 @@ export default function EmbeddedMap({ data }: CommonSection) {
   const buttonViewMap = data?.buttons?.[0] || {};
   const buttonViewMap360 = data?.buttons?.[1] || {};
   return (
-    <div className="3xl:py-[100px container py-10 md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
-      <p className="section-title mt-2 text-center">{data.title}</p>
+    <div className="container py-10 md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
+      <h2 className="section-title mt-2 text-center">{data.title}</h2>
+
       <div
         className="section-content mx-auto text-justify"
         style={data?.custom ?? {}}
@@ -35,7 +36,8 @@ export default function EmbeddedMap({ data }: CommonSection) {
         }}
       ></div>
 
-      <p className="section-title mt-20 text-center">{data?.subtitle}</p>
+      <p className="section-title my-10 md:my-14 xl:my-16 3xl:my-[72px] 4xl:my-20 text-center">{data?.subtitle}</p>
+
       <CustomLink
         href={buttonViewMap360?.url}
         className="relative block aspect-video"

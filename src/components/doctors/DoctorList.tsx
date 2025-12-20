@@ -105,10 +105,11 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
     router.push(query ? `?${query}` : window.location.pathname, {
       scroll: false,
     });
+    handleScrollTo('search_results', conditions);
   };
 
   const resetFilter = () => {
-    router.push(window.location.pathname);
+    router.push(window.location.pathname, { scroll: false });
   };
 
   // Thay đổi logic toggle để tự động tắt filter còn lại
@@ -391,7 +392,7 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
           </div>
         </div>
 
-        <div className="bg-white p-6 lg:p-10">
+        <div id="search_results" className="bg-white p-6 lg:p-10">
           {/* Bàn phím */}
           {searchByName && (
             <div className="space-y-6 py-6">
@@ -562,10 +563,7 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
           )}
 
           {/* Hiển thị kết quả */}
-          <div
-            className="mb-3 flex flex-col gap-3 md:flex-row md:items-center"
-            id="search_results"
-          >
+          <div className="mb-3 flex flex-col gap-3 md:flex-row md:items-center">
             <div className="gap-1.5 text-base font-medium text-gray-700">
               <span className="text-xl font-semibold text-primary-600">
                 {totalItem}{' '}
@@ -806,14 +804,17 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
   return (
     <div className="flex flex-col gap-5 rounded-2xl border-[2px] border-white bg-white p-5 shadow-lg transition-all hover:border-primary-600 md:flex-row md:p-4 xl:p-4 2xl:p-5">
       <div className="flex h-full items-center justify-center">
-        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[10px] bg-gray-100 md:max-h-[280px] md:w-[192px] lg:w-[224px] xl:w-[192px] 2xl:w-[224px]">
+        <Link
+          href={'/vi/doi-ngu-bac-si/' + slug}
+          className="relative aspect-[3/4] w-full overflow-hidden rounded-[10px] bg-gray-100 md:max-h-[280px] md:w-[192px] lg:w-[224px] xl:w-[192px] 2xl:w-[224px]"
+        >
           <NextImg
             src={getAssetUrlById(avatar)}
             alt="doctor avatar"
             objectFit="cover"
             className="-top-[8%] object-top"
           />
-        </div>
+        </Link>
       </div>
 
       <div className="flex flex-1 flex-col justify-center md:px-5 lg:justify-between xl:justify-center xl:px-0 2xl:justify-between">
@@ -862,7 +863,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
         </div>
 
         {/* Buttons */}
-        <div className="mt-6 grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-1 4xl:grid-cols-2">
+        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-1 4xl:grid-cols-2">
           {/* <Link
             href="#"
             aria-label="Đặt lịch khám"
@@ -890,7 +891,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
 
           <Link
             href={'/vi/doi-ngu-bac-si/' + slug}
-            className="mt-6 flex items-center gap-2 font-medium text-gray-950 group-hover:text-primary-50 lg:mt-0 lg:text-lg xl:mt-6"
+            className="flex items-center gap-2 font-medium text-gray-950 group-hover:text-primary-50 lg:text-lg"
           >
             Xem chi tiết
             <img

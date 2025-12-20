@@ -4,6 +4,8 @@ import { formatDate } from '@/src/utils/validate';
 import React from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
+import Fancybox from '../../common/Fancybox';
+import Link from 'next/link';
 
 export default function HeroWithBottomBigImage({
   data,
@@ -55,13 +57,29 @@ export default function HeroWithBottomBigImage({
         </div>
 
         <div className="p-[24px_0] md:p-[32px_0] lg:p-[48px_0] 2xl:p-[64px_0_40px] 3xl:p-[80px_0_40px]">
-          <div className="relative aspect-[9/4] w-full overflow-hidden rounded-[6px]">
-            <NextImg
-              src={getAssetUrlById(dataDetail?.cover)}
-              objectFit="cover"
-              alt="banner image"
-            />
-          </div>
+          <Fancybox
+            options={{
+              Carousel: {
+                infinite: true,
+              },
+              Images: {
+                zoom: true,
+              },
+            }}
+            className="w-full"
+          >
+            <Link
+              href={getAssetUrlById(dataDetail?.cover)}
+              data-fancybox="gallery"
+              className="relative block aspect-[9/4] w-full overflow-hidden rounded-[6px]"
+            >
+              <NextImg
+                src={getAssetUrlById(dataDetail?.cover)}
+                objectFit="cover"
+                alt="banner image"
+              />
+            </Link>
+          </Fancybox>
         </div>
       </div>
     </section>

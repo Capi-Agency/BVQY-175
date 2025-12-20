@@ -60,7 +60,7 @@ const DialogContentSearchModal = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'bg-background sm:rounded-lg fixed left-0 right-0 top-[69px] z-[100] h-full max-h-[100%] w-[500px] max-w-[100%] bg-red-500 !duration-500 data-[state=closed]:animate-fadeOut data-[state=open]:animate-fadeIn data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] md:top-[76px] lg:top-[78px] 2lg:top-[82px] xl:top-[90px] 3xl:top-[196px]',
+        'bg-background sm:rounded-lg fixed left-0 right-0 top-[69px] z-[100] h-full max-h-[100%] w-[500px] max-w-[100%] !duration-500 data-[state=closed]:animate-fadeOut data-[state=open]:animate-fadeIn data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] md:top-[76px] lg:top-[78px] xl:top-[82px] xl:top-[90px] 3xl:top-[196px]',
         className,
       )}
       style={{}}

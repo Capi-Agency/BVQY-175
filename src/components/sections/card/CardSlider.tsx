@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { formatDate } from '@/src/utils/validate';
 import Link from 'next/link';
 import CustomLink from '../../common/custom-link';
+import Fancybox from '../../common/Fancybox';
 
 const CardSlider = ({ data }: CommonSection) => {
   const [activeItem, setActiveItem] = useState<number>(0);
@@ -114,15 +115,29 @@ const CardSlider = ({ data }: CommonSection) => {
           </CustomLink>
         </div>
 
-        <div className="flex justify-center lg:basis-1/2 lg:px-[14px] xl:px-[22px] 4xl:px-10">
-          <div className="relative aspect-[3/2] w-full md:w-[394px] lg:w-full">
+        <Fancybox
+          options={{
+            Carousel: {
+              infinite: true,
+            },
+            Images: {
+              zoom: true,
+            },
+          }}
+          className="flex justify-center lg:basis-1/2 lg:px-[14px] xl:px-[22px] 4xl:px-10"
+        >
+          <Link
+            href={getAssetUrlById(item?.cover?.id)}
+            data-fancybox="gallery"
+            className="relative block aspect-[3/2] w-full md:w-[394px] lg:w-full"
+          >
             <NextImg
               src={getAssetUrlById(item?.cover?.id)}
               alt="Giá trị cốt lõi icon"
               objectFit="contain"
             />
-          </div>
-        </div>
+          </Link>
+        </Fancybox>
       </div>
     </div>
   );

@@ -74,7 +74,7 @@ export const handleScrollTo = (elementId: string, conditions: gsap.Conditions | 
                 offsetY: getOffsetY(conditions),
                 autoKill: false,
             },
-            duration: 1,
+            duration: 0.7,
             ease: 'power2.out',
         });
     }
@@ -89,7 +89,7 @@ export const handleScrollToDepartmentPage = (elementId: string, conditions: gsap
                 offsetY: getOffsetYinDepartmentPage(conditions),
                 autoKill: false,
             },
-            duration: 1,
+            duration: 0.7,
             ease: 'power2.out',
         });
     }

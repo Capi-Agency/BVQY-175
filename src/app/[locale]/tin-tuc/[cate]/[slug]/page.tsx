@@ -35,7 +35,6 @@ export async function generateMetadata(
 
   const lang = await getLang();
   const data = await getNewsDetail({ collection: 'posts', slug });
-  console.log(data)
   if (!data) notFound();
 
   const title =

@@ -20,7 +20,7 @@ export default function Feature4Col({ data }: CommonSection) {
           {data?.title && <h1 className="section-title mt-1">{data?.title}</h1>}
 
           <div
-            className="mt-2 text-sm font-normal text-[#3F3F46] lg:mt-4 3xl:mt-6 2xl:text-base"
+            className="mt-2 text-justify text-sm font-normal text-[#3F3F46] lg:mt-4 3xl:mt-6 2xl:text-base"
             dangerouslySetInnerHTML={{
               __html: data?.blurb as string,
             }}
@@ -93,7 +93,7 @@ export default function Feature4Col({ data }: CommonSection) {
           <Swiper
             touchEventsTarget="container"
             grabCursor={true}
-            slidesPerView={1.3}
+            slidesPerView={1.2}
             loop={false}
             spaceBetween={16}
             speed={700}

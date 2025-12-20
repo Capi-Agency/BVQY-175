@@ -56,7 +56,7 @@ export default function DialogVideo({
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="relative aspect-video w-[90%] rounded-[2px] border-[2px] border-primary-600 bg-black md:w-[80%] 2lg:w-[70%]"
+            className="relative aspect-video w-[90%] rounded-[2px] border-[2px] border-primary-600 bg-black md:w-[80%] xl:w-[70%]"
           >
             <iframe
               title="Youtube embeded videoT"

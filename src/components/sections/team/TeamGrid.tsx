@@ -6,6 +6,8 @@ import NextImg from '../../common/next-img';
 import clsx from 'clsx';
 import { getAssetUrlById } from '@/src/utils/image';
 import useTranslation from '@/src/hooks/use-translation';
+import { handleScrollTo } from '@/src/utils/gsap';
+import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 
 const TeamGrid = ({ data }: CommonSection) => {
   return (
@@ -80,6 +82,7 @@ const LeaderCard = ({
 }) => {
   const { trans } = useTranslation();
   const [expanded, setExpanded] = useState(false);
+  const { conditions } = useGsapMatchMedia();
 
   return (
     <div className="relative rounded-[6px] bg-primary-50 lg:rounded-xl 2xl:rounded-[20px] 3xl:rounded-[24px]">
@@ -332,7 +335,10 @@ const LeaderCard = ({
 
             <div className="flex justify-center">
               <div
-                onClick={() => setExpanded(false)}
+                onClick={() => {
+                  handleScrollTo(item?.buttons?.[0]?.url, conditions);
+                  setExpanded(false);
+                }}
                 className={clsx(
                   'flex cursor-pointer items-center justify-center gap-1 text-sm font-bold text-[#E50000] transition-all duration-200 lg:text-base',
                   expanded ? 'opacity-100' : 'opacity-0',

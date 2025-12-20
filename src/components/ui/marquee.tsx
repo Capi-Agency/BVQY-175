@@ -41,7 +41,7 @@ export default function Marquee({
               {
                 'animate-marquee flex-row': !vertical,
                 'animate-marquee-vertical flex-col': vertical,
-                '2lg:group-hover:[animation-play-state:paused]': pauseOnHover,
+                'xl:group-hover:[animation-play-state:paused]': pauseOnHover,
                 '[animation-direction:reverse]': reverse,
               },
             )}

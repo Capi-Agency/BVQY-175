@@ -18,8 +18,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
-import { Fancybox as NativeFancybox } from '@fancyapps/ui';
-import { Pagination } from 'swiper/modules';
+import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
 export default function Card1ColDetail({ event, data }: any) {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const { trans } = useTranslation();
@@ -33,20 +32,6 @@ export default function Card1ColDetail({ event, data }: any) {
       `swiper-custom-${Math.random().toString(36).substring(2, 9)}`,
     );
   }, []);
-
-  const fancyBoxItems = event?.images?.map((image: any) => ({
-    src: getAssetUrlById(image?.directus_files_id),
-    type: 'image',
-  }));
-
-  const fancyBoxOptions = {
-    Carousel: {
-      infinite: true,
-    },
-    Images: {
-      zoom: true,
-    },
-  };
 
   return (
     <Dialog open={isOpenModal} onOpenChange={setIsOpenModal}>
@@ -131,7 +116,17 @@ export default function Card1ColDetail({ event, data }: any) {
               <div className="w-full">
                 {randomClassSwiper && (
                   <>
-                    <div className="relative aspect-video w-full overflow-hidden rounded-[6px] xl:rounded-[10px] 3xl:rounded-[12px]">
+                    <Fancybox
+                      options={{
+                        Carousel: {
+                          infinite: true,
+                        },
+                        Images: {
+                          zoom: true,
+                        },
+                      }}
+                      className="relative aspect-video w-full overflow-hidden rounded-[6px] xl:rounded-[10px] 3xl:rounded-[12px]"
+                    >
                       <Swiper
                         touchEventsTarget="container"
                         grabCursor={true}
@@ -139,7 +134,13 @@ export default function Card1ColDetail({ event, data }: any) {
                         loop={true}
                         spaceBetween={12}
                         speed={700}
-                        modules={[Pagination]}
+                        modules={[Pagination, EffectFade, Autoplay]}
+                        effect="fade"
+                        fadeEffect={{ crossFade: true }}
+                        autoplay={{
+                          delay: 5000,
+                          disableOnInteraction: false,
+                        }}
                         pagination={{
                           clickable: true,
                           type: 'bullets',
@@ -152,19 +153,8 @@ export default function Card1ColDetail({ event, data }: any) {
                           <SwiperSlide key={image?.directus_files_id}>
                             <Link
                               href={getAssetUrlById(image?.directus_files_id)}
+                              data-fancybox="gallery"
                               className="relative block size-full overflow-hidden rounded-[6px] xl:rounded-[10px] 3xl:rounded-[12px]"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                if (fancyBoxItems && fancyBoxItems.length > 0) {
-                                  NativeFancybox.show(fancyBoxItems, {
-                                    ...fancyBoxOptions,
-                                    Hash: false,
-                                    hideScrollbar: false,
-                                    startIndex: index,
-                                  });
-                                }
-                              }}
                             >
                               <NextImg
                                 src={getAssetUrlById(image?.directus_files_id)}
@@ -175,7 +165,7 @@ export default function Card1ColDetail({ event, data }: any) {
                           </SwiperSlide>
                         ))}
                       </Swiper>
-                    </div>
+                    </Fancybox>
                     <div className="relative mt-2 flex h-5 justify-center xl:mt-3 3xl:mt-4">
                       <div
                         className={`swiper-bullets-container ${randomClassSwiper} !w-fit cursor-pointer`}

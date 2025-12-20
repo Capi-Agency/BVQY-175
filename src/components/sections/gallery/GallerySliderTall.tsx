@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import ThePagination from '@/src/components/common/the-pagination';
 import DialogVideo from '@/src/components/common/dialog-video';
+import NextImg from '../../common/next-img';
 
 // ===== CONFIG =====
 const PAGE_SIZE = 6;
@@ -110,18 +111,13 @@ function ThumbnailItem({ item, onClick }: { item: any; onClick: () => void }) {
   return (
     <div
       onClick={onClick}
-      className="group cursor-pointer space-y-4 overflow-hidden rounded-sm border bg-primary-50 p-2 transition hover:border-primary-600 lg:p-3 2xl:p-4"
+      className="group cursor-pointer space-y-4 overflow-hidden rounded-sm border bg-primary-50 p-2 transition hover:border-primary-600 duration-100 lg:p-3 2xl:p-4"
     >
-      <div className="relative">
-        <img
-          src={thumb}
-          className="aspect-video w-full object-cover"
-          alt={item?.title || ''}
-          loading="lazy"
-        />
+      <div className="relative aspect-video w-full">
+        <NextImg src={thumb} alt={item?.title || ''} objectFit="cover" />
 
         {/* Play icon overlay (optional UX tốt) */}
-        <div className="pointer-events-none absolute inset-0 hidden items-center justify-center transition-all group-hover:flex">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center transition-all group-hover:opacity-100 opacity-0 duration-100">
           <div className="flex size-10 items-center justify-center rounded-full bg-primary-600 p-6 text-white">
             ▶
           </div>

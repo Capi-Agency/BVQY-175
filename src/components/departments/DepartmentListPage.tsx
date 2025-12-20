@@ -3,6 +3,7 @@ import NextImg from '@/src/components/common/next-img';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import {
   getPositionFixed,
+  handleScrollTo,
   handleScrollToDepartmentPage,
 } from '@/src/utils/gsap';
 import { getAssetUrlById } from '@/src/utils/image';
@@ -13,7 +14,8 @@ import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
@@ -31,51 +33,56 @@ const DepartmentDetailPage = ({
   const containerRef = useRef<any>(null);
   const sidebarRef = useRef<any>(null);
   const { conditions } = useGsapMatchMedia();
-  const [searchText, setSearchText] = useState('');
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const keyword = searchParams.get('s') || '';
+
+  const [searchText, setSearchText] = useState<string>(keyword);
   const ctaButtonData = bannerData?.buttons[0];
   const selector = gsap.utils.selector(containerRef);
   const [filteredGroups, setFilteredGroups] = useState(parentGroups);
   const normalizeText = (str: string) =>
     removeVietnameseMarks(str || '').toLowerCase();
 
-  const { contextSafe } = useGSAP(
-    () => {
-      if (!containerRef.current || !sidebarRef.current || !conditions) return;
-      const mm = gsap.matchMedia();
-      mm.add('(max-width: 767px)', () => {
-        ScrollTrigger.create({
-          trigger: sidebarRef.current,
-          start: () => getPositionFixed(conditions),
-          endTrigger: containerRef.current,
-          // end: "bottom bottom",
-          end: () =>
-            `+=${containerRef?.current?.offsetHeight - sidebarRef?.current?.offsetHeight}`,
-          pin: true,
-          pinSpacing: false,
-          pinnedContainer: containerRef?.current,
-        });
-      });
+  // const { contextSafe } = useGSAP(
+  //   () => {
+  //     if (!containerRef.current || !sidebarRef.current || !conditions) return;
+  //     const mm = gsap.matchMedia();
+  //     mm.add('(max-width: 767px)', () => {
+  //       ScrollTrigger.create({
+  //         trigger: sidebarRef.current,
+  //         start: () => getPositionFixed(conditions),
+  //         endTrigger: containerRef.current,
+  //         // end: "bottom bottom",
+  //         end: () =>
+  //           `+=${containerRef?.current?.offsetHeight - sidebarRef?.current?.offsetHeight}`,
+  //         pin: true,
+  //         pinSpacing: false,
+  //         pinnedContainer: containerRef?.current,
+  //       });
+  //     });
 
-      mm.add('(min-width: 1600px)', () => {
-        ScrollTrigger.create({
-          trigger: sidebarRef.current,
-          start: () => getPositionFixed(conditions),
-          endTrigger: containerRef.current,
-          // end: "bottom bottom",
-          // end: () => `bottom bottom+=${containerRef.current?.offsetHeight || 0}`,
-          end: () =>
-            `+=${containerRef?.current?.offsetHeight - sidebarRef?.current?.offsetHeight}`,
-          pin: true,
-          pinSpacing: false,
-          pinnedContainer: containerRef?.current,
-        });
-      });
-    },
-    {
-      scope: containerRef,
-      dependencies: [conditions],
-    },
-  );
+  //     mm.add('(min-width: 1600px)', () => {
+  //       ScrollTrigger.create({
+  //         trigger: sidebarRef.current,
+  //         start: () => getPositionFixed(conditions),
+  //         endTrigger: containerRef.current,
+  //         // end: "bottom bottom",
+  //         // end: () => `bottom bottom+=${containerRef.current?.offsetHeight || 0}`,
+  //         end: () =>
+  //           `+=${containerRef?.current?.offsetHeight - sidebarRef?.current?.offsetHeight}`,
+  //         pin: true,
+  //         pinSpacing: false,
+  //         pinnedContainer: containerRef?.current,
+  //       });
+  //     });
+  //   },
+  //   {
+  //     scope: containerRef,
+  //     dependencies: [conditions],
+  //   },
+  // );
 
   const filterRecursive = (group: any, text: string) => {
     const newGroup: any = { ...group };
@@ -103,7 +110,21 @@ const DepartmentDetailPage = ({
     return newGroup;
   };
 
-  const handleSearch = () => {
+  const handleSearch = useCallback(
+    (searchText: string) => {
+      const params = new URLSearchParams(searchParams);
+      if (searchText && searchText.trim() !== '') {
+        params.set('s', searchText.trim());
+      } else {
+        params.delete('s');
+      }
+      router.push(`?${params.toString()}`, { scroll: false });
+      handleScrollTo('department-list', conditions);
+    },
+    [router, searchParams],
+  );
+
+  useEffect(() => {
     if (!searchText.trim()) {
       setFilteredGroups(parentGroups);
       return;
@@ -122,13 +143,7 @@ const DepartmentDetailPage = ({
       });
 
     setFilteredGroups(newGroups);
-  };
-
-  useEffect(() => {
-    if (searchText.length === 0) {
-      handleSearch();
-    }
-  }, [searchText]);
+  }, [keyword]);
 
   return (
     <div className="padding-top-body bg-primary-50">
@@ -158,12 +173,12 @@ const DepartmentDetailPage = ({
             className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
             onSubmit={(e: any) => {
               e.preventDefault();
-              handleSearch();
+              handleSearch(searchText);
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();
-                handleSearch();
+                handleSearch(searchText);
               }
             }}
           >
@@ -183,7 +198,7 @@ const DepartmentDetailPage = ({
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
                     e.preventDefault();
-                    handleSearch();
+                    handleSearch(searchText);
                   }
                 }}
                 placeholder="VD: Khoa Nội tiêu hoá"
@@ -211,14 +226,17 @@ const DepartmentDetailPage = ({
         ))}
       </div>
 
-      <div className="p-[12px_0_24px] xl:p-[20px_0_40px] 2xl:p-[60px_0_48px] 4xl:p-[64_0_120px]">
+      <div
+        id="department-list"
+        className="p-[12px_0_24px] xl:p-[20px_0_40px] 2xl:p-[60px_0_48px] 4xl:p-[64_0_120px]"
+      >
         <div
           ref={containerRef}
           className="flex flex-col items-stretch md:container md:gap-6 lg:gap-6 2xl:gap-0 3xl:flex-row 3xl:items-start 3xl:gap-[72px] 4xl:gap-20"
         >
           <div
             ref={sidebarRef}
-            className="block h-fit md:pt-3 xl:pt-5 3xl:pt-6 4xl:pt-[60px]"
+            className="sticky top-[64px] block h-fit md:static md:pt-3 xl:pt-5 3xl:sticky 3xl:top-[160px] 3xl:pt-6 4xl:top-[160px] 4xl:pt-[40px]"
           >
             <div className="h-fit rounded-[16px] border border-[#E9EBED] bg-white p-4 lg:p-5 2xl:p-6 3xl:w-[360px] 3xl:p-[24px_20px]">
               {/* input */}
@@ -226,12 +244,12 @@ const DepartmentDetailPage = ({
                 className="relative block rounded-[6px] bg-gray-100 p-2 !pl-11 shadow-lg md:p-3 2xl:p-4"
                 onSubmit={(e: any) => {
                   e.preventDefault();
-                  handleSearch();
+                  handleSearch(searchText);
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
                     e.preventDefault();
-                    handleSearch();
+                    handleSearch(searchText);
                   }
                 }}
               >
@@ -246,14 +264,15 @@ const DepartmentDetailPage = ({
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       e.preventDefault();
-                      handleSearch();
+                      handleSearch(searchText);
                     }
                   }}
                 />
                 <img
+                  onClick={() => handleSearch(searchText)}
                   src="/assets/icons/search_gray.svg"
                   alt="search_gray"
-                  className="absolute left-4 top-1/2 size-5 -translate-y-1/2"
+                  className="absolute left-4 top-1/2 size-5 -translate-y-1/2 cursor-pointer"
                 />
               </form>
 
@@ -315,7 +334,7 @@ const DepartmentDetailPage = ({
           </div>
 
           {/* Các khối */}
-          <div className="flex flex-1 flex-col px-6 md:px-0 2xl:pt-6 4xl:pt-[60px]">
+          <div className="flex flex-1 flex-col px-6 md:px-0 2xl:pt-6 4xl:pt-[40px]">
             {filteredGroups?.map((pGroup: any, index: number) => {
               return <DepartmentGroupSection pGroup={pGroup} key={index} />;
             })}
