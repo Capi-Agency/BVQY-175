@@ -101,15 +101,24 @@ export const getDoctorsCount = async ({
     }
 
     // Gọi API với limit = 1, page = 1, chỉ cần meta.total_items
-    const res = await directusClientWithRest.request(
-      readItems('doctors', {
-        fields: ['slug'],
-        filter,
+    // const res = await directusClientWithRest.request(
+    //   readItems('doctors', {
+    //     fields: ['slug'],
+    //     filter,
+    //   }),
+    // );
+    const response = await directusClientWithRest.request(
+      aggregate('doctors', {
+        aggregate: { countDistinct: 'slug' },
+        query: {
+          filter,
+        },
       }),
     );
 
     // Trả về số lượng bản ghi
-    return res?.length ?? 0;
+    // return res?.length ?? 0;
+    return (response?.[0]?.countDistinct as any)?.slug ?? 0;
   } catch (error) {
     console.log('Err in getDoctorsCount: ', error);
     return 0;
