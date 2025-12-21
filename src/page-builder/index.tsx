@@ -187,8 +187,9 @@ const sectionMap: SectionMap = {
   ),
 
   // Milestone
-  'card-1-col': dynamic(() =>
-    import('../components/sections/card').then((m) => m.Card1Col),
+  'card-1-col': dynamic(
+    () => import('../components/sections/card').then((m) => m.Card1Col),
+    { ssr: false },
   ),
 
   // Khối cơ quan hành chính
@@ -257,12 +258,6 @@ const PageBuilder = ({ pageContent, pageDetail }: PageBuilderProps) => {
           if (!SectionComp) return null;
 
           return (
-            // <Suspense key={'section_' + index} fallback={<LoadingComp />}>
-            //   <SectionComp
-            //     data={section}
-            //     {...(pageDetail ? { dataDetail: pageDetail } : {})}
-            //   />
-            // </Suspense>
             <SectionComp
               key={'section_' + index}
               data={section}
