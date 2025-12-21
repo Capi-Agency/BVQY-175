@@ -257,17 +257,17 @@ const PageBuilder = ({ pageContent, pageDetail }: PageBuilderProps) => {
           if (!SectionComp) return null;
 
           return (
-            <Suspense key={'section_' + index} fallback={<LoadingComp />}>
-              <SectionComp
-                data={section}
-                {...(pageDetail ? { dataDetail: pageDetail } : {})}
-              />
-            </Suspense>
-            // <SectionComp
-            //   key={'section_' + index}
-            //   data={section}
-            //   {...(pageDetail ? { dataDetail: pageDetail } : {})}
-            // />
+            // <Suspense key={'section_' + index} fallback={<LoadingComp />}>
+            //   <SectionComp
+            //     data={section}
+            //     {...(pageDetail ? { dataDetail: pageDetail } : {})}
+            //   />
+            // </Suspense>
+            <SectionComp
+              key={'section_' + index}
+              data={section}
+              {...(pageDetail ? { dataDetail: pageDetail } : {})}
+            />
           );
         })}
       </div>

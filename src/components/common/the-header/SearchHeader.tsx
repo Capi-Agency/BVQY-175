@@ -19,8 +19,9 @@ export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
     function handleClickOutside(event: MouseEvent) {
       // Nếu click không nằm trong boxRef
       if (boxRef.current && !boxRef.current.contains(event.target as Node)) {
+        inputRef.current?.blur();
         setIsOpen(false);
-        setSearchText('');
+        // setSearchText('');
       }
     }
 
@@ -34,12 +35,16 @@ export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
     <div ref={boxRef} className="relative" title="Tìm kiếm">
       <div
         onClick={() => {
+          if (!isOpen) {
+            inputRef.current?.focus();
+          } else {
+            inputRef.current?.blur();
+          }
           setIsOpen((prev: boolean) => !prev);
-          inputRef.current?.focus();
         }}
         className="flex cursor-pointer items-center justify-center md:h-9 md:w-[52px] md:rounded-[6px] md:bg-primary-600 md:hover:bg-primary-500 2xl:h-10 2xl:w-[60px]"
       >
-        <div className="relative size-5 brightness-0 md:brightness-100 2xl:size-6">
+        <div className="relative size-6 brightness-0 md:brightness-100 2xl:size-6">
           <NextImg src="/assets/icons/search_white.svg" alt="search icon" />
         </div>
       </div>
@@ -58,6 +63,7 @@ export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
               handleSearch('s', searchText);
               inputRef.current?.blur();
               setIsOpen(false);
+              setSearchText('');
             }}
             className="relative size-5"
           >
@@ -81,6 +87,7 @@ export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
                 handleSearch('s', searchText);
                 inputRef.current?.blur();
                 setIsOpen(false);
+                setSearchText('');
               }
             }}
           />

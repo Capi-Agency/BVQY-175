@@ -52,7 +52,7 @@ export default function MobileMenu({
         className="block"
       >
         <button className="flex items-center justify-center md:h-9 md:w-[52px] md:rounded-[6px] md:bg-primary-600 xl:hidden 2xl:h-10 2xl:w-[60px]">
-          <div className="relative size-5 brightness-0 md:brightness-100 2xl:size-6">
+          <div className="relative size-6 brightness-0 md:brightness-100 2xl:size-6">
             <NextImg src="/assets/icons/ham_menu.svg" alt="menu icon" />
           </div>
         </button>
@@ -105,9 +105,7 @@ export default function MobileMenu({
               </CustomLink>
 
               {/* Language button */}
-              <LanguageBtn
-                className="hidden md:flex"
-              />
+              <LanguageBtn className="hidden md:flex" />
 
               {/* Close button */}
               <DialogClose
@@ -162,6 +160,7 @@ export default function MobileMenu({
                       if (e.key === 'Enter') {
                         e.preventDefault();
                         handleSearch('s', searchText);
+                        setSearchText('');
                         closeButtonRef.current?.click();
                       }
                     }}
@@ -171,6 +170,7 @@ export default function MobileMenu({
                   <button
                     onClick={() => {
                       handleSearch('s', searchText);
+                      setSearchText('');
                       closeButtonRef.current?.click();
                     }}
                     className="flex items-center justify-center rounded-[4px] bg-primary-600 px-3"
@@ -209,7 +209,7 @@ export default function MobileMenu({
                               >
                                 <CustomLink
                                   href={item?.url || ''}
-                                  className="block text-sm font-bold uppercase text-black py-5 md:py-6"
+                                  className="block py-5 text-sm font-bold uppercase text-black md:py-6"
                                 >
                                   {language === 'en'
                                     ? `${item?.title_en}`
@@ -217,7 +217,7 @@ export default function MobileMenu({
                                 </CustomLink>
                               </DialogClose>
                             ) : (
-                              <AccordionTrigger className="text-sm font-bold uppercase text-black py-5 md:py-6">
+                              <AccordionTrigger className="py-5 text-sm font-bold uppercase text-black md:py-6">
                                 {language === 'en'
                                   ? `${item?.title_en}`
                                   : `${item?.title}`}{' '}
@@ -253,7 +253,7 @@ export default function MobileMenu({
                                           >
                                             <CustomLink
                                               href={item_second?.url || ''}
-                                              className="block text-sm font-medium text-[#18181B] py-4  "
+                                              className="block py-4 text-sm font-medium text-[#18181B]"
                                             >
                                               {language === 'en'
                                                 ? `${item_second?.title_en}`
@@ -266,7 +266,7 @@ export default function MobileMenu({
                                               setItemSecond(item_second);
                                               setIsOpenSubMenu(true);
                                             }}
-                                            className="text-sm font-medium text-[#18181B] py-4"
+                                            className="py-4 text-sm font-medium text-[#18181B]"
                                           >
                                             {language === 'en'
                                               ? `${item_second?.title_en}`
@@ -303,7 +303,9 @@ export default function MobileMenu({
                                     >
                                       <CustomLink
                                         href={item_second?.url || ''}
-                                        className={cn('block text-sm font-medium text-[#18181B] py-4')}
+                                        className={cn(
+                                          'block py-4 text-sm font-medium text-[#18181B]',
+                                        )}
                                       >
                                         {language === 'en'
                                           ? `${item_second?.title_en}`
@@ -323,7 +325,7 @@ export default function MobileMenu({
                           >
                             <CustomLink
                               href={item?.url || ''}
-                              className="block text-sm font-bold uppercase text-black py-5 md:py-6"
+                              className="block py-5 text-sm font-bold uppercase text-black md:py-6"
                             >
                               {language === 'en'
                                 ? `${item?.title_en}`
@@ -352,10 +354,7 @@ export default function MobileMenu({
                   </CustomLink>
 
                   {/* Language button */}
-                  <LanguageBtn
-                    className="md:hidden"
-                    side="top"
-                  />
+                  <LanguageBtn className="md:hidden" side="top" />
                 </div>
               </div>
             </div>
@@ -380,7 +379,7 @@ export default function MobileMenu({
                 </div>
               </button>
 
-              <div className="scrollbar-hidden relative flex-1 overflow-x-hidden overflow-y-scroll py-5 pb-[100px]">
+              <div className="scrollbar-hidden relative flex-1 overflow-x-hidden overflow-y-scroll py-5 pb-[130px]">
                 <AccordionRoot
                   key={isOpenSubMenu ? 'open' : 'closed'}
                   className="relative w-full space-y-6"

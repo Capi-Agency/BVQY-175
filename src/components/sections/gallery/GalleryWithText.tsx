@@ -23,14 +23,14 @@ export default function GalleryWithText({ data }: CommonSection) {
   return (
     <section className="bg-primary-50 py-10 md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]">
       <div className="container grid w-full grid-cols-12 gap-6 xl:gap-10 2xl:gap-12 3xl:gap-[52px] 4xl:gap-[60px]">
-        <div className="col-span-full flex flex-col gap-4 md:flex-row lg:gap-6 xl:col-span-4 xl:flex-col xl:gap-[52px] 2xl:gap-[64px] 3xl:gap-[72px] 4xl:gap-[80px]">
+        <div className="col-span-full flex flex-col gap-4 md:flex-row md:gap-6 xl:col-span-4 xl:flex-col xl:gap-[52px] 2xl:gap-[64px] 3xl:gap-[72px] 4xl:gap-[80px]">
           <div className="w-full md:flex-1 xl:flex-none">
             <div className="section-sub-title">{data?.subtitle}</div>
 
             <div className="section-title mt-1">{data?.title}</div>
           </div>
 
-          <div className="relative aspect-video w-full overflow-hidden md:w-[250px] lg:w-[340px] xl:w-full">
+          <div className="relative aspect-video w-full overflow-hidden md:w-[300px] lg:w-[350px] xl:w-full">
             <DialogVideo
               open={isOpenDialog}
               onToggle={setIsOpenDialog}
