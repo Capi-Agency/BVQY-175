@@ -31,7 +31,7 @@ export default async function Page({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale as Locale);
 
-  if (!slug) {
+  if (!slug || !locale) {
     notFound();
   }
 

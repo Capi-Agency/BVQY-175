@@ -25,14 +25,16 @@ const sectionMap: SectionMap = {
   'logo-slider': dynamic(() =>
     import('../components/sections/slider').then((m) => m.LogoSlider),
   ),
-  'posts-3-col': dynamic(() =>
-    import('../components/sections/post-grid').then((m) => m.Posts3Col),
+  'posts-3-col': dynamic(
+    () => import('../components/sections/post-grid').then((m) => m.Posts3Col),
+    { ssr: false },
   ),
   'feature-4-col': dynamic(() =>
     import('../components/sections/feature').then((m) => m.Feature4Col),
   ),
-  'feature-3-col': dynamic(() =>
-    import('../components/sections/feature').then((m) => m.Feature3Col),
+  'feature-3-col': dynamic(
+    () => import('../components/sections/feature').then((m) => m.Feature3Col),
+    { ssr: false },
   ),
   'number-none': dynamic(() =>
     import('../components/sections/number').then((m) => m.NumberNone),
@@ -98,25 +100,33 @@ const sectionMap: SectionMap = {
   'info-news': dynamic(() =>
     import('../components/sections/news').then((m) => m.HotNewsHero),
   ),
-  'posts-small-image-3-col': dynamic(() =>
-    import('../components/sections/news').then((m) => m.NewsListCard),
+  'posts-small-image-3-col': dynamic(
+    () => import('../components/sections/news').then((m) => m.NewsListCard),
+    { ssr: false },
   ),
 
   // News detail
-  'breadcrumb-basic': dynamic(() =>
-    import('../components/sections/breadcrumb').then((m) => m.BreadcrumbBasic),
+  'breadcrumb-basic': dynamic(
+    () =>
+      import('../components/sections/breadcrumb').then(
+        (m) => m.BreadcrumbBasic,
+      ),
+    { ssr: false },
   ),
 
   'post-detail-with-sidebar-right': dynamic(() =>
     import('../components/sections/news').then((m) => m.NewsDetail),
   ),
 
-  'posts-slider': dynamic(() =>
-    import('../components/sections/post-grid').then((m) => m.RelatedPost),
+  'posts-slider': dynamic(
+    () => import('../components/sections/post-grid').then((m) => m.RelatedPost),
+    { ssr: false },
   ),
 
-  'sidebar-right-basic': dynamic(() =>
-    import('../components/sections/custom').then((m) => m.SideBarRightBasic),
+  'sidebar-right-basic': dynamic(
+    () =>
+      import('../components/sections/custom').then((m) => m.SideBarRightBasic),
+    { ssr: false },
   ),
 
   // Department detail
@@ -172,8 +182,9 @@ const sectionMap: SectionMap = {
     import('../components/sections/hero').then((m) => m.HeroBackgroundsFocus),
   ),
 
-  'faqs-1-col': dynamic(() =>
-    import('../components/sections/faq').then((m) => m.FaqsOneCol),
+  'faqs-1-col': dynamic(
+    () => import('../components/sections/faq').then((m) => m.FaqsOneCol),
+    { ssr: false },
   ),
 
   // Dành cho người bệnh
@@ -193,8 +204,9 @@ const sectionMap: SectionMap = {
   ),
 
   // Khối cơ quan hành chính
-  'card-4-col': dynamic(() =>
-    import('../components/sections/card').then((m) => m.Card4Col),
+  'card-4-col': dynamic(
+    () => import('../components/sections/card').then((m) => m.Card4Col),
+    { ssr: false },
   ),
 
   // Cơ sở vật chất
@@ -203,8 +215,9 @@ const sectionMap: SectionMap = {
   ),
 
   // Search
-  custom: dynamic(() =>
-    import('../components/sections/custom').then((m) => m.CustomSearch),
+  custom: dynamic(
+    () => import('../components/sections/custom').then((m) => m.CustomSearch),
+    { ssr: false },
   ),
 
   // PDF view
