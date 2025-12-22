@@ -1,42 +1,22 @@
 'use client';
-import Link from 'next/link';
 import useStoreLanguage from '@/src/store/store';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import NextImg from '../next-img';
 import { useMetadata } from '@/src/providers/MetadataProvider';
 import { getAssetUrlById } from '@/src/utils/image';
 import NavHeader from './NavHeader';
 import MobileMenu from './MenuMobile';
-import { updateSlugLanguage } from '@/src/utils/language';
 import CustomLink from '../custom-link';
 import SearchHeader from './SearchHeader';
 import LanguageBtn from './LanguageBtn';
+import { Link } from '@/src/i18n/navigation';
 
 export default function TheHeader() {
   const { contact_information } = useMetadata();
   const language = useStoreLanguage((state: any) => state.language);
-  const updateLanguage = useStoreLanguage((state: any) => state.updateLanguage);
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
-
-  const changeLanguage = useCallback(
-    (value: string) => {
-      const segments = pathname.split('/');
-      segments[1] = value;
-
-      // Chỉ xử lý slug nếu tồn tại
-      if (segments[2]) {
-        segments[2] = updateSlugLanguage(segments[2], value);
-      }
-
-      const newPath = segments.join('/') || '/';
-      router.push(newPath);
-      updateLanguage(value);
-    },
-    [pathname, router, updateLanguage],
-  );
 
   const handleSearch = useCallback(
     (key: string, value: string) => {
@@ -102,7 +82,6 @@ export default function TheHeader() {
                 <SearchHeader handleSearch={handleSearch} />
 
                 <MobileMenu
-                  changeLanguage={changeLanguage}
                   handleSearch={handleSearch}
                 />
 

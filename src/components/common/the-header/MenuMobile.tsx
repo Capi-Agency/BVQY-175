@@ -27,12 +27,10 @@ import useTranslation from '@/src/hooks/use-translation';
 import { cn } from '@/src/lib/utils';
 
 type MobileMenuProps = {
-  changeLanguage: (value: string) => void;
   handleSearch: (key: string, value: string) => void;
 };
 
 export default function MobileMenu({
-  changeLanguage,
   handleSearch,
 }: MobileMenuProps) {
   const language = useStoreLanguage((state: any) => state.language);
