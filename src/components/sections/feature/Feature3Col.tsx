@@ -1,7 +1,5 @@
 'use client';
-import useStoreLanguage from '@/src/store/store';
 import { CommonSection } from '@/src/types/pageBuilder';
-import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
@@ -9,11 +7,12 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { getListNews } from '@/src/services/news';
+import { Link } from '@/src/i18n/navigation';
 
 export default function Feature3Col({ data }: CommonSection) {
   const category = data?.custom?.category;
   const [posts, setPosts] = useState<any>([]);
-  const language = useStoreLanguage((state: any) => state.language);
+
   const fetchPosts = async () => {
     const res = await getListNews({
       collection: data?.collections,
@@ -44,7 +43,7 @@ export default function Feature3Col({ data }: CommonSection) {
         {posts?.map((item: any, index: number) => (
           <Link
             key={index}
-            href={`/${language}${data?.buttons?.[0]?.url || ''}/${category}/${item.slug}`}
+            href={`${data?.buttons?.[0]?.url || ''}/${category}/${item.slug}`}
             aria-label="Xem chi tiết chuyên khoa"
             className="group relative hidden flex-col justify-between gap-3 bg-primary-50 p-3 transition-all duration-200 hover:bg-primary-600 hover:shadow-[0_25px_45px_-12px_rgba(18,26,43,0.20)] md:flex xl:gap-4 xl:p-4"
           >
@@ -96,7 +95,7 @@ export default function Feature3Col({ data }: CommonSection) {
             {posts?.map((item: any, index: number) => (
               <SwiperSlide key={index}>
                 <Link
-                  href={`/${language}${data?.buttons?.[0]?.url || ''}/${category}/${item.slug}`}
+                  href={`${data?.buttons?.[0]?.url || ''}/${category}/${item.slug}`}
                   aria-label="Xem chi tiết chuyên khoa"
                   className="group relative flex flex-col justify-between gap-3 bg-primary-50 p-3 transition-all duration-200 hover:bg-primary-600 hover:shadow-[0_25px_45px_-12px_rgba(18,26,43,0.20)] xl:gap-4 xl:p-4"
                 >

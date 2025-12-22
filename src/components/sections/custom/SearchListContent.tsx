@@ -13,12 +13,12 @@ import {
 import { NewsCard } from '../news';
 import DoctorCard from '../../common/doctor-card';
 import PaginationPrimary from '../pagination/PaginationPrimary';
-import useTranslation from '@/src/hooks/use-translation';
 import DepartmentCard from '../../departments/DepartmentCard';
 import { cn } from '@/src/lib/utils';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useTranslations } from 'next-intl';
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 type SearchListContentProps = {
@@ -29,7 +29,7 @@ type SearchListContentProps = {
   title?: string;
   setTotalAll: React.Dispatch<React.SetStateAction<number>>;
   className?: string;
-  cardType?: string
+  cardType?: string;
 };
 
 export default function SearchListContent({
@@ -40,12 +40,12 @@ export default function SearchListContent({
   title = '',
   setTotalAll,
   className,
-  cardType = "search"
+  cardType = 'search',
 }: SearchListContentProps) {
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
 
-  const { trans } = useTranslation();
+  const t = useTranslations('Common');
   const searchParams = useSearchParams();
 
   const [data, setData] = useState<any>([]);
@@ -90,7 +90,12 @@ export default function SearchListContent({
       Component: DoctorCard,
       getList: getListDoctorPreview,
       getCount: getTotalDoctorCount,
-      getProps: (itemData) => ({ item: itemData, url, avatarType: 'avatar', type: cardType }),
+      getProps: (itemData) => ({
+        item: itemData,
+        url,
+        avatarType: 'avatar',
+        type: cardType,
+      }),
     },
     departments: {
       Component: DepartmentCard,
@@ -214,7 +219,7 @@ export default function SearchListContent({
     { scope: containerRef, dependencies: [data] },
   );
 
-  if (data?.length === 0) return null
+  if (data?.length === 0) return null;
 
   return (
     <div ref={containerRef}>
@@ -232,7 +237,7 @@ export default function SearchListContent({
               {data?.map((el: any, i: number) => (
                 <div
                   key={i}
-                  className={`admin-depart-card col-span-1 scale-[0.9] opacity-0 ${cardType === "search" ? "origin-left" : "origin-center"}`}
+                  className={`admin-depart-card col-span-1 scale-[0.9] opacity-0 ${cardType === 'search' ? 'origin-left' : 'origin-center'}`}
                 >
                   <CardComponent key={i} {...registry.getProps(el)} />
                 </div>
@@ -251,7 +256,7 @@ export default function SearchListContent({
           </>
         ) : (
           <div className="text-normal flex h-[calc(100vh/3)] items-center justify-center text-sm font-medium text-black lg:text-base xl:text-lg">
-            {trans('no-data-available')}
+            {t('no-data')}
           </div>
         )}
       </div>

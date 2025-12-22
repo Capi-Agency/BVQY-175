@@ -2,32 +2,26 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata, ResolvingMetadata } from 'next';
 import { checkValueNull } from '@/src/utils/validate';
-import { cookies } from 'next/headers';
 import JsonLDProvider from '@/src/components/common/the-json-ld';
 import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { fnGetDepartmentDetail } from '@/src/services/department';
+import { getLangSlug } from '@/src/i18n/routing';
 
-async function getLangSlug(): Promise<string> {
-  const cookieStore = await cookies();
-  const lang: string = cookieStore.get('language')?.value ?? 'vi';
-  return lang === 'en' ? 'chi-tiet-vien-en' : 'chi-tiet-vien';
-}
+
 
 type Props = {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: Promise<{ locale: string; slug: string }>;
 };
 
 export async function generateMetadata(
   { params }: Props,
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const idRegex = /^[a-zA-Z0-9-_]+$/;
   if (!slug || !idRegex.test(slug)) return notFound();
-  const langSlug = await getLangSlug();
+  const langSlug = await getLangSlug(locale, 'chi-tiet-vien');
 
   const data = await fnGetDepartmentDetail({
     collection: 'department_groups',
@@ -64,12 +58,12 @@ export async function generateMetadata(
 }
 
 const DepartmentDetailPage = async ({ params }: Props) => {
-  const { slug } = await params;
+  const { locale, slug } = await params;
   const dataDetail = await fnGetDepartmentDetail({
     collection: 'department_groups',
     slug,
   });
-  const langSlug = await getLangSlug();
+  const langSlug = await getLangSlug(locale, 'chi-tiet-vien');
   const pageContent = await fnGetPageBySlug(langSlug);
 
   const pageSchema = pageContent?.seo?.meta_schema;

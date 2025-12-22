@@ -1,7 +1,5 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import useStoreLanguage from '@/src/store/store';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -12,9 +10,9 @@ import NextImg from '../../common/next-img';
 import { useParams } from 'next/navigation';
 import { getListNews } from '@/src/services/news';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { Link } from '@/src/i18n/navigation';
 
 const RelatedPosts = ({ data }: CommonSection) => {
-  const language = useStoreLanguage((state: any) => state.language);
   const params = useParams() || {};
   const category = (params?.cate as string) || '';
   const [newsData, setNewsData] = useState<any>([]);
@@ -45,7 +43,7 @@ const RelatedPosts = ({ data }: CommonSection) => {
       <div className="container flex items-center justify-between">
         {data?.title && <h1 className="section-title">{data?.title}</h1>}
         <Link
-          href={`/${language}${data?.buttons?.[0]?.url}`}
+          href={`${data?.buttons?.[0]?.url}`}
           aria-label="Xem tất cả tin tức"
           className="group flex items-center gap-1.5 text-gray-950"
         >

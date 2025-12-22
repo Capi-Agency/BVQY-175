@@ -4,14 +4,14 @@ import React from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
-import useTranslation from '@/src/hooks/use-translation';
 import { useMemo, useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { fnSendContact, fnSendReview } from '@/src/services/contact';
+import { fnSendReview } from '@/src/services/contact';
 import { cn } from '@/src/lib/utils';
+import { useTranslations } from 'next-intl';
 
 type Review = {
   rating: number | null;
@@ -29,33 +29,36 @@ const initialValue: Review = {
   message: '',
 };
 
-const reviewOptions = [
-  {
-    titleKey: 'rating-very-good',
-    rating: 5,
-  },
-  {
-    titleKey: 'rating-good',
-    rating: 4,
-  },
-  {
-    titleKey: 'rating-rather',
-    rating: 3,
-  },
-  {
-    titleKey: 'rating-medium',
-    rating: 2,
-  },
-  {
-    titleKey: 'rating-least',
-    rating: 1,
-  },
-];
-
 export default function ReviewSplitWithText({ data }: CommonSection) {
-  const { trans } = useTranslation();
+  const t = useTranslations();
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [loading, setLoading] = useState<boolean>(false);
+
+  const reviewOptions = useMemo(
+    () => [
+      {
+        title: t('Rating.very-good'),
+        rating: 5,
+      },
+      {
+        title: t('Rating.good'),
+        rating: 4,
+      },
+      {
+        title: t('Rating.rather'),
+        rating: 3,
+      },
+      {
+        title: t('Rating.medium'),
+        rating: 2,
+      },
+      {
+        title: t('Rating.least'),
+        rating: 1,
+      },
+    ],
+    [],
+  );
 
   const REVIEW_SCHEMA = useMemo(
     () =>
@@ -64,52 +67,41 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
           rating: yup
             .number()
             .nullable()
-            .required(
-              trans('validate-rating-required'),
-            ),
+            .required(t('Validate.rating.required')),
           name: yup
             .string()
-            .max(50, trans("validate-name-length"))
-            .required(trans("validate-name-required")),
+            .max(50, t('Validate.name.length'))
+            .required(t('Validate.name.required')),
           phone: yup
             .string()
-            .max(20, trans("validate-phone-length"))
-            .required(
-              trans("validate-phone-required"),
-            )
-            .test(
-              'is-valid-phone',
-              trans("validate-phone-format"),
-              (value) => {
-                if (!value) return false;
-                const phoneNot84 = /[0]{1}[35789]{1}[0-9]{8}$/;
-                const phone84 = /^[84]{2}[35789]{1}[0-9]{8}$/;
-                const phone024 = /^[024]{2}[23456789]{1}[0-9]{8}$/;
-                return (
-                  phoneNot84.test(value) ||
-                  phone84.test(value) ||
-                  phone024.test(value)
-                );
-              },
-            ),
+            .max(20, t('Validate.phone.length'))
+            .required(t('Validate.phone.required'))
+            .test('is-valid-phone', t('Validate.phone.invalid'), (value) => {
+              if (!value) return false;
+              const phoneNot84 = /[0]{1}[35789]{1}[0-9]{8}$/;
+              const phone84 = /^[84]{2}[35789]{1}[0-9]{8}$/;
+              const phone024 = /^[024]{2}[23456789]{1}[0-9]{8}$/;
+              return (
+                phoneNot84.test(value) ||
+                phone84.test(value) ||
+                phone024.test(value)
+              );
+            }),
           email: yup
             .string()
             .transform((value, originalValue) =>
               originalValue === '' ? null : value,
             )
-            .required(trans('validate-email-required'))
-            .max(50, trans('validate-email-length'))
-            .email(trans("validate-email-format"))
+            .required(t('Validate.email.required'))
+            .max(50, t('Validate.email.length'))
+            .email(t('Validate.email.invalid'))
             .matches(
               /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              trans("validate-email-format"),
+              t('Validate.email.invalid'),
             ),
           message: yup
             .string()
-            .max(
-              1000,
-              trans("validate-mess-length"),
-            )
+            .max(1000, t('Validate.message.length'))
             .notRequired(),
         })
         .required(),
@@ -132,17 +124,17 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
     () => [
       {
         key: 'name',
-        placeholder: trans('name-placeholder'),
+        placeholder: t('Validate.name.placeholder'),
         className: 'col-span-full md:col-span-1',
       },
       {
         key: 'phone',
-        placeholder: trans('phone-placeholder'),
+        placeholder: t('Validate.phone.placeholder'),
         className: 'col-span-full md:col-span-1',
       },
       {
         key: 'email',
-        placeholder: trans('email-placeholder'),
+        placeholder: t('Validate.email.placeholder'),
         className: 'col-span-full',
       },
     ],
@@ -154,7 +146,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
 
     try {
       if (!executeRecaptcha) {
-        throw new Error(trans("recapcha-not-ready"));
+        throw new Error(t('Notification.error.recapcha-not-ready'));
       }
       const token = await executeRecaptcha('review_form');
 
@@ -165,17 +157,14 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
       });
 
       if (!verifyRes.ok) {
-        toast.error(
-          trans("verify-recapcha-error"),
-          {
-            style: {
-              padding: 16,
-              borderRadius: 16,
-              color: '#80122E',
-              backgroundColor: '#FCECF0',
-            },
+        toast.error(t('Notification.error.verify-recapcha'), {
+          style: {
+            padding: 16,
+            borderRadius: 16,
+            color: '#80122E',
+            backgroundColor: '#FCECF0',
           },
-        );
+        });
         setLoading(false);
         return;
       }
@@ -186,34 +175,26 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
       });
 
       if (!response) {
-        throw new Error(
-          trans("noti-error-contact"),
-        );
+        throw new Error(t('Notification.error.review'));
       }
-      toast.success(
-        trans("noti-success-review"),
-        {
-          style: {
-            padding: 16,
-            borderRadius: 16,
-            color: '#136C34',
-            backgroundColor: '#F4FCF7',
-          },
+      toast.success(t('Notification.success.review'), {
+        style: {
+          padding: 16,
+          borderRadius: 16,
+          color: '#136C34',
+          backgroundColor: '#F4FCF7',
         },
-      );
+      });
       reset(initialValue);
     } catch (error) {
-      toast.error(
-        trans("noti-error-contact"),
-        {
-          style: {
-            padding: 16,
-            borderRadius: 16,
-            color: '#80122E',
-            backgroundColor: '#FCECF0',
-          },
+      toast.error(t('Notification.error.review'), {
+        style: {
+          padding: 16,
+          borderRadius: 16,
+          color: '#80122E',
+          backgroundColor: '#FCECF0',
         },
-      );
+      });
     } finally {
       setLoading(false);
     }
@@ -264,17 +245,18 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                         shouldValidate: true,
                       })
                     }
-                    className={`${watch('rating') === option?.rating ? 'border-primary-600 bg-primary-50 text-primary-600' : 'border-gray-400 bg-transparent text-gray-500'} flex h-9 items-center justify-center font-medium rounded-[4px] border-[2px] px-3 text-sm transition-all duration-100 hover:bg-primary-50 hover:border-primary-600 hover:text-primary-600 md:h-10 md:px-3 lg:text-base 2xl:h-11 2xl:px-3 2xl:text-lg 3xl:h-12 3xl:px-4 4xl:px-5`}
+                    className={`${watch('rating') === option?.rating ? 'border-primary-600 bg-primary-50 text-primary-600' : 'border-gray-400 bg-transparent text-gray-500'} flex h-9 items-center justify-center rounded-[4px] border-[2px] px-3 text-sm font-medium transition-all duration-100 hover:border-primary-600 hover:bg-primary-50 hover:text-primary-600 md:h-10 md:px-3 lg:text-base 2xl:h-11 2xl:px-3 3xl:text-lg 3xl:h-12 3xl:px-4 4xl:px-5`}
                   >
-                    {trans(option?.titleKey)}
+                    {option?.title}
                   </button>
                 ))}
               </div>
               {errors.rating && isSubmitted && (
                 <p
                   id="outlined_error_help"
-                  className={`text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${errors.rating ? 'block' : 'hidden'
-                    }`}
+                  className={`text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
+                    errors.rating ? 'block' : 'hidden'
+                  }`}
                 >
                   <span className="font-medium">{errors?.rating?.message}</span>
                 </p>
@@ -297,8 +279,9 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                     isSubmitted && (
                       <p
                         id="outlined_error_help"
-                        className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${errors[input.key as keyof Review] ? 'block' : 'hidden'
-                          }`}
+                        className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${
+                          errors[input.key as keyof Review] ? 'block' : 'hidden'
+                        }`}
                       >
                         <span className="font-medium">
                           {errors[input.key as keyof Review]?.message}
@@ -314,14 +297,15 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                   rows={3}
                   autoComplete="off"
                   aria-describedby="outlined_error_help"
-                  placeholder={trans('note-placeholder')}
+                  placeholder={t('Validate.message.placeholder')}
                   className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-base font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
                 />
                 {errors.message && isSubmitted && (
                   <p
                     id="outlined_error_help"
-                    className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${errors.message ? 'block' : 'hidden'
-                      }`}
+                    className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
+                      errors.message ? 'block' : 'hidden'
+                    }`}
                   >
                     <span className="font-medium">
                       {errors?.message?.message}
@@ -336,7 +320,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                   disabled={loading}
                   className="relative w-full overflow-hidden rounded-[6px] bg-[#E50000] p-[8px_20px] text-base text-white md:w-fit lg:p-[10px_24px] lg:text-lg"
                 >
-                  {trans('send-now')}
+                  {t('Common.send-now')}
 
                   <div
                     className={`absolute inset-0 z-[1] flex size-full items-center justify-center bg-[#E50000] ${loading ? 'block' : 'hidden'}`}

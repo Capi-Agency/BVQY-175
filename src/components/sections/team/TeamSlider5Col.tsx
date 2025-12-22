@@ -1,25 +1,22 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
-import Link from 'next/link';
-import useStoreLanguage from '@/src/store/store';
 import DoctorCard from '../../common/doctor-card';
+import CustomLink from '../../common/custom-link';
 
 export default function TeamSlider5Col({ data }: CommonSection) {
-  const language = useStoreLanguage((state: any) => state.language);
-
   return (
     <section className="bg-primary-50 py-10 md:py-6 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
       <div className="container">
         <div className="section-sub-title text-center">{data?.subtitle}</div>
         {data?.title && (
-          <h1 className="section-title text-center mt-1">{data?.title}</h1>
+          <h1 className="section-title mt-1 text-center">{data?.title}</h1>
         )}
       </div>
       <div className="lg:container">
@@ -94,8 +91,8 @@ export default function TeamSlider5Col({ data }: CommonSection) {
       </div>
       <div className="container">
         <div className="flex justify-center pt-5 xl:pt-6 2xl:pt-7 3xl:pt-8 4xl:pt-10">
-          <Link
-            href={`/${language}${data?.buttons?.[0]?.url}`}
+          <CustomLink
+            href={`${data?.buttons?.[0]?.url}`}
             className="btn-danger"
             aria-label="Xem tất cả bác sĩ"
           >
@@ -106,7 +103,7 @@ export default function TeamSlider5Col({ data }: CommonSection) {
                 alt="icon"
               />
             </div>
-          </Link>
+          </CustomLink>
         </div>
       </div>
     </section>

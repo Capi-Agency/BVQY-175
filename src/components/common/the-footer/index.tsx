@@ -1,20 +1,18 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import NextImg from '@/src/components/common/next-img';
 import { useMetadata } from '@/src/providers/MetadataProvider';
 import Link from 'next/link';
-import useStoreLanguage from '@/src/store/store';
 import RegisterFormFooter from './RegisterFormFooter';
 import CustomLink from '../custom-link';
 import Script from 'next/script';
-import useTranslation from '@/src/hooks/use-translation';
+import { useTranslations } from 'next-intl';
 
 export default function TheFooter() {
-  const language = useStoreLanguage((state: any) => state.language);
-  const { trans } = useTranslation();
+  const t = useTranslations();
   const { contact_information, bottom_navigation } = useMetadata();
   return (
-    <footer className="relative bg-primary-600 py-6 xl:py-8 3xl:py-10 overflow-hidden">
+    <footer className="relative overflow-hidden bg-primary-600 py-6 xl:py-8 3xl:py-10">
       <div className="pointer-events-none absolute inset-0 hidden size-full select-none md:block">
         <NextImg
           src="/assets/images/footer_bg.png"
@@ -54,7 +52,7 @@ export default function TheFooter() {
           {/* Start: contact info */}
           <div className="w-full md:w-full lg:w-[432px] xl:w-[320px] 3xl:w-[352px]">
             <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
-              {trans('contact-label')}
+              {t('Contact.title')}
             </h2>
             <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
 
@@ -112,7 +110,7 @@ export default function TheFooter() {
                   className="w-full md:w-[200px] xl:w-[172px] 3xl:w-[200px]"
                 >
                   <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
-                    {language === 'en' ? `${item?.title_en}` : `${item?.title}`}
+                    {item?.title}
                   </h2>
                   <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
                   <div className="mt-5 space-y-4">
@@ -123,9 +121,7 @@ export default function TheFooter() {
                           href={sub_item?.url}
                           className="block w-fit text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base"
                         >
-                          {language === 'en'
-                            ? `${sub_item?.title_en}`
-                            : `${sub_item?.title}`}
+                          {sub_item?.title}
                         </CustomLink>
                       ),
                     )}
@@ -138,11 +134,11 @@ export default function TheFooter() {
           {/* Start: social network */}
           <div className="md:pr-5 xl:px-3 2xl:px-4 3xl:px-6">
             <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
-              {trans('social-network-label')}
+              {t('Footer.social-network-label')}
             </h2>
             <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
 
-            <div className='mt-5 flex flex-col gap-6 lg:gap-8 md:flex-row md:items-center xl:items-start xl:gap-6 2xl:gap-8 3xl:gap-8 4xl:gap-9 xl:flex-col'>
+            <div className="mt-5 flex flex-col gap-6 md:flex-row md:items-center lg:gap-8 xl:flex-col xl:items-start xl:gap-6 2xl:gap-8 3xl:gap-8 4xl:gap-9">
               <div className="flex gap-3">
                 {contact_information?.facebook_url && (
                   <Link
@@ -166,7 +162,10 @@ export default function TheFooter() {
                     aria-label="Youtube bệnh viện 175"
                     className="relative size-9"
                   >
-                    <NextImg src="/assets/icons/youtube.svg" alt="youtube logo" />
+                    <NextImg
+                      src="/assets/icons/youtube.svg"
+                      alt="youtube logo"
+                    />
                   </Link>
                 )}
 
@@ -178,29 +177,39 @@ export default function TheFooter() {
                     aria-label="Zalo bệnh viện 175"
                     className="relative size-9"
                   >
-                    <NextImg src="/assets/icons/zalo_contact.svg" alt="zalo logo" />
+                    <NextImg
+                      src="/assets/icons/zalo_contact.svg"
+                      alt="zalo logo"
+                    />
                   </Link>
                 )}
               </div>
 
-              <div className='gap-3 2xl:gap-4 flex items-center xl:flex-col'>
+              <div className="flex items-center gap-3 xl:flex-col 2xl:gap-4">
                 <CustomLink
                   href={contact_information?.googleplay_url}
-                  className='relative block aspect-[180/50] w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]'>
-                  <NextImg src="/assets/images/gg_play_cta.png" alt="gg play cta" />
+                  className="relative block aspect-[180/50] w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]"
+                >
+                  <NextImg
+                    src="/assets/images/gg_play_cta.png"
+                    alt="gg play cta"
+                  />
                 </CustomLink>
 
                 <CustomLink
                   href={contact_information?.appstore_url}
-
-                  className='relative block aspect-[180/50] w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]'>
-                  <NextImg src="/assets/images/app_store_cta.png" alt="app store cta" />
+                  className="relative block aspect-[180/50] w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]"
+                >
+                  <NextImg
+                    src="/assets/images/app_store_cta.png"
+                    alt="app store cta"
+                  />
                 </CustomLink>
               </div>
             </div>
           </div>
 
-          <div className="flex items-center md:items-end gap-6 md:px-0 xl:flex-col xl:items-start xl:gap-4 2xl:gap-5 4xl:gap-6">
+          <div className="flex items-center gap-6 md:items-end md:px-0 xl:flex-col xl:items-start xl:gap-4 2xl:gap-5 4xl:gap-6">
             <div className="relative h-[54px] w-[136px] 2xl:h-[58px] 2xl:w-[147px] 4xl:h-[66px] 4xl:w-[167px]">
               <NextImg
                 src="/assets/images/bo_cong_thuong.png"
@@ -238,7 +247,7 @@ export default function TheFooter() {
                   className="block tracking-wider"
                   aria-label="Thông tin bảo mật"
                 >
-                  {trans('policy-label')}
+                  {t('Footer.policy-label')}
                 </Link>
                 <div className="w-[1px] bg-white"></div>
               </>
@@ -252,19 +261,19 @@ export default function TheFooter() {
                 aria-label="Thông tin bảo mật"
                 className="block tracking-wider"
               >
-                {trans('terms-services-label')}
+                {t('Footer.terms-services-label')}
               </Link>
             )}
           </div>
 
           <div className="my-3 h-[1px] w-full bg-[#00A032] xl:my-4 3xl:mb-5"></div>
 
-          <div className="text-center text-sm 2xl:text-base font-normal tracking-normal text-white md:tracking-wider">
-            {trans('copy-right-label')}
+          <div className="text-center text-sm font-normal tracking-normal text-white md:tracking-wider 2xl:text-base">
+            {t('Footer.copy-right-label')}
           </div>
 
-          <div className="text-center text-sm 2xl:text-base font-normal tracking-normal text-white md:tracking-wide lg:tracking-normal xl:tracking-wide mt-3">
-            Giao diện website mới của Bệnh viện Quân y 175. Phiên bản thử nghiệm được phát triển bởi Công ty TNHH công nghệ truyền thông Minh Khang
+          <div className="mt-3 text-center text-sm font-normal tracking-normal text-white md:tracking-wide lg:tracking-normal xl:tracking-wide 2xl:text-base">
+            {t('Footer.note-web-demo')}
           </div>
         </div>
         {/* End: policy */}

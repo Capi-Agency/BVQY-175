@@ -11,11 +11,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
 import { cn } from '@/src/lib/utils';
+import { useTranslations } from 'next-intl';
 
 export default function InfoWithLeftImageTopTitle({
   data,
   dataDetail,
 }: CommonSection) {
+  const t = useTranslations("Common")
   const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
     null,
   );
@@ -169,7 +171,7 @@ export default function InfoWithLeftImageTopTitle({
                     onClick={() => setExpanded((prev) => !prev)}
                     className="text-primary inline-flex items-center gap-1 text-sm font-medium hover:underline"
                   >
-                    {expanded ? 'Thu gọn' : 'Xem thêm'}
+                    {expanded ? t('collapse') : t('view-more')}
                   </button>
                 </div>
               )}

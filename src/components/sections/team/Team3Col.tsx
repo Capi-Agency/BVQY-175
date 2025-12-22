@@ -3,11 +3,10 @@ import React, { JSX } from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { getAssetUrlById } from '@/src/utils/image';
-import Link from 'next/link';
 import { cn } from '@/src/lib/utils';
 import NextImg from '@/src/components/common/next-img';
 import { getDoctorTitles } from '@/src/utils/render-doctor-title';
-import useStoreLanguage from '@/src/store/store';
+import { Link } from '@/src/i18n/navigation';
 
 export default function Team3Col({ data }: CommonSection) {
   if (!data) return null;
@@ -41,7 +40,7 @@ export default function Team3Col({ data }: CommonSection) {
           {firstDoctor && (
             <div className="flex w-full justify-center">
               <div className="w-full max-w-[240px] md:max-w-[300px] xl:max-w-[428px]">
-                <DirectorCard item={firstDoctor} language={'vi'} />
+                <DirectorCard item={firstDoctor} />
               </div>
             </div>
           )}
@@ -65,9 +64,9 @@ export default function Team3Col({ data }: CommonSection) {
   );
 }
 
-const DirectorCard = ({ language, item }: { language: any; item: any }) => (
+const DirectorCard = ({item }: { item: any }) => (
   <Link
-    href={`/${language}/doi-ngu-bac-si/${item?.slug}`}
+    href={`/doi-ngu-bac-si/${item?.slug}`}
     aria-label="Xem chi tiết bác sĩ"
     className="group block space-y-3 2xl:space-y-[14px] 3xl:space-y-4"
   >
@@ -144,7 +143,6 @@ function DoctorCard({
   avatarRatio = '2/3',
   isRounded = true,
 }: DoctorCardProps) {
-  const language = useStoreLanguage((state: any) => state.language);
 
   const renderSubTitleByType: Record<DoctorCardProps['subTitle'], JSX.Element> =
     {
@@ -158,7 +156,7 @@ function DoctorCard({
 
   return (
     <Link
-      href={`/${language}/doi-ngu-bac-si/${item?.slug}`}
+      href={`/doi-ngu-bac-si/${item?.slug}`}
       aria-label="Xem chi tiết bác sĩ"
       className="sm:space-y-4 group block space-y-3 md:space-y-5 xl:space-y-[10px] 2xl:space-y-[14px] 3xl:space-y-4"
     >

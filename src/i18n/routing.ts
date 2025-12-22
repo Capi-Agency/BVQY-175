@@ -1,5 +1,4 @@
 import { defineRouting } from 'next-intl/routing';
-import { fnGetAllPageSlug } from '@/src/services/page'; // đường dẫn đúng của bạn
 
 export const routing = defineRouting({
   locales: ['vi', 'en'],

@@ -12,16 +12,15 @@ import {
 import { cn } from '@/src/lib/utils';
 import { X } from 'lucide-react';
 import Fancybox from '../../common/Fancybox';
-import useTranslation from '@/src/hooks/use-translation';
 import NextImg from '../../common/next-img';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Link from 'next/link';
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
+import { Link } from '@/src/i18n/navigation';
+
 export default function Card1ColDetail({ event, data }: any) {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const { trans } = useTranslation();
 
   const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
     null,
@@ -48,13 +47,13 @@ export default function Card1ColDetail({ event, data }: any) {
 
             <div className="flex flex-col items-stretch justify-center p-3 lg:p-4">
               <div className="line-clamp-3 text-base font-semibold uppercase text-black/90 lg:text-lg 2xl:text-xl 2xl:!leading-[1.5] 3xl:text-2xl">
-                {trans(event?.title, event?.title_en)}
+                {event?.title}
               </div>
 
               <div
                 className="relative mt-1.5 line-clamp-3 h-[60px] overflow-hidden text-sm font-normal text-black lg:mt-2 xl:h-[72px] xl:text-base 2xl:mt-3 4xl:mt-4"
                 dangerouslySetInnerHTML={{
-                  __html: trans(event?.blurb, event?.blurb_en),
+                  __html: event?.blurb,
                 }}
               ></div>
 

@@ -3,7 +3,6 @@
 import React, { useRef, useState } from 'react';
 import { DialogDescription } from '@radix-ui/react-dialog';
 import { useScrollSmoother } from '@/src/providers/ScrollSmootherProvider';
-import useStoreLanguage from '@/src/store/store';
 import NextImg from '../next-img';
 import {
   AccordionContent,
@@ -20,22 +19,20 @@ import {
 } from '../../ui/dialog';
 import { useMetadata } from '@/src/providers/MetadataProvider';
 import { getAssetUrlById } from '@/src/utils/image';
-import Link from 'next/link';
 import CustomLink from '../custom-link';
 import LanguageBtn from './LanguageBtn';
-import useTranslation from '@/src/hooks/use-translation';
 import { cn } from '@/src/lib/utils';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/src/i18n/navigation';
 
 type MobileMenuProps = {
   handleSearch: (key: string, value: string) => void;
 };
 
-export default function MobileMenu({
-  handleSearch,
-}: MobileMenuProps) {
-  const language = useStoreLanguage((state: any) => state.language);
+export default function MobileMenu({ handleSearch }: MobileMenuProps) {
   const { contact_information, top_navigation } = useMetadata();
-  const { trans } = useTranslation();
+  const t = useTranslations();
+
   const [isOpenSubMenu, setIsOpenSubMenu] = useState<boolean>(false);
   const [itemSecond, setItemSecond] = useState<any>();
   const [searchText, setSearchText] = useState<string>('');
@@ -133,7 +130,7 @@ export default function MobileMenu({
                     contact_information?.files?.map(
                       (file: any, index: number) => (
                         <CustomLink
-                          href="/thanh-tich"
+                          href={t('Href.achievements')}
                           className="relative block h-[72px] w-[50px]"
                           key={index}
                         >
@@ -163,7 +160,7 @@ export default function MobileMenu({
                       }
                     }}
                     className="flex-1 border-none bg-transparent text-base font-normal text-black outline-none placeholder:text-[#52525B]"
-                    placeholder={trans('search-placeholder')}
+                    placeholder={t('Validate.search.placeholder')}
                   />
                   <button
                     onClick={() => {
@@ -209,16 +206,12 @@ export default function MobileMenu({
                                   href={item?.url || ''}
                                   className="block py-5 text-sm font-bold uppercase text-black md:py-6"
                                 >
-                                  {language === 'en'
-                                    ? `${item?.title_en}`
-                                    : `${item?.title}`}{' '}
+                                  {item?.title || ''}
                                 </CustomLink>
                               </DialogClose>
                             ) : (
                               <AccordionTrigger className="py-5 text-sm font-bold uppercase text-black md:py-6">
-                                {language === 'en'
-                                  ? `${item?.title_en}`
-                                  : `${item?.title}`}{' '}
+                                {item?.title || ''}
                               </AccordionTrigger>
                             )}
 
@@ -253,9 +246,7 @@ export default function MobileMenu({
                                               href={item_second?.url || ''}
                                               className="block py-4 text-sm font-medium text-[#18181B]"
                                             >
-                                              {language === 'en'
-                                                ? `${item_second?.title_en}`
-                                                : `${item_second?.title}`}
+                                              {item_second?.title || ''}
                                             </CustomLink>
                                           </DialogClose>
                                         ) : (
@@ -266,9 +257,7 @@ export default function MobileMenu({
                                             }}
                                             className="py-4 text-sm font-medium text-[#18181B]"
                                           >
-                                            {language === 'en'
-                                              ? `${item_second?.title_en}`
-                                              : `${item_second?.title}`}
+                                            {item_second?.title || ''}
                                           </div>
                                         )}
                                         <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
@@ -305,9 +294,7 @@ export default function MobileMenu({
                                           'block py-4 text-sm font-medium text-[#18181B]',
                                         )}
                                       >
-                                        {language === 'en'
-                                          ? `${item_second?.title_en}`
-                                          : `${item_second?.title}`}{' '}
+                                        {item_second?.title || ''}
                                       </CustomLink>
                                     </DialogClose>
                                   ),
@@ -325,9 +312,7 @@ export default function MobileMenu({
                               href={item?.url || ''}
                               className="block py-5 text-sm font-bold uppercase text-black md:py-6"
                             >
-                              {language === 'en'
-                                ? `${item?.title_en}`
-                                : `${item?.title}`}
+                              {item?.title || ''}
                             </CustomLink>
                           </DialogClose>
                         </AccordionItem>
@@ -373,7 +358,7 @@ export default function MobileMenu({
                   />
                 </div>
                 <div className="text-sm font-bold text-black">
-                  {trans('return-menu')}
+                  {t('Common.return-main-menu')}
                 </div>
               </button>
 
@@ -410,16 +395,12 @@ export default function MobileMenu({
                                       href={item_third?.url || ''}
                                       className="text-start text-sm font-bold uppercase text-black"
                                     >
-                                      {language === 'en'
-                                        ? `${item_third?.title_en}`
-                                        : `${item_third?.title}`}
+                                      {item_third?.title || ''}
                                     </CustomLink>
                                   </DialogClose>
                                 ) : (
                                   <AccordionTrigger className="text-start text-sm font-bold uppercase text-black">
-                                    {language === 'en'
-                                      ? `${item_third?.title_en}`
-                                      : `${item_third?.title}`}
+                                    {item_third?.title || ''}
                                   </AccordionTrigger>
                                 )}
 
@@ -444,9 +425,7 @@ export default function MobileMenu({
                                         className="flex w-fit cursor-pointer items-center gap-1"
                                       >
                                         <div className="text-sm font-medium text-[#18181B]">
-                                          {language === 'en'
-                                            ? `${item_fourth?.title_en}`
-                                            : `${item_fourth?.title}`}
+                                          {item_fourth?.title || ''}
                                         </div>
                                         <div className="rounded-[20px] bg-primary-100 p-[2px_12px] text-sm font-medium text-primary-800">
                                           {item_fourth?.sub_items?.length}
@@ -472,9 +451,7 @@ export default function MobileMenu({
                                           href={item_fourth?.url || ''}
                                           className="text-sm font-medium text-[#18181B]"
                                         >
-                                          {language === 'en'
-                                            ? `${item_fourth?.title_en}`
-                                            : `${item_fourth?.title}`}{' '}
+                                          {item_fourth?.title || ''}
                                         </CustomLink>
                                       </DialogClose>
                                     ),
@@ -495,9 +472,7 @@ export default function MobileMenu({
                                 href={item_third?.url || ''}
                                 className="text-sm font-bold uppercase text-black"
                               >
-                                {language === 'en'
-                                  ? `${item_third?.title_en}`
-                                  : `${item_third?.title}`}
+                                {item_third?.title || ''}
                               </CustomLink>
                             </DialogClose>
                           </AccordionItem>

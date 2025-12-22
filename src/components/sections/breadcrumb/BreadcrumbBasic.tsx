@@ -1,17 +1,15 @@
 'use client';
-import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import NextImg from '../../common/next-img';
-import useStoreLanguage from '@/src/store/store';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { fnGetListitem } from '@/src/services/common';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useParams } from 'next/navigation';
+import CustomLink from '../../common/custom-link';
 
 export default function BreadcrumbBasic({
   data,
 }: CommonSection) {
-  const language = useStoreLanguage((state: any) => state.language);
   const [buttons, setButtons] = useState<any[]>(data?.buttons)
   const param = useParams() || {};
   const category = (param?.cate as string) || ''; // danh mục tin tức
@@ -68,13 +66,13 @@ export default function BreadcrumbBasic({
           return (
             <React.Fragment key={index}>
               {button?.url ? (
-                <Link
-                  href={`/${language}${button?.url}` || '/'}
+                <CustomLink
+                  href={`${button?.url}` || '/'}
                   aria-label="Chuyển trang"
                   className={`${isLast ? 'font-semibold text-primary-600' : 'font-normal text-[#71717A] hover:text-primary-600'} block transition-colors duration-100`}
                 >
                   {button?.title}
-                </Link>
+                </CustomLink>
               ) : (
                 <div
                   className={`${isLast ? 'font-semibold text-primary-600' : 'font-normal text-[#71717A] hover:text-primary-600'} block transition-colors duration-100`}

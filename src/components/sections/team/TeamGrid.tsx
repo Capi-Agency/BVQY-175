@@ -5,9 +5,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import NextImg from '../../common/next-img';
 import clsx from 'clsx';
 import { getAssetUrlById } from '@/src/utils/image';
-import useTranslation from '@/src/hooks/use-translation';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
+import { useTranslations } from 'next-intl';
 
 const TeamGrid = ({ data }: CommonSection) => {
   return (
@@ -80,7 +80,8 @@ const LeaderCard = ({
   item: any;
   data: any;
 }) => {
-  const { trans } = useTranslation();
+  const t = useTranslations('Doctor');
+
   const [expanded, setExpanded] = useState(false);
   const { conditions } = useGsapMatchMedia();
 
@@ -219,7 +220,7 @@ const LeaderCard = ({
                   </div>
                   <div className="flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
                     <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
-                      {trans('doctor-education-label')}
+                      {t('education')}
                     </h3>
                     <div
                       className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
@@ -251,7 +252,7 @@ const LeaderCard = ({
                   </div>
                   <div className="relative flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
                     <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
-                      {trans('doctor-activity-label')}
+                      {t('activity-image')}
                     </h3>
                   </div>
                 </div>
@@ -313,7 +314,7 @@ const LeaderCard = ({
                   </div>
                   <div className="flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
                     <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
-                      {trans('doctor-awards-label')}
+                      {t('awards')}
                     </h3>
                     <div
                       className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"

@@ -2,7 +2,7 @@ import React from 'react';
 import NextImg from '../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import CustomLink from '../common/custom-link';
-import useTranslation from '@/src/hooks/use-translation';
+import { useTranslations } from 'next-intl';
 
 type DepartmentCardProps = {
   item: any;
@@ -16,9 +16,7 @@ export default function DepartmentCard({
   blurb = 'description',
   type = 'default',
 }: DepartmentCardProps) {
-  const { trans } = useTranslation();
-
-  const content = trans(item?.[`${blurb}`], item?.[`${blurb}_en`]);
+  const t = useTranslations('Common');
 
   const renderSearch = () => (
     <CustomLink
@@ -27,12 +25,12 @@ export default function DepartmentCard({
       className="block space-y-1"
     >
       <div className="line-clamp-2 text-base font-semibold !leading-[1.6] text-primary-1000 underline underline-offset-2 duration-200 group-hover:text-primary-50 md:text-lg xl:text-xl 3xl:text-[22px] 4xl:text-2xl">
-        {trans(item?.title, item?.title_en)} {item?.code && ` (${item.code})`}
+        {item?.title} {item?.code && ` (${item.code})`}
       </div>
       <div
         className="line-clamp-2 text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100 xl:text-base"
         dangerouslySetInnerHTML={{
-          __html: content,
+          __html: item?.blurb,
         }}
       ></div>
     </CustomLink>
@@ -56,13 +54,12 @@ export default function DepartmentCard({
 
         <div className="space-y-1">
           <div className="text-lg font-semibold !leading-[1.5] text-primary-1000 duration-200 group-hover:text-primary-50 xl:text-xl 2xl:line-clamp-2 2xl:h-16 3xl:h-[66px] 3xl:text-[22px] 4xl:h-[72px] 4xl:text-2xl">
-            {trans(item?.title, item?.title_en)}{' '}
-            {item?.code && ` (${item.code})`}
+            {item?.title} {item?.code && ` (${item.code})`}
           </div>
           <div
             className="line-clamp-3 text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
             dangerouslySetInnerHTML={{
-              __html: content,
+              __html: item?.blurb,
             }}
           ></div>
         </div>
@@ -71,7 +68,7 @@ export default function DepartmentCard({
       <div className="flex justify-between">
         <div className="flex items-center gap-1.5">
           <span className="text-sm font-medium text-gray-950 duration-200 group-hover:text-primary-50 2xl:text-base 3xl:text-lg">
-            {trans('view-more-label')}
+            {t('view-detail')}
           </span>
           <div className="relative size-5 transition-all duration-200 group-hover:brightness-0 group-hover:invert 2xl:size-6">
             <NextImg

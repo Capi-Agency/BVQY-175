@@ -13,6 +13,10 @@
     "search-results": "Search results",
     "send-now": "Send now"
   },
+  "Href": {
+    "achievements": "/achievements",
+    "search": "/search"
+  },
   "Contact": {
     "title": "Contact",
     "hotline": "Hotline",
@@ -92,6 +96,7 @@
     "social-network-label": "Social networks",
     "policy-label": "Privacy Policy",
     "terms-services-label": "Terms & Services",
-    "copy-right-label": "Copyright © 2025 Military Hospital 175. All rights reserved."
+    "copy-right-label": "Copyright © 2025 Military Hospital 175. All rights reserved.",
+    "note-web-demo": "The new website interface of Military Hospital 175. This trial version was developed by Minh Khang Media Technology Company."
   }
 }

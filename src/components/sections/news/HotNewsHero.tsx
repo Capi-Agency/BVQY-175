@@ -1,23 +1,18 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import NextImg from '../../common/next-img';
-import Link from 'next/link';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
-import useStoreLanguage from '@/src/store/store';
 import { getListNews } from '@/src/services/news';
 import { useParams } from 'next/navigation';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import useTranslation from '@/src/hooks/use-translation';
+import { Link } from '@/src/i18n/navigation';
 
 export default function HotNewsHero({ data }: CommonSection) {
-  const language = useStoreLanguage((state: any) => state.language);
   const [dataNews, setDataNews] = useState<any>([]);
   const param = useParams() || {};
   const category = (param?.cate as string) || '';
-
-  const {trans} = useTranslation();
 
   useEffect(() => {
     (async () => {
@@ -57,7 +52,7 @@ export default function HotNewsHero({ data }: CommonSection) {
               return (
                 <Link
                   key={index}
-                  href={`/${language}${data?.buttons?.[0]?.url}/${cateUrl}/${news?.slug}`}
+                  href={`${data?.buttons?.[0]?.url}/${cateUrl}/${news?.slug}`}
                   aria-label="Xem chi tiết tin tức"
                   className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-11 3xl:gap-[52px] 4xl:gap-[60px]"
                 >

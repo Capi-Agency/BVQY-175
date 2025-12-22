@@ -2,7 +2,6 @@
 import NextImg from '@/src/components/common/next-img';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import {
-  getPositionFixed,
   handleScrollTo,
   handleScrollToDepartmentPage,
 } from '@/src/utils/gsap';

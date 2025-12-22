@@ -8,7 +8,6 @@ import {
   AccordionTrigger,
 } from '../../ui/accordion';
 import NextImg from '../../common/next-img';
-import useTranslation from '@/src/hooks/use-translation';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 

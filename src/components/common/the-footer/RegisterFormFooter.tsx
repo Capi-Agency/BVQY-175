@@ -3,11 +3,10 @@ import { useMemo, useState } from 'react';
 import NextImg from '../next-img';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { fnSendContact } from '@/src/services/contact';
-import useStoreLanguage from '@/src/store/store';
-import useTranslation from '@/src/hooks/use-translation';
+import { useTranslations } from 'next-intl';
 
 type Contact = {
   email: string;
@@ -18,9 +17,8 @@ const initialValue: Contact = {
 };
 
 export default function RegisterFormFooter() {
-  const { trans } = useTranslation();
+  const t = useTranslations();
   const [loading, setLoading] = useState<boolean>(false);
-  const language = useStoreLanguage((state: any) => state.language);
 
   const CONTACT_SCHEMA = useMemo(
     () =>
@@ -31,16 +29,16 @@ export default function RegisterFormFooter() {
             .transform((value, originalValue) =>
               originalValue === '' ? null : value,
             )
-            .required(trans('validate-email-required'))
-            .max(50, trans('validate-email-length'))
-            .email(trans('validate-email-format'))
+            .required(t('Validate.email.required'))
+            .max(50, t('Validate.email.length'))
+            .email(t('Validate.email.invalid'))
             .matches(
               /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              trans('validate-email-format'),
+              t('Validate.email.invalid'),
             ),
         })
         .required(),
-    [language],
+    [],
   );
 
   const {
@@ -66,9 +64,9 @@ export default function RegisterFormFooter() {
       });
 
       if (!response) {
-        throw new Error(trans('noti-error-contact'));
+        throw new Error(t('Notification.error.footer-register'));
       }
-      toast.success(trans('noti-success-register'), {
+      toast.success(t('Notification.success.footer-register'), {
         style: {
           padding: 16,
           borderRadius: 16,
@@ -78,7 +76,7 @@ export default function RegisterFormFooter() {
       });
       reset(initialValue);
     } catch (error) {
-      toast.error(trans('noti-error-contact'), {
+      toast.error(t('Notification.error.footer-register'), {
         style: {
           padding: 16,
           borderRadius: 16,
@@ -94,7 +92,7 @@ export default function RegisterFormFooter() {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-3 text-[13px] md:text-sm font-bold tracking-wide text-white xl:text-sm 3xl:mb-4 3xl:text-base">
-        {trans('register-form-title')}
+        {t('Footer.register-form-title')}
       </div>
 
       <div className="h-11 3xl:h-12">
@@ -105,7 +103,7 @@ export default function RegisterFormFooter() {
             aria-describedby="outlined_error_help"
             type="text"
             className="flex-1 border-none bg-transparent text-base font-normal text-white outline-none placeholder:text-white/50 xl:text-sm"
-            placeholder={trans('register-placeholder')}
+            placeholder={t('Footer.register-placeholder')}
           />
 
           <button
@@ -114,7 +112,7 @@ export default function RegisterFormFooter() {
             className="relative flex items-center gap-[6px] overflow-hidden rounded-[4px] bg-primary-600 p-[4px_12px] xl:p-[8px_16px]"
           >
             <h3 className="text-sm font-medium text-white 3xl:text-sm text-nowrap">
-              {trans('register-label')}
+              {t('Footer.register-label')}
             </h3>
             <div className="relative size-4">
               <NextImg

@@ -1,4 +1,3 @@
-import { locales } from './../utils/language';
 import { directusClientWithRest } from '@/src/lib/directus';
 import { readSingleton } from '@directus/sdk';
 import { Locale } from 'next-intl';

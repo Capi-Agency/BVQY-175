@@ -6,14 +6,12 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
-import Link from 'next/link';
-import useStoreLanguage from '@/src/store/store';
 import Fancybox from '../../common/Fancybox';
 import DialogVideo from '../../common/dialog-video';
+import { Link } from '@/src/i18n/navigation';
 
 export default function GalleryWithText({ data }: CommonSection) {
   const [currentTab, setCurrentTab] = useState<number>(0);
-  const language = useStoreLanguage((state: any) => state.language);
   const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
 
   const embedUrl = useMemo(() => {
@@ -139,7 +137,7 @@ export default function GalleryWithText({ data }: CommonSection) {
                 {data?.buttons?.[0]?.url && (
                   <div className="pt-2 lg:pt-4 2xl:pt-5">
                     <Link
-                      href={`/${language}${data?.buttons?.[0]?.url}`}
+                      href={`${data?.buttons?.[0]?.url}`}
                       className="btn-danger"
                       aria-label="Chuyển đến trang cơ sở vật chất"
                     >

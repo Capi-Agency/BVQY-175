@@ -1,6 +1,5 @@
 'use client';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import useStoreLanguage from '@/src/store/store';
 import { useRef, useState } from 'react';
 import NextImg from '../next-img';
 import { useMetadata } from '@/src/providers/MetadataProvider';
@@ -9,7 +8,6 @@ import CustomLink from '../custom-link';
 
 export default function NavHeader() {
   const { top_navigation } = useMetadata();
-  const language = useStoreLanguage((state: any) => state.language);
 
   const [leftPosition, setLeftPosition] = useState(0);
   const [isSubMenuOverflow, setIsSubMenuOverflow] = useState<boolean>(false);

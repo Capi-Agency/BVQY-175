@@ -3,10 +3,8 @@ import React from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
-import { useTranslate } from '@/src/hooks/useTranslate';
-import useStoreLanguage from '@/src/store/store';
-import useTranslation from '@/src/hooks/use-translation';
 import CustomLink from '../../common/custom-link';
+import { useTranslations } from 'next-intl';
 
 type NewsCardProps = {
   item: any;
@@ -16,8 +14,7 @@ type NewsCardProps = {
 };
 
 export default function NewsCard({ item, url, cateUrl, type = "default" }: NewsCardProps) {
-  const { trans } = useTranslation();
-  const language = useStoreLanguage((state: any) => state.language);
+  const t = useTranslations('Common');
 
   const category = cateUrl || item?.categories?.[0]?.category?.slug || '';
 
@@ -63,7 +60,7 @@ export default function NewsCard({ item, url, cateUrl, type = "default" }: NewsC
         </div>
         <div className="flex items-center gap-1.5">
           <span className="text-sm font-medium text-gray-950 duration-200 group-hover:text-primary-50 2xl:text-base 3xl:text-lg">
-            {trans('view-more-label')}
+            {t('view-detail')}
           </span>
           <div className="relative size-5 transition-all duration-200 group-hover:brightness-0 group-hover:invert 2xl:size-6">
             <NextImg

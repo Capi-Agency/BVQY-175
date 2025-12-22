@@ -1,14 +1,14 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import NextImg from '../next-img';
-import useTranslation from '@/src/hooks/use-translation';
+import { useTranslations } from 'next-intl';
 
 type SearchHeaderProps = {
   handleSearch: (key: string, value: string) => void;
 };
 
 export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
-  const { trans } = useTranslation();
+  const t = useTranslations();
   const inputRef = useRef<HTMLInputElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
 
@@ -80,7 +80,7 @@ export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
             autoFocus={false}
             onChange={(e) => setSearchText(e.target.value)}
             className="flex-1 border-none bg-transparent bg-none py-3 text-base text-gray-950 outline-none placeholder:text-gray-500 3xl:py-3"
-            placeholder={trans('search-placeholder')}
+            placeholder={t('Validate.search.placeholder')}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();

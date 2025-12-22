@@ -1,5 +1,4 @@
 'use client';
-import useStoreLanguage from '@/src/store/store';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import NextImg from '../next-img';
@@ -11,10 +10,11 @@ import CustomLink from '../custom-link';
 import SearchHeader from './SearchHeader';
 import LanguageBtn from './LanguageBtn';
 import { Link } from '@/src/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function TheHeader() {
+  const t = useTranslations("Href")
   const { contact_information } = useMetadata();
-  const language = useStoreLanguage((state: any) => state.language);
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -22,7 +22,7 @@ export default function TheHeader() {
     (key: string, value: string) => {
       const params = new URLSearchParams(searchParams);
       params.set(key, value.trim());
-      router.push(`/${language}/tim-kiem?${params.toString()}`);
+      router.push(`${t('search')}?${params.toString()}`);
     },
     [router, searchParams],
   );
@@ -45,7 +45,7 @@ export default function TheHeader() {
           <div className="flex items-center gap-3 md:gap-4 lg:gap-6 2xl:gap-8 4xl:gap-10">
             {/* Start: medal*/}
             <CustomLink
-              href="/thanh-tich"
+              href={t('achievements')}
               className="hidden items-center gap-3 md:flex xl:gap-4 2xl:gap-5 4xl:gap-6"
             >
               {contact_information?.files?.length > 0 &&
