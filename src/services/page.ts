@@ -1,5 +1,5 @@
-import { directusClientWithRest } from "@/src/lib/directus";
-import { readItem, readItems } from "@directus/sdk";
+import { directusClientWithRest } from '@/src/lib/directus';
+import { readItem, readItems } from '@directus/sdk';
 
 /* ============================
    GET PAGE CONTENT BY SLUG
@@ -7,14 +7,17 @@ import { readItem, readItems } from "@directus/sdk";
 export const fnGetPageBySlug = async (slug: string) => {
   try {
     const res = await directusClientWithRest.request(
-      readItem("pages", slug, {
-        fields: ["raw_content"],
-      })
+      readItem('pages', slug, {
+        fields: ['raw_content'],
+      }),
     );
 
     return res?.raw_content ?? null;
-  } catch (error) {
-    console.log("Error getting page content: ", error);
+  } catch (error: any) {
+    console.log(
+      'Error getting page content: ',
+      error?.errors?.[0]?.message || error?.message || error,
+    );
     return null;
   }
 };
@@ -25,14 +28,17 @@ export const fnGetPageBySlug = async (slug: string) => {
 export const fnGetSchemaBySlug = async (slug: string) => {
   try {
     const res = await directusClientWithRest.request(
-      readItem("pages", slug, {
-        fields: ["metadata"],
-      })
+      readItem('pages', slug, {
+        fields: ['metadata'],
+      }),
     );
 
     return res?.metadata ?? null;
-  } catch (error) {
-    console.log("Error getting page schema: ", error);
+  } catch (error: any) {
+    console.log(
+      'Error getting page schema: ',
+      error?.errors?.[0]?.message || error?.message || error,
+    );
     return null;
   }
 };
@@ -43,14 +49,17 @@ export const fnGetSchemaBySlug = async (slug: string) => {
 export const fnGetAllPageSlug = async () => {
   try {
     const res = await directusClientWithRest.request(
-      readItems("pages", {
-        fields: ["slug"],
-      })
+      readItems('pages', {
+        fields: ['slug'],
+      }),
     );
 
     return res ?? [];
-  } catch (error) {
-    console.log("Error getting page slugs: ", error);
+  } catch (error: any) {
+    console.log(
+      'Error getting page slugs: ',
+      error?.errors?.[0]?.message || error?.message || error,
+    );
     return [];
   }
 };
@@ -61,14 +70,17 @@ export const fnGetAllPageSlug = async () => {
 export const fnGetTopNavBySlug = async (slug: string) => {
   try {
     const res = await directusClientWithRest.request(
-      readItem("top_navigation", slug, {
-        fields: ["raw_content"],
-      })
+      readItem('top_navigation', slug, {
+        fields: ['raw_content'],
+      }),
     );
 
     return res?.raw_content ?? null;
-  } catch (error) {
-    console.log("Error getting top navigation: ", error);
+  } catch (error: any) {
+    console.log(
+      'Error getting top navigation: ',
+      error?.errors?.[0]?.message || error?.message || error,
+    );
     return null;
   }
 };
@@ -79,14 +91,17 @@ export const fnGetTopNavBySlug = async (slug: string) => {
 export const fnGetBottomNavBySlug = async (slug: string) => {
   try {
     const res = await directusClientWithRest.request(
-      readItem("bottom_navigation", slug, {
-        fields: ["raw_content"],
-      })
+      readItem('bottom_navigation', slug, {
+        fields: ['raw_content'],
+      }),
     );
 
     return res?.raw_content ?? null;
-  } catch (error) {
-    console.error("Error getting bottom navigation: ", error);
+  } catch (error: any) {
+    console.error(
+      'Error getting bottom navigation: ',
+      error?.errors?.[0]?.message || error?.message || error,
+    );
     return null;
   }
 };
