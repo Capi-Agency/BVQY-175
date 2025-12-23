@@ -17,16 +17,28 @@ import React, {
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import { handleScrollTo } from '@/src/utils/gsap';
+import { CommonSection } from '@/src/types/pageBuilder';
+import { getAllDepartmentGroups } from '@/src/services/department';
 
-type Props = {
-  data: any;
-  departmentGroups: any;
-};
-
-const DoctorList = ({ data, departmentGroups = [] }: Props) => {
+const DoctorList = ({ data }: CommonSection) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { conditions } = useGsapMatchMedia();
+
+  const [departmentGroups, setDepartmentGroups] = useState<any[]>([]);
+
+  useEffect(() => {
+    async function fetchDepartmentGroups() {
+      try {
+        const res = await getAllDepartmentGroups();
+        setDepartmentGroups(res || []);
+      } catch (err) {
+        console.error('Failed to load department groups:', err);
+        setDepartmentGroups([]);
+      }
+    }
+    fetchDepartmentGroups();
+  }, []);
 
   // Đọc query params
   const searchText = searchParams.get('q') || '';
@@ -38,10 +50,10 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
 
   // UI state
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [inputValue, setInputValue] = useState(searchText);
 
-  const parentGroups = departmentGroups?.filter(
-    (d: any) => d.parent_group === null,
+  const parentGroups = useMemo(
+    () => departmentGroups?.filter((d: any) => d.parent_group === null),
+    [departmentGroups],
   );
 
   const selectedDepartment = useMemo(() => {
@@ -179,14 +191,6 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
     });
   };
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    updateQueryParams({
-      q: inputValue.toUpperCase(),
-      page: '1',
-    });
-  };
-
   // Click outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -204,10 +208,10 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
     };
   }, []);
 
-  // Sync input with query
-  useEffect(() => {
-    setInputValue(searchText);
-  }, [searchText]);
+  // // Sync input with query
+  // useEffect(() => {
+  //   setInputValue(searchText);
+  // }, [searchText]);
 
   // Fetch doctors
   const fetchDoctors = useCallback(async () => {
@@ -271,57 +275,6 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
   return (
     <div className="bg-primary-50">
       {/* Banner + Search box */}
-      <div className="md:relative">
-        <div
-          className="flex h-full flex-col items-center gap-1 py-40 text-center md:py-[100px] lg:gap-2 lg:py-[120px] 2xl:gap-4 2xl:py-[140px] 3xl:py-40"
-          style={{
-            background: ` linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url("${getAssetUrlById(data?.cover.id)}") lightgray 50% / cover no-repeat`,
-          }}
-        >
-          <h1 className="text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
-            {data?.title}
-          </h1>
-          <p className="text-base font-normal text-gray-200 md:text-lg lg:text-xl">
-            {data?.subtitle}
-          </p>
-        </div>
-
-        {/* Search form */}
-        <div className="mx-auto w-full max-w-[320px] -translate-y-1/2 bg-transparent md:bottom-0 md:max-w-[600px] md:px-0 md:py-0 lg:max-w-[800px] xl:max-w-[1000px]">
-          <form
-            className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
-            onSubmit={handleSearch}
-          >
-            <div className="flex flex-1 flex-col text-start">
-              <label
-                htmlFor="searchText"
-                className="text-sm font-normal text-gray-500 lg:text-base"
-              >
-                Tìm kiếm bác sĩ
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value.toUpperCase())}
-                placeholder="Nhập tên bác sĩ"
-                className="text-base font-normal placeholder:text-[#0F2F64] focus:border-none focus:outline-none md:text-lg"
-              />
-            </div>
-            <button
-              type="submit"
-              className="flex size-10 items-center justify-center rounded-[4px] bg-primary-600 p-3 text-white md:size-auto md:gap-4 3xl:px-8 3xl:py-4"
-            >
-              <span className="hidden md:block">Tìm kiếm</span>
-              <img
-                src="/assets/icons/arrow_right_white.svg"
-                alt="arrow right"
-              />
-            </button>
-          </form>
-        </div>
-      </div>
 
       {/* Danh sách bác sĩ */}
       <div className="container space-y-8 pb-20 md:space-y-10 lg:pb-16 xl:pb-[72px] 2xl:pb-20 3xl:pb-[100px] 4xl:pb-[120px]">
@@ -345,7 +298,7 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
               </div>
               Lọc theo Tên
             </div>
-            <p className="text-sm font-medium text-gray-500">
+            <p className="text-sm font-medium text-gray-500 3xl:text-base">
               Tìm nhanh bác sĩ theo tên
             </p>
             <img
@@ -378,7 +331,7 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
               </div>
               Lọc theo Chuyên khoa
             </div>
-            <p className="text-sm font-medium text-gray-500">
+            <p className="text-sm font-medium text-gray-500 3xl:text-base">
               Tìm bác sĩ theo đúng chuyên khoa
             </p>
             <img
@@ -563,7 +516,7 @@ const DoctorList = ({ data, departmentGroups = [] }: Props) => {
           )}
 
           {/* Hiển thị kết quả */}
-          <div className="mb-3 flex flex-col gap-3 md:flex-row md:items-center">
+          <div className="mb-3 flex flex-col gap-3 md:flex-row md:items-center xl:mb-4 3xl:mb-5">
             <div className="gap-1.5 text-base font-medium text-gray-700">
               <span className="text-xl font-semibold text-primary-600">
                 {totalItem}{' '}

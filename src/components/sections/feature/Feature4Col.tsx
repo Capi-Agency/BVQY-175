@@ -17,7 +17,7 @@ export default function Feature4Col({ data }: CommonSection) {
           {data?.title && <h1 className="section-title mt-1">{data?.title}</h1>}
 
           <div
-            className="mt-2 text-justify text-sm font-normal text-[#3F3F46] lg:mt-4 3xl:mt-6 3xl:text-base"
+            className="mt-2 text-justify text-sm font-normal text-[#3F3F46] lg:mt-4 3xl:text-base"
             dangerouslySetInnerHTML={{
               __html: data?.blurb as string,
             }}
@@ -25,7 +25,7 @@ export default function Feature4Col({ data }: CommonSection) {
 
           <Link
             href={`${data?.buttons?.[0]?.url}`}
-            className="btn-danger mt-5 lg:mt-6 2xl:mt-7 3xl:mt-8 4xl:mt-10"
+            className="btn-danger mt-4 lg:mt-5 2xl:mt-6"
             aria-label="Xem tất cả chuyên khoa"
           >
             {data?.buttons?.[0]?.title}
