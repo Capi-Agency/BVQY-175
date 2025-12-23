@@ -246,6 +246,22 @@ const sectionMap: SectionMap = {
   'embedded-map': dynamic(() =>
     import('../components/sections/custom').then((m) => m.EmbeddedMap),
   ),
+
+  // Danh sách bác sĩ
+  'hero-text-overlay': dynamic(
+    () => import('../components/sections/hero').then((m) => m.HeroTextOverlay),
+    { ssr: false },
+  ),
+  'team-split-with-filter': dynamic(
+    () => import('../components/doctors').then((m) => m.DoctorList),
+    { ssr: false },
+  ),
+
+  // Chuyên khoa
+  'feature-with-image-3-col': dynamic(
+    () => import('../components/departments').then((m) => m.DepartmentListPage),
+    { ssr: false },
+  ),
 };
 
 type PageBuilderProps = {
