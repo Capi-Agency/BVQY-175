@@ -248,16 +248,19 @@ const sectionMap: SectionMap = {
   ),
 
   // Danh sách bác sĩ
-  'hero-text-overlay': dynamic(() =>
-    import('../components/sections/hero').then((m) => m.HeroTextOverlay),
+  'hero-text-overlay': dynamic(
+    () => import('../components/sections/hero').then((m) => m.HeroTextOverlay),
+    { ssr: false },
   ),
-  'team-split-with-filter': dynamic(() =>
-    import('../components/doctors').then((m) => m.DoctorList),
+  'team-split-with-filter': dynamic(
+    () => import('../components/doctors').then((m) => m.DoctorList),
+    { ssr: false },
   ),
 
   // Chuyên khoa
-  'feature-with-image-3-col': dynamic(() =>
-    import('../components/departments').then((m) => m.DepartmentListPage),
+  'feature-with-image-3-col': dynamic(
+    () => import('../components/departments').then((m) => m.DepartmentListPage),
+    { ssr: false },
   ),
 };
 
