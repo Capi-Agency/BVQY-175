@@ -58,7 +58,7 @@ const adminDepartmentTitleMap: Record<string, string> = {
   acting_head_of_department: 'Phụ trách Trưởng phòng',
   acting_department: 'Phụ trách Phòng',
   head_of_division: 'Trưởng ban',
-  deputy_head_of_division: 'Phó ban',
+  deputy_head_of_division: 'Phó Trưởng ban',
   head_of_unit: 'Chủ nhiệm',
   deputy_head_of_unit: 'Phó Chủ nhiệm',
 };
