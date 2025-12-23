@@ -32,7 +32,7 @@ export default function InfoWithRightImageTopTitle({
   return (
     <section className="bg-primary-50 py-6 md:py-8 lg:py-12 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]">
       <div className="container space-y-4 md:space-y-6 lg:space-y-8 xl:space-y-10 2xl:space-y-14 3xl:space-y-[60px]">
-        <div className="space-y-1 text-center">
+        <div className="space-y-1 text-start">
           <div className="section-sub-title">{data?.subtitle}</div>
 
           <h1
