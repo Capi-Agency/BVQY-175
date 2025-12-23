@@ -51,6 +51,8 @@ const departmentTitleMap: Record<string, string> = {
 };
 
 const adminDepartmentTitleMap: Record<string, string> = {
+  center_director: 'Giám đốc Trung tâm',
+  deputy_center_director: 'Phó Giám đốc Trung tâm',
   head_of_department: 'Trưởng phòng',
   deputy_head_of_department: 'Phó Trưởng phòng',
   acting_head_of_department: 'Phụ trách Trưởng phòng',
@@ -76,29 +78,29 @@ export default function DoctorCard({
   isLink = true,
 }: DoctorCardProps) {
   const renderSubTitleByType: Record<DoctorCardProps['subTitle'], JSX.Element> =
-  {
-    specialty: <>{item?.specialty}</>,
-    hospital_title: (
-      <>{hospitalTitleMap[item?.hospital_title] ?? item?.hospital_title}</>
-    ),
-    institute_title: (
-      <>{instituteTitleMap[item?.institute_title] ?? item?.institute_title}</>
-    ),
-    department_title: (
-      <>
-        {departmentTitleMap[item?.department_title] ?? item?.department_title}
-      </>
-    ),
-    admin_department_title: (
-      <>
-        {adminDepartmentTitleMap[item?.admin_department_title] ??
-          item?.admin_department_title}
-      </>
-    ),
-    unit_title: (
-      <>{adminDepartmentTitleMap[item?.unit_title] ?? item?.unit_title}</>
-    ),
-  };
+    {
+      specialty: <>{item?.specialty}</>,
+      hospital_title: (
+        <>{hospitalTitleMap[item?.hospital_title] ?? item?.hospital_title}</>
+      ),
+      institute_title: (
+        <>{instituteTitleMap[item?.institute_title] ?? item?.institute_title}</>
+      ),
+      department_title: (
+        <>
+          {departmentTitleMap[item?.department_title] ?? item?.department_title}
+        </>
+      ),
+      admin_department_title: (
+        <>
+          {adminDepartmentTitleMap[item?.admin_department_title] ??
+            item?.admin_department_title}
+        </>
+      ),
+      unit_title: (
+        <>{adminDepartmentTitleMap[item?.unit_title] ?? item?.unit_title}</>
+      ),
+    };
 
   const avatarId = item?.[avatarType]?.id ?? item?.[avatarType];
 
