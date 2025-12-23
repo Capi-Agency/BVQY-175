@@ -52,7 +52,7 @@ const departmentTitleMap: Record<string, string> = {
 
 const adminDepartmentTitleMap: Record<string, string> = {
   head_of_department: 'Trưởng phòng',
-  deputy_head_of_department: 'Phó phòng',
+  deputy_head_of_department: 'Phó Trưởng phòng',
   acting_head_of_department: 'Phụ trách Trưởng phòng',
   acting_department: 'Phụ trách Phòng',
   head_of_division: 'Trưởng ban',
