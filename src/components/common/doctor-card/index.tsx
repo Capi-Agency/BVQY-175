@@ -14,13 +14,13 @@ export interface DoctorCardProps {
   type?: 'default' | 'search';
   avatarType: 'avatar' | 'uniform_avatar';
   subTitle:
-  | 'specialty'
-  | 'hospital_title'
-  | 'department_title'
-  | 'institute_title'
-  | 'admin_department_title'
-  | 'unit_title'
-  | string;
+    | 'specialty'
+    | 'hospital_title'
+    | 'department_title'
+    | 'institute_title'
+    | 'admin_department_title'
+    | 'unit_title'
+    | string;
   avatarRatio?: '2/3' | '5/6' | '3/4' | string;
   avatarOrigin?: 'center' | 'top' | 'left' | 'right' | 'bottom';
   isRounded?: boolean;
@@ -38,8 +38,8 @@ const instituteTitleMap: Record<string, string> = {
   deputy_director: 'Phó giám đốc Viện',
   center_director: 'Giám đốc Trung tâm',
   deputy_center_director: 'Phó giám đốc Trung tâm',
-  head_of_institute: "Viện trưởng",
-  deputy_head_of_institute: "Phó viện trưởng"
+  head_of_institute: 'Viện trưởng',
+  deputy_head_of_institute: 'Phó viện trưởng',
 };
 
 const departmentTitleMap: Record<string, string> = {
@@ -57,6 +57,8 @@ const adminDepartmentTitleMap: Record<string, string> = {
   acting_department: 'Phụ trách Phòng',
   head_of_division: 'Trưởng ban',
   deputy_head_of_division: 'Phó ban',
+  head_of_unit: 'Chủ nhiệm',
+  deputy_head_of_unit: 'Phó Chủ nhiệm',
 };
 
 export default function DoctorCard({
@@ -108,11 +110,11 @@ export default function DoctorCard({
             'relative w-full overflow-hidden',
             isRounded && 'rounded-[8px]',
             isHover &&
-            'transition-colors duration-200 group-hover:!bg-primary-600',
+              'transition-colors duration-200 group-hover:!bg-primary-600',
           )}
           style={{
             aspectRatio: avatarRatio,
-            backgroundColor: bgColor
+            backgroundColor: bgColor,
           }}
         >
           <NextImg
