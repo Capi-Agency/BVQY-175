@@ -162,7 +162,7 @@ const DepartmentDetailPage = ({
         <div
           className="flex h-full flex-col items-center gap-1 py-40 text-center md:py-[100px] lg:gap-2 lg:py-[120px] 2xl:gap-4 2xl:py-[140px] 3xl:py-40"
           style={{
-            background: ` linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url("${getAssetUrlById(data?.cover.id)}") lightgray 50% / cover no-repeat`,
+            background: ` linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url("${getAssetUrlById(data?.cover?.id)}") lightgray 50% / cover no-repeat`,
           }}
         >
           {/* title */}
