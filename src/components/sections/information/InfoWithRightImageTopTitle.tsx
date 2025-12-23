@@ -15,9 +15,7 @@ export default function InfoWithRightImageTopTitle({
   data,
   dataDetail,
 }: CommonSection) {
-  const hasContent = dataDetail?.activities_images || dataDetail?.activities;
-
-  if (hasContent === null || hasContent.length === 0) return null;
+  const hasContent = !!dataDetail?.activities;
 
   const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
     null,
@@ -28,6 +26,8 @@ export default function InfoWithRightImageTopTitle({
       `swiper-custom-${Math.random().toString(36).substring(2, 9)}`,
     );
   }, []);
+
+  if (!hasContent) return null;
 
   return (
     <section className="bg-primary-50 py-6 md:py-8 lg:py-12 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]">
@@ -43,7 +43,7 @@ export default function InfoWithRightImageTopTitle({
           ></h1>
         </div>
 
-        {dataDetail?.dataDetail?.activities_images?.length > 0 ? (
+        {dataDetail && dataDetail?.activities_images?.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 xl:gap-8 2xl:gap-10 3xl:gap-[52px] 4xl:gap-[60px]">
             <div className="lg:order-2">
               {randomClassSwiper ? (
@@ -117,7 +117,9 @@ export default function InfoWithRightImageTopTitle({
 
             <div className="sidebar relative md:overflow-y-auto md:pr-2 lg:order-1 lg:aspect-[4/3]">
               <div
-                className={cn(`content-wrapper relative space-y-3 text-justify text-sm font-normal text-[#09090B] transition-all duration-700 ease-in-out xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`)}
+                className={cn(
+                  `content-wrapper relative space-y-3 text-justify text-sm font-normal text-[#09090B] transition-all duration-700 ease-in-out xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`,
+                )}
                 dangerouslySetInnerHTML={{
                   __html: dataDetail?.activities,
                 }}
@@ -126,7 +128,9 @@ export default function InfoWithRightImageTopTitle({
           </div>
         ) : (
           <div
-            className={cn(`content-wrapper relative space-y-3 text-justify text-sm font-normal text-[#09090B] xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`)}
+            className={cn(
+              `content-wrapper relative space-y-3 text-justify text-sm font-normal text-[#09090B] xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`,
+            )}
             dangerouslySetInnerHTML={{
               __html: dataDetail?.activities,
             }}
