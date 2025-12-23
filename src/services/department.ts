@@ -18,7 +18,6 @@ export const getAllDepartmentGroups = async (keyword?: string) => {
         fields: [
           '*',
           'departments.title',
-          'departments.title_en',
           'departments.slug',
           'departments.code',
           'children_groups.*.*',
@@ -43,7 +42,7 @@ export const getChildDepartments = async (groupSlug: string) => {
   try {
     const res = await directusClientWithRest.request(
       readItems('departments', {
-        fields: ['title', 'title_en', 'slug', 'code'],
+        fields: ['title', 'slug', 'code'],
         filter: {
           group: {
             _eq: groupSlug,

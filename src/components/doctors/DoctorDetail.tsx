@@ -15,7 +15,7 @@ import { useLocale } from 'next-intl';
 
 export default function DoctorDetail({ data, dataDetail }: CommonSection) {
   const [isViewMore, setIsViewMore] = useState<boolean>(false);
-  const locale = useLocale()
+  const locale = useLocale();
   const units = getWorkUnits(dataDetail, locale);
 
   const dataContent = [
@@ -237,7 +237,7 @@ export function getWorkUnits(dataDetail: any, language: string) {
       ...dataDetail.department_groups.map(
         ({ department_groups_slug: group }: any) => ({
           slug: group?.slug,
-          title: language === 'en' ? group?.title_en : group?.title,
+          title: group?.title,
           type: 'group',
         }),
       ),
@@ -249,10 +249,7 @@ export function getWorkUnits(dataDetail: any, language: string) {
     units.push(
       ...dataDetail.departments.map(({ department }: any) => ({
         slug: department?.slug,
-        title:
-          language === 'en'
-            ? department?.title_en + ` (${department.code})`
-            : department?.title + ` (${department.code})`,
+        title: department?.title + ` (${department.code})`,
         type: 'department',
       })),
     );
