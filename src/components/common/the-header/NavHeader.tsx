@@ -7,7 +7,8 @@ import MegaMenuContent from './MegaMenuContent';
 import CustomLink from '../custom-link';
 
 export default function NavHeader() {
-  const { top_navigation } = useMetadata();
+  const metadata = useMetadata();
+  const top_navigation = metadata?.top_navigation;
 
   const [leftPosition, setLeftPosition] = useState(0);
   const [isSubMenuOverflow, setIsSubMenuOverflow] = useState<boolean>(false);
@@ -19,15 +20,13 @@ export default function NavHeader() {
     if (item) {
       if (isMegaMenu) {
         const rect = item.getBoundingClientRect();
-        const megaMenuWidth = window.innerWidth * 0.65
+        const megaMenuWidth = window.innerWidth * 0.65;
         if (rect.left < window.innerWidth * 0.3) {
           setLeftPosition(rect.left);
         } else if (window.innerWidth - rect.right < window.innerWidth * 0.3) {
           setLeftPosition(rect.right - megaMenuWidth);
         } else {
-          setLeftPosition(
-            rect.left - (megaMenuWidth) / 2 + rect.width / 2,
-          );
+          setLeftPosition(rect.left - megaMenuWidth / 2 + rect.width / 2);
         }
       } else {
         const rect = item.getBoundingClientRect();

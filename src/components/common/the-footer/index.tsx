@@ -10,7 +10,9 @@ import { useTranslations } from 'next-intl';
 
 export default function TheFooter() {
   const t = useTranslations();
-  const { contact_information, bottom_navigation } = useMetadata();
+  const metadata = useMetadata();
+  const contact_information = metadata?.contact_information;
+  const bottom_navigation = metadata?.bottom_navigation;
   return (
     <footer className="relative overflow-hidden bg-primary-600 py-6 xl:py-8 3xl:py-10">
       <div className="pointer-events-none absolute inset-0 hidden size-full select-none md:block">

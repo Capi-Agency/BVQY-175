@@ -7,7 +7,8 @@ import { useMetadata } from '@/src/providers/MetadataProvider';
 import { getAssetUrlById } from '@/src/utils/image';
 
 export default function CtaBasic({ data }: CommonSection) {
-  const { contact_information } = useMetadata();
+  const metadata = useMetadata();
+  const contact_information = metadata?.contact_information;
 
   return (
     <div className="relative bg-[#155628] py-[60px] md:py-10 xl:py-12 2xl:py-14 3xl:py-[60px] 4xl:py-[70px]">
@@ -84,7 +85,7 @@ export default function CtaBasic({ data }: CommonSection) {
         </div>
       </div>
 
-      <div className="absolute inset-0 z-[0] size-full pointer-events-none">
+      <div className="pointer-events-none absolute inset-0 z-[0] size-full">
         <NextImg
           src={'/assets/images/cta_background.png'}
           objectFit="cover"
