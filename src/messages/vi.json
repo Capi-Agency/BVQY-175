@@ -113,7 +113,7 @@
       "required": "Vui lòng nhập tin nhắn của bạn!",
       "length": "Vui lòng nhập không quá 1000 ký tự!",
       "invalid": "Vui lòng nhập đúng định dạng!",
-      "placeholder": "ghi chú"
+      "placeholder": "Ghi chú"
     },
     "rating": {
       "required": "Vui lòng chọn đánh giá của bạn!"

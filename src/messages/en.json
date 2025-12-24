@@ -47,7 +47,7 @@
     "education": "Education & Work Experience",
     "activity-image": "Activity Photos",
     "awards": "Awards & Honors",
-    "bio": "Giới thiệu",
+    "bio": "Bio",
     "position": "Position",
     "department": "Department",
     "work_unit": "Work unit",
@@ -113,7 +113,7 @@
       "required": "Please enter your message!",
       "length": "Please enter no more than 1000 characters!",
       "invalid": "Please enter a valid message!",
-      "placeholder": "Notes"
+      "placeholder": "Note"
     },
     "rating": {
       "required": "Please select your rating!"
