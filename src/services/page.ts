@@ -99,7 +99,7 @@ export const fnGetBottomNavBySlug = async (slug: string) => {
     return res?.raw_content ?? null;
   } catch (error: any) {
     console.error(
-      'Error getting bottom navigation: ',
+      'Error getting bottom navigation:  ',
       error?.errors?.[0]?.message || error?.message || error,
     );
     return null;
