@@ -12,7 +12,8 @@ import { useMetadata } from '@/src/providers/MetadataProvider';
 import { useTranslations } from 'next-intl';
 
 export default function ContactFixed() {
-  const { contact_information } = useMetadata();
+  const metadata = useMetadata();
+  const contact_information = metadata?.contact_information;
   const [isOpenMenu, setIsOpenMenu] = useState<boolean>(false);
   const t = useTranslations();
 

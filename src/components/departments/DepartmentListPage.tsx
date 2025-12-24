@@ -1,10 +1,9 @@
 'use client';
 import NextImg from '@/src/components/common/next-img';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
-import {
-  handleScrollTo,
-  handleScrollToDepartmentPage,
-} from '@/src/utils/gsap';
+import { getAllDepartmentGroups } from '@/src/services/department';
+import { CommonSection } from '@/src/types/pageBuilder';
+import { handleScrollTo, handleScrollToDepartmentPage } from '@/src/utils/gsap';
 import { getAssetUrlById } from '@/src/utils/image';
 import { removeVietnameseMarks } from '@/src/utils/validate';
 import { useGSAP } from '@gsap/react';
@@ -18,28 +17,23 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
-type Props = {
-  departmentGroups: any[];
-  parentGroups: any[];
-  bannerData: any;
-};
-
 const DepartmentDetailPage = ({
-  departmentGroups,
-  parentGroups,
-  bannerData,
-}: Props) => {
+  // departmentGroups,
+  // parentGroups,
+  data,
+}: CommonSection) => {
   const containerRef = useRef<any>(null);
   const sidebarRef = useRef<any>(null);
   const { conditions } = useGsapMatchMedia();
   const searchParams = useSearchParams();
   const router = useRouter();
 
+  const [parentGroups, setParentGroups] = useState<any[]>([]);
+
   const keyword = searchParams.get('s') || '';
 
   const [searchText, setSearchText] = useState<string>(keyword);
-  const ctaButtonData = bannerData?.buttons[0];
-  const selector = gsap.utils.selector(containerRef);
+  const ctaButtonData = data?.buttons[0];
   const [filteredGroups, setFilteredGroups] = useState(parentGroups);
   const normalizeText = (str: string) =>
     removeVietnameseMarks(str || '').toLowerCase();
@@ -83,6 +77,21 @@ const DepartmentDetailPage = ({
   //   },
   // );
 
+  useEffect(() => {
+    async function fetchGroups() {
+      try {
+        const groups = await getAllDepartmentGroups();
+        setParentGroups(
+          groups?.filter((d: any) => d.parent_group === null) || [],
+        );
+      } catch (err) {
+        console.error('Failed to load department groups:', err);
+        setParentGroups([]);
+      }
+    }
+    fetchGroups();
+  }, []);
+
   const filterRecursive = (group: any, text: string) => {
     const newGroup: any = { ...group };
 
@@ -120,10 +129,12 @@ const DepartmentDetailPage = ({
       router.push(`?${params.toString()}`, { scroll: false });
       handleScrollTo('department-list', conditions);
     },
-    [router, searchParams],
+    [router, searchParams, conditions],
   );
 
   useEffect(() => {
+    if(parentGroups?.length === 0) return
+
     if (!searchText.trim()) {
       setFilteredGroups(parentGroups);
       return;
@@ -142,27 +153,27 @@ const DepartmentDetailPage = ({
       });
 
     setFilteredGroups(newGroups);
-  }, [keyword]);
+  }, [keyword, parentGroups]);
 
   return (
-    <div className="padding-top-body bg-primary-50">
+    <div className="bg-primary-50">
       {/* Banner + Search box */}
       <div className="md:relative">
         <div
           className="flex h-full flex-col items-center gap-1 py-40 text-center md:py-[100px] lg:gap-2 lg:py-[120px] 2xl:gap-4 2xl:py-[140px] 3xl:py-40"
           style={{
-            background: ` linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url("${getAssetUrlById(bannerData?.cover.id)}") lightgray 50% / cover no-repeat`,
+            background: ` linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url("${getAssetUrlById(data?.cover?.id)}") lightgray 50% / cover no-repeat`,
           }}
         >
           {/* title */}
-          {bannerData?.title && (
+          {data?.title && (
             <h1 className="text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
-              {bannerData?.title}
+              {data?.title}
             </h1>
           )}
           {/* subtitle */}
           <p className="text-base font-normal text-gray-200 md:text-lg lg:text-xl">
-            {bannerData?.subtitle}
+            {data?.subtitle}
           </p>
         </div>
 
@@ -186,7 +197,7 @@ const DepartmentDetailPage = ({
                 htmlFor="searchText"
                 className="text-sm font-normal text-gray-500"
               >
-                Tìm kiếm theo tên, mã khoa
+                {data?.blurb}
               </label>
               <input
                 type="text"
@@ -200,7 +211,7 @@ const DepartmentDetailPage = ({
                     handleSearch(searchText);
                   }
                 }}
-                placeholder="VD: Khoa Nội tiêu hoá"
+                placeholder={data?.contents}
                 className="text-base font-normal placeholder:text-[#0F2F64] focus:border-none focus:outline-none md:text-lg"
               />
             </div>
@@ -220,7 +231,7 @@ const DepartmentDetailPage = ({
 
       {/* Slider các khối */}
       <div className="container hidden flex-wrap justify-center gap-6 3xl:flex 3xl:max-w-[1280px] 3xl:px-0 3xl:pt-[100px] 4xl:max-w-[1440px]">
-        {parentGroups?.map((group, index: number) => (
+        {parentGroups?.map((group: any, index: number) => (
           <DepartmentSlideCard group={group} key={'item_' + index} />
         ))}
       </div>

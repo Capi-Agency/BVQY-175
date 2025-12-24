@@ -30,7 +30,9 @@ type MobileMenuProps = {
 };
 
 export default function MobileMenu({ handleSearch }: MobileMenuProps) {
-  const { contact_information, top_navigation } = useMetadata();
+  const metadata = useMetadata();
+  const contact_information = metadata?.contact_information;
+  const top_navigation = metadata?.top_navigation;
   const t = useTranslations();
 
   const [isOpenSubMenu, setIsOpenSubMenu] = useState<boolean>(false);

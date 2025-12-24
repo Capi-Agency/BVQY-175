@@ -13,7 +13,8 @@ import { useTranslations } from 'next-intl';
 import { Link } from '@/src/i18n/navigation';
 
 export default function CtaBackgroundImage({ data }: CommonSection) {
-  const { contact_information } = useMetadata();
+  const metadata = useMetadata();
+  const contact_information = metadata?.contact_information;
   const t = useTranslations('Contact');
 
   const dataContact = useMemo(

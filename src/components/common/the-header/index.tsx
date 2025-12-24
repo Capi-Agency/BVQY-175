@@ -13,8 +13,9 @@ import { Link } from '@/src/i18n/navigation';
 import { useTranslations } from 'next-intl';
 
 export default function TheHeader() {
-  const t = useTranslations("Href")
-  const { contact_information } = useMetadata();
+  const t = useTranslations('Href');
+  const metadata = useMetadata();
+  const contact_information = metadata?.contact_information;
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -68,7 +69,7 @@ export default function TheHeader() {
               <div className="flex items-center gap-4 md:gap-2 2xl:gap-3">
                 <CustomLink
                   href={contact_information?.map_url}
-                  title='Xem bản đồ'
+                  title="Xem bản đồ"
                   className="hidden h-9 w-[52px] items-center justify-center rounded-[6px] bg-primary-600 hover:bg-primary-500 md:flex 2xl:h-10 2xl:w-[60px]"
                 >
                   <div className="relative size-5 2xl:size-6">
@@ -81,11 +82,9 @@ export default function TheHeader() {
 
                 <SearchHeader handleSearch={handleSearch} />
 
-                <MobileMenu
-                  handleSearch={handleSearch}
-                />
+                <MobileMenu handleSearch={handleSearch} />
 
-                <LanguageBtn className='hidden xl:flex' />
+                <LanguageBtn className="hidden xl:flex" />
               </div>
 
               <a
