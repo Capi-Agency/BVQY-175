@@ -8,8 +8,6 @@ import { fnGetPageBySlug } from '@/src/services/page';
 import { fnGetDepartmentDetail } from '@/src/services/department';
 import { getLangSlug } from '@/src/i18n/routing';
 
-
-
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
 };
@@ -30,7 +28,7 @@ export async function generateMetadata(
   const pageContent = await fnGetPageBySlug(langSlug);
   if (!data) notFound();
 
-  const title = checkValueNull(data?.title, '');
+  const title = checkValueNull(`${data?.title} | Bệnh viện Quân y 175`, '');
   const description = checkValueNull(pageContent?.seo?.meta_description, '');
 
   const imageUrl = data?.cover

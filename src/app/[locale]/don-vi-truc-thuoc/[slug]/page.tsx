@@ -30,7 +30,7 @@ export async function generateMetadata(
 
   if (!data) notFound();
 
-  const title = checkValueNull(data?.title, '');
+  const title = checkValueNull(`${data?.title} | Bệnh viện Quân y 175`, '');
   const description = checkValueNull(pageContent?.seo?.meta_description, '');
 
   const imageUrl = data?.cover

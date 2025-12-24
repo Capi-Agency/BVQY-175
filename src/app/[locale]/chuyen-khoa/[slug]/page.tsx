@@ -26,8 +26,9 @@ export async function generateMetadata(
   const pageContent = await fnGetPageBySlug(langSlug);
 
   if (!data) notFound();
+  const _title = `${data?.title} (${data?.code}) | Bệnh viện Quân y 175`;
 
-  const title = checkValueNull(data?.title, '');
+  const title = checkValueNull(_title, '');
   const description = checkValueNull(pageContent?.seo?.meta_description, '');
 
   const imageUrl = data?.cover
