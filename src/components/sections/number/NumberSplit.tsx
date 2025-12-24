@@ -12,14 +12,10 @@ import Link from 'next/link';
 import { getAssetUrlById } from '@/src/utils/image';
 import NextImg from '../../common/next-img';
 import Fancybox from '../../common/Fancybox';
+import { SETTINGS } from '@/src/utils/const';
 
 export default function NumberSplit({ data, dataDetail }: CommonSection) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-
-  const hasContent =
-    !!dataDetail?.achievements || dataDetail?.achievements_images?.length;
-
-  if (!hasContent) return null;
 
   const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
     null,
@@ -30,6 +26,11 @@ export default function NumberSplit({ data, dataDetail }: CommonSection) {
       `swiper-custom-${Math.random().toString(36).substring(2, 9)}`,
     );
   }, []);
+
+  const hasContent =
+    !!dataDetail?.achievements || dataDetail?.achievements_images?.length;
+
+  if (!hasContent) return null;
 
   return (
     <div className="bg-primary-50 p-[32px_0_24px] lg:p-[48px_0_32px] xl:p-[60px_0_32px] 2xl:p-[80px_0_48px] 3xl:p-[100px_0_56px] 4xl:p-[120px_0_60px]">
@@ -84,7 +85,7 @@ export default function NumberSplit({ data, dataDetail }: CommonSection) {
             ) : (
               <div className="relative size-full">
                 <NextImg
-                  src="/assets/images/unavailable.png"
+                  src={SETTINGS.DEFAULT_PLACEHOLDER_IMAGE_URL}
                   alt="unavailable"
                   objectFit="cover"
                 />
