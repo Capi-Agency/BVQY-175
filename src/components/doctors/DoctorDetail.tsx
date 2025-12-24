@@ -50,17 +50,18 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
     <div className="bg-primary-50 py-6 md:py-10 2xl:py-[60px]">
       <div className="container grid grid-cols-11 gap-6 md:gap-7 lg:gap-8 xl:gap-10 3xl:gap-12 4xl:gap-14">
         <div className="col-span-full flex flex-col items-stretch gap-6 md:flex-row md:items-start md:gap-7 lg:col-span-4 lg:flex-col lg:items-stretch lg:gap-8">
-          <div className="relative aspect-[480/600] w-full bg-gray-200 md:basis-1/2 lg:basis-0">
-            <NextImg
-              src={getAssetUrlById(
-                dataDetail?.avatar || dataDetail?.uniform_avatar,
-              )}
-              objectFit="contain"
-              className="object-top"
-              alt="doctor image"
-            />
-
-            <div className="absolute bottom-0 left-0 z-[1] w-full p-4 xl:p-5">
+          <div className="">
+            <div className="relative aspect-[480/600] w-full bg-gray-200 md:basis-1/2 lg:basis-0">
+              <NextImg
+                src={getAssetUrlById(
+                  dataDetail?.avatar || dataDetail?.uniform_avatar,
+                )}
+                objectFit="contain"
+                className="object-top"
+                alt="doctor image"
+              />
+            </div>
+            <div className="w-full -translate-y-1">
               <div className="space-y-1 rounded-[8px] bg-primary-600 p-4 xl:p-6">
                 <div className="text-base font-normal text-[#E4E4E7] xl:text-lg 3xl:text-xl">
                   {dataDetail?.full_title}
