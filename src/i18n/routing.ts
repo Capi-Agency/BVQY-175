@@ -7,6 +7,14 @@ export const routing = defineRouting({
   localeCookie: true,
   alternateLinks: true,
   localeDetection: true,
+  // pathnames: {
+  //   '/[slug]': {
+  //     en: '/[slug]'
+  //   },
+  //   '/doi-ngu-bac-si/[slug]': {
+  //     en: '/doctors/[slug]'
+  //   },
+  // }
 });
 
 // chỉ dùng cho trang home

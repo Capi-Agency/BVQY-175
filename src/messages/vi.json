@@ -1,4 +1,15 @@
 {
+  "Metadata": {
+    "doctor": {
+      "title": "Bác sĩ {name} | Bệnh viện Quân y 175"
+    },
+    "department": {
+      "title": "{name} ({code}) | Bệnh viện Quân y 175"
+    },
+    "unit": {
+      "title": "{name} | Bệnh viện Quân y 175"
+    }
+  },
   "Common": {
     "close": "Đóng",
     "submit": "Gửi",
@@ -15,7 +26,8 @@
   },
   "Href": {
     "achievements": "/thanh-tich",
-    "search": "/tim-kiem"
+    "search": "/tim-kiem",
+    "board_of_directors": "/ban-giam-doc"
   },
   "Contact": {
     "title": "Liên hệ",
@@ -31,9 +43,52 @@
     "social": "Mạng xã hội"
   },
   "Doctor": {
+    "board_of_directors": "Ban giám đốc",
     "education": "Học vấn & Quá trình công tác",
     "activity-image": "Hình ảnh hoạt động",
-    "awards": "Giải thưởng & Danh hiệu"
+    "awards": "Giải thưởng & Danh hiệu",
+    "bio": "Giới thiệu",
+    "position": "Chức vụ",
+    "department": "Chuyên khoa",
+    "work_unit": "Đơn vị công tác",
+    "years_of_experience": "Số năm kinh nghiệm",
+    "training_process": "Quá trình đào tạo",
+    "work_experience": "Kinh nghiệm làm việc",
+    "member_of_the_organization": "Thành viên của tổ chức",
+    "books_newspapers_research_papers": "Sách, báo, công trình nghiên cứu",
+    "hospital_title": {
+      "director": "Giám đốc",
+      "deputy_director": "Phó giám đốc",
+      "doctor": "Bác sĩ điều trị"
+    },
+    "institute_title": {
+      "director": "Giám đốc Viện",
+      "deputy_director": "Phó giám đốc Viện",
+      "center_director": "Giám đốc Trung tâm",
+      "deputy_center_director": "Phó giám đốc Trung tâm",
+      "head_of_institute": "Viện trưởng",
+      "deputy_head_of_institute": "Phó viện trưởng"
+    },
+    "department_title": {
+      "head_of_department": "Chủ nhiệm Khoa",
+      "deputy_head_of_department": "Phó Chủ nhiệm Khoa",
+      "acting_head_of_department": "Phụ trách Chủ nhiệm Khoa",
+      "acting_deputy_head_of_department": "Phụ trách Phó Chủ nhiệm Khoa",
+      "head_nurse": "Điều dưỡng trưởng"
+    },
+    "admin_department_title": {
+      "center_director": "Giám đốc Trung tâm",
+      "deputy_center_director": "Phó Giám đốc Trung tâm",
+      "head_of_department": "Trưởng phòng",
+      "deputy_head_of_department": "Phó Trưởng phòng",
+      "acting_head_of_department": "Phụ trách Trưởng phòng",
+      "acting_department": "Phụ trách Phòng",
+      "head_of_division": "Trưởng ban",
+      "deputy_head_of_division": "Phó Trưởng ban",
+      "head_of_unit": "Chủ nhiệm",
+      "deputy_head_of_unit": "Phó Chủ nhiệm"
+    },
+    "updating": "Đang cập nhật"
   },
   "Validate": {
     "email": {

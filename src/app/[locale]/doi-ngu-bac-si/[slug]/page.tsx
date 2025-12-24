@@ -7,6 +7,7 @@ import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { fnGetDoctorDetail } from '@/src/services/doctors';
 import { getLangSlug } from '@/src/i18n/routing';
+import { getTranslations } from 'next-intl/server';
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -20,20 +21,22 @@ export async function generateMetadata(
   const idRegex = /^[a-zA-Z0-9-_]+$/;
   if (!slug || !idRegex.test(slug)) return notFound();
 
+  const t = await getTranslations({ locale, namespace: 'Metadata' });
   const langSlug = await getLangSlug(locale, 'chi-tiet-bac-si');
 
   const data = await fnGetDoctorDetail({ collection: 'doctors', slug });
   const pageContent = await fnGetPageBySlug(langSlug);
   if (!data) notFound();
 
-  const title =
-    'Bác sĩ ' + checkValueNull(data?.full_name, '') + ' | Bệnh viện Quân y 175';
+  const title = t('doctor.title', {
+    name: checkValueNull(data?.full_name, ''),
+  });
 
   const description = checkValueNull(data?.hospital_title, '');
 
   return {
     title,
-    keywords: 'Bệnh viện Quân y 175',
+    keywords: title,
     description,
     openGraph: {
       locale: 'vi_VN',

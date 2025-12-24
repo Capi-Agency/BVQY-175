@@ -1,4 +1,15 @@
 {
+  "Metadata": {
+    "doctor": {
+      "title": "Doctor {name} | Military hospital 175"
+    },
+    "department": {
+      "title": "{name} ({code}) | Military hospital 175"
+    },
+    "unit": {
+      "title": "{name} | Military hospital 175"
+    }
+  },
   "Common": {
     "close": "Close",
     "submit": "Submit",
@@ -15,7 +26,8 @@
   },
   "Href": {
     "achievements": "/achievements",
-    "search": "/search"
+    "search": "/search",
+    "board_of_directors": "/board-of-directors"
   },
   "Contact": {
     "title": "Contact",
@@ -31,9 +43,52 @@
     "social": "Social media"
   },
   "Doctor": {
+    "board_of_directors": "Board of Directors",
     "education": "Education & Work Experience",
     "activity-image": "Activity Photos",
-    "awards": "Awards & Honors"
+    "awards": "Awards & Honors",
+    "bio": "Giới thiệu",
+    "position": "Position",
+    "department": "Department",
+    "work_unit": "Work unit",
+    "years_of_experience": "Years of experience",
+    "training_process": "Training process",
+    "work_experience": "Work experience",
+    "member_of_the_organization": "Member of the organization",
+    "books_newspapers_research_papers": "books, newspapers, research papers",
+    "hospital_title": {
+      "director": "Director",
+      "deputy_director": "Deputy Director",
+      "doctor": "Doctor"
+    },
+    "institute_title": {
+      "director": "Director of the Institute",
+      "deputy_director": "Deputy Director of the Institute",
+      "center_director": "Director of the Center",
+      "deputy_center_director": "Deputy Director of the Center",
+      "head_of_institute": "Head of the Institute",
+      "deputy_head_of_institute": "Deputy Head of the Institute"
+    },
+    "department_title": {
+      "head_of_department": "Head of Department",
+      "deputy_head_of_department": "Deputy Head of Department",
+      "acting_head_of_department": "Acting Head of Department",
+      "acting_deputy_head_of_department": "Acting Deputy Head of Department",
+      "head_nurse": "Head Nurse"
+    },
+    "admin_department_title": {
+      "center_director": "Director of the Center",
+      "deputy_center_director": "Deputy Director of the Center",
+      "head_of_department": "Head of Department",
+      "deputy_head_of_department": "Deputy Head of Department",
+      "acting_head_of_department": "Acting Head of Department",
+      "acting_department": "Acting Department Officer",
+      "head_of_division": "Head of Division",
+      "deputy_head_of_division": "Deputy Head of Division",
+      "head_of_unit": "Head of Unit",
+      "deputy_head_of_unit": "Deputy Head of Unit"
+    },
+    "updating": "Updating"
   },
   "Validate": {
     "email": {

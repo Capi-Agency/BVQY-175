@@ -4,6 +4,7 @@ import NextImg from '../next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import { cn } from '@/src/lib/utils';
 import { Link } from '@/src/i18n/navigation';
+import { useTranslations } from 'next-intl';
 
 export interface DoctorCardProps {
   item: any;
@@ -27,42 +28,6 @@ export interface DoctorCardProps {
   isLink?: boolean;
 }
 
-const hospitalTitleMap: Record<string, string> = {
-  director: 'Giám đốc',
-  deputy_director: 'Phó giám đốc',
-  doctor: 'Bác sĩ điều trị',
-};
-
-const instituteTitleMap: Record<string, string> = {
-  director: 'Giám đốc Viện',
-  deputy_director: 'Phó giám đốc Viện',
-  center_director: 'Giám đốc Trung tâm',
-  deputy_center_director: 'Phó giám đốc Trung tâm',
-  head_of_institute: 'Viện trưởng',
-  deputy_head_of_institute: 'Phó viện trưởng',
-};
-
-const departmentTitleMap: Record<string, string> = {
-  head_of_department: 'Chủ nhiệm Khoa',
-  deputy_head_of_department: 'Phó Chủ nhiệm Khoa',
-  acting_head_of_department: 'Phụ trách Chủ nhiệm Khoa',
-  acting_deputy_head_of_department: 'Phụ trách Phó Chủ nhiệm Khoa',
-  head_nurse: 'Điều dưỡng trưởng',
-};
-
-const adminDepartmentTitleMap: Record<string, string> = {
-  center_director: 'Giám đốc Trung tâm',
-  deputy_center_director: 'Phó Giám đốc Trung tâm',
-  head_of_department: 'Trưởng phòng',
-  deputy_head_of_department: 'Phó Trưởng phòng',
-  acting_head_of_department: 'Phụ trách Trưởng phòng',
-  acting_department: 'Phụ trách Phòng',
-  head_of_division: 'Trưởng ban',
-  deputy_head_of_division: 'Phó Trưởng ban',
-  head_of_unit: 'Chủ nhiệm',
-  deputy_head_of_unit: 'Phó Chủ nhiệm',
-};
-
 export default function DoctorCard({
   item,
   url = '/doi-ngu-bac-si',
@@ -77,28 +42,55 @@ export default function DoctorCard({
   isRounded = true,
   isLink = true,
 }: DoctorCardProps) {
+  const t = useTranslations('Doctor');
+
   const renderSubTitleByType: Record<DoctorCardProps['subTitle'], JSX.Element> =
     {
       specialty: <>{item?.specialty}</>,
       hospital_title: (
-        <>{hospitalTitleMap[item?.hospital_title] ?? item?.hospital_title}</>
+        <>
+          {item?.hospital_title
+            ? t(`hospital_title.${item.hospital_title}`, {
+                defaultMessage: item.hospital_title,
+              })
+            : null}
+        </>
       ),
       institute_title: (
-        <>{instituteTitleMap[item?.institute_title] ?? item?.institute_title}</>
+        <>
+          {item?.institute_title
+            ? t(`institute_title.${item.institute_title}`, {
+                defaultMessage: item.institute_title,
+              })
+            : null}
+        </>
       ),
       department_title: (
         <>
-          {departmentTitleMap[item?.department_title] ?? item?.department_title}
+          {item?.department_title
+            ? t(`department_title.${item.department_title}`, {
+                defaultMessage: item.department_title,
+              })
+            : null}
         </>
       ),
       admin_department_title: (
         <>
-          {adminDepartmentTitleMap[item?.admin_department_title] ??
-            item?.admin_department_title}
+          {item?.admin_department_title
+            ? t(`admin_department_title.${item.admin_department_title}`, {
+                defaultMessage: item.admin_department_title,
+              })
+            : null}
         </>
       ),
       unit_title: (
-        <>{adminDepartmentTitleMap[item?.unit_title] ?? item?.unit_title}</>
+        <>
+          {item?.unit_title
+            ? t(`admin_department_title.${item.unit_title}`, {
+                defaultMessage: item.unit_title,
+              })
+            : null}
+        </>
       ),
     };
 
@@ -207,10 +199,3 @@ export default function DoctorCard({
       return renderDefault();
   }
 }
-
-export {
-  hospitalTitleMap,
-  instituteTitleMap,
-  departmentTitleMap,
-  adminDepartmentTitleMap,
-};

@@ -9,35 +9,35 @@ import {
   AccordionContent,
   AccordionTrigger,
 } from '../ui/accordion';
-import Link from 'next/link';
 import { getDoctorTitles } from '@/src/utils/render-doctor-title';
-import { useLocale } from 'next-intl';
+import { _Translator, useTranslations } from 'next-intl';
+import { Link } from '@/src/i18n/navigation';
 
 export default function DoctorDetail({ data, dataDetail }: CommonSection) {
-  const [isViewMore, setIsViewMore] = useState<boolean>(false);
-  const locale = useLocale();
-  const units = getWorkUnits(dataDetail, locale);
+  const t = useTranslations('Doctor');
+  const tHref = useTranslations('Href');
+  const units = getWorkUnits(dataDetail, t('board_of_directors'));
 
   const dataContent = [
     {
-      title: 'Quá trình đào tạo',
-      content: dataDetail?.education_training || 'Đang cập nhật',
+      title: t('training_process'),
+      content: dataDetail?.education_training || t('updating'),
     },
     {
-      title: 'Kinh nghiệm làm việc',
-      content: dataDetail?.work_experience || 'Đang cập nhật',
+      title: t('work_experience'),
+      content: dataDetail?.work_experience || t('updating'),
     },
     {
-      title: 'Giải thưởng & danh hiệu',
-      content: dataDetail?.award_and_honors || 'Đang cập nhật',
+      title: t('awards'),
+      content: dataDetail?.award_and_honors || t('updating'),
     },
     {
-      title: 'Thành viên của tổ chức',
-      content: dataDetail?.memberships || 'Đang cập nhật',
+      title: t('member_of_the_organization'),
+      content: dataDetail?.memberships || t('updating'),
     },
     {
-      title: 'Sách, báo, công trình nghiên cứu',
-      content: dataDetail?.research_works || 'Đang cập nhật',
+      title: t('books_newspapers_research_papers'),
+      content: dataDetail?.research_works || t('updating'),
     },
   ];
 
@@ -47,22 +47,21 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
   );
 
   return (
-    <div className="bg-primary-50 py-6 md:py-10 2xl:py-[60px]">
-      <div className="container grid grid-cols-11 gap-6 md:gap-7 lg:gap-8 xl:gap-10 3xl:gap-12 4xl:gap-14">
-        <div className="col-span-full flex flex-col items-stretch gap-6 md:flex-row md:items-start md:gap-7 lg:col-span-4 lg:flex-col lg:items-stretch lg:gap-8">
-          <div className="">
-            <div className="relative aspect-[480/600] w-full bg-gray-200 md:basis-1/2 lg:basis-0">
-              <NextImg
-                src={getAssetUrlById(
-                  dataDetail?.avatar || dataDetail?.uniform_avatar,
-                )}
-                objectFit="contain"
-                className="object-top"
-                alt="doctor image"
-              />
-            </div>
-            <div className="w-full -translate-y-1">
-              <div className="space-y-1 rounded-[8px] bg-primary-600 p-4 xl:p-6">
+    <div className="bg-primary-50 py-6 md:py-10">
+      <div className="container grid grid-cols-11 gap-6 md:gap-[68px] lg:gap-8 xl:gap-10 3xl:gap-12 4xl:gap-14">
+        <div className="col-span-full flex flex-col items-stretch gap-16 md:flex-row md:items-start md:gap-7 lg:col-span-4 lg:flex-col lg:items-stretch lg:gap-[72px]">
+          <div className="relative aspect-[480/600] w-full bg-gray-200 md:basis-1/2 lg:basis-0">
+            <NextImg
+              src={getAssetUrlById(
+                dataDetail?.avatar || dataDetail?.uniform_avatar,
+              )}
+              objectFit="contain"
+              className="object-top"
+              alt="doctor image"
+            />
+
+            <div className="absolute bottom-0 left-0 z-[1] w-full translate-y-[40px]">
+              <div className="space-y-1 rounded-[8px] bg-primary-600 p-4 xl:p-[20px_24px]">
                 <div className="text-base font-normal text-[#E4E4E7] xl:text-lg 3xl:text-xl">
                   {dataDetail?.full_title}
                 </div>
@@ -90,13 +89,13 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
 
             <>
               <div className="text-xl font-semibold text-primary-800 md:text-[22px] xl:text-2xl 2xl:text-[28px]">
-                Giới thiệu
+                {t('bio')}
               </div>
 
               <div
                 className={`space-y-2 text-sm font-normal text-[#09090B] *:text-justify lg:text-start lg:text-base xl:space-y-3`}
                 dangerouslySetInnerHTML={{
-                  __html: dataDetail?.bio || 'Đang cập nhật',
+                  __html: dataDetail?.bio || t('updating'),
                 }}
               ></div>
             </>
@@ -122,7 +121,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
             <div className="space-y-4 xl:space-y-5 2xl:space-y-6 3xl:space-y-7 4xl:space-y-8">
               <div className="space-y-1 xl:space-y-2">
                 <div className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
-                  Chức vụ
+                  {t('position')}
                 </div>
                 <div className="text-sm font-normal text-[#09090B] lg:text-base">
                   {getDoctorTitles(dataDetail).join(', ')}
@@ -131,28 +130,28 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
 
               <div className="space-y-1 xl:space-y-2">
                 <div className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
-                  Chuyên khoa
+                  {t('department')}
                 </div>
                 <div className="text-sm font-normal text-[#09090B] lg:text-base">
-                  {dataDetail?.specialty || 'Đang cập nhật'}
+                  {dataDetail?.specialty || t('updating')}
                 </div>
               </div>
 
               <div className="space-y-1 xl:space-y-2">
                 <div className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
-                  Đơn vị công tác
+                  {t('work_unit')}
                 </div>
 
                 <div className="flex flex-wrap gap-3">
                   {units.map((unit, index) => (
                     <React.Fragment key={index}>
                       <Link
-                        href={`/${
+                        href={`${
                           unit.type === 'board'
-                            ? 'ban-giam-doc'
+                            ? tHref('board_of_directors')
                             : unit.type === 'group'
-                              ? 'vien'
-                              : 'chuyen-khoa'
+                              ? '/vien'
+                              : '/chuyen-khoa'
                         }/${unit.slug ?? ''}`}
                         aria-label="Xem chi tiết đơn vị"
                         className="inline-block text-sm font-normal text-[#09090B] underline underline-offset-2 lg:text-base"
@@ -167,10 +166,10 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
 
               <div className="space-y-1 xl:space-y-2">
                 <div className="text-base font-medium text-primary-800 lg:text-lg 2xl:text-xl">
-                  Số năm kinh nghiệm
+                  {t('years_of_experience')}
                 </div>
                 <div className="text-sm font-normal text-[#09090B] lg:text-base">
-                  {dataDetail?.year_of_experience || 'Đang cập nhật'}
+                  {dataDetail?.year_of_experience || t('updating')}
                 </div>
               </div>
             </div>
@@ -218,7 +217,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
 }
 
 // helpers/getWorkUnits.ts
-export function getWorkUnits(dataDetail: any, language: string) {
+export function getWorkUnits(dataDetail: any, positionBoard: string) {
   const units: any[] = [];
 
   // Nếu là giám đốc hoặc phó giám đốc → thêm Ban Giám Đốc
@@ -227,7 +226,7 @@ export function getWorkUnits(dataDetail: any, language: string) {
     dataDetail?.hospital_title === 'deputy_director'
   ) {
     units.push({
-      title: language === 'en' ? 'Board of Directors' : 'Ban Giám Đốc',
+      title: positionBoard,
       type: 'board',
     });
   }

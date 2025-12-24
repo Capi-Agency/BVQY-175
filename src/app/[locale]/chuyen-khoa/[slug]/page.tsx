@@ -7,6 +7,7 @@ import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { fnGetDepartmentDetail } from '@/src/services/department';
 import { getLangSlug } from '@/src/i18n/routing';
+import { getTranslations } from 'next-intl/server';
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -20,15 +21,19 @@ export async function generateMetadata(
   const idRegex = /^[a-zA-Z0-9-_]+$/;
   if (!slug || !idRegex.test(slug)) return notFound();
 
+  const t = await getTranslations({ locale, namespace: 'Metadata' });
   const langSlug = await getLangSlug(locale, 'chi-tiet-chuyen-khoa');
 
   const data = await fnGetDepartmentDetail({ collection: 'departments', slug });
   const pageContent = await fnGetPageBySlug(langSlug);
 
   if (!data) notFound();
-  const _title = `${data?.title} (${data?.code}) | Bệnh viện Quân y 175`;
 
-  const title = checkValueNull(_title, '');
+  const title = t('department.title', {
+    name: checkValueNull(data?.title),
+    code: checkValueNull(data?.code),
+  });
+
   const description = checkValueNull(pageContent?.seo?.meta_description, '');
 
   const imageUrl = data?.cover
@@ -37,7 +42,7 @@ export async function generateMetadata(
 
   return {
     title,
-    keywords: 'Bệnh viện Quân y 175',
+    keywords: ['Bệnh viện Quân y 175', 'Military hospital 175"'],
     description,
     openGraph: {
       locale: 'vi_VN',
