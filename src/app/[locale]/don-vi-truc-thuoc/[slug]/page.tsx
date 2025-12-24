@@ -54,6 +54,7 @@ export async function generateMetadata(
     alternates: {
       canonical: process.env.SITE_URL ?? '',
     },
+    metadataBase: new URL(process.env.SITE_URL!),
   };
 }
 

@@ -26,5 +26,6 @@ export const createSeoData = (seo: any) => {
         en: `${process.env.SITE_URL}/en`,
       },
     },
+    metadataBase: new URL(process.env.SITE_URL!),
   };
 };

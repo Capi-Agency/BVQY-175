@@ -8,7 +8,6 @@ import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { getLangSlug } from '@/src/i18n/routing';
 
-
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
 };
@@ -49,6 +48,7 @@ export async function generateMetadata(
     alternates: {
       canonical: process.env.SITE_URL ?? '',
     },
+    metadataBase: new URL(process.env.SITE_URL!),
   };
 }
 

@@ -48,16 +48,14 @@ export async function generateMetadata(
     alternates: {
       canonical: process.env.SITE_URL ?? '',
     },
+    metadataBase: new URL(process.env.SITE_URL!),
   };
 }
 
 const NewsDetailPage = async ({ params }: Props) => {
   const { locale, slug } = await params;
   const post = await getNewsDetail({ collection: 'activity_posts', slug });
-  const langSlug = await getLangSlug(
-    locale,
-    'chi-tiet-tin-hoat-dong',
-  );
+  const langSlug = await getLangSlug(locale, 'chi-tiet-tin-hoat-dong');
   const pageContent = await fnGetPageBySlug(langSlug);
 
   const pageSchema = pageContent?.seo?.meta_schema;
