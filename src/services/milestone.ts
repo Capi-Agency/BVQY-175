@@ -40,6 +40,11 @@ export const getListMilestone = async ({
         filter,
         fields: ['id', 'title', 'blurb', 'year', 'events.*.*'],
         sort: 'sort',
+        deep: {
+          events: {
+            _sort: ['sort'],
+          },
+        },
       }),
     );
 
