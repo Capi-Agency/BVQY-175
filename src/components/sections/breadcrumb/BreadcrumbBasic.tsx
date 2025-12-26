@@ -7,10 +7,8 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { useParams } from 'next/navigation';
 import CustomLink from '../../common/custom-link';
 
-export default function BreadcrumbBasic({
-  data,
-}: CommonSection) {
-  const [buttons, setButtons] = useState<any[]>(data?.buttons)
+export default function BreadcrumbBasic({ data }: CommonSection) {
+  const [buttons, setButtons] = useState<any[]>(data?.buttons);
   const param = useParams() || {};
   const category = (param?.cate as string) || ''; // danh mục tin tức
 
@@ -25,7 +23,7 @@ export default function BreadcrumbBasic({
           // Nếu có category => thêm slug vào
           if (category) {
             const matchedItem = response.find(
-              (item: any) => item.slug === category
+              (item: any) => item.slug === category,
             );
 
             if (matchedItem) {
@@ -44,7 +42,9 @@ export default function BreadcrumbBasic({
               setButtons(updatedButtons);
             }
           } else {
-            const cleanedButtons = buttons.filter((btn: any) => !btn?.url?.endsWith('/') || btn?.url === '/');
+            const cleanedButtons = buttons.filter(
+              (btn: any) => !btn?.url?.endsWith('/') || btn?.url === '/',
+            );
             setButtons(cleanedButtons);
           }
         }
@@ -55,7 +55,6 @@ export default function BreadcrumbBasic({
       }
     })();
   }, [data?.collections, category]);
-
 
   return (
     <div className="bg-primary-50">

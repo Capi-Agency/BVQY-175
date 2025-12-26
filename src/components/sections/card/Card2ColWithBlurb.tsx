@@ -30,9 +30,9 @@ export default function Card2ColWithBlurb({ data, dataDetail }: CommonSection) {
                 key={index}
                 className={`${isOdd ? 'last:col-span-full' : ''} group flex flex-col gap-3 rounded-[6px] bg-primary-50 p-5 transition-colors duration-200 *:transition-colors *:duration-200 hover:bg-primary-600 md:p-6 lg:p-7 xl:gap-5 xl:p-8 2xl:gap-6 2xl:p-9 3xl:p-10`}
               >
-                <div className="text-[28px] font-semibold leading-[1.3] text-[#71717A] group-hover:text-primary-100 lg:text-[32px] xl:text-[36px] 3xl:text-[40px]">
+                {/* <div className="text-[28px] font-semibold leading-[1.3] text-[#71717A] group-hover:text-primary-100 lg:text-[32px] xl:text-[36px] 3xl:text-[40px]">
                   {index < 9 ? `0${index + 1}` : index + 1}
-                </div>
+                </div> */}
 
                 <div
                   className="section-content font-normal text-[#09090B] group-hover:text-[#F4F4F5]"
