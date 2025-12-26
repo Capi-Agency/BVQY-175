@@ -20,10 +20,11 @@ export async function generateMetadata(
   const idRegex = /^[a-zA-Z0-9-_]+$/;
   if (!slug || !idRegex.test(slug)) return notFound();
 
-  const data = await getNewsDetail({ collection: 'for_patient_posts', slug });
+  const data = await getNewsDetail({ collection: 'posts', slug });
   if (!data) notFound();
 
   const title = checkValueNull(data?.title, '');
+
   const description = checkValueNull(data?.blurb, '');
 
   const imageUrl = data?.thumbnail
@@ -53,12 +54,9 @@ export async function generateMetadata(
 
 const NewsDetailPage = async ({ params }: Props) => {
   const { locale, slug } = await params;
-  const langSlug = await getLangSlug(
-    locale,
-    'chi-tiet-tin-danh-cho-nguoi-benh',
-  );
+  const post = await getNewsDetail({ collection: 'posts', slug });
+  const langSlug = await getLangSlug(locale, 'chi-tiet-bai-viet');
 
-  const post = await getNewsDetail({ collection: 'for_patient_posts', slug });
   const pageContent = await fnGetPageBySlug(langSlug);
 
   const pageSchema = pageContent?.seo?.meta_schema;

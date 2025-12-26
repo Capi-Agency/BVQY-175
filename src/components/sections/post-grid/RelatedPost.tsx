@@ -33,7 +33,7 @@ const RelatedPosts = ({ data }: CommonSection) => {
       } catch (error) {
         console.log('Error:', error);
       } finally {
-        ScrollTrigger.refresh()
+        ScrollTrigger.refresh();
       }
     })();
   }, [data]);
@@ -97,7 +97,7 @@ const RelatedPosts = ({ data }: CommonSection) => {
                 <SwiperSlide key={'post_' + index}>
                   <NewsCard
                     item={item}
-                    url={data?.buttons?.[0]?.url ?? '/tin-tuc'}
+                    url={data?.buttons?.[0]?.url ?? '/bai-viet'}
                     cateUrl={category}
                   />
                 </SwiperSlide>
