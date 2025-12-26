@@ -35,7 +35,6 @@ export async function fnGetMetadata(locale: Locale) {
       getBottomNavigation(locale),
       getSiteMetadata(),
     ]);
-
     return {
       ...metadata,
       top_navigation: topNav?.[0]?.raw_content,

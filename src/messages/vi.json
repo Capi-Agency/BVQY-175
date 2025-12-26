@@ -43,7 +43,7 @@
     "social": "Mạng xã hội"
   },
   "Doctor": {
-    "board_of_directors": "Ban giám đốc",
+    "board_of_directors": "Ban Giám đốc",
     "education": "Học vấn & Quá trình công tác",
     "activity-image": "Hình ảnh hoạt động",
     "awards": "Giải thưởng & Danh hiệu",
@@ -58,14 +58,14 @@
     "books_newspapers_research_papers": "Sách, báo, công trình nghiên cứu",
     "hospital_title": {
       "director": "Giám đốc",
-      "deputy_director": "Phó giám đốc",
+      "deputy_director": "Phó Giám đốc",
       "doctor": "Bác sĩ điều trị"
     },
     "institute_title": {
       "director": "Giám đốc Viện",
-      "deputy_director": "Phó giám đốc Viện",
+      "deputy_director": "Phó Giám đốc Viện",
       "center_director": "Giám đốc Trung tâm",
-      "deputy_center_director": "Phó giám đốc Trung tâm",
+      "deputy_center_director": "Phó Giám đốc Trung tâm",
       "head_of_institute": "Viện trưởng",
       "deputy_head_of_institute": "Phó viện trưởng"
     },

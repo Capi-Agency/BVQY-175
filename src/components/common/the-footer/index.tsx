@@ -84,6 +84,18 @@ export default function TheFooter() {
               </a>
 
               <a
+                href={`${contact_information?.email_ctxh_url || '/'}`}
+                className="flex gap-2"
+              >
+                <div className="relative size-6 lg:size-5">
+                  <NextImg src="/assets/icons/mail.svg" alt="mail icon" />
+                </div>
+                <span className="flex-1 text-sm font-normal tracking-wider text-[#FAFAFA] 3xl:text-base">
+                  {contact_information?.email_ctxh}
+                </span>
+              </a>
+
+              <a
                 target="_blank"
                 rel="noopener"
                 href={`${contact_information?.address_url || '/'}`}

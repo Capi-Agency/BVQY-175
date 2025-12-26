@@ -74,18 +74,18 @@ export default function SearchListContent({
       getCount: getTotalNewsCount,
       getProps: (itemData) => ({ item: itemData, url, type: cardType }),
     },
-    activity_posts: {
-      Component: NewsCard,
-      getList: getListNews,
-      getCount: getTotalNewsCount,
-      getProps: (itemData) => ({ item: itemData, url, type: cardType }),
-    },
-    for_patient_posts: {
-      Component: NewsCard,
-      getList: getListNews,
-      getCount: getTotalNewsCount,
-      getProps: (itemData) => ({ item: itemData, url, type: cardType }),
-    },
+    // activity_posts: {
+    //   Component: NewsCard,
+    //   getList: getListNews,
+    //   getCount: getTotalNewsCount,
+    //   getProps: (itemData) => ({ item: itemData, url, type: cardType }),
+    // },
+    // for_patient_posts: {
+    //   Component: NewsCard,
+    //   getList: getListNews,
+    //   getCount: getTotalNewsCount,
+    //   getProps: (itemData) => ({ item: itemData, url, type: cardType }),
+    // },
     doctors: {
       Component: DoctorCard,
       getList: getListDoctorPreview,

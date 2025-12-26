@@ -117,7 +117,7 @@ const DirectorCard = ({item }: { item: any }) => (
 
 const hospitalTitleMap: Record<string, string> = {
   director: 'Giám đốc',
-  deputy_director: 'Phó giám đốc',
+  deputy_director: 'Phó Giám đốc',
   doctor: 'Bác sĩ điều trị',
 };
 

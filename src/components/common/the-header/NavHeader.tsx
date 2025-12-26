@@ -101,7 +101,7 @@ export default function NavHeader() {
                             <CustomLink
                               href={item_second?.url || ''}
                               asNavigationLink
-                              className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 group-hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[10px_16px]"
+                              className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 group-hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[8px_16px]"
                             >
                               <div className="flex-1">
                                 {item_second?.title || ''}
@@ -116,7 +116,7 @@ export default function NavHeader() {
                               )}
                             </CustomLink>
                           ) : (
-                            <div className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 group-hover:text-primary-600 2xl:p-[6px_12px] 4xl:p-[10px_16px]">
+                            <div className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 group-hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[8px_16px]">
                               <div className="flex-1">
                                 {item_second?.title || ''}
                               </div>
@@ -134,10 +134,11 @@ export default function NavHeader() {
                           {/* Cấp 2 */}
                           {item_second?.sub_items?.length > 0 && (
                             <div
-                              className="pointer-events-none absolute left-[calc(100%+8px)] top-0 flex w-fit scale-95 grid-cols-3 gap-4 rounded-[6px] bg-white p-[12px_16px] opacity-0 shadow-lg transition-all duration-200 after:absolute after:-left-2 after:top-0 after:h-full after:w-2 group-hover:pointer-events-auto group-hover:scale-100 group-hover:opacity-100 2xl:p-[20px_24px] 3xl:gap-6 4xl:p-[24px_32px]"
+                              className="pointer-events-none absolute left-[calc(100%+8px)] flex w-fit scale-95 grid-cols-3 gap-4 rounded-[6px] bg-white p-[12px_16px] opacity-0 shadow-lg transition-all duration-200 after:absolute after:-left-2 after:top-0 after:h-full after:w-2 group-hover:pointer-events-auto group-hover:scale-100 group-hover:opacity-100 2xl:p-[20px_24px] 3xl:gap-6 4xl:p-[24px_32px]"
                               style={{
                                 boxShadow:
                                   '0 20px 25px -4px rgba(18, 26, 43, 0.10), 0 8px 8px -6px rgba(18, 26, 43, 0.04)',
+                                top: `calc(100%/${item?.sub_items?.length}*${item_second_index})`,
                               }}
                             >
                               {item_second?.sub_items.map(
@@ -171,14 +172,14 @@ export default function NavHeader() {
                                               key={item_fourth_index}
                                               href={item_fourth?.url || ''}
                                               asNavigationLink
-                                              className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[10px]"
+                                              className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[8px]"
                                             >
                                               {item_fourth?.title || ''}
                                             </CustomLink>
                                           ) : (
                                             <div
                                               key={item_fourth_index}
-                                              className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[10px]"
+                                              className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[8px]"
                                             >
                                               {item_fourth?.title || ''}
                                             </div>

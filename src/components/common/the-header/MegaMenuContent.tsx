@@ -60,14 +60,14 @@ export default function MegaMenuContent({ item }: any) {
                             key={item_fourth_index}
                             href={item_fourth?.url || ''}
                             asNavigationLink
-                            className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[10px]"
+                            className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[8px]"
                           >
                             {item_fourth?.title || ''}
                           </CustomLink>
                         ) : (
                           <div
                             key={item_fourth_index}
-                            className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[10px]"
+                            className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[8px]"
                           >
                             {item_fourth?.title || ''}
                           </div>

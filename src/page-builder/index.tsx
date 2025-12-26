@@ -27,14 +27,14 @@ const sectionMap: SectionMap = {
   ),
   'posts-3-col': dynamic(
     () => import('../components/sections/post-grid').then((m) => m.Posts3Col),
-    { ssr: false },
+    // { ssr: false },
   ),
   'feature-4-col': dynamic(() =>
     import('../components/sections/feature').then((m) => m.Feature4Col),
   ),
   'feature-3-col': dynamic(
     () => import('../components/sections/feature').then((m) => m.Feature3Col),
-    { ssr: false },
+    // { ssr: false },
   ),
   'number-none': dynamic(() =>
     import('../components/sections/number').then((m) => m.NumberNone),
@@ -102,7 +102,7 @@ const sectionMap: SectionMap = {
   ),
   'posts-small-image-3-col': dynamic(
     () => import('../components/sections/news').then((m) => m.NewsListCard),
-    { ssr: false },
+    // { ssr: false },
   ),
 
   // News detail
@@ -111,7 +111,7 @@ const sectionMap: SectionMap = {
       import('../components/sections/breadcrumb').then(
         (m) => m.BreadcrumbBasic,
       ),
-    { ssr: false },
+    // { ssr: false },
   ),
 
   'post-detail-with-sidebar-right': dynamic(() =>
@@ -120,13 +120,13 @@ const sectionMap: SectionMap = {
 
   'posts-slider': dynamic(
     () => import('../components/sections/post-grid').then((m) => m.RelatedPost),
-    { ssr: false },
+    // { ssr: false },
   ),
 
   'sidebar-right-basic': dynamic(
     () =>
       import('../components/sections/custom').then((m) => m.SideBarRightBasic),
-    { ssr: false },
+    // { ssr: false },
   ),
 
   // Department detail
@@ -145,9 +145,6 @@ const sectionMap: SectionMap = {
   ),
   'team-slider-4-col': dynamic(() =>
     import('../components/sections/team').then((m) => m.TeamSlider4Col),
-  ),
-  'team-2-col': dynamic(() =>
-    import('../components/sections/team').then((m) => m.Team2Col),
   ),
   'card-2-col-with-blurb': dynamic(() =>
     import('../components/sections/card').then((m) => m.Card2ColWithBlurb),
@@ -178,13 +175,15 @@ const sectionMap: SectionMap = {
   ),
 
   // FAQs
-  'hero-background-focus': dynamic(() =>
-    import('../components/sections/hero').then((m) => m.HeroBackgroundsFocus),
+  'hero-background-focus': dynamic(
+    () =>
+      import('../components/sections/hero').then((m) => m.HeroBackgroundsFocus),
+    // { ssr: false },
   ),
 
   'faqs-1-col': dynamic(
     () => import('../components/sections/faq').then((m) => m.FaqsOneCol),
-    { ssr: false },
+    // { ssr: false },
   ),
 
   // Dành cho người bệnh
@@ -200,13 +199,13 @@ const sectionMap: SectionMap = {
   // Milestone
   'card-1-col': dynamic(
     () => import('../components/sections/card').then((m) => m.Card1Col),
-    { ssr: false },
+    // { ssr: false },
   ),
 
   // Khối cơ quan hành chính
   'card-4-col': dynamic(
     () => import('../components/sections/card').then((m) => m.Card4Col),
-    { ssr: false },
+    // { ssr: false },
   ),
 
   // Cơ sở vật chất
@@ -217,7 +216,7 @@ const sectionMap: SectionMap = {
   // Search
   custom: dynamic(
     () => import('../components/sections/custom').then((m) => m.CustomSearch),
-    { ssr: false },
+    // { ssr: false },
   ),
 
   // PDF view
@@ -250,17 +249,21 @@ const sectionMap: SectionMap = {
   // Danh sách bác sĩ
   'hero-text-overlay': dynamic(
     () => import('../components/sections/hero').then((m) => m.HeroTextOverlay),
-    { ssr: false },
+    // { ssr: false },
   ),
   'team-split-with-filter': dynamic(
     () => import('../components/doctors').then((m) => m.DoctorList),
-    { ssr: false },
+    // { ssr: false },
   ),
 
   // Chuyên khoa
   'feature-with-image-3-col': dynamic(
     () => import('../components/departments').then((m) => m.DepartmentListPage),
-    { ssr: false },
+    // { ssr: false },
+  ),
+  // Chi tiết khối cơ quan
+  'team-2-col': dynamic(() =>
+    import('../components/sections/team').then((m) => m.Team2Col),
   ),
 };
 

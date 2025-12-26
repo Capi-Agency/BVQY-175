@@ -22,6 +22,8 @@ import { routing } from '@/src/i18n/routing';
 export function generateStaticParams() {
   return routing.locales.map((locale: string) => ({ locale }));
 }
+export const dynamic = 'force-dynamic';
+
 
 export default async function RootLayout({
   children,
