@@ -134,7 +134,7 @@ export default function NavHeader() {
                           {/* Cấp 2 */}
                           {item_second?.sub_items?.length > 0 && (
                             <div
-                              className="pointer-events-none absolute left-[calc(100%+8px)] flex w-fit scale-95 grid-cols-3 gap-4 rounded-[6px] bg-white p-[12px_16px] opacity-0 shadow-lg transition-all duration-200 after:absolute after:-left-2 after:top-0 after:h-full after:w-2 group-hover:pointer-events-auto group-hover:scale-100 group-hover:opacity-100 2xl:p-[20px_24px] 3xl:gap-6 4xl:p-[24px_32px]"
+                              className="pointer-events-none absolute left-[calc(100%+8px)] translate-y-[-8px] flex w-fit scale-95 grid-cols-3 gap-4 rounded-[6px] bg-white p-3 opacity-0 shadow-lg transition-all duration-200 after:absolute after:-left-2 after:top-0 after:h-full after:w-2 group-hover:pointer-events-auto group-hover:scale-100 group-hover:opacity-100 3xl:gap-6 3xl:p-4"
                               style={{
                                 boxShadow:
                                   '0 20px 25px -4px rgba(18, 26, 43, 0.10), 0 8px 8px -6px rgba(18, 26, 43, 0.04)',
