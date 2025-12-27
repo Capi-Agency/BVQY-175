@@ -20,7 +20,7 @@ export default function ContactFixed() {
   const data = useMemo(
     () => [
       {
-        title: t('Contact.hotline'),
+        title: t('Contact.hotline', { hotline: contact_information?.hot_line }),
         icon: '/assets/icons/phone_contact.svg',
         url: contact_information?.hot_line_url || '/',
         bgColor: '#63A978',
@@ -48,7 +48,7 @@ export default function ContactFixed() {
         isTargetBlank: true,
       },
       {
-        title: t('Contact.email'),
+        title: t('Contact.email-btn', { email: contact_information?.email }),
         icon: '/assets/icons/mail_contact.svg',
         url: contact_information?.email_url || '/',
         bgColor: '#F97316',

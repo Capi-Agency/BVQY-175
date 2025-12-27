@@ -31,13 +31,14 @@
   },
   "Contact": {
     "title": "Contact",
-    "hotline": "Hotline",
+    "hotline": "Hotline: {hotline}",
     "book-app": "Book an appointment via App",
     "book-via-zalo": "Book via Zalo",
     "book-via-app": "Book via App",
     "schedule-demand": "Book on demand",
     "fanpage": "Fanpage",
     "email": "Email",
+    "email-btn": "Email: {email}",
     "phone": "Phone",
     "address": "Address",
     "social": "Social media"

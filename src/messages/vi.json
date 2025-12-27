@@ -31,13 +31,14 @@
   },
   "Contact": {
     "title": "Liên hệ",
-    "hotline": "Hotline",
+    "hotline": "Hotline: {hotline}",
     "book-app": "Đặt khám trên App",
     "book-via-zalo": "Đặt khám qua Zalo",
     "book-via-app": "Đặt lịch qua App",
     "schedule-demand": "Đặt khám theo yêu cầu",
     "fanpage": "Fanpage",
     "email": "Email",
+    "email-btn": "Email: {email}",
     "phone": "Điện thoại",
     "address": "Địa chỉ",
     "social": "Mạng xã hội"

@@ -44,8 +44,16 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
       {
         title: t('email'),
         icon: '',
-        url: contact_information?.email_url || '/',
-        content: contact_information?.email,
+        list: [
+          {
+            url: contact_information?.email_url || '/',
+            content: contact_information?.email,
+          },
+          {
+            url: contact_information?.email_ctxh_url || '/',
+            content: contact_information?.email_ctxh,
+          },
+        ],
         isTargetBlank: false,
       },
       {
@@ -143,24 +151,51 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
           <div className="relative space-y-6 md:space-y-7 lg:order-1 xl:space-y-8 3xl:space-y-9 4xl:space-y-10">
             {dataContact?.map((item: any, index: number) => (
               <div key={index} className="space-y-1">
+                {/* Title */}
                 <div className="text-sm font-medium text-[#52525B] lg:text-base 2xl:text-lg">
                   {item?.title}
                 </div>
-                <a
-                  target={item?.isTargetBlank ? '_blank' : undefined}
-                  rel={item?.isTargetBlank ? 'noopener' : undefined}
-                  href={item?.url}
-                  className="flex w-fit items-center gap-1 xl:gap-2"
-                >
-                  {item?.icon && (
-                    <div className="relative size-10 lg:size-11 2xl:size-12">
-                      <NextImg src={item?.icon} alt="icon contact" />
-                    </div>
-                  )}
-                  <div className="lx:text-lg text-base font-medium text-[#09090B] xl:text-xl 3xl:text-2xl">
-                    {item?.content}
+
+                {/* Nếu có list (ví dụ email có nhiều link) */}
+                {item?.list ? (
+                  <div className="flex flex-col gap-1">
+                    {item.list.map((sub: any, subIndex: number) => (
+                      <a
+                        key={subIndex}
+                        href={sub?.url}
+                        target={item?.isTargetBlank ? '_blank' : undefined}
+                        rel={item?.isTargetBlank ? 'noopener' : undefined}
+                        className="flex w-fit items-center gap-1 xl:gap-2"
+                      >
+                        {item?.icon && (
+                          <div className="relative size-10 lg:size-11 2xl:size-12">
+                            <NextImg src={item.icon} alt="icon contact" />
+                          </div>
+                        )}
+                        <div className="text-base font-medium text-[#09090B] xl:text-xl 3xl:text-2xl">
+                          {sub?.content}
+                        </div>
+                      </a>
+                    ))}
                   </div>
-                </a>
+                ) : (
+                  /* Ngược lại nếu chỉ có 1 content */
+                  <a
+                    target={item?.isTargetBlank ? '_blank' : undefined}
+                    rel={item?.isTargetBlank ? 'noopener' : undefined}
+                    href={item?.url}
+                    className="flex w-fit items-center gap-1 xl:gap-2"
+                  >
+                    {item?.icon && (
+                      <div className="relative size-10 lg:size-11 2xl:size-12">
+                        <NextImg src={item.icon} alt="icon contact" />
+                      </div>
+                    )}
+                    <div className="text-base font-medium text-[#09090B] xl:text-xl 3xl:text-2xl">
+                      {item?.content}
+                    </div>
+                  </a>
+                )}
               </div>
             ))}
           </div>
