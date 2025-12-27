@@ -72,6 +72,7 @@ export default function HeroWithTopImage({ data }: CommonSection) {
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
+              pauseOnMouseEnter: true
             }}
             pagination={{
               clickable: true,
