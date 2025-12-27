@@ -4,7 +4,6 @@ import React from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import NewsCard from '../news/NewsCard';
 import NextImg from '@/src/components/common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 

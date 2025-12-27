@@ -12,15 +12,13 @@ import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
 import { cn } from '@/src/lib/utils';
 import { useTranslations } from 'next-intl';
+import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 
 export default function InfoWithLeftImageTopTitle({
   data,
   dataDetail,
 }: CommonSection) {
-  const t = useTranslations("Common")
-  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
-    null,
-  );
+  const t = useTranslations('Common');
 
   const imageRef = useRef<HTMLDivElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -29,11 +27,7 @@ export default function InfoWithLeftImageTopTitle({
   const [expanded, setExpanded] = useState(false);
   const [isOverflow, setIsOverflow] = useState(false);
 
-  useEffect(() => {
-    setRandomClassSwiper(
-      `swiper-custom-${Math.random().toString(36).substring(2, 9)}`,
-    );
-  }, []);
+  const { paginationClass, paginationConfig } = useSwiperPagination();
 
   const description = dataDetail ? dataDetail?.description : data?.blurb;
   const images = dataDetail ? dataDetail?.description_images : data?.cover;
@@ -47,7 +41,7 @@ export default function InfoWithLeftImageTopTitle({
     if (contentRef.current.scrollHeight > imageHeight) {
       setIsOverflow(true);
     }
-  }, [description, randomClassSwiper]);
+  }, [description, paginationClass, paginationConfig]);
 
   const hasContent =
     !!dataDetail?.description_images ||
@@ -75,7 +69,7 @@ export default function InfoWithLeftImageTopTitle({
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 xl:gap-8 2xl:gap-10 3xl:gap-[52px] 4xl:gap-[60px]">
             {/* Image */}
             <div>
-              {randomClassSwiper ? (
+              {paginationConfig && paginationClass ? (
                 <>
                   <Fancybox
                     options={{
@@ -96,11 +90,7 @@ export default function InfoWithLeftImageTopTitle({
                           disableOnInteraction: false,
                         }}
                         modules={[Pagination, EffectFade, Autoplay]}
-                        pagination={{
-                          clickable: true,
-                          el: `.swiper-bullets-container.${randomClassSwiper}`,
-                          bulletElement: 'div',
-                        }}
+                        pagination={paginationConfig}
                         className="!h-full !w-full"
                       >
                         {images?.map((item: any) => (
@@ -129,9 +119,7 @@ export default function InfoWithLeftImageTopTitle({
                   </Fancybox>
 
                   <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
-                    <div
-                      className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}
-                    />
+                    <div className={`${paginationClass} !w-fit`} />
                   </div>
                 </>
               ) : (

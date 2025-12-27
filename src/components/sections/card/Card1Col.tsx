@@ -149,15 +149,24 @@ export default function Card1Col({ data }: CommonSection) {
                         className="group w-full pb-0"
                       >
                         <AccordionTrigger className="w-full text-start">
-                          <div className="relative line-clamp-3 h-[84px] text-lg font-semibold uppercase text-primary-600 md:h-auto md:!leading-normal lg:text-xl 2xl:text-2xl 3xl:text-[28px]">
-                            {item?.title}
-                          </div>
                           <div
-                            className="relative mt-1.5 line-clamp-3 h-[60px] overflow-hidden text-sm font-normal text-black lg:mt-2 xl:h-[72px] xl:text-base 2xl:mt-3 4xl:mt-4 [&_*]:!inline"
-                            dangerouslySetInnerHTML={{
-                              __html: item?.blurb,
-                            }}
-                          ></div>
+                            onClick={() =>
+                              handleScrollTo(
+                                `milestone-${item?.id}`,
+                                conditions,
+                              )
+                            }
+                          >
+                            <div className="relative line-clamp-3 h-[84px] text-lg font-semibold uppercase text-primary-600 md:h-auto md:!leading-normal lg:text-xl 2xl:text-2xl 3xl:text-[28px]">
+                              {item?.title}
+                            </div>
+                            <div
+                              className="relative mt-1.5 line-clamp-3 h-[60px] overflow-hidden text-sm font-normal text-black lg:mt-2 xl:h-[72px] xl:text-base 2xl:mt-3 4xl:mt-4 [&_*]:!inline"
+                              dangerouslySetInnerHTML={{
+                                __html: item?.blurb,
+                              }}
+                            ></div>
+                          </div>
                         </AccordionTrigger>
 
                         <AccordionContent>

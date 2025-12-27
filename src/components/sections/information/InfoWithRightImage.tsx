@@ -10,6 +10,7 @@ import { getAssetUrlById } from '@/src/utils/image';
 import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
 import { cn } from '@/src/lib/utils';
+import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 
 export default function InfoWithRightImage({
   data,
@@ -21,23 +22,18 @@ export default function InfoWithRightImage({
   const hasContent = blurb || (images?.length ?? 0) > 0;
 
   if (!hasContent) return null;
+  const hasImages = images?.length > 0;
 
-  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
-    null,
-  );
-
-  const hasImages = images?.length > 0
-
-  useEffect(() => {
-    setRandomClassSwiper(
-      `swiper-info-right-image-${Math.random().toString(36).substring(2, 9)}`,
-    );
-  }, []);
+  const { paginationClass, paginationConfig } = useSwiperPagination();
 
   return (
     <div className="bg-primary-50 py-6 md:py-8 lg:py-10 xl:py-11 2xl:py-12 3xl:py-[52px] 4xl:py-[60px]">
-      <div className={`${hasImages ? "lg:grid-cols-2" : "lg:grid-cols-1"} container grid grid-cols-1 gap-4 md:gap-6  lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-[52px] 4xl:gap-[60px]`}>
-        <div className={`${hasImages ? "lg:aspect-[4/3]" : ""} flex flex-col items-stretch gap-2  lg:gap-4 2xl:gap-5`}>
+      <div
+        className={`${hasImages ? 'lg:grid-cols-2' : 'lg:grid-cols-1'} container grid grid-cols-1 gap-4 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 3xl:gap-[52px] 4xl:gap-[60px]`}
+      >
+        <div
+          className={`${hasImages ? 'lg:aspect-[4/3]' : ''} flex flex-col items-stretch gap-2 lg:gap-4 2xl:gap-5`}
+        >
           <div className="space-y-1">
             {data?.subtitle && (
               <div className="section-sub-title">{data?.subtitle}</div>
@@ -54,14 +50,16 @@ export default function InfoWithRightImage({
           </div>
 
           <div
-            className={cn("content-wrapper section-content sidebar relative text-justify md:pr-2 lg:flex-1 lg:overflow-y-auto")}
+            className={cn(
+              'content-wrapper section-content sidebar relative text-justify md:pr-2 lg:flex-1 lg:overflow-y-auto',
+            )}
             dangerouslySetInnerHTML={{
               __html: blurb,
             }}
           ></div>
         </div>
 
-        {hasImages && randomClassSwiper && (
+        {hasImages && paginationClass && paginationConfig && (
           <Fancybox
             options={{
               Carousel: {
@@ -86,12 +84,7 @@ export default function InfoWithRightImage({
                   delay: 3000,
                   disableOnInteraction: false,
                 }}
-                pagination={{
-                  clickable: true,
-                  type: 'bullets',
-                  el: `.swiper-bullets-container.${randomClassSwiper}`,
-                  bulletElement: 'div',
-                }}
+                pagination={paginationConfig}
                 className="!h-full !w-full"
               >
                 {images?.map((item: any, index: number) => {
@@ -121,13 +114,10 @@ export default function InfoWithRightImage({
                 })}
               </Swiper>
             </div>
-            
-            <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
-              <div
-                className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}
-              ></div>
-            </div>
 
+            <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
+              <div className={`${paginationClass} !w-fit`}></div>
+            </div>
           </Fancybox>
         )}
       </div>

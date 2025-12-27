@@ -18,19 +18,12 @@ import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
 import { Link } from '@/src/i18n/navigation';
+import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 
 export default function Card1ColDetail({ event, data }: any) {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
-  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
-    null,
-  );
-
-  useEffect(() => {
-    setRandomClassSwiper(
-      `swiper-custom-${Math.random().toString(36).substring(2, 9)}`,
-    );
-  }, []);
+  const { paginationClass, paginationConfig } = useSwiperPagination();
 
   return (
     <Dialog open={isOpenModal} onOpenChange={setIsOpenModal}>
@@ -113,7 +106,7 @@ export default function Card1ColDetail({ event, data }: any) {
 
             <div className="scrollbar-hidden relative size-full space-y-6 overflow-x-hidden overflow-y-scroll">
               <div className="w-full">
-                {randomClassSwiper && (
+                {paginationConfig && paginationClass && (
                   <>
                     <Fancybox
                       options={{
@@ -140,12 +133,7 @@ export default function Card1ColDetail({ event, data }: any) {
                           delay: 5000,
                           disableOnInteraction: false,
                         }}
-                        pagination={{
-                          clickable: true,
-                          type: 'bullets',
-                          el: `.swiper-bullets-container.${randomClassSwiper}`,
-                          bulletElement: 'div',
-                        }}
+                        pagination={paginationConfig}
                         className="!h-full !w-full"
                       >
                         {event?.images?.map((image: any, index: number) => (
@@ -167,7 +155,7 @@ export default function Card1ColDetail({ event, data }: any) {
                     </Fancybox>
                     <div className="relative mt-2 flex h-5 justify-center xl:mt-3 3xl:mt-4">
                       <div
-                        className={`swiper-bullets-container ${randomClassSwiper} !w-fit cursor-pointer`}
+                        className={`${paginationClass} !w-fit cursor-pointer`}
                       ></div>
                     </div>
                   </>

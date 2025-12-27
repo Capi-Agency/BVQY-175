@@ -44,12 +44,14 @@ export default function ContentCongDichVuCong({ data }: CommonSection) {
             </h1>
           )}
 
-          <div
-            className="section-content mx-auto mb-6 w-full text-justify lg:mb-8 2xl:mb-10"
-            dangerouslySetInnerHTML={{
-              __html: data?.blurb as string,
-            }}
-          ></div>
+          {data?.blurb && (
+            <div
+              className="section-content mx-auto mb-6 w-full text-justify lg:mb-8 2xl:mb-10"
+              dangerouslySetInnerHTML={{
+                __html: data?.blurb as string,
+              }}
+            ></div>
+          )}
 
           {button && (
             <CustomLink

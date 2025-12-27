@@ -89,7 +89,7 @@ export default function FaqsOneCol({ data }: CommonSection) {
       className="container py-8 lg:py-12 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]"
     >
       <div className="flex flex-col gap-6 md:grid md:grid-cols-[auto,220px] md:flex-row lg:grid-cols-[auto,260px] lg:gap-8 lg:px-6 xl:gap-11 xl:px-[60px] 2xl:gap-12 2xl:px-[100px] 3xl:gap-[60px] 3xl:px-[80px] 4xl:px-[160px]">
-        <div className="space-y-4 xl:space-y-8">
+        <div className="space-y-5 xl:space-y-8">
           {data?.title && (
             <h1 className="section-title text-primary-600">{data?.title}</h1>
           )}
@@ -139,7 +139,7 @@ export default function FaqsOneCol({ data }: CommonSection) {
               {dataFaqs?.length > 0 ? (
                 <>
                   <Accordion.Root
-                    className="w-full space-y-1 md:space-y-[6px] 2xl:space-y-2"
+                    className="w-full space-y-2 2xl:space-y-2"
                     type="single"
                     collapsible
                   >

@@ -10,6 +10,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
 import { cn } from '@/src/lib/utils';
+import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 
 export default function InfoWithRightImageTopTitle({
   data,
@@ -17,15 +18,7 @@ export default function InfoWithRightImageTopTitle({
 }: CommonSection) {
   const hasContent = !!dataDetail?.activities;
 
-  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
-    null,
-  );
-
-  useEffect(() => {
-    setRandomClassSwiper(
-      `swiper-custom-${Math.random().toString(36).substring(2, 9)}`,
-    );
-  }, []);
+  const { paginationClass, paginationConfig } = useSwiperPagination();
 
   if (!hasContent) return null;
 
@@ -46,7 +39,7 @@ export default function InfoWithRightImageTopTitle({
         {dataDetail && dataDetail?.activities_images?.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 xl:gap-8 2xl:gap-10 3xl:gap-[52px] 4xl:gap-[60px]">
             <div className="lg:order-2">
-              {randomClassSwiper ? (
+              {paginationClass && paginationConfig ? (
                 <>
                   <Fancybox
                     options={{
@@ -72,12 +65,7 @@ export default function InfoWithRightImageTopTitle({
                           delay: 5000,
                           disableOnInteraction: false,
                         }}
-                        pagination={{
-                          clickable: true,
-                          type: 'bullets',
-                          el: `.swiper-bullets-container.${randomClassSwiper}`,
-                          bulletElement: 'div',
-                        }}
+                        pagination={paginationConfig}
                         className="!h-full !w-full"
                       >
                         {dataDetail?.activities_images?.map((item: any) => (
@@ -99,9 +87,7 @@ export default function InfoWithRightImageTopTitle({
                     </div>
                   </Fancybox>
                   <div className="relative mt-3 flex h-5 justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
-                    <div
-                      className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}
-                    ></div>
+                    <div className={`${paginationClass} !w-fit`}></div>
                   </div>
                 </>
               ) : (

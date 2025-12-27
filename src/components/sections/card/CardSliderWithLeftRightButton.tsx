@@ -23,7 +23,7 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
             </p>
           )}
           {data?.title && (
-            <h2 className="section-title uppercase text-primary-600">
+            <h2 className="section-title text-primary-600">
               {data?.title}
             </h2>
           )}

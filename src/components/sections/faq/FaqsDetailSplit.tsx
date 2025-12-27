@@ -12,7 +12,7 @@ import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 
 export default function FaqsDetailSplit({ data }: CommonSection) {
-  const { conditions } = useGsapMatchMedia()
+  const { conditions } = useGsapMatchMedia();
 
   return (
     <section className="container py-[60px] md:py-[80px] xl:py-[120px]">
@@ -34,8 +34,7 @@ export default function FaqsDetailSplit({ data }: CommonSection) {
           {data?.buttons?.length > 0 && (
             <Accordion.Root
               className="w-full space-y-6 xl:space-y-8"
-              type="single"
-              collapsible
+              type="multiple"
             >
               {data?.buttons?.map((item: any, index: number) => (
                 <AccordionItem
@@ -46,7 +45,9 @@ export default function FaqsDetailSplit({ data }: CommonSection) {
                 >
                   <AccordionTrigger className="w-full">
                     <div
-                      // onClick={() => handleScrollTo(`faq-${index + 1}`, conditions)}
+                      onClick={() =>
+                        handleScrollTo(`faq-${index + 1}`, conditions)
+                      }
                       className="content-wrapper w-full [&_ul]:ml-2 [&_ul_ul]:ml-4"
                       dangerouslySetInnerHTML={{
                         __html: item?.title,
@@ -64,14 +65,16 @@ export default function FaqsDetailSplit({ data }: CommonSection) {
                   </AccordionContent>
                   <div className="flex justify-center pt-2 md:pt-3 xl:pt-4 2xl:pt-5">
                     <AccordionTrigger>
-                      <div
-                        className="flex items-center gap-1 text-sm font-medium text-[#E50000] md:text-base xl:gap-[6px] xl:text-lg 3xl:text-xl">
+                      <div className="flex items-center gap-1 text-sm font-medium text-[#E50000] md:text-base xl:gap-[6px] xl:text-lg 3xl:text-xl">
                         <span className="group-data-[state=open]:hidden">
                           {data?.contents?.contents?.[0]}
                         </span>
                         <span
-                          onClick={() => handleScrollTo(`faq-${index + 1}`, conditions)}
-                          className="hidden group-data-[state=open]:block">
+                          onClick={() =>
+                            handleScrollTo(`faq-${index + 1}`, conditions)
+                          }
+                          className="hidden group-data-[state=open]:block"
+                        >
                           {data?.contents?.contents?.[1]}
                         </span>
                         <div className="relative size-5 transition-all duration-200 group-data-[state=open]:-rotate-180">

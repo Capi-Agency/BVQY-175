@@ -11,6 +11,7 @@ import Fancybox from '../../common/Fancybox';
 import { useMetadata } from '@/src/providers/MetadataProvider';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/src/i18n/navigation';
+import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 
 export default function CtaBackgroundImage({ data }: CommonSection) {
   const metadata = useMetadata();
@@ -58,15 +59,7 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
     [contact_information],
   );
 
-  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
-    null,
-  );
-
-  useEffect(() => {
-    setRandomClassSwiper(
-      `swiper-custom-${Math.random().toString(36).substring(2, 9)}`,
-    );
-  }, []);
+  const { paginationClass, paginationConfig } = useSwiperPagination();
 
   return (
     <section className="bg-white py-6 md:py-8 lg:py-12 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]">
@@ -84,7 +77,7 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
 
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-6 xl:gap-8 2xl:gap-10 3xl:gap-[52px] 4xl:gap-[60px]">
           <div className="hidden lg:order-2 lg:block">
-            {data?.cover?.length > 0 && randomClassSwiper ? (
+            {data?.cover?.length > 0 && paginationConfig && paginationClass ? (
               <>
                 <Fancybox
                   options={{
@@ -110,12 +103,7 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
                         delay: 5000,
                         disableOnInteraction: false,
                       }}
-                      pagination={{
-                        clickable: true,
-                        type: 'bullets',
-                        el: `.swiper-bullets-container.${randomClassSwiper}`,
-                        bulletElement: 'div',
-                      }}
+                      pagination={paginationConfig}
                       className="!h-full !w-full"
                     >
                       {data?.cover?.map((item: any) => (
@@ -138,9 +126,7 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
                 </Fancybox>
 
                 <div className="relative mt-3 flex h-5 justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
-                  <div
-                    className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}
-                  ></div>
+                  <div className={`${paginationClass} !w-fit`}></div>
                 </div>
               </>
             ) : (

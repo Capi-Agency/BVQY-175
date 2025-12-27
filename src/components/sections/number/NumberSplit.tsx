@@ -13,19 +13,11 @@ import { getAssetUrlById } from '@/src/utils/image';
 import NextImg from '../../common/next-img';
 import Fancybox from '../../common/Fancybox';
 import { SETTINGS } from '@/src/utils/const';
+import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 
 export default function NumberSplit({ data, dataDetail }: CommonSection) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-
-  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(
-    null,
-  );
-
-  useEffect(() => {
-    setRandomClassSwiper(
-      `swiper-custom-${Math.random().toString(36).substring(2, 9)}`,
-    );
-  }, []);
+  const { paginationClass, paginationConfig } = useSwiperPagination();
 
   const hasContent =
     !!dataDetail?.achievements || dataDetail?.achievements_images?.length;
@@ -37,7 +29,8 @@ export default function NumberSplit({ data, dataDetail }: CommonSection) {
       <div className="container">
         <div className="grid grid-cols-1 gap-4 bg-white p-4 md:p-5 lg:grid-cols-2 lg:gap-0 lg:p-6 xl:p-7 2xl:p-8 3xl:p-9 4xl:p-10">
           <div className="relative aspect-[4/3] overflow-hidden">
-            {randomClassSwiper &&
+            {paginationClass &&
+            paginationConfig &&
             dataDetail?.achievements_images?.length > 0 ? (
               <Fancybox
                 options={{
@@ -101,7 +94,7 @@ export default function NumberSplit({ data, dataDetail }: CommonSection) {
               }}
             ></div>
 
-            {randomClassSwiper && (
+            {paginationClass && paginationConfig && (
               <>
                 <div>
                   <Swiper
@@ -112,12 +105,7 @@ export default function NumberSplit({ data, dataDetail }: CommonSection) {
                     speed={700}
                     thumbs={{ swiper: thumbsSwiper }}
                     modules={[Thumbs, Pagination]}
-                    pagination={{
-                      clickable: true,
-                      type: 'bullets',
-                      el: `.swiper-bullets-container.${randomClassSwiper}`,
-                      bulletElement: 'div',
-                    }}
+                    pagination={paginationConfig}
                     className=""
                   >
                     {dataDetail?.achievements?.map(
@@ -144,9 +132,7 @@ export default function NumberSplit({ data, dataDetail }: CommonSection) {
                 </div>
 
                 <div className="relative pt-2 lg:px-10 xl:px-12 2xl:px-[60px] 2xl:pt-0 3xl:px-[70px] 4xl:px-[80px]">
-                  <div
-                    className={`swiper-bullets-container ${randomClassSwiper} !w-fit`}
-                  ></div>
+                  <div className={`${paginationClass} !w-fit`}></div>
                 </div>
               </>
             )}

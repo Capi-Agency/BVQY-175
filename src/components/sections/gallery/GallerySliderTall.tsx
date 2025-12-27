@@ -53,11 +53,16 @@ export default function GallerySliderTall({ data }: CommonSection) {
 
   return (
     <div className="py-10 md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
-      <h1 className="section-title text-center">{data?.title}</h1>
+      <h1 className="container section-title text-center">{data?.title}</h1>
 
       {/* ===== MOBILE: SLIDER ===== */}
       <div className="mt-6 block md:hidden">
-        <Swiper spaceBetween={16} slidesPerView={1.2} className="!ml-6">
+        <Swiper
+          spaceBetween={16}
+          slidesPerView={1.2}
+          speed={500}
+          className="!px-6"
+        >
           {pagedItems.map((item: any, index: number) => (
             <SwiperSlide key={index}>
               <ThumbnailItem
@@ -70,7 +75,7 @@ export default function GallerySliderTall({ data }: CommonSection) {
       </div>
 
       {/* ===== DESKTOP: GRID ===== */}
-      <div className="container mx-auto mt-10 hidden grid-cols-3 gap-8 md:grid 2xl:mt-14 2xl:gap-10">
+      <div className="container mt-10 hidden grid-cols-2 gap-6 2xl:gap-7 md:grid lg:grid-cols-3 2xl:mt-14 4xl:gap-10">
         {pagedItems.map((item: any, index: number) => (
           <ThumbnailItem
             key={index}
@@ -111,13 +116,13 @@ function ThumbnailItem({ item, onClick }: { item: any; onClick: () => void }) {
   return (
     <div
       onClick={onClick}
-      className="group cursor-pointer space-y-4 overflow-hidden rounded-sm border bg-primary-50 p-2 transition hover:border-primary-600 duration-100 lg:p-3 2xl:p-4"
+      className="group cursor-pointer space-y-4 overflow-hidden rounded-sm border bg-primary-50 p-2 transition duration-100 hover:border-primary-600 lg:p-3 2xl:p-4"
     >
       <div className="relative aspect-video w-full">
         <NextImg src={thumb} alt={item?.title || ''} objectFit="cover" />
 
         {/* Play icon overlay (optional UX tốt) */}
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center transition-all group-hover:opacity-100 opacity-0 duration-100">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-100 group-hover:opacity-100">
           <div className="flex size-10 items-center justify-center rounded-full bg-primary-600 p-6 text-white">
             ▶
           </div>

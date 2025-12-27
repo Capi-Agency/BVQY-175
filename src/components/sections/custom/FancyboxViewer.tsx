@@ -9,19 +9,13 @@ import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
+import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 
 export default function FancyboxViewer({ data }: CommonSection) {
   const images = data?.cover ?? [];
   const imageStyle = data?.custom || {};
 
-  const [randomClassSwiper, setRandomClassSwiper] = useState<string | null>(null);
-
-  useEffect(() => {
-    setRandomClassSwiper(
-      `swiper-custom-${Math.random().toString(36).substring(2, 9)}`
-    );
-  }, []);
-
+  const { paginationClass, paginationConfig } = useSwiperPagination();
 
   return (
     <section className="container py-[60px] md:py-[80px] xl:py-[120px]">
@@ -45,7 +39,9 @@ export default function FancyboxViewer({ data }: CommonSection) {
           },
         }}
       >
-        {images?.length > 0 && randomClassSwiper &&
+        {images?.length > 0 &&
+          paginationClass &&
+          paginationConfig &&
           images.map((image: any) => (
             <div
               key={image?.id}
@@ -65,12 +61,7 @@ export default function FancyboxViewer({ data }: CommonSection) {
                   delay: 5000,
                   disableOnInteraction: false,
                 }}
-                pagination={{
-                  clickable: true,
-                  type: 'bullets',
-                  el: `.swiper-bullets-container.${randomClassSwiper}`,
-                  bulletElement: 'div',
-                }}
+                pagination={paginationConfig}
                 className="!h-full !w-full"
               >
                 {images?.map((item: any, index: number) => (
