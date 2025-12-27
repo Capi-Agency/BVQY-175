@@ -9,90 +9,11 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
-import Link from 'next/link';
 import CustomLink from '../../common/custom-link';
 
 gsap.registerPlugin(useGSAP);
 
 export default function HeroWithTopImage({ data }: CommonSection) {
-  return (
-    <section>
-      <div className="relative">
-        <div className="md:hidden">
-          <SliderImage
-            dataImage={data?.contents}
-            paginationClass={'swiper-hero-bg-focus-mb'}
-          />
-        </div>
-
-        <div className="hidden md:block">
-          <SliderImage
-            dataImage={data?.cover}
-            paginationClass={'swiper-hero-bg-focus'}
-          />
-        </div>
-
-        <div className="absolute left-0 top-1/2 z-[1] w-full -translate-y-1/2">
-          <div className="container relative z-[1] space-y-2 text-center xl:space-y-3 4xl:space-y-4">
-            <div
-              className="w-full text-sm font-normal text-[#E4E4E7] md:!leading-[1.4] lg:!leading-[1.5] xl:text-base 3xl:text-lg 3xl:!leading-[1.6] 4xl:text-xl"
-              dangerouslySetInnerHTML={{
-                __html: data?.blurb,
-              }}
-            ></div>
-            {data?.title && (
-              <h2
-                className="text-[30px] font-bold !leading-[1.4] text-white md:text-[32px] lg:text-[36px] xl:text-[40px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]"
-                dangerouslySetInnerHTML={{
-                  __html: data?.title,
-                }}
-              ></h2>
-            )}
-
-            <div
-              className="w-full text-sm font-normal text-[#E4E4E7] md:!leading-[1.4] lg:!leading-[1.5] xl:text-base 3xl:text-lg 3xl:!leading-[1.6] 4xl:text-xl"
-              dangerouslySetInnerHTML={{
-                __html: data?.subtitle,
-              }}
-            ></div>
-          </div>
-        </div>
-      </div>
-
-      {data?.buttons?.length > 0 && (
-        <div className="py-10 md:py-6 2xl:py-8 4xl:py-10">
-          <div className="container grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-4 2xl:flex 2xl:items-stretch 3xl:gap-6">
-            {data?.buttons?.map((button: any, index: number) => (
-              <CustomLink
-                key={index}
-                href={button?.url}
-                aria-label={button?.title}
-                className="group flex items-center gap-3 bg-primary-50 p-[12px_24px] transition-colors duration-200 hover:bg-secondary md:p-[12px_40px] lg:p-[12px_80px] xl:p-[12px_120px] 2xl:flex-1 2xl:p-[12px_16px] 3xl:gap-4 3xl:p-[12px_20px] 4xl:p-[12px_24px]"
-              >
-                <div className="relative size-9 duration-200 group-hover:brightness-[0] group-hover:invert group-hover:saturate-[100%] md:size-8 xl:size-9 3xl:size-11 4xl:size-12">
-                  <NextImg src={getAssetUrlById(button?.icon?.id)} alt="icon" />
-                </div>
-
-                <div className="flex-1">
-                  {button?.title && (
-                    <h2 className="text-lg font-semibold leading-[1.5] text-[#09090B] transition-colors duration-200 group-hover:text-white 2xl:text-xl 4xl:text-[22px]">
-                      {button?.title}
-                    </h2>
-                  )}
-                  <div className="text-sm font-normal text-[#3F3F46] transition-colors duration-200 group-hover:text-white/60">
-                    {button?.blurb}
-                  </div>
-                </div>
-              </CustomLink>
-            ))}
-          </div>
-        </div>
-      )}
-    </section>
-  );
-}
-
-const SliderImage = ({ dataImage, paginationClass }: any) => {
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
   const { contextSafe } = useGSAP(() => {}, { scope: containerRef });
@@ -134,68 +55,159 @@ const SliderImage = ({ dataImage, paginationClass }: any) => {
   );
 
   return (
-    <div
-      ref={containerRef}
-      // className="relative block aspect-[3/2] w-full overflow-hidden md:aspect-auto md:h-[308px] lg:h-[calc(100vh-76px)] xl:h-[calc(100vh-130px)] 2xl:h-[calc(100vh-142px)] 3xl:h-[calc(100vh-146px)] 4xl:h-[calc(100vh-154px)]"
-      className="relative block aspect-[3/2] h-auto w-full overflow-hidden md:aspect-[5/2]"
-    >
-      <Swiper
-        touchEventsTarget="container"
-        allowTouchMove={false}
-        loop={true}
-        slidesPerView={1}
-        spaceBetween={0}
-        speed={1000}
-        modules={[Pagination, Autoplay]}
-        autoplay={{
-          delay: 5000,
-          disableOnInteraction: false,
-        }}
-        pagination={{
-          clickable: true,
-          type: 'bullets',
-          el: `.swiper-bullets-container.${paginationClass}`,
-          bulletElement: 'div',
-        }}
-        onSlideNextTransitionStart={(swiper: any) =>
-          handleSlideNextTransitionStart(
-            swiper.realIndex,
-            swiper.previousRealIndex,
-          )
-        }
-        onSlidePrevTransitionStart={(swiper: any) =>
-          handleSlidePrevTransitionStart(
-            swiper.realIndex,
-            swiper.previousRealIndex,
-          )
-        }
-        className="swiper-hero-background-focus h-full w-full"
-      >
-        {dataImage?.map((item: any, index: number) => (
-          <SwiperSlide key={`cover-${index}`} className="!h-full !w-full">
-            <div className="relative h-full w-full overflow-hidden">
-              <div
-                className={`slide slide-${index} absolute inset-0 size-full`}
-              >
-                <NextImg
-                  src={getAssetUrlById(item?.id)}
-                  alt="media image"
-                  objectFit="cover"
-                  className="object-top"
-                />
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <section>
+      <div className="relative">
+        <div
+          ref={containerRef}
+          className="relative block aspect-[3/2] h-auto w-full overflow-hidden md:aspect-[5/2]"
+        >
+          <Swiper
+            touchEventsTarget="container"
+            allowTouchMove={false}
+            loop={true}
+            slidesPerView={1}
+            spaceBetween={0}
+            speed={1000}
+            modules={[Pagination, Autoplay]}
+            autoplay={{
+              delay: 5000,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+              type: 'bullets',
+              el: `.swiper-bullets-container.swiper-hero-bg-focus`,
+              bulletElement: 'div',
+            }}
+            onSlideNextTransitionStart={(swiper: any) =>
+              handleSlideNextTransitionStart(
+                swiper.realIndex,
+                swiper.previousRealIndex,
+              )
+            }
+            onSlidePrevTransitionStart={(swiper: any) =>
+              handleSlidePrevTransitionStart(
+                swiper.realIndex,
+                swiper.previousRealIndex,
+              )
+            }
+            className="swiper-hero-background-focus h-full w-full"
+          >
+            {data?.items?.map((item: any, index: number) => (
+              <SwiperSlide key={`cover-${index}`} className="!h-full !w-full">
+                {item?.buttons?.[0]?.url ? (
+                  <CustomLink
+                    href={item?.buttons?.[0]?.url}
+                    className="relative h-full w-full overflow-hidden block"
+                  >
+                    <div
+                      className={`slide slide-${index} absolute inset-0 size-full`}
+                    >
+                      <SlideContent item={item} />
+                    </div>
+                  </CustomLink>
+                ) : (
+                  <div className="relative h-full w-full overflow-hidden">
+                    <div
+                      className={`slide slide-${index} absolute inset-0 size-full`}
+                    >
+                      <SlideContent item={item} />
+                    </div>
+                  </div>
+                )}
+              </SwiperSlide>
+            ))}
+          </Swiper>
 
-      <div className="absolute bottom-2 left-0 z-[5] flex w-full justify-center lg:bottom-4 xl:bottom-5 3xl:bottom-6">
-        <div className="container relative w-fit">
+          <div className="absolute bottom-2 left-0 z-[5] flex w-full justify-center lg:bottom-4 xl:bottom-5 3xl:bottom-6 pointer-events-none">
+            <div className="container relative w-fit">
+              <div
+                className={`swiper-bullets-container swiper-hero-bg-focus !w-fit !pointer-events-auto cursor-pointer`}
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {data?.buttons?.length > 0 && (
+        <div className="py-10 md:py-6 2xl:py-8 4xl:py-10">
+          <div className="container grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-4 2xl:flex 2xl:items-stretch 3xl:gap-6">
+            {data?.buttons?.map((button: any, index: number) => (
+              <CustomLink
+                key={index}
+                href={button?.url}
+                aria-label={button?.title}
+                className="group flex items-center gap-3 bg-primary-50 p-[12px_24px] transition-colors duration-200 hover:bg-secondary md:p-[12px_40px] lg:p-[12px_80px] xl:p-[12px_120px] 2xl:flex-1 2xl:p-[12px_16px] 3xl:gap-4 3xl:p-[12px_20px] 4xl:p-[12px_24px]"
+              >
+                <div className="relative size-9 duration-200 group-hover:brightness-[0] group-hover:invert group-hover:saturate-[100%] md:size-8 xl:size-9 3xl:size-11 4xl:size-12">
+                  <NextImg src={getAssetUrlById(button?.icon?.id)} alt="icon" />
+                </div>
+
+                <div className="flex-1">
+                  {button?.title && (
+                    <h2 className="text-lg font-semibold leading-[1.5] text-[#09090B] transition-colors duration-200 group-hover:text-white 2xl:text-xl 4xl:text-[22px]">
+                      {button?.title}
+                    </h2>
+                  )}
+                  <div className="text-sm font-normal text-[#3F3F46] transition-colors duration-200 group-hover:text-white/60">
+                    {button?.blurb}
+                  </div>
+                </div>
+              </CustomLink>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+const SlideContent = ({ item }: any) => {
+  return (
+    <>
+      <div className="absolute inset-0 z-[1] hidden size-full md:block">
+        <NextImg
+          src={getAssetUrlById(item?.cover?.id)}
+          alt="media image"
+          objectFit="cover"
+          className="object-top"
+        />
+      </div>
+
+      <div className="absolute inset-0 z-[1] size-full md:hidden">
+        <NextImg
+          src={getAssetUrlById(item?.content?.id)}
+          alt="media image"
+          objectFit="cover"
+          className="object-top"
+        />
+      </div>
+
+      <div className="absolute left-0 top-1/2 z-[2] w-full -translate-y-1/2">
+        <div className="container relative z-[2] space-y-2 text-center xl:space-y-3 4xl:space-y-4">
           <div
-            className={`swiper-bullets-container ${paginationClass} !w-fit`}
+            className="w-full text-sm font-normal text-[#E4E4E7] md:!leading-[1.4] lg:!leading-[1.5] xl:text-base 3xl:text-lg 3xl:!leading-[1.6] 4xl:text-xl"
+            dangerouslySetInnerHTML={{
+              __html: item?.blurb,
+            }}
+          ></div>
+          {item?.title && (
+            <h2
+              className="text-[30px] font-bold !leading-[1.4] text-white md:text-[32px] lg:text-[36px] xl:text-[40px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]"
+              dangerouslySetInnerHTML={{
+                __html: item?.title,
+              }}
+            ></h2>
+          )}
+
+          <div
+            className="w-full text-sm font-normal text-[#E4E4E7] md:!leading-[1.4] lg:!leading-[1.5] xl:text-base 3xl:text-lg 3xl:!leading-[1.6] 4xl:text-xl"
+            dangerouslySetInnerHTML={{
+              __html: item?.subtitle,
+            }}
           ></div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
