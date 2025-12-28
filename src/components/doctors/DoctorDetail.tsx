@@ -15,8 +15,7 @@ import { Link } from '@/src/i18n/navigation';
 
 export default function DoctorDetail({ data, dataDetail }: CommonSection) {
   const t = useTranslations('Doctor');
-  const tHref = useTranslations('Href');
-  const units = getWorkUnits(dataDetail, t('board_of_directors'));
+  const units = getWorkUnits(dataDetail);
 
   const dataContent = [
     {
@@ -142,17 +141,11 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
                   {t('work_unit')}
                 </div>
 
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-1 lg:gap-2">
                   {units.map((unit, index) => (
                     <React.Fragment key={index}>
                       <Link
-                        href={`${
-                          unit.type === 'board'
-                            ? tHref('board_of_directors')
-                            : unit.type === 'group'
-                              ? '/vien'
-                              : '/chuyen-khoa'
-                        }/${unit.slug ?? ''}`}
+                        href={unit?.slug}
                         aria-label="Xem chi tiết đơn vị"
                         className="inline-block text-sm font-normal text-[#09090B] underline underline-offset-2 lg:text-base"
                       >
@@ -217,7 +210,9 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
 }
 
 // helpers/getWorkUnits.ts
-export function getWorkUnits(dataDetail: any, positionBoard: string) {
+export function getWorkUnits(dataDetail: any) {
+  const t = useTranslations('Doctor');
+  const tHref = useTranslations('Href');
   const units: any[] = [];
 
   // Nếu là giám đốc hoặc phó giám đốc → thêm Ban Giám Đốc
@@ -226,31 +221,31 @@ export function getWorkUnits(dataDetail: any, positionBoard: string) {
     dataDetail?.hospital_title === 'deputy_director'
   ) {
     units.push({
-      title: positionBoard,
-      type: 'board',
+      slug: tHref('board_of_directors'),
+      title: t('board_of_directors'),
     });
   }
 
-  // Thêm nhóm đơn vị (department_groups)
+  // trung tâm hoặc viện
   if (dataDetail?.department_groups) {
     units.push(
       ...dataDetail.department_groups.map(
         ({ department_groups_slug: group }: any) => ({
-          slug: group?.slug,
-          title: group?.title,
-          type: 'group',
+          slug: `/${group?.parent_group}/${group?.slug}`,
+          title: group?.code ? `${group?.title} (${group.code})` : group?.title,
         }),
       ),
     );
   }
 
-  // Thêm phòng ban (departments)
+  // Chuyên khoa
   if (dataDetail?.departments) {
     units.push(
       ...dataDetail.departments.map(({ department }: any) => ({
-        slug: department?.slug,
-        title: department?.title + ` (${department.code})`,
-        type: 'department',
+        slug: `/chuyen-khoa/${department?.slug}`,
+        title: department?.code
+          ? `${department?.title} (${department.code})`
+          : department?.title,
       })),
     );
   }

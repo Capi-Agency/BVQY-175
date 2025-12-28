@@ -262,9 +262,13 @@ export const fnGetDoctorDetail = async ({
       readItem(collection, slug, {
         fields: [
           '*',
-          'departments.department.*',
+          'departments.department.slug',
+          'departments.department.title',
+          'departments.department.code',
           'department_groups.department_groups_slug.title',
           'department_groups.department_groups_slug.slug',
+          'department_groups.department_groups_slug.code',
+          'department_groups.department_groups_slug.parent_group',
         ],
       }),
     );

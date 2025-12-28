@@ -157,7 +157,7 @@ export default function InfoWithLeftImageTopTitle({
                 <div className="relative z-10 mt-3 text-center">
                   <button
                     onClick={() => setExpanded((prev) => !prev)}
-                    className="text-primary inline-flex items-center gap-1 text-sm font-medium hover:underline"
+                    className="text-primary inline-flex items-center gap-1 text-sm font-medium underline 2xl:text-base underline-offset-2"
                   >
                     {expanded ? t('collapse') : t('view-more')}
                   </button>

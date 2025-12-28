@@ -1,5 +1,6 @@
 'use client';
 import NextImg from '@/src/components/common/next-img';
+import { Link } from '@/src/i18n/navigation';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import { getAllDepartmentGroups } from '@/src/services/department';
 import { CommonSection } from '@/src/types/pageBuilder';
@@ -11,7 +12,6 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
@@ -133,7 +133,7 @@ const DepartmentDetailPage = ({
   );
 
   useEffect(() => {
-    if(parentGroups?.length === 0) return
+    if (parentGroups?.length === 0) return;
 
     if (!searchText.trim()) {
       setFilteredGroups(parentGroups);
@@ -380,18 +380,29 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
                 'w-full cursor-pointer text-base font-normal text-gray-950 hover:text-primary-600 md:w-[calc(50%-12px)] lg:text-lg 2xl:text-xl',
               )}
             >
-              <Link
-                href={'/vi/vien/' + group.slug}
-                className={clsx(
-                  'cursor-pointer p-[8px_0__4px] text-base font-semibold text-gray-950 underline-offset-4 hover:text-primary-600 hover:underline md:p-[12px_0__4px] lg:p-[16px_0_4px] lg:text-lg 2xl:text-xl',
-                )}
-              >
-                {group.title}
-              </Link>
+              {pGroup?.slug === 'chuyen-khoa' ? (
+                <div
+                  className={clsx(
+                    'cursor-default p-[8px_0__4px] text-base font-semibold text-gray-950 underline-offset-4 hover:text-primary-600 md:p-[12px_0__4px] lg:p-[16px_0_4px] lg:text-lg 2xl:text-xl',
+                  )}
+                >
+                  {group.title} {group.code ? `(${group.code})` : null}
+                </div>
+              ) : (
+                <Link
+                  href={`/${pGroup?.slug}/${group?.slug}`}
+                  className={clsx(
+                    'cursor-pointer p-[8px_0__4px] text-base font-semibold text-gray-950 underline-offset-4 hover:text-primary-600 hover:underline md:p-[12px_0__4px] lg:p-[16px_0_4px] lg:text-lg 2xl:text-xl',
+                  )}
+                >
+                  {group.title} {group.code ? `(${group.code})` : null}
+                </Link>
+              )}
+
               <div className="ml-3 mt-4 flex list-none flex-col gap-4 md:ml-5 md:gap-5 xl:ml-7 xl:mt-5 2xl:gap-6 3xl:gap-x-4 3xl:gap-y-5">
                 {group.departments.map((department: any, idx: number) => (
                   <Link
-                    href={'/vi/chuyen-khoa/' + department.slug}
+                    href={'/chuyen-khoa/' + department.slug}
                     className={clsx(
                       'text-base font-normal text-gray-950 hover:text-primary-600 hover:underline lg:text-lg 2xl:text-xl',
                     )}
@@ -413,7 +424,7 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
         <div className="mt-5 flex list-none flex-col gap-3 md:flex-row md:flex-wrap md:gap-4 xl:mt-8 xl:gap-5 2xl:gap-6 3xl:mt-[32px] 3xl:gap-x-4 3xl:gap-y-5">
           {pGroup.departments.map((department: any, idx: number) => (
             <Link
-              href={'/vi/chuyen-khoa/' + department.slug}
+              href={'/chuyen-khoa/' + department.slug}
               className={clsx(
                 'text-base font-normal text-gray-950 underline-offset-4 hover:text-primary-600 hover:underline lg:w-[calc(50%-12px)] lg:text-lg 2xl:text-xl',
               )}

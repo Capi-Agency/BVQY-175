@@ -6,8 +6,7 @@ import {
   PageContent,
   SectionMap,
 } from '@/src/types/pageBuilder';
-import { EmptySection, LoadingComp } from '../components/sections/custom';
-import { Suspense } from 'react';
+import { notFound } from 'next/navigation';
 
 const sectionMap: SectionMap = {
   // Home
@@ -278,7 +277,7 @@ const PageBuilder = ({ pageContent, pageDetail }: PageBuilderProps) => {
     !pageContent?.sections ||
     pageContent.sections.length === 0
   ) {
-    return <EmptySection />;
+    notFound();
   }
   const sections = pageContent.sections;
 

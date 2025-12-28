@@ -39,7 +39,7 @@ export default function TheFooter() {
             className="relative h-[72px] w-[295px] 3xl:h-[88px] 3xl:w-[361px]"
           >
             <NextImg
-              src="/assets/logo/secondary_logo.svg"
+              src="/assets/logo/logo_footer.png"
               alt="175 hospital logo"
             />
           </Link>

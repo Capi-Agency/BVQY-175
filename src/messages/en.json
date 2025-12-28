@@ -11,13 +11,14 @@
     }
   },
   "Common": {
+    "return-home": "Back to home page",
     "close": "Close",
     "submit": "Submit",
     "view-more": "View more",
     "view-detail": "View details",
     "no-data": "No data available!",
     "empty-page": "This page does not exist!",
-    "return-main-menu": "Return to main menu",
+    "return-main-menu": "Back to main menu",
     "expand": "Expand",
     "collapse": "Collapse",
     "all": "All",
