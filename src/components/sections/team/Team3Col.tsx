@@ -95,7 +95,7 @@ const DirectorCard = ({item }: { item: any }) => (
     <div
       className={cn(
         'relative mx-auto w-full overflow-hidden',
-        'transition-colors duration-200 group-hover:bg-primary-600',
+        'transition-colors duration-200',
       )}
       style={{ aspectRatio: 2 / 3 }}
     >
@@ -168,7 +168,7 @@ function DoctorCard({
           bgColor,
           isRounded && 'rounded-[8px]',
           isHover &&
-            'transition-colors duration-200 group-hover:bg-primary-600',
+            'transition-colors duration-200',
         )}
         style={{
           aspectRatio: avatarRatio,
