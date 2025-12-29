@@ -5,17 +5,19 @@ import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Autoplay, Pagination } from 'swiper/modules';
+import { Autoplay, Keyboard, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import CustomLink from '../../common/custom-link';
+import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 
 gsap.registerPlugin(useGSAP);
 
 export default function HeroWithTopImage({ data }: CommonSection) {
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
+  const { paginationClass, paginationConfig } = useSwiperPagination();
   const { contextSafe } = useGSAP(() => {}, { scope: containerRef });
 
   const handleSlideNextTransitionStart = contextSafe(
@@ -59,7 +61,7 @@ export default function HeroWithTopImage({ data }: CommonSection) {
       <div className="relative">
         <div
           ref={containerRef}
-          className="relative block aspect-[3/2] h-auto w-full overflow-hidden md:aspect-[5/2]"
+          className="relative hidden aspect-[3/2] h-auto w-full overflow-hidden md:aspect-[5/2] lg:block"
         >
           <Swiper
             touchEventsTarget="container"
@@ -68,11 +70,15 @@ export default function HeroWithTopImage({ data }: CommonSection) {
             slidesPerView={1}
             spaceBetween={0}
             speed={1000}
-            modules={[Pagination, Autoplay]}
+            modules={[Pagination, Autoplay, Keyboard]}
+            keyboard={{
+              enabled: true,
+              onlyInViewport: true,
+            }}
             autoplay={{
               delay: 5000,
               disableOnInteraction: false,
-              pauseOnMouseEnter: true
+              pauseOnMouseEnter: true,
             }}
             pagination={{
               clickable: true,
@@ -99,7 +105,7 @@ export default function HeroWithTopImage({ data }: CommonSection) {
                 {item?.buttons?.[0]?.url ? (
                   <CustomLink
                     href={item?.buttons?.[0]?.url}
-                    className="relative h-full w-full overflow-hidden block"
+                    className="relative block h-full w-full overflow-hidden"
                   >
                     <div
                       className={`slide slide-${index} absolute inset-0 size-full`}
@@ -120,14 +126,60 @@ export default function HeroWithTopImage({ data }: CommonSection) {
             ))}
           </Swiper>
 
-          <div className="absolute bottom-2 left-0 z-[5] flex w-full justify-center lg:bottom-4 xl:bottom-5 3xl:bottom-6 pointer-events-none">
+          <div className="pointer-events-none absolute bottom-2 left-0 z-[5] flex w-full justify-center lg:bottom-4 xl:bottom-5 3xl:bottom-6">
             <div className="container relative w-fit">
               <div
-                className={`swiper-bullets-container swiper-hero-bg-focus !w-fit !pointer-events-auto cursor-pointer`}
+                className={`swiper-bullets-container swiper-hero-bg-focus !pointer-events-auto !w-fit cursor-pointer`}
               ></div>
             </div>
           </div>
         </div>
+
+        {paginationClass && paginationConfig && (
+          <div className="relative block aspect-[3/2] h-auto w-full overflow-hidden md:aspect-[5/2] lg:hidden">
+            <Swiper
+              touchEventsTarget="container"
+              allowTouchMove={true}
+              loop={true}
+              slidesPerView={1}
+              spaceBetween={0}
+              speed={500}
+              modules={[Pagination, Autoplay]}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              pagination={paginationConfig}
+              className="h-full w-full"
+            >
+              {data?.items?.map((item: any, index: number) => (
+                <SwiperSlide key={`cover-${index}`} className="!h-full !w-full">
+                  {item?.buttons?.[0]?.url ? (
+                    <CustomLink
+                      href={item?.buttons?.[0]?.url}
+                      className="relative block h-full w-full overflow-hidden"
+                    >
+                      <SlideContent item={item} />
+                    </CustomLink>
+                  ) : (
+                    <div className="relative h-full w-full overflow-hidden">
+                      <SlideContent item={item} />
+                    </div>
+                  )}
+                </SwiperSlide>
+              ))}
+            </Swiper>
+
+            <div className="pointer-events-none absolute bottom-2 left-0 z-[5] flex w-full justify-center lg:bottom-4 xl:bottom-5 3xl:bottom-6">
+              <div className="container relative w-fit">
+                <div
+                  className={`${paginationClass} !pointer-events-auto !w-fit cursor-pointer`}
+                ></div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {data?.buttons?.length > 0 && (
