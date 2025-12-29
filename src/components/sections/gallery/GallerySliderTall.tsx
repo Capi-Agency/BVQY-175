@@ -59,7 +59,7 @@ export default function GallerySliderTall({ data }: CommonSection) {
       <div className="mt-6 block md:hidden">
         <Swiper
           spaceBetween={16}
-          slidesPerView={1.2}
+          slidesPerView={1.15}
           speed={500}
           className="!px-6"
         >

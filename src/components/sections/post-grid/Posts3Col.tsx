@@ -42,7 +42,7 @@ const Posts3Col = ({ data }: CommonSection) => {
           <Swiper
             touchEventsTarget="container"
             grabCursor={true}
-            slidesPerView={1.2}
+            slidesPerView={1.15}
             loop={false}
             spaceBetween={16}
             speed={700}

@@ -11,7 +11,7 @@ import { Link } from '@/src/i18n/navigation';
 export default function Feature4Col({ data }: CommonSection) {
   return (
     <section className="bg-white py-10 md:py-6 lg:py-10 xl:py-[52px] 2xl:py-[64px] 3xl:py-[72px] 4xl:py-[80px]">
-      <div className="grid-cols-1 gap-6 md:container md:grid md:grid-cols-3 md:gap-4 xl:gap-4 xl:grid-cols-4 2xl:gap-6 3xl:gap-8">
+      <div className="grid-cols-1 gap-6 md:container md:grid md:grid-cols-3 md:gap-4 xl:gap-4 xl:grid-cols-4 2xl:gap-6 3xl:gap-7">
         <div className="px-6 md:col-span-2 md:px-0 lg:col-span-1">
           <div className="section-sub-title">{data?.subtitle}</div>
           {data?.title && <h1 className="section-title mt-1">{data?.title}</h1>}
@@ -59,7 +59,7 @@ export default function Feature4Col({ data }: CommonSection) {
                   {item?.title}
                 </div>
                 <div
-                  className="line-clamp-3 h-[60px] text-sm font-normal text-[#3F3F46] transition-all duration-200 group-hover:text-[#D1E6D7]"
+                  className="line-clamp-3 h-[60px] text-sm 3xl:text-base 3xl:h-[72px] font-normal text-[#3F3F46] transition-all duration-200 group-hover:text-[#D1E6D7]"
                   dangerouslySetInnerHTML={{
                     __html: item?.blurb,
                   }}
@@ -90,7 +90,7 @@ export default function Feature4Col({ data }: CommonSection) {
           <Swiper
             touchEventsTarget="container"
             grabCursor={true}
-            slidesPerView={1.2}
+            slidesPerView={1.15}
             loop={false}
             spaceBetween={16}
             speed={700}

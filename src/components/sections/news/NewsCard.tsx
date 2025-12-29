@@ -37,7 +37,7 @@ export default function NewsCard({ item, url, cateUrl, type = "default" }: NewsC
           {item?.title}
         </div>
         <div
-          className="line-clamp-3 h-[60px] text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
+          className="line-clamp-3 h-[60px] text-sm 3xl:text-base 3xl:h-[72px] font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
           dangerouslySetInnerHTML={{
             __html: item?.blurb,
           }}
