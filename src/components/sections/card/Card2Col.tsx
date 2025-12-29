@@ -26,14 +26,14 @@ export default function Card2Col({ data }: CommonSection) {
           ></div>
         </div>
 
-        <div className="container grid grid-cols-2 md:grid-cols-3 justify-between gap-10 md:flex">
+        <div className="container grid grid-cols-2 justify-between gap-10 md:gap-4 lg:gap-5 xl:gap-6 3xl:gap-7 4xl:gap-8 md:flex">
           {data?.items?.map((item: any, index: number) => {
             const isOdd = data?.items?.length % 2 !== 0;
 
             return (
               <div
                 key={index}
-                className={`flex flex-col items-center gap-3 lg:gap-4 xl:gap-5 3xl:gap-6 ${isOdd ? 'last:col-span-full' : ''}`}
+                className={`flex flex-col items-center gap-3 lg:gap-4 xl:gap-5 3xl:gap-6 md:flex-1 ${isOdd ? 'last:col-span-full' : ''}`}
               >
                 <div className="relative size-14 lg:size-16 xl:size-16 2xl:size-[72px] 3xl:size-[80px]">
                   <NextImg
