@@ -147,7 +147,7 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
               </div>
               <div className="flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
                 <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
-                  {data?.custom?.['other-titles'] ?? t('awards')}
+                  {data?.blurb ?? t('awards')}
                 </h3>
                 <div
                   className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"

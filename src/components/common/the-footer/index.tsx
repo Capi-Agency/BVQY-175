@@ -236,10 +236,9 @@ export default function TheFooter() {
               rel="noopener"
               href="//www.dmca.com/Protection/Status.aspx?ID=3fea7e96-c255-4e43-955e-8d80a85d3048"
               title="DMCA.com Protection Status"
-              className="dmca-badge"
+              className="dmca-badge relative block h-[54px] w-[116px] 2xl:h-[58px] 2xl:w-[116px] 4xl:h-[66px] 4xl:w-[132px]"
             >
-              <img
-                className="h-[54px] w-[116px] 2xl:h-[58px] 2xl:w-[116px] 4xl:h-[66px] 4xl:w-[132px]"
+              <NextImg
                 src="https://images.dmca.com/Badges/dmca-badge-w250-2x1-04.png?ID=3fea7e96-c255-4e43-955e-8d80a85d3048"
                 alt="DMCA.com Protection Status"
               />
