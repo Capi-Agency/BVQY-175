@@ -17,23 +17,6 @@ export default function Team3Col({ data }: CommonSection) {
   return (
     <>
       {/* Banner */}
-      <div className="md:relative">
-        <div
-          className="flex h-full flex-col items-center gap-1 py-40 text-center md:py-[100px] lg:gap-2 lg:py-[120px] 2xl:gap-4 2xl:py-[140px] 3xl:py-40"
-          style={{
-            background: `linear-gradient(0deg, rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("${getAssetUrlById(
-              data?.cover?.id,
-            )}") center/cover no-repeat`,
-          }}
-        >
-          {data?.title && (
-            <h1 className="text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
-              {data?.title}
-            </h1>
-          )}
-        </div>
-      </div>
-
       <div className="bg-white py-10 lg:py-[60px] xl:py-[80px] 3xl:py-[120px]">
         <div className="container flex flex-col items-center gap-10">
           {/* ⭐ Doctor đứng đầu (Giám đốc) */}
