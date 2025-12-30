@@ -23,7 +23,7 @@ export default function Team3Col({ data }: CommonSection) {
           {firstDoctor && (
             <div className="flex w-full justify-center">
               <div className="w-full max-w-[240px] md:max-w-[300px] xl:max-w-[428px]">
-                <DirectorCard item={firstDoctor} />
+                <DirectorCard item={firstDoctor} link={data?.buttons?.[0]?.url} />
               </div>
             </div>
           )}
@@ -38,6 +38,7 @@ export default function Team3Col({ data }: CommonSection) {
                 subTitle="hospital_title"
                 isHover={false}
                 isRounded={false}
+                link={data?.buttons?.[0]?.url}
               />
             ))}
           </div>
@@ -47,9 +48,9 @@ export default function Team3Col({ data }: CommonSection) {
   );
 }
 
-const DirectorCard = ({item }: { item: any }) => (
+const DirectorCard = ({item, link }: { item: any, link: any }) => (
   <Link
-    href={`/doi-ngu-bac-si/${item?.slug}`}
+    href={`${link}/${item?.slug}`}
     aria-label="Xem chi tiết bác sĩ"
     className="group block space-y-3 2xl:space-y-[14px] 3xl:space-y-4"
   >
@@ -114,6 +115,7 @@ interface DoctorCardProps {
   avatarRatio?: '2/3' | '5/6' | '3/4' | string;
   avatarOrigin?: 'center' | 'top' | 'left' | 'right' | 'bottom';
   isRounded?: boolean;
+  link: string;
 }
 
 function DoctorCard({
@@ -125,6 +127,7 @@ function DoctorCard({
   subTitle = 'specialty',
   avatarRatio = '2/3',
   isRounded = true,
+  link = "/"
 }: DoctorCardProps) {
 
   const renderSubTitleByType: Record<DoctorCardProps['subTitle'], JSX.Element> =
@@ -139,7 +142,7 @@ function DoctorCard({
 
   return (
     <Link
-      href={`/doi-ngu-bac-si/${item?.slug}`}
+      href={`${link}/${item?.slug}`}
       aria-label="Xem chi tiết bác sĩ"
       className="sm:space-y-4 group block space-y-3 md:space-y-5 xl:space-y-[10px] 2xl:space-y-[14px] 3xl:space-y-4"
     >
