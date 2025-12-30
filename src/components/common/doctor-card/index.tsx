@@ -106,7 +106,7 @@ export default function DoctorCard({
             'relative w-full overflow-hidden',
             isRounded && 'rounded-[8px]',
             isHover &&
-              'transition-colors duration-200 group-hover:!bg-primary-600',
+              'transition-colors duration-200 group-hover:!border-primary-600 border-[2px] 2xl:border-[3px] border-transparent',
           )}
           style={{
             aspectRatio: avatarRatio,
