@@ -19,6 +19,7 @@ import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { getAllDepartmentGroups } from '@/src/services/department';
+import CustomLink from '@/src/components/common/custom-link';
 
 const DoctorList = ({ data }: CommonSection) => {
   const router = useRouter();
@@ -757,8 +758,8 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
   return (
     <div className="flex flex-col gap-5 rounded-2xl border-[2px] border-white bg-white p-5 shadow-lg transition-all hover:border-primary-600 md:flex-row md:p-4 xl:p-4 2xl:p-5">
       <div className="flex h-full items-center justify-center">
-        <Link
-          href={'/vi/doi-ngu-bac-si/' + slug}
+        <CustomLink
+          href={'/doi-ngu-bac-si/' + slug}
           className="relative aspect-[3/4] w-full overflow-hidden rounded-[10px] bg-gray-100 md:max-h-[280px] md:w-[192px] lg:w-[224px] xl:w-[192px] 2xl:w-[224px]"
         >
           <NextImg
@@ -767,7 +768,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
             objectFit="cover"
             className="-top-[8%] object-top"
           />
-        </Link>
+        </CustomLink>
       </div>
 
       <div className="flex flex-1 flex-col justify-center md:px-5 lg:justify-between xl:justify-center xl:px-0 2xl:justify-between">
@@ -858,3 +859,4 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
     </div>
   );
 };
+

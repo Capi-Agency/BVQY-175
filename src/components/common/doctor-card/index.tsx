@@ -96,7 +96,11 @@ export default function DoctorCard({
       ),
     };
 
-  const avatarId = item?.[avatarType]?.id ?? item?.[avatarType];
+  const avatarId =
+    item?.[avatarType]?.id ??
+    item?.[avatarType] ??
+    item?.['uniform_avatar']?.id ??
+    item?.['uniform_avatar'];
 
   const renderDefault = () => {
     const cardContent = (
@@ -106,7 +110,7 @@ export default function DoctorCard({
             'relative w-full overflow-hidden',
             isRounded && 'rounded-[8px]',
             isHover &&
-              'transition-colors duration-200 group-hover:!border-primary-600 border-[2px] 2xl:border-[3px] border-transparent',
+              'border-[2px] border-transparent transition-colors duration-200 group-hover:!border-primary-600 2xl:border-[3px]',
           )}
           style={{
             aspectRatio: avatarRatio,
@@ -135,7 +139,8 @@ export default function DoctorCard({
             className={cn(
               'font-normal text-[#3F3F46]',
               textSize === 'md' && 'text-xs md:text-sm 2xl:text-base',
-              textSize === 'xl' && 'text-sm md:text-base lg:text-sm xl:text-base 2xl:text-lg',
+              textSize === 'xl' &&
+                'text-sm md:text-base lg:text-sm xl:text-base 2xl:text-lg',
             )}
           >
             {item?.full_title}
@@ -157,7 +162,8 @@ export default function DoctorCard({
             className={cn(
               'font-medium text-primary-500',
               textSize === 'md' && 'text-xs md:text-sm 2xl:text-base',
-              textSize === 'xl' && 'text-xs md:text-base lg:text-sm xl:text-base 2xl:text-lg',
+              textSize === 'xl' &&
+                'text-xs md:text-base lg:text-sm xl:text-base 2xl:text-lg',
             )}
           >
             {renderSubTitleByType[subTitle]}
