@@ -173,6 +173,9 @@ export const getListDoctorPreview = async ({
       },
     ];
   }
+  filter.is_admin = {
+    _neq: true,
+  }
 
   try {
     const res = await directusClientWithRest.request(
@@ -225,6 +228,9 @@ export const getTotalDoctorCount = async ({
           },
         },
       ];
+    }
+    filter.is_admin = {
+      _neq: true,
     }
 
     // Lấy tất cả id matching filter

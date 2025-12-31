@@ -77,7 +77,11 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                   <DoctorCard
                     item={item?.doctor}
                     url={data?.buttons?.[0]?.url}
-                    avatarType={custom?.avatar_type}
+                    avatarType={
+                      item?.doctor?.avatar
+                        ? custom?.avatar_type
+                        : 'uniform_avatar'
+                    }
                     subTitle={custom?.sub_title}
                     isLogo={custom?.is_logo}
                     isHover={custom?.is_hover}

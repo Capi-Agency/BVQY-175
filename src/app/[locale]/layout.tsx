@@ -18,12 +18,10 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/src/i18n/routing';
 
-
 export function generateStaticParams() {
   return routing.locales.map((locale: string) => ({ locale }));
 }
 export const dynamic = 'force-dynamic';
-
 
 export default async function RootLayout({
   children,
@@ -71,7 +69,7 @@ export default async function RootLayout({
           href="/assets/logo/apple-touch-icon-180x180.png"
         ></link>
 
-        <link rel="manifest" href="/manifest.json" />
+        <link rel="manifest" href="/manifest.webmanifest" />
         <meta
           name="msapplication-TileImage"
           content="/assets/logo/logo-icon-270x270.png"
@@ -97,7 +95,11 @@ export default async function RootLayout({
         <ReCaptchatProvider>
           <MetadataProvider value={metadata}>
             <NextIntlClientProvider messages={messages}>
-              <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="light"
+                enableSystem
+              >
                 <GsapMatchMediaProvider>
                   <ScrollSmootherProvider>
                     <Suspense fallback={<></>}>

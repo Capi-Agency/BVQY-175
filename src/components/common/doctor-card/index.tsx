@@ -96,11 +96,7 @@ export default function DoctorCard({
       ),
     };
 
-  const avatarId =
-    item?.[avatarType]?.id ??
-    item?.[avatarType] ??
-    item?.['uniform_avatar']?.id ??
-    item?.['uniform_avatar'];
+  const avatarId = item?.[avatarType]?.id ?? item?.[avatarType];
 
   const renderDefault = () => {
     const cardContent = (
@@ -110,7 +106,7 @@ export default function DoctorCard({
             'relative w-full overflow-hidden',
             isRounded && 'rounded-[8px]',
             isHover &&
-              'border-[2px] border-transparent transition-colors duration-200 group-hover:!border-primary-600 2xl:border-[3px]',
+              'border-[2px] border-transparent transition-colors duration-200 group-hover:!border-primary-600 3xl:border-[3px]',
           )}
           style={{
             aspectRatio: avatarRatio,

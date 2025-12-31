@@ -23,7 +23,8 @@
     "collapse": "Collapse",
     "all": "All",
     "search-results": "Search results",
-    "send-now": "Send now"
+    "send-now": "Send now",
+    "click-image": "Click on the image to see it more clearly"
   },
   "Href": {
     "achievements": "/achievements",
