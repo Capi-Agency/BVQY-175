@@ -83,6 +83,12 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                     isHover={custom?.is_hover}
                     isRounded={custom?.is_rounded}
                     avatarRatio="3/4"
+                    isLink={
+                      item?.doctor?.is_admin === true ||
+                      custom?.is_link === false
+                        ? false
+                        : custom?.is_link
+                    }
                     textSize={doctorCount < 3 ? 'xl' : 'md'}
                     bgColor="#f4f4f5"
                   />
