@@ -25,14 +25,7 @@ export const getLangSlug = async (
   return locale === routing.defaultLocale ? slug : `${slug}-${locale}`;
 };
 
-export function getLocalizedField<T extends Record<string, any>>(
-  data: T,
-  baseKey: string,
-  lang: string,
-): string {
-  // Nếu ngôn ngữ mặc định là "vi" thì dùng baseKey
-  if (lang === routing.defaultLocale) return data?.[baseKey] ?? '';
-
-  const localizedKey = `${baseKey}_${lang}`;
-  return data?.[localizedKey] ?? data?.[baseKey] ?? '';
+export function getLocalizedField(baseKey: string, lang: string): string {
+  if (lang === routing.defaultLocale) return baseKey;
+  return `${baseKey}_${lang}`;
 }
