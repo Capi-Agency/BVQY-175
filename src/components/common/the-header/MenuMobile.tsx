@@ -382,7 +382,7 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                             key={item_third_index}
                             className="group w-full"
                           >
-                            {item_third?.title && item_third?.title_en && (
+                            {item_third?.title && (
                               <div className="flex w-full items-center justify-between gap-[2px]">
                                 {item_third?.url ? (
                                   <DialogClose
@@ -417,7 +417,7 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
 
                             <AccordionContent>
                               <div
-                                className={`${item_third?.title && item_third?.title_en ? 'pt-4' : 'pt-0'} flex flex-col gap-4 px-5`}
+                                className={`${item_third?.title ? 'pt-4' : 'pt-0'} flex flex-col gap-4 px-5`}
                               >
                                 {item_third?.sub_items?.map(
                                   (item_fourth: any, item_fourth_index: any) =>

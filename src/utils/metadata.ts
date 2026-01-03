@@ -29,3 +29,49 @@ export const createSeoData = (seo: any) => {
     metadataBase: new URL(process.env.SITE_URL!),
   };
 };
+
+export function cleanTranslationsDeep(data: any, locale: string): any {
+  if (Array.isArray(data)) {
+    // Lọc bỏ những phần tử null (tức là không có bản dịch phù hợp)
+    return data
+      .map((item) => cleanTranslationsDeep(item, locale))
+      .filter(Boolean);
+  }
+
+  if (data && typeof data === "object") {
+    const cleaned = { ...data };
+
+    if (Array.isArray(cleaned.translations)) {
+      const matched = cleaned.translations.find(
+        (t: any) =>
+          t?.languages_code?.code === locale ||
+          t?.languages_code === locale
+      );
+
+      // ❌ Nếu KHÔNG có bản dịch phù hợp → loại bỏ hoàn toàn object này
+      if (!matched) {
+        return null;
+      }
+
+      // ✅ Nếu có bản dịch phù hợp → merge vào object gốc
+      Object.assign(cleaned, matched);
+
+      // Xóa trường translations cho gọn
+      delete cleaned.translations;
+    }
+
+    // Đệ quy xử lý các trường con
+    for (const key of Object.keys(cleaned)) {
+      if (typeof cleaned[key] === "object") {
+        cleaned[key] = cleanTranslationsDeep(cleaned[key], locale);
+      }
+    }
+
+    return cleaned;
+  }
+
+  return data;
+}
+
+
+
