@@ -7,6 +7,8 @@ import { Metadata, ResolvingMetadata } from 'next';
 import { Locale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 
+export const revalidate = 60;
+
 type Props = {
   params: Promise<{ locale: string }>;
 };
@@ -14,8 +16,7 @@ type Props = {
 export function generateStaticParams() {
   return routing.locales.map((locale: string) => ({ locale }));
 }
-export const dynamic = 'force-dynamic';
-
+// export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(
   { params }: Props,
@@ -32,7 +33,6 @@ export async function generateMetadata(
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale as Locale);
-
 
   const langSlug = await getLangSlug(locale, 'trang-chu');
   const pageContent = await fnGetPageBySlug(langSlug);

@@ -8,6 +8,8 @@ import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { getLangSlug } from '@/src/i18n/routing';
 
+export const revalidate = 60;
+
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
 };

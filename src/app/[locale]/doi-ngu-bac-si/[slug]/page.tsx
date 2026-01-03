@@ -13,6 +13,8 @@ type Props = {
   params: Promise<{ locale: string; slug: string }>;
 };
 
+export const revalidate = 600;
+
 export async function generateMetadata(
   { params }: Props,
   _parent: ResolvingMetadata,

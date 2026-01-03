@@ -8,6 +8,9 @@ import { Locale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
+export const revalidate = 60;
+// export const dynamic = 'force-dynamic';
+
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
 };
@@ -15,8 +18,6 @@ type Props = {
 export function generateStaticParams() {
   return routing.locales.map((locale: string) => ({ locale }));
 }
-export const dynamic = 'force-dynamic';
-
 
 export async function generateMetadata(
   { params }: Props,
