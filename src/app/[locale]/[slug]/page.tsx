@@ -8,7 +8,7 @@ import { Locale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
-export const revalidate = 60;
+export const revalidate = 300;
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;

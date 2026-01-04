@@ -7,7 +7,7 @@ import { Metadata, ResolvingMetadata } from 'next';
 import { Locale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 
-export const revalidate = 60;
+export const revalidate = 300;
 
 type Props = {
   params: Promise<{ locale: string }>;
