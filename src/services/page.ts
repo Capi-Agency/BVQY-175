@@ -18,7 +18,6 @@ export const fnGetPageBySlug = async (slug: string) => {
       'Error getting page content: ',
       error?.errors?.[0]?.message || error?.message || error,
     );
-    console.log('slug: ', slug);
     return null;
   }
 };

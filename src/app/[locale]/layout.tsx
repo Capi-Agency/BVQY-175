@@ -17,8 +17,9 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/src/i18n/routing';
+import { LoadingComp } from '@/src/components/sections/custom';
 
-export const revalidate = 300;
+export const revalidate = 300
 
 export function generateStaticParams() {
   return routing.locales.map((locale: string) => ({ locale }));
@@ -104,13 +105,13 @@ export default async function RootLayout({
               >
                 <GsapMatchMediaProvider>
                   <ScrollSmootherProvider>
-                    <Suspense fallback={<></>}>
+                    <Suspense fallback={<LoadingComp />}>
                       <TheHeader />
+                      <BackToTop />
+                      {/* <ScrollSmoothWrapper> */}
+                      {children}
+                      <TheFooter />
                     </Suspense>
-                    <BackToTop />
-                    {/* <ScrollSmoothWrapper> */}
-                    {children}
-                    <TheFooter />
                     {/* </ScrollSmoothWrapper> */}
                   </ScrollSmootherProvider>
                 </GsapMatchMediaProvider>
