@@ -25,6 +25,23 @@ export default function Card1ColDetail({ event, data }: any) {
 
   const { paginationClass, paginationConfig } = useSwiperPagination();
 
+  useEffect(() => {
+    if (isOpenModal) {
+      // khóa scroll nền
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none';
+    } else {
+      // mở lại scroll
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
+  }, [isOpenModal]);
+
   return (
     <Dialog open={isOpenModal} onOpenChange={setIsOpenModal}>
       <DialogTrigger asChild>
