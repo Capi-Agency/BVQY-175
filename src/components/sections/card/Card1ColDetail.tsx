@@ -17,8 +17,8 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
-import { Link } from '@/src/i18n/navigation';
 import useSwiperPagination from '@/src/hooks/useSwiperPagination';
+import Link from 'next/link';
 
 export default function Card1ColDetail({ event, data }: any) {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);

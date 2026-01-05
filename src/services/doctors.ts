@@ -1,5 +1,7 @@
 import { directusClientWithRest } from '@/src/lib/directus';
 import { aggregate, readItem, readItems } from '@directus/sdk';
+import { routing } from '../i18n/routing';
+import { Locale } from 'next-intl';
 
 export const getListDoctors = async ({
   limit = 6,
@@ -138,11 +140,13 @@ export const getListDoctorPreview = async ({
   limit = 9,
   page = 1,
   keyword,
+  locale = routing.defaultLocale
 }: {
   collection: string;
   limit?: number;
   page?: number;
   keyword?: string;
+  locale?: Locale
 }) => {
   const filter: any = {};
   if (keyword) {
@@ -195,9 +199,11 @@ export const getListDoctorPreview = async ({
 export const getTotalDoctorCount = async ({
   collection,
   keyword,
+  locale = routing.defaultLocale
 }: {
   collection: string;
   keyword?: string;
+  locale?: Locale
 }) => {
   try {
     const filter: any = {};
