@@ -224,6 +224,7 @@ const SlideContent = ({ item }: any) => {
           alt="media image"
           objectFit="cover"
           className="object-top"
+          loading="eager"
         />
       </div>
 
@@ -233,6 +234,7 @@ const SlideContent = ({ item }: any) => {
           alt="media image"
           objectFit="cover"
           className="object-top"
+          loading="eager"
         />
       </div>
 
