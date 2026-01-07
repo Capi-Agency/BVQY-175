@@ -267,7 +267,7 @@ const PageBuilder = ({ pageContent, pageDetail }: PageBuilderProps) => {
 
   return (
     <>
-      <div className="padding-top-body">
+      <main className="padding-top-body">
         {sections.map((section: CommonSection, index: number) => {
           const SectionComp = sectionMap[section.type];
           if (!SectionComp) return null;
@@ -280,7 +280,7 @@ const PageBuilder = ({ pageContent, pageDetail }: PageBuilderProps) => {
             />
           );
         })}
-      </div>
+      </main>
     </>
   );
 };

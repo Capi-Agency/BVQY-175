@@ -34,7 +34,7 @@ export default function GalleryWithText({ data }: CommonSection) {
               onToggle={setIsOpenDialog}
               videoUrl={embedUrl}
               trigger={
-                <div className="relative h-full w-full cursor-pointer">
+                <button role='button' className="relative h-full w-full cursor-pointer">
                   <img
                     src={`https://img.youtube.com/vi/${embedUrl}/hqdefault.jpg`}
                     alt="Video Bệnh viện Quân Y 175"
@@ -47,7 +47,7 @@ export default function GalleryWithText({ data }: CommonSection) {
                       alt="youtube icon"
                     />
                   </div>
-                </div>
+                </button>
               }
             />
           </div>

@@ -111,9 +111,9 @@ export default function RegisterFormFooter() {
             type="submit"
             className="relative flex items-center gap-[6px] overflow-hidden rounded-[4px] bg-primary-600 p-[4px_14px] xl:p-[8px_16px]"
           >
-            <h3 className="text-nowrap text-sm font-medium text-white">
+            <div className="text-nowrap text-sm font-medium text-white">
               {t('Footer.register-label')}
-            </h3>
+            </div>
 
             <div
               className={`absolute inset-0 z-[1] flex size-full items-center justify-center bg-primary-600 ${loading ? 'block' : 'hidden'}`}

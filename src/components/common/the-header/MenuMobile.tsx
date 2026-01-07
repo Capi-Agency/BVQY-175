@@ -148,7 +148,7 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                 {/* input search */}
                 <div className="flex h-11 items-stretch gap-2 rounded-[6px] bg-[#F4F4F5] p-[6px_6px_6px_16px] backdrop-blur-[9.5px] md:gap-3 lg:gap-4">
                   <input
-                    tabIndex={1}
+                    // tabIndex={1}
                     autoFocus={false}
                     type="text"
                     value={searchText}
