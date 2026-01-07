@@ -1,6 +1,8 @@
 import { checkValueNull } from '@/src/utils/validate';
+import { Locale } from 'next-intl';
+import { routing } from '../i18n/routing';
 
-export const createSeoData = (seo: any) => {
+export const createSeoData = (seo: any, locale: Locale = routing.defaultLocale) => {
   return {
     title: checkValueNull(seo?.meta_title, ''),
     keywords: Array.isArray(seo?.meta_keyword)
@@ -16,11 +18,11 @@ export const createSeoData = (seo: any) => {
       images: seo?.meta_cover?.id
         ? [`${process.env.NEXT_PUBLIC_ASSETS_URL}${seo?.meta_cover?.id}`]
         : [],
-      url: process.env.SITE_URL ?? '',
+      url: `${process.env.SITE_URL}/${locale}`,
       type: 'website',
     },
     alternates: {
-      canonical: process.env.SITE_URL ?? '',
+      canonical: `${process.env.SITE_URL}/${locale}`,
       languages: {
         vi: `${process.env.SITE_URL}/vi`,
         en: `${process.env.SITE_URL}/en`,

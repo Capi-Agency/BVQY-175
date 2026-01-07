@@ -23,10 +23,10 @@ export async function generateMetadata(
   { params }: Props,
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const { slug } = await params;
+  const { locale, slug } = await params;
 
   const data = await fnGetPageBySlug(slug);
-  const seo = createSeoData(data?.seo) ?? {};
+  const seo = createSeoData(data?.seo, locale) ?? {};
   return seo;
 }
 

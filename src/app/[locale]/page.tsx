@@ -25,7 +25,7 @@ export async function generateMetadata(
   const langSlug = await getLangSlug(locale, 'trang-chu');
 
   const data = await fnGetPageBySlug(langSlug);
-  const seo = createSeoData(data?.seo) ?? {};
+  const seo = createSeoData(data?.seo, locale) ?? {};
   return seo;
 }
 
