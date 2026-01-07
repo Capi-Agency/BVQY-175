@@ -1,7 +1,7 @@
 import { fnGetAllPageSlug } from '@/src/services/page'; // đường dẫn đúng của bạn
 
 export async function GET() {
-  const siteUrl = process.env.SITE_URL || 'https://benhvien175.vn';
+  const siteUrl = process.env.SITE_URL;
 
   // Lấy tất cả slug động
   const slugs = await fnGetAllPageSlug();
