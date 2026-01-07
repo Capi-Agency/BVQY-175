@@ -96,30 +96,24 @@ export default function RegisterFormFooter() {
       </div>
 
       <div className="h-11 3xl:h-12">
-        <div className="flex h-full w-full rounded-[6px] bg-white/20 p-[4px_4px_4px_12px] backdrop-blur-[9.5px] md:w-[340px] md:p-[6px_6px_6px_16px] xl:w-[350px] xl:p-[6px_6px_6px_20px] 3xl:w-[416px]">
+        <div className="flex h-full w-full rounded-[6px] bg-white/20 p-[4px_4px_4px_12px] backdrop-blur-[9.5px] md:w-[340px] lg:p-[6px_6px_6px_16px] xl:w-[350px] 2xl:p-[6px_6px_6px_20px] 3xl:w-[416px]">
           <input
             {...register('email')}
             autoComplete="off"
             aria-describedby="outlined_error_help"
             type="text"
-            className="w-full min-w-0 border-none bg-transparent text-base font-normal text-white outline-none placeholder:text-white/50 xl:text-sm"
+            className="flex-1 border-none bg-transparent text-base font-normal text-white outline-none placeholder:text-white/50 xl:text-sm"
             placeholder={t('Footer.register-placeholder')}
           />
 
           <button
             disabled={loading}
             type="submit"
-            className="relative ml-1 flex min-w-[100px] items-center gap-[6px] overflow-hidden rounded-[4px] bg-primary-600 p-[4px_12px] xl:ml-2 xl:p-[8px_16px]"
+            className="relative flex items-center gap-[6px] overflow-hidden rounded-[4px] bg-primary-600 p-[4px_14px] xl:p-[8px_16px]"
           >
-            <h3 className="text-nowrap text-sm font-medium text-white 3xl:text-sm">
+            <h3 className="text-nowrap text-sm font-medium text-white">
               {t('Footer.register-label')}
             </h3>
-            <div className="relative size-4">
-              <NextImg
-                src="/assets/icons/arrow_right_white.svg"
-                alt="arrow right white"
-              />
-            </div>
 
             <div
               className={`absolute inset-0 z-[1] flex size-full items-center justify-center bg-primary-600 ${loading ? 'block' : 'hidden'}`}
