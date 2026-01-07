@@ -59,7 +59,7 @@ export default function Feature4Col({ data }: CommonSection) {
                   {item?.title}
                 </div>
                 <div
-                  className="line-clamp-3 h-[60px] text-sm 3xl:text-base 3xl:h-[72px] font-normal text-[#3F3F46] transition-all duration-200 group-hover:text-[#D1E6D7]"
+                  className="line-clamp-3 h-[60px] text-sm 3xl:text-base 3xl:h-[72px] font-normal text-[#3F3F46] transition-all duration-200 group-hover:text-primary-50/90"
                   dangerouslySetInnerHTML={{
                     __html: item?.blurb,
                   }}

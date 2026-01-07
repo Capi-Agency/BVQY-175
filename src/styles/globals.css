@@ -226,7 +226,7 @@ body {}
   }
 
   .section-sub-title {
-    @apply text-subTitle font-semibold text-sm 2xl:text-base
+    @apply text-primary-600 font-semibold text-sm 2xl:text-base
   }
 
   .section-content {

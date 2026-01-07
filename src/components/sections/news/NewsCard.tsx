@@ -44,7 +44,7 @@ export default function NewsCard({
           {newTrans?.title}
         </div>
         <div
-          className="line-clamp-3 h-[60px] text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100 3xl:h-[72px] 3xl:text-base"
+          className="line-clamp-3 h-[60px] text-sm font-thin text-gray-800 duration-200 group-hover:text-primary-50 3xl:h-[72px] 3xl:text-base"
           dangerouslySetInnerHTML={{
             __html: newTrans?.blurb,
           }}

@@ -156,7 +156,7 @@ export default function DoctorCard({
 
           <div
             className={cn(
-              'font-medium text-primary-500',
+              'font-medium text-primary-600',
               textSize === 'md' && 'text-xs md:text-sm 2xl:text-base',
               textSize === 'xl' &&
                 'text-xs md:text-base lg:text-sm xl:text-base 2xl:text-lg',
@@ -197,7 +197,7 @@ export default function DoctorCard({
           {item?.full_name}
         </div>
 
-        <div className="pt-[2px] text-sm font-medium text-primary-500 xl:text-base">
+        <div className="pt-[2px] text-sm font-medium text-primary-600 xl:text-base">
           {renderSubTitleByType[subTitle]}
         </div>
       </div>
