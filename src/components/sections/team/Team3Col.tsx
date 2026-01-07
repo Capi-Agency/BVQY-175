@@ -50,7 +50,7 @@ export default function Team3Col({ data }: CommonSection) {
 
 const DirectorCard = ({item, link }: { item: any, link: any }) => (
   <Link
-    href={`${link}/${item?.slug}`}
+    href={`${link}/${item?.slug}` as any}
     aria-label="Xem chi tiết bác sĩ"
     className="group block space-y-3 2xl:space-y-[14px] 3xl:space-y-4"
   >
@@ -142,7 +142,7 @@ function DoctorCard({
 
   return (
     <Link
-      href={`${link}/${item?.slug}`}
+      href={`${link}/${item?.slug}` as any}
       aria-label="Xem chi tiết bác sĩ"
       className="sm:space-y-4 group block space-y-3 md:space-y-5 xl:space-y-[10px] 2xl:space-y-[14px] 3xl:space-y-4"
     >

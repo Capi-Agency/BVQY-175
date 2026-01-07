@@ -171,7 +171,7 @@ export default function DoctorCard({
     if (isLink) {
       return (
         <Link
-          href={`${url}/${item?.slug}`}
+          href={`${url}/${item?.slug}` as any}
           aria-label="Xem chi tiết bác sĩ"
           className="group block space-y-3 2xl:space-y-[14px] 3xl:space-y-4"
         >
@@ -205,7 +205,7 @@ export default function DoctorCard({
     if (isLink) {
       return (
         <Link
-          href={`${url}/${item?.slug}`}
+          href={`${url}/${item?.slug}` as any}
           aria-label="Xem chi tiết bác sĩ"
           className="group block"
         >

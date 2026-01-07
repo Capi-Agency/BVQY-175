@@ -74,7 +74,7 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
               className="border-none outline-none"
             >
               <Link
-                href="/"
+                href={"/" as any}
                 aria-label="Chuyển đến trang chủ"
                 className="relative h-[40px] w-[230px] md:h-[46px] md:w-[274px] lg:h-[64px] lg:w-[382px] 2xl:h-[72px] 2xl:w-[430px] 4xl:h-[80px] 4xl:w-[478px]"
               >

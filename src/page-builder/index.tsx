@@ -7,8 +7,6 @@ import {
   SectionMap,
 } from '@/src/types/pageBuilder';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
-import { LoadingComp } from '@/src/components/sections/custom';
 
 const sectionMap: SectionMap = {
   // Home
@@ -31,9 +29,6 @@ const sectionMap: SectionMap = {
   ),
   'feature-4-col': dynamic(() =>
     import('../components/sections/feature').then((m) => m.Feature4Col),
-  ),
-  'feature-3-col': dynamic(
-    () => import('../components/sections/feature').then((m) => m.Feature3Col),
   ),
   'number-none': dynamic(() =>
     import('../components/sections/number').then((m) => m.NumberNone),

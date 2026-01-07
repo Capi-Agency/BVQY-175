@@ -118,7 +118,7 @@ export default function GalleryWithText({ data }: CommonSection) {
                         (itemCover: any, coverIndex: number) => (
                           <Link
                             key={coverIndex}
-                            href={getAssetUrlById(itemCover?.id)}
+                            href={getAssetUrlById(itemCover?.id) as any}
                             data-fancybox="gallery"
                             className="relative block aspect-square"
                           >
@@ -137,7 +137,7 @@ export default function GalleryWithText({ data }: CommonSection) {
                 {data?.buttons?.[0]?.url && (
                   <div className="pt-2 lg:pt-4 2xl:pt-5">
                     <Link
-                      href={`${data?.buttons?.[0]?.url}`}
+                      href={`${data?.buttons?.[0]?.url}` as any}
                       className="btn-danger"
                       aria-label="Chuyển đến trang cơ sở vật chất"
                     >
