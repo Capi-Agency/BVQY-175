@@ -7,7 +7,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://benhvien175.vn
+Host: https://benhvien175.minhkhang.net
 
 # Sitemaps
-Sitemap: https://benhvien175.vn/sitemap.xml
+Sitemap: https://benhvien175.minhkhang.net/sitemap.xml
