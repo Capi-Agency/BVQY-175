@@ -12,7 +12,7 @@ export const revalidate = 300;
 // export const dynamic = 'force-dynamic';
 
 type Props = {
-  params: Promise<{ locale: string; slug: string }>;
+  params: Promise<{ locale: string; slug: string, cate: string }>;
 };
 
 export function generateStaticParams() {
@@ -23,7 +23,11 @@ export async function generateMetadata(
   { params }: Props,
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const { locale, slug } = await params;
+  const { locale, slug, cate } = await params;
+
+  const idRegex = /^[a-zA-Z0-9-_]+$/;
+  if (!cate || !idRegex.test(cate)) return notFound();
+
 
   const data = await fnGetPageBySlug(slug);
   const seo = createSeoData(data?.seo, locale) ?? {};
@@ -31,7 +35,13 @@ export async function generateMetadata(
 }
 
 export default async function Page({ params }: Props) {
-  const { locale, slug } = await params;
+  const { locale, slug, cate } = await params;
+
+  const idRegex = /^[a-zA-Z0-9-_]+$/;
+  if (!cate || !idRegex.test(cate)) {
+    notFound();
+  }
+
   setRequestLocale(locale as Locale);
 
   if (!slug || !locale) {
