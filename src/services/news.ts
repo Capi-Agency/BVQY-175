@@ -15,7 +15,7 @@ export const getListNews = async ({
   sort = true,
   keyword = '',
   offset = 0,
-  locale = routing.defaultLocale
+  locale = routing.defaultLocale,
 }: {
   collection: string;
   limit?: number;
@@ -101,7 +101,7 @@ export const getTotalNewsCount = async ({
   collection,
   keyword,
   category,
-  locale = routing.defaultLocale
+  locale = routing.defaultLocale,
 }: {
   collection: string;
   keyword?: string;
@@ -163,14 +163,13 @@ export const getTotalNewsCount = async ({
 export const getNewsDetail = async ({
   collection,
   slug,
-  locale = routing.defaultLocale
+  locale = routing.defaultLocale,
 }: {
   collection: string;
   slug: string;
-  locale: Locale
+  locale: Locale;
 }) => {
   try {
-
     const filter = {
       translations: {
         languages_code: { _eq: locale },
@@ -188,14 +187,14 @@ export const getNewsDetail = async ({
             _filter: {
               _and: [
                 {
-                  slug: { _eq: slug }
+                  slug: { _eq: slug },
                 },
                 {
-                  languages_code: { _eq: locale }
-                }
-              ]
-            }
-          }
+                  languages_code: { _eq: locale },
+                },
+              ],
+            },
+          },
         },
         fields: [
           '*',
@@ -232,9 +231,9 @@ export const getNewsCategoryDetail = async ({
 
 export const fnGetCategoriesNews = async ({
   collection,
-  limit = 100,
+  limit = 20,
   category = '',
-  locale = routing.defaultLocale
+  locale = routing.defaultLocale,
 }: {
   collection: string;
   limit?: number;
@@ -242,7 +241,7 @@ export const fnGetCategoriesNews = async ({
   locale?: Locale;
 }) => {
   try {
-    const filter: any = {}
+    const filter: any = {};
     if (category) {
       filter.translations = {
         languages_code: { _eq: locale },
