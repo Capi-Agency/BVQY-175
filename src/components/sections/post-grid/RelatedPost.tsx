@@ -42,7 +42,7 @@ const RelatedPosts = ({ data }: CommonSection) => {
   }, [data]);
 
   return (
-    <div className="py-10 lg:py-12 xl:py-14 2xl:py-16 3xl:py-[72px] 4xl:py-20">
+    <section className="py-10 lg:py-12 xl:py-14 2xl:py-16 3xl:py-[72px] 4xl:py-20">
       <div className="container flex items-center justify-between">
         {data?.title && <h1 className="section-title">{data?.title}</h1>}
         <Link
@@ -108,7 +108,7 @@ const RelatedPosts = ({ data }: CommonSection) => {
           </Swiper>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

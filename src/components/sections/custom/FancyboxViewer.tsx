@@ -1,6 +1,6 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules';

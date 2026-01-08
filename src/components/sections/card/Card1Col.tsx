@@ -77,7 +77,7 @@ export default function Card1Col({ data }: CommonSection) {
   }, []);
 
   return (
-    <div
+    <section
       id="milestone-list"
       className="container space-y-10 py-14 md:space-y-12 lg:space-y-14 lg:py-16 xl:py-[60px] 2xl:space-y-16 2xl:py-[80px] 3xl:space-y-[72px] 3xl:py-[100px] 4xl:space-y-[80px] 4xl:py-[120px]"
     >
@@ -227,6 +227,6 @@ export default function Card1Col({ data }: CommonSection) {
         totalPage={totalPage}
         idSection="milestone-list"
       />
-    </div>
+    </section>
   );
 }

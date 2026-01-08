@@ -38,45 +38,6 @@ const DepartmentDetailPage = ({
   const normalizeText = (str: string) =>
     removeVietnameseMarks(str || '').toLowerCase();
 
-  // const { contextSafe } = useGSAP(
-  //   () => {
-  //     if (!containerRef.current || !sidebarRef.current || !conditions) return;
-  //     const mm = gsap.matchMedia();
-  //     mm.add('(max-width: 767px)', () => {
-  //       ScrollTrigger.create({
-  //         trigger: sidebarRef.current,
-  //         start: () => getPositionFixed(conditions),
-  //         endTrigger: containerRef.current,
-  //         // end: "bottom bottom",
-  //         end: () =>
-  //           `+=${containerRef?.current?.offsetHeight - sidebarRef?.current?.offsetHeight}`,
-  //         pin: true,
-  //         pinSpacing: false,
-  //         pinnedContainer: containerRef?.current,
-  //       });
-  //     });
-
-  //     mm.add('(min-width: 1600px)', () => {
-  //       ScrollTrigger.create({
-  //         trigger: sidebarRef.current,
-  //         start: () => getPositionFixed(conditions),
-  //         endTrigger: containerRef.current,
-  //         // end: "bottom bottom",
-  //         // end: () => `bottom bottom+=${containerRef.current?.offsetHeight || 0}`,
-  //         end: () =>
-  //           `+=${containerRef?.current?.offsetHeight - sidebarRef?.current?.offsetHeight}`,
-  //         pin: true,
-  //         pinSpacing: false,
-  //         pinnedContainer: containerRef?.current,
-  //       });
-  //     });
-  //   },
-  //   {
-  //     scope: containerRef,
-  //     dependencies: [conditions],
-  //   },
-  // );
-
   useEffect(() => {
     async function fetchGroups() {
       try {
@@ -156,7 +117,7 @@ const DepartmentDetailPage = ({
   }, [keyword, parentGroups]);
 
   return (
-    <div className="bg-primary-50">
+    <section className="bg-primary-50">
       {/* Banner + Search box */}
       <div className="md:relative">
         <div
@@ -355,7 +316,7 @@ const DepartmentDetailPage = ({
       {/* Danh sách khoa */}
 
       {/* Đối tác bảo hiểm */}
-    </div>
+    </section>
   );
 };
 

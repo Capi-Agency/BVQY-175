@@ -8,7 +8,6 @@ import { MetadataProvider } from '../../providers/MetadataProvider';
 import 'react-toastify/dist/ReactToastify.css';
 import { GsapMatchMediaProvider } from '../../providers/GsapMatchMediaProvider';
 import { ScrollSmootherProvider } from '../../providers/ScrollSmootherProvider';
-import ScrollSmoothWrapper from '../../components/animation/ScrollSmoothWrapper';
 import TheHeader from '../../components/common/the-header';
 import TheFooter from '../../components/common/the-footer';
 import BackToTop from '../../components/common/back-to-top';
@@ -108,11 +107,9 @@ export default async function RootLayout({
                     <Suspense fallback={<LoadingComp />}>
                       <TheHeader />
                       <BackToTop />
-                      {/* <ScrollSmoothWrapper> */}
                       {children}
                       <TheFooter />
                     </Suspense>
-                    {/* </ScrollSmoothWrapper> */}
                   </ScrollSmootherProvider>
                 </GsapMatchMediaProvider>
               </ThemeProvider>

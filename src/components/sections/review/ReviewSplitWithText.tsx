@@ -201,7 +201,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
   };
 
   return (
-    <div className="bg-gray-100 py-10 lg:py-12 xl:py-14 2xl:py-16 3xl:py-[72px] 4xl:py-[80px]">
+    <section className="bg-gray-100 py-10 lg:py-12 xl:py-14 2xl:py-16 3xl:py-[72px] 4xl:py-[80px]">
       <div className="container grid grid-cols-1 gap-6 md:gap-8 lg:gap-10 xl:grid-cols-12 xl:gap-0">
         <div className="col-span-full text-center xl:col-span-5 xl:text-start">
           <div className="section-sub-title !text-primary-600">
@@ -338,6 +338,6 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
           </form>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
