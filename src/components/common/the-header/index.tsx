@@ -1,5 +1,5 @@
 'use client';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import NextImg from '../next-img';
 import { useMetadata } from '@/src/providers/MetadataProvider';
@@ -16,16 +16,15 @@ export default function TheHeader() {
   const t = useTranslations('Href');
   const metadata = useMetadata();
   const contact_information = metadata?.contact_information;
-  const searchParams = useSearchParams();
   const router = useRouter();
 
   const handleSearch = useCallback(
     (key: string, value: string) => {
-      const params = new URLSearchParams(searchParams);
+      const params = new URLSearchParams();
       params.set(key, value.trim());
       router.push(`${t('search')}?${params.toString()}`);
     },
-    [router, searchParams],
+    [router],
   );
 
   return (
