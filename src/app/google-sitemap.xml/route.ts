@@ -1,10 +1,12 @@
+import { routing } from '@/src/i18n/routing';
 import { fnGetAllPageSlug } from '@/src/services/page'; // đường dẫn đúng của bạn
+import { Locale } from 'next-intl';
 
 export async function GET() {
   const siteUrl = process.env.SITE_URL;
 
   // Lấy tất cả slug động
-  const slugs = await fnGetAllPageSlug();
+  const pages = await fnGetAllPageSlug();
 
   // Hàm escape XML để tránh lỗi ký tự đặc biệt trong URL
   const escapeXml = (unsafe: string) => {
@@ -17,14 +19,14 @@ export async function GET() {
   };
 
   // Tạo XML URL cho từng slug
-  const urls = slugs
-    .map((item: any) => {
+  const urls = pages
+    .map((page: any) => {
       // item có thể là { slug: string }
-      const slug = typeof item === 'string' ? item : item.slug;
-      if (!slug) return ''; // bỏ qua nếu không có slug
+      const { slug, language } = page
+      if (!slug || !language) return '';
       return `
       <url>
-        <loc>${siteUrl}/${escapeXml(slug)}</loc>
+        <loc>${siteUrl}/${escapeXml(language)}/${escapeXml(slug)}</loc>
         <changefreq>daily</changefreq>
         <priority>0.7</priority>
         <lastmod>${new Date().toISOString()}</lastmod>
@@ -34,14 +36,24 @@ export async function GET() {
     .join('');
 
   // Thêm trang chủ (home)
+  const homeUrls = routing.locales
+    .map((locale: Locale) => {
+      return `
+    <url>
+      <loc>${siteUrl}/${locale}</loc>
+      <changefreq>hourly</changefreq>
+      <priority>1.0</priority>
+      <lastmod>${new Date().toISOString()}</lastmod>
+    </url>`;
+    })
+    .join('');
+
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      <url>
-        <loc>${siteUrl}</loc>
-        <changefreq>hourly</changefreq>
-        <priority>1.0</priority>
-        <lastmod>${new Date().toISOString()}</lastmod>
-      </url>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    >
+      ${homeUrls}
       ${urls}
     </urlset>`;
 

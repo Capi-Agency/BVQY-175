@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { ContactInfo, fnSendContact } from '@/src/services/contact';
 import { cn } from '@/src/lib/utils';
 import { useTranslations } from 'next-intl';
+import DOMPurify from 'dompurify';
 
 const initialValue: ContactInfo = {
   name: '',
@@ -30,7 +31,14 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
           name: yup
             .string()
             .max(50, t('Validate.name.length'))
-            .required(t('Validate.name.required')),
+            .required(t('Validate.name.required'))
+            .test('is-clean', t('Validate.name.invalid'), (value) => {
+              if (!value) return true;
+              const sanitized = DOMPurify.sanitize(value, { ALLOWED_TAGS: [] });
+              return (
+                sanitized.replace(/&lt;/g, '<').replace(/&gt;/g, '>') === value
+              );
+            }),
           phone: yup
             .string()
             .max(20, t('Validate.phone.length'))
@@ -61,7 +69,14 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
           message: yup
             .string()
             .max(1000, t('Validate.message.length'))
-            .notRequired(),
+            .notRequired()
+            .test('is-clean', t('Validate.message.invalid'), (value) => {
+              if (!value) return true;
+              const sanitized = DOMPurify.sanitize(value, { ALLOWED_TAGS: [] });
+              return (
+                sanitized.replace(/&lt;/g, '<').replace(/&gt;/g, '>') === value
+              );
+            }),
         })
         .required(),
     [],

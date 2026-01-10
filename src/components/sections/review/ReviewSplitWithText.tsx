@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import { fnSendReview } from '@/src/services/contact';
 import { cn } from '@/src/lib/utils';
 import { useTranslations } from 'next-intl';
+import DOMPurify from 'dompurify';
 
 type Review = {
   rating: number | null;
@@ -71,7 +72,14 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
           name: yup
             .string()
             .max(50, t('Validate.name.length'))
-            .required(t('Validate.name.required')),
+            .required(t('Validate.name.required'))
+            .test('is-clean', t('Validate.name.invalid'), (value) => {
+              if (!value) return true;
+              const sanitized = DOMPurify.sanitize(value, { ALLOWED_TAGS: [] });
+              return (
+                sanitized.replace(/&lt;/g, '<').replace(/&gt;/g, '>') === value
+              );
+            }),
           phone: yup
             .string()
             .max(20, t('Validate.phone.length'))
@@ -102,7 +110,14 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
           message: yup
             .string()
             .max(1000, t('Validate.message.length'))
-            .notRequired(),
+            .notRequired()
+            .test('is-clean', t('Validate.message.invalid'), (value) => {
+              if (!value) return true;
+              const sanitized = DOMPurify.sanitize(value, { ALLOWED_TAGS: [] });
+              return (
+                sanitized.replace(/&lt;/g, '<').replace(/&gt;/g, '>') === value
+              );
+            }),
         })
         .required(),
     [],
@@ -245,7 +260,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                         shouldValidate: true,
                       })
                     }
-                    className={`${watch('rating') === option?.rating ? 'border-primary-600 bg-primary-50 text-primary-600' : 'border-gray-700 bg-transparent text-gray-700'} flex h-9 items-center justify-center rounded-[4px] border-[2px] px-3 text-sm font-medium transition-all duration-100 hover:border-primary-600 hover:bg-primary-50 hover:text-primary-600 md:h-10 md:px-3 lg:text-base 2xl:h-11 2xl:px-3 3xl:text-lg 3xl:h-12 3xl:px-4 4xl:px-5`}
+                    className={`${watch('rating') === option?.rating ? 'border-primary-600 bg-primary-50 text-primary-600' : 'border-gray-700 bg-transparent text-gray-700'} flex h-9 items-center justify-center rounded-[4px] border-[2px] px-3 text-sm font-medium transition-all duration-100 hover:border-primary-600 hover:bg-primary-50 hover:text-primary-600 md:h-10 md:px-3 lg:text-base 2xl:h-11 2xl:px-3 3xl:h-12 3xl:px-4 3xl:text-lg 4xl:px-5`}
                   >
                     {option?.title}
                   </button>

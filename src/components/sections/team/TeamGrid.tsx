@@ -78,7 +78,6 @@ const LeaderCard = ({
 }) => {
   const t = useTranslations('Doctor');
   const [expanded, setExpanded] = useState(false);
-  console.log('🚀 ~ LeaderCard ~ expanded:', expanded);
   const { conditions } = useGsapMatchMedia();
 
   /** PANEL CÓ NỘI DUNG HAY KHÔNG */

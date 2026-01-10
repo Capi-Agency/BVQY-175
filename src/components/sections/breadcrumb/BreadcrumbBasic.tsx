@@ -21,6 +21,7 @@ export default function BreadcrumbBasic({ data }: CommonSection) {
       try {
         const response = await fnGetCategoriesNews({
           collection: data.collections,
+          limit: data?.collection_items_limit,
           category,
           locale,
         });

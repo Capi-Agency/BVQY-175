@@ -2,7 +2,20 @@ import { checkValueNull } from '@/src/utils/validate';
 import { Locale } from 'next-intl';
 import { routing } from '../i18n/routing';
 
-export const createSeoData = (seo: any, locale: Locale = routing.defaultLocale) => {
+export const createSeoData = (seo: any, locale: Locale = routing.defaultLocale, slug?: string) => {
+  const siteUrl = process.env.SITE_URL;
+
+  const canonical = slug
+    ? `${siteUrl}/${locale}/${slug}`
+    : `${siteUrl}/${locale}`;
+
+  const languages = Object.fromEntries(
+    routing.locales.map((lang) => [
+      lang,
+      slug ? `${siteUrl}/${lang}/${slug}` : `${siteUrl}/${lang}`,
+    ])
+  );
+
   return {
     title: checkValueNull(seo?.meta_title, ''),
     keywords: Array.isArray(seo?.meta_keyword)
@@ -18,17 +31,14 @@ export const createSeoData = (seo: any, locale: Locale = routing.defaultLocale) 
       images: seo?.meta_cover?.id
         ? [`${process.env.NEXT_PUBLIC_ASSETS_URL}${seo?.meta_cover?.id}`]
         : [],
-      url: `${process.env.SITE_URL}/${locale}`,
+      url: `${siteUrl}/${locale}`,
       type: 'website',
     },
     alternates: {
-      canonical: `${process.env.SITE_URL}/${locale}`,
-      languages: {
-        vi: `${process.env.SITE_URL}/vi`,
-        en: `${process.env.SITE_URL}/en`,
-      },
+      canonical,
+      languages,
     },
-    metadataBase: new URL(process.env.SITE_URL!),
+    metadataBase: new URL(siteUrl!),
   };
 };
 

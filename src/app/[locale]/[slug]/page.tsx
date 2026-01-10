@@ -17,27 +17,32 @@ type Props = {
 export function generateStaticParams() {
   return routing.locales.map((locale: string) => ({ locale }));
 }
-// export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(
   { params }: Props,
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { locale, slug } = await params;
+  const regex = /^[a-zA-Z0-9-_]+$/;
+
+  if (!slug || !locale || !regex.test(slug)) {
+    notFound();
+  }
 
   const data = await fnGetPageBySlug(slug);
-  const seo = createSeoData(data?.seo, locale) ?? {};
+  const seo = createSeoData(data?.seo, locale, slug) ?? {};
   return seo;
 }
 
 export default async function Page({ params }: Props) {
   const { locale, slug } = await params;
-  setRequestLocale(locale as Locale);
+  const regex = /^[a-zA-Z0-9-_]+$/;
 
-  if (!slug || !locale) {
+  if (!slug || !locale || !regex.test(slug)) {
     notFound();
   }
 
+  setRequestLocale(locale as Locale);
   const pageContent = await fnGetPageBySlug(slug);
   const pageSchema = pageContent?.seo?.meta_schema;
 

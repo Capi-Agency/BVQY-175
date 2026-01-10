@@ -7,8 +7,18 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        pathname: process.env.APP_API_URL,
-        hostname: '**',
+        hostname: `${process.env.ASSETS_DOMAIN}`,
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.dmca.com',
+        pathname: '/**',
       },
     ],
     dangerouslyAllowSVG: true,

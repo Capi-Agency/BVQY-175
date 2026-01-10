@@ -18,8 +18,6 @@ export const fnGetPageBySlug = async (slug: string) => {
       'Error getting page content: ',
       error?.errors?.[0]?.message || error?.message || error,
     );
-    console.log('slug: ', slug);
-    console.log('-------------------------------------');
     return null;
   }
 };
@@ -50,9 +48,9 @@ export const fnGetSchemaBySlug = async (slug: string) => {
 ============================ */
 export const fnGetAllPageSlug = async () => {
   try {
-    const res = await directusClientWithRest.request(
+    const res: any = await directusClientWithRest.request(
       readItems('pages', {
-        fields: ['slug'],
+        fields: ['slug', 'language'],
       }),
     );
 
