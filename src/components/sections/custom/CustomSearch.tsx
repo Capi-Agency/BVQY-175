@@ -205,9 +205,9 @@ export default function CustomSearch({ data }: CommonSection) {
         {/* Sidebar */}
         <div className="relative hidden lg:block">
           <div className="sticky top-[100px] xl:top-[160px] 2xl:top-[180px] 4xl:top-[200px]">
-            <h3 className="mb-2 text-base font-semibold text-gray-950 lg:mb-3 lg:text-lg 3xl:mb-4">
+            <h2 className="mb-2 text-base font-semibold text-gray-950 lg:mb-3 lg:text-lg 3xl:mb-4">
               {data?.subtitle}
-            </h3>
+            </h2>
 
             <div
               onClick={() => {

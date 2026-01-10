@@ -43,9 +43,9 @@ export default function SideBarRightBasic({ data }: CommonSection) {
         {/*  Tags  */}
         {hasSidebarContainer && (
           <>
-            <h3 className="mb-2 text-base font-semibold text-gray-950 lg:mb-4 lg:text-lg 3xl:mb-5">
+            <h2 className="mb-2 text-base font-semibold text-gray-950 lg:mb-4 lg:text-lg 3xl:mb-5">
               {data?.title}
-            </h3>
+            </h2>
 
             {data?.buttons?.map((item: any, index: number) => (
               <CustomLink

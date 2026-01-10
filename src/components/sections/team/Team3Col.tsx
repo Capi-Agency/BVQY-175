@@ -63,7 +63,7 @@ const DirectorCard = ({ item, link }: { item: any, link: any }) => (
       </div>
 
       {/* Chức danh */}
-      <div className="flex items-center justify-center gap-2 text-[16px] font-bold text-subTitle md:text-[20px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px]">
+      <div className="flex items-center justify-center gap-2 text-[16px] font-bold text-primary-600 md:text-[20px] lg:text-[24px] xl:text-[28px] 2xl:text-[32px]">
         <img
           src="/assets/icons/primary_star.svg"
           alt="star"
@@ -187,7 +187,7 @@ function DoctorCard({
         </div>
 
         {/* Sub title */}
-        <div className="sm:text-[14px] text-[12px] font-medium text-subTitle md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] 3xl:text-[24px] 4xl:text-[24px]">
+        <div className="sm:text-[14px] text-[12px] font-medium text-primary-600 md:text-[16px] lg:text-[18px] xl:text-[20px] 2xl:text-[22px] 3xl:text-[24px] 4xl:text-[24px]">
           {renderSubTitleByType[subTitle]}
         </div>
       </div>

@@ -5,6 +5,7 @@ import { handleScrollTo } from '@/src/utils/gsap';
 import { getAssetUrlById } from '@/src/utils/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
+import NextImg from '../../common/next-img';
 
 export default function HeroTextOverlay({ data }: CommonSection) {
   const router = useRouter();
@@ -41,23 +42,31 @@ export default function HeroTextOverlay({ data }: CommonSection) {
   };
 
   return (
-    <section className="bg-primary-50 md:relative">
-      <div
-        className="flex h-full flex-col items-center gap-1 py-40 text-center md:py-[100px] lg:gap-2 lg:py-[120px] 2xl:gap-4 2xl:py-[140px] 3xl:py-40"
-        style={{
-          background: ` linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url("${getAssetUrlById(data?.cover?.id)}") lightgray 50% / cover no-repeat`,
-        }}
-      >
-        <h1 className="text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
-          {data?.title}
-        </h1>
-        <p className="text-base font-normal text-gray-200 md:text-lg lg:text-xl">
-          {data?.subtitle}
-        </p>
+    <section className="relative bg-primary-50">
+      <div className="relative">
+        <NextImg
+          src={getAssetUrlById(data?.cover?.id)}
+          alt="banner background"
+          objectFit="cover"
+          loading="eager"
+        />
+        <div
+          className="relative z-[1] flex flex-col items-center gap-1 py-40 text-center md:py-[100px] lg:gap-2 lg:py-[120px] 2xl:gap-4 2xl:py-[140px] 3xl:py-40"
+          style={{
+            background: ` linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%)`,
+          }}
+        >
+          <h1 className="text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
+            {data?.title}
+          </h1>
+          <p className="text-base font-normal text-gray-200 md:text-lg lg:text-xl">
+            {data?.subtitle}
+          </p>
+        </div>
       </div>
 
       {/* Search form */}
-      <div className="mx-auto w-full max-w-[320px] -translate-y-1/2 bg-transparent md:bottom-0 md:max-w-[600px] md:px-0 md:py-0 lg:max-w-[800px] xl:max-w-[1000px]">
+      <div className="relative z-[2] mx-auto w-full max-w-[320px] -translate-y-1/2 bg-transparent md:bottom-0 md:max-w-[600px] md:px-0 md:py-0 lg:max-w-[800px] xl:max-w-[1000px]">
         <form
           className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
           onSubmit={handleSearch}

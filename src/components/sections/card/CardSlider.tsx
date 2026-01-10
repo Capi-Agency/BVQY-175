@@ -22,9 +22,9 @@ const CardSlider = ({ data }: CommonSection) => {
 
   return (
     <section className="bg-primary-50 py-10 md:py-6 lg:py-10 2xl:py-20 3xl:py-[100px] 4xl:py-[120px]">
-      <h3 className="section-title container uppercase text-primary-600">
+      <h2 className="section-title container uppercase text-primary-600">
         {data?.title}
-      </h3>
+      </h2>
 
       {/* navigation dots */}
       <div className="pt-6 lg:container lg:pt-7 xl:pt-9 2xl:pt-10 3xl:pt-11 4xl:pt-14">
@@ -77,7 +77,7 @@ const CardSlider = ({ data }: CommonSection) => {
                     </div>
 
                     <div
-                      className={`${isActive ? 'text-primary-600' : 'text-[#969696]'} text-2xl font-semibold transition-all duration-200 xl:text-[28px] xl:!leading-[1.5] 4xl:text-[32px]`}
+                      className={`${isActive ? 'text-primary-600' : 'text-[#6e6e6e]'} text-2xl font-semibold transition-all duration-200 xl:text-[28px] xl:!leading-[1.5] 4xl:text-[32px]`}
                     >
                       {item?.subtitle}
                     </div>

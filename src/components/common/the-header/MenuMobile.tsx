@@ -50,7 +50,11 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
       >
         <button className="flex items-center justify-center md:h-9 md:w-[52px] md:rounded-[6px] md:bg-primary-600 xl:hidden 2xl:h-10 2xl:w-[60px]">
           <div className="relative size-6 brightness-0 md:brightness-100 2xl:size-6">
-            <NextImg src="/assets/icons/ham_menu.svg" alt="menu icon" />
+            <NextImg
+              src="/assets/icons/ham_menu.svg"
+              alt="menu icon"
+              loading="eager"
+            />
           </div>
         </button>
       </DialogTrigger>
@@ -74,13 +78,14 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
               className="border-none outline-none"
             >
               <Link
-                href={"/" as any}
+                href={'/' as any}
                 aria-label="Chuyển đến trang chủ"
                 className="relative h-[40px] w-[230px] md:h-[46px] md:w-[274px] lg:h-[64px] lg:w-[382px] 2xl:h-[72px] 2xl:w-[430px] 4xl:h-[80px] 4xl:w-[478px]"
               >
                 <NextImg
                   src="/assets/logo/long_primary_logo.svg"
                   alt="Military hospital logo"
+                  loading="eager"
                 />
               </Link>
             </DialogClose>
@@ -96,6 +101,7 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                     <NextImg
                       src="/assets/icons/map_pin.svg"
                       alt="hospital location"
+                      loading="eager"
                     />
                   </div>
                 </div>

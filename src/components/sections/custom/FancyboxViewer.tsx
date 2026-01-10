@@ -89,7 +89,7 @@ export default function FancyboxViewer({ data }: CommonSection) {
           ))}
       </Fancybox>
 
-      <p className="mt-10 text-center text-sm font-normal italic text-primary-400">
+      <p className="mt-10 text-center text-sm font-normal italic text-primary-600">
         {t('click-image')}
       </p>
     </section>

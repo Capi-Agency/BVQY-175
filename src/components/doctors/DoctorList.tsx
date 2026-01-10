@@ -783,7 +783,7 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
 
           <div className="mb-5">
             {titles.map((title: string, idx: number) => (
-              <div key={idx} className="text-sm font-medium text-primary-500">
+              <div key={idx} className="text-sm font-medium text-primary-600">
                 {title}
               </div>
             ))}

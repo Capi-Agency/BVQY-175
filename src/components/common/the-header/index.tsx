@@ -40,6 +40,7 @@ export default function TheHeader() {
             <NextImg
               src="/assets/logo/long_primary_logo.svg"
               alt="Military hospital logo"
+              loading='eager'
             />
           </Link>
 
@@ -58,6 +59,7 @@ export default function TheHeader() {
                     <NextImg
                       src={getAssetUrlById(file?.directus_files_id)}
                       alt="Military hospital"
+                      loading='eager'
                     />
                   </div>
                 ))}
@@ -76,6 +78,7 @@ export default function TheHeader() {
                     <NextImg
                       src="/assets/icons/map_pin.svg"
                       alt="hospital location"
+                      loading='eager'
                     />
                   </div>
                 </CustomLink>

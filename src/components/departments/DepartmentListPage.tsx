@@ -119,27 +119,34 @@ const DepartmentDetailPage = ({
   return (
     <section className="bg-primary-50">
       {/* Banner + Search box */}
-      <div className="md:relative">
+      <div className="relative w-full">
+        <NextImg
+          src={getAssetUrlById(data?.cover?.id)}
+          alt="banner background"
+          objectFit="cover"
+          loading="eager"
+        />
+
         <div
-          className="flex h-full flex-col items-center gap-1 py-40 text-center md:py-[100px] lg:gap-2 lg:py-[120px] 2xl:gap-4 2xl:py-[140px] 3xl:py-40"
+          className="relative z-[1] flex h-full flex-col items-center gap-1 py-40 text-center md:py-[100px] lg:gap-2 lg:py-[120px] 2xl:gap-4 2xl:py-[140px] 3xl:py-40"
           style={{
-            background: ` linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url("${getAssetUrlById(data?.cover?.id)}") lightgray 50% / cover no-repeat`,
+            background: ` linear-gradient(0deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%)`,
           }}
         >
           {/* title */}
           {data?.title && (
-            <h1 className="text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
+            <h1 className="container text-[28px] font-bold text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">
               {data?.title}
             </h1>
           )}
           {/* subtitle */}
-          <p className="text-base font-normal text-gray-200 md:text-lg lg:text-xl">
+          <p className="container text-base font-normal text-gray-200 md:text-lg lg:text-xl">
             {data?.subtitle}
           </p>
         </div>
 
         {/* Search form */}
-        <div className="mx-auto hidden w-full bg-transparent md:bottom-0 md:left-1/2 md:max-w-[600px] md:-translate-x-1/2 md:translate-y-1/2 md:bg-transparent md:px-0 md:py-0 lg:max-w-[800px] 3xl:absolute 3xl:block">
+        <div className="z-[2] mx-auto hidden w-full bg-transparent md:bottom-0 md:left-1/2 md:max-w-[600px] md:-translate-x-1/2 md:translate-y-1/2 md:bg-transparent md:px-0 md:py-0 lg:max-w-[800px] 3xl:absolute 3xl:block">
           <form
             className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
             onSubmit={(e: any) => {
@@ -363,7 +370,7 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
               <div className="ml-3 mt-4 flex list-none flex-col gap-4 md:ml-5 md:gap-5 xl:ml-7 xl:mt-5 2xl:gap-6 3xl:gap-x-4 3xl:gap-y-5">
                 {group.departments.map((department: any, idx: number) => (
                   <Link
-                    href={'/chuyen-khoa/' + department.slug as any}
+                    href={('/chuyen-khoa/' + department.slug) as any}
                     className={clsx(
                       'text-base font-normal text-gray-950 hover:text-primary-600 hover:underline lg:text-lg 2xl:text-xl',
                     )}
@@ -385,7 +392,7 @@ const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
         <div className="mt-5 flex list-none flex-col gap-3 md:flex-row md:flex-wrap md:gap-4 xl:mt-8 xl:gap-5 2xl:gap-6 3xl:mt-[32px] 3xl:gap-x-4 3xl:gap-y-5">
           {pGroup.departments.map((department: any, idx: number) => (
             <Link
-              href={'/chuyen-khoa/' + department.slug as any}
+              href={('/chuyen-khoa/' + department.slug) as any}
               className={clsx(
                 'text-base font-normal text-gray-950 underline-offset-4 hover:text-primary-600 hover:underline lg:w-[calc(50%-12px)] lg:text-lg 2xl:text-xl',
               )}

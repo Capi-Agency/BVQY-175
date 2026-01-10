@@ -20,7 +20,7 @@ export default function InfoBasicR({ data }: CommonSection) {
           <CustomLink
             aria-label="Xem bản đồ"
             href={data?.buttons?.[1]?.url}
-            className="btn-danger absolute bottom-2 right-2 z-[10] bg-primary-100 text-primary-500 xl:bottom-4 xl:right-4 4xl:bottom-6 4xl:right-6"
+            className="btn-danger absolute bottom-2 right-2 z-[10] bg-primary-100 text-primary-600 xl:bottom-4 xl:right-4 4xl:bottom-6 4xl:right-6"
           >
             {data?.buttons?.[1]?.title}
             <div className="relative size-5 2xl:size-6">

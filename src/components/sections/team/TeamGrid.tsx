@@ -143,7 +143,7 @@ const LeaderCard = ({
                 <div
                   className={clsx(
                     'text-sm font-medium duration-200 lg:text-base 2xl:text-lg 4xl:text-xl',
-                    expanded ? 'text-primary-100' : 'text-primary-500',
+                    expanded ? 'text-primary-100' : 'text-primary-600',
                   )}
                 >
                   {item?.title?.contents?.[2]}
@@ -156,7 +156,7 @@ const LeaderCard = ({
           <div
             className={clsx(
               'text-justify text-sm font-normal !leading-normal duration-200 md:text-xs lg:text-sm xl:text-base 3xl:text-lg 4xl:text-xl',
-              expanded ? '!text-primary-300' : '!text-gray-700',
+              expanded ? '!text-primary-200' : '!text-gray-700',
             )}
             dangerouslySetInnerHTML={{
               __html: item?.blurb,
@@ -212,9 +212,9 @@ const LeaderCard = ({
                     />
                   </div>
                   <div className="flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
-                    <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
+                    <h2 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
                       {t('education')}
-                    </h3>
+                    </h2>
                     <div
                       className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
                       dangerouslySetInnerHTML={{
@@ -244,9 +244,9 @@ const LeaderCard = ({
                     />
                   </div>
                   <div className="relative flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
-                    <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
+                    <h2 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
                       {t('activity-image')}
-                    </h3>
+                    </h2>
                   </div>
                 </div>
 
@@ -306,9 +306,9 @@ const LeaderCard = ({
                     />
                   </div>
                   <div className="flex-1 space-y-3 lg:space-y-4 2xl:space-y-5 3xl:space-y-6 4xl:space-y-8">
-                    <h3 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
+                    <h2 className="text-lg font-bold !leading-[1.3] text-primary-950 md:text-xl lg:text-[22px] xl:text-2xl 2xl:text-[28px] 3xl:text-[30px] 4xl:text-[32px]">
                       {t('awards')}
-                    </h3>
+                    </h2>
                     <div
                       className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
                       dangerouslySetInnerHTML={{
