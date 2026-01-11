@@ -33,11 +33,12 @@ export default function Loading() {
     >
       <div className="flex h-full flex-col items-center justify-center gap-14 pb-14">
         <div className="relative h-[72px] w-[295px] lg:h-[88px] lg:w-[361px] 2xl:h-[108px] 2xl:w-[443px] 4xl:h-[132px] 4xl:w-[542px]">
-          <NextImg
+          <img
             src="/assets/logo/secondary_logo.svg"
             alt="175 hospital logo"
             fetchPriority="high"
             loading="eager"
+            className='absolute size-full'
           />
         </div>
 
