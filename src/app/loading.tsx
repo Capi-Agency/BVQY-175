@@ -31,7 +31,7 @@ export default function Loading() {
         loading ? 'block' : 'hidden'
       }`}
     >
-      <div className="flex h-full flex-col items-center justify-center gap-14 pb-14">
+      <div className="flex h-full flex-col items-center justify-center gap-8 md:gap-10 lg:gap-12 lg:pb-12 md:pb-10 2xl:gap-14 pb-8 2xl:pb-14">
         <div className="relative h-[72px] w-[295px] lg:h-[88px] lg:w-[361px] 2xl:h-[108px] 2xl:w-[443px] 4xl:h-[132px] 4xl:w-[542px]">
           <img
             src="/assets/logo/secondary_logo.svg"
@@ -44,7 +44,7 @@ export default function Loading() {
 
         <div>
           <Progress.Root
-            className="bg-blackA6 relative h-[2px] w-[80%] lg:w-[70%] 3xl:w-[1100px] overflow-hidden rounded-full"
+            className="bg-blackA6 relative h-[2px] w-[320px] md:w-[650px] lg:w-[800px] xl:w-[1000px] 2xl:w-[1100px] 4xl:w-[1200px] overflow-hidden rounded-full"
             style={{
               transform: 'translateZ(0)',
             }}
