@@ -68,7 +68,6 @@ export const getListNews = async ({
         filter,
         fields: [
           'slug',
-          'thumbnail',
           'date_published',
           'categories.category.translations.*',
           'translations.*',

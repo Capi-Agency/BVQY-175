@@ -7,6 +7,8 @@ import {
   SectionMap,
 } from '@/src/types/pageBuilder';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
+import { LoadingComp } from '../components/sections/custom';
 
 const sectionMap: SectionMap = {
   // Home
@@ -18,14 +20,14 @@ const sectionMap: SectionMap = {
       (m) => m.FeatureWithImage4Col,
     ),
   ),
-  'team-slider-5-col': dynamic(
-    () => import('../components/sections/team').then((m) => m.TeamSlider5Col),
+  'team-slider-5-col': dynamic(() =>
+    import('../components/sections/team').then((m) => m.TeamSlider5Col),
   ),
-  'logo-slider': dynamic(
-    () => import('../components/sections/slider').then((m) => m.LogoSlider),
+  'logo-slider': dynamic(() =>
+    import('../components/sections/slider').then((m) => m.LogoSlider),
   ),
-  'posts-3-col': dynamic(
-    () => import('../components/sections/post-grid').then((m) => m.Posts3Col),
+  'posts-3-col': dynamic(() =>
+    import('../components/sections/post-grid').then((m) => m.Posts3Col),
   ),
   'feature-4-col': dynamic(() =>
     import('../components/sections/feature').then((m) => m.Feature4Col),
@@ -77,9 +79,8 @@ const sectionMap: SectionMap = {
   ),
 
   // Hospital leader
-  'card-slider-with-blurb': dynamic(
-    () =>
-      import('../components/sections/card').then((m) => m.CardSliderWithBlurb),
+  'card-slider-with-blurb': dynamic(() =>
+    import('../components/sections/card').then((m) => m.CardSliderWithBlurb),
   ),
   'team-grid': dynamic(() =>
     import('../components/sections/team').then((m) => m.TeamGrid),
@@ -95,29 +96,25 @@ const sectionMap: SectionMap = {
   'info-news': dynamic(() =>
     import('../components/sections/news').then((m) => m.HotNewsHero),
   ),
-  'posts-small-image-3-col': dynamic(
-    () => import('../components/sections/news').then((m) => m.NewsListCard),
+  'posts-small-image-3-col': dynamic(() =>
+    import('../components/sections/news').then((m) => m.NewsListCard),
   ),
 
   // News detail
-  'breadcrumb-basic': dynamic(
-    () =>
-      import('../components/sections/breadcrumb').then(
-        (m) => m.BreadcrumbBasic,
-      ),
+  'breadcrumb-basic': dynamic(() =>
+    import('../components/sections/breadcrumb').then((m) => m.BreadcrumbBasic),
   ),
 
-  'post-detail-with-sidebar-right': dynamic(
-    () => import('../components/sections/news').then((m) => m.NewsDetail),
+  'post-detail-with-sidebar-right': dynamic(() =>
+    import('../components/sections/news').then((m) => m.NewsDetail),
   ),
 
-  'posts-slider': dynamic(
-    () => import('../components/sections/post-grid').then((m) => m.RelatedPost),
+  'posts-slider': dynamic(() =>
+    import('../components/sections/post-grid').then((m) => m.RelatedPost),
   ),
 
-  'sidebar-right-basic': dynamic(
-    () =>
-      import('../components/sections/custom').then((m) => m.SideBarRightBasic),
+  'sidebar-right-basic': dynamic(() =>
+    import('../components/sections/custom').then((m) => m.SideBarRightBasic),
   ),
 
   // Department detail
@@ -134,8 +131,8 @@ const sectionMap: SectionMap = {
       (m) => m.InfoWithRightImageTopTitle,
     ),
   ),
-  'team-slider-4-col': dynamic(
-    () => import('../components/sections/team').then((m) => m.TeamSlider4Col),
+  'team-slider-4-col': dynamic(() =>
+    import('../components/sections/team').then((m) => m.TeamSlider4Col),
   ),
   'card-2-col-with-blurb': dynamic(() =>
     import('../components/sections/card').then((m) => m.Card2ColWithBlurb),
@@ -143,8 +140,8 @@ const sectionMap: SectionMap = {
   'number-with-text': dynamic(() =>
     import('../components/sections/number').then((m) => m.NumberWithText),
   ),
-  'number-split': dynamic(
-    () => import('../components/sections/number').then((m) => m.NumberSplit),
+  'number-split': dynamic(() =>
+    import('../components/sections/number').then((m) => m.NumberSplit),
   ),
   'info-with-right-image': dynamic(() =>
     import('../components/sections/information').then(
@@ -166,13 +163,12 @@ const sectionMap: SectionMap = {
   ),
 
   // FAQs
-  'hero-background-focus': dynamic(
-    () =>
-      import('../components/sections/hero').then((m) => m.HeroBackgroundsFocus),
+  'hero-background-focus': dynamic(() =>
+    import('../components/sections/hero').then((m) => m.HeroBackgroundsFocus),
   ),
 
-  'faqs-1-col': dynamic(
-    () => import('../components/sections/faq').then((m) => m.FaqsOneCol),
+  'faqs-1-col': dynamic(() =>
+    import('../components/sections/faq').then((m) => m.FaqsOneCol),
   ),
 
   // Dành cho người bệnh
@@ -186,13 +182,13 @@ const sectionMap: SectionMap = {
   ),
 
   // Milestone
-  'card-1-col': dynamic(
-    () => import('../components/sections/card').then((m) => m.Card1Col),
+  'card-1-col': dynamic(() =>
+    import('../components/sections/card').then((m) => m.Card1Col),
   ),
 
   // Khối cơ quan hành chính
-  'card-4-col': dynamic(
-    () => import('../components/sections/card').then((m) => m.Card4Col),
+  'card-4-col': dynamic(() =>
+    import('../components/sections/card').then((m) => m.Card4Col),
   ),
 
   // Cơ sở vật chất
@@ -201,8 +197,8 @@ const sectionMap: SectionMap = {
   ),
 
   // Search
-  custom: dynamic(
-    () => import('../components/sections/custom').then((m) => m.CustomSearch),
+  custom: dynamic(() =>
+    import('../components/sections/custom').then((m) => m.CustomSearch),
   ),
 
   // PDF view
@@ -233,16 +229,16 @@ const sectionMap: SectionMap = {
   ),
 
   // Danh sách bác sĩ
-  'hero-text-overlay': dynamic(
-    () => import('../components/sections/hero').then((m) => m.HeroTextOverlay),
+  'hero-text-overlay': dynamic(() =>
+    import('../components/sections/hero').then((m) => m.HeroTextOverlay),
   ),
-  'team-split-with-filter': dynamic(
-    () => import('../components/doctors').then((m) => m.DoctorList),
+  'team-split-with-filter': dynamic(() =>
+    import('../components/doctors').then((m) => m.DoctorList),
   ),
 
   // Chuyên khoa
-  'feature-with-image-3-col': dynamic(
-    () => import('../components/departments').then((m) => m.DepartmentListPage),
+  'feature-with-image-3-col': dynamic(() =>
+    import('../components/departments').then((m) => m.DepartmentListPage),
   ),
   // Chi tiết khối cơ quan
   'team-2-col': dynamic(() =>
@@ -268,18 +264,18 @@ const PageBuilder = ({ pageContent, pageDetail }: PageBuilderProps) => {
   return (
     <>
       <main className="padding-top-body">
-        {sections.map((section: CommonSection, index: number) => {
-          const SectionComp = sectionMap[section.type];
-          if (!SectionComp) return null;
+          {sections.map((section: CommonSection, index: number) => {
+            const SectionComp = sectionMap[section.type];
+            if (!SectionComp) return null;
 
-          return (
-            <SectionComp
-              key={'section_' + index}
-              data={section}
-              {...(pageDetail ? { dataDetail: pageDetail } : {})}
-            />
-          );
-        })}
+            return (
+              <SectionComp
+                key={'section_' + index}
+                data={section}
+                {...(pageDetail ? { dataDetail: pageDetail } : {})}
+              />
+            );
+          })}
       </main>
     </>
   );

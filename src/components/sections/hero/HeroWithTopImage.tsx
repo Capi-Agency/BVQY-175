@@ -225,6 +225,7 @@ const SlideContent = ({ item }: any) => {
           objectFit="cover"
           className="object-top"
           loading="eager"
+          fetchPriority='high'
         />
       </div>
 
@@ -235,6 +236,7 @@ const SlideContent = ({ item }: any) => {
           objectFit="cover"
           className="object-top"
           loading="eager"
+          fetchPriority='high'
         />
       </div>
 

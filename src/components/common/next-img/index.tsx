@@ -12,6 +12,7 @@ interface NextImgProps {
   objectFit?: 'cover' | 'contain' | 'none';
   quality?: number;
   loading?: 'lazy' | 'eager';
+  fetchPriority?: "auto" | "high" | "low";
   [key: string]: any;
 }
 
@@ -27,6 +28,7 @@ const NextImg = ({
   objectFit = 'contain',
   loading = 'lazy',
   quality = 90,
+  fetchPriority = 'auto',
   ...props
 }: NextImgProps) => {
   const [fallback, setFallback] = useState('');
@@ -42,8 +44,8 @@ const NextImg = ({
       alt={alt}
       className={
         className
-          ? `${className} lazyload h-full w-full`
-          : `lazyload h-full w-full`
+          ? `${className} h-full w-full`
+          : `h-full w-full`
       }
       onError={handleError}
       width={width}
@@ -53,6 +55,7 @@ const NextImg = ({
       objectFit={objectFit}
       layout="fill"
       placeholder="blur"
+      fetchPriority={fetchPriority}
       {...props}
     />
   );
