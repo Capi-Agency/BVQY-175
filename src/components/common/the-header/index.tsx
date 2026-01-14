@@ -33,19 +33,22 @@ export default function TheHeader() {
         <div className="container relative flex items-center justify-between py-[6px] md:py-[5px] lg:py-0">
           <Link
             href={'/' as any}
+            title="Trang chủ"
             aria-label="Chuyển đến trang chủ"
             className="relative h-[40px] w-[230px] md:h-[46px] md:w-[274px] lg:h-[64px] lg:w-[382px] 2xl:h-[72px] 2xl:w-[430px] 4xl:h-[80px] 4xl:w-[478px]"
           >
             <NextImg
               src="/assets/logo/long_primary_logo.svg"
               alt="Military hospital logo"
-              loading='eager'
+              loading="eager"
             />
           </Link>
 
           <div className="flex items-center gap-3 md:gap-4 lg:gap-6 2xl:gap-8 4xl:gap-10">
             {/* Start: medal*/}
             <CustomLink
+              title="Thành tích"
+              aria-label="Thành tích"
               href={t('achievements')}
               className="hidden items-center gap-3 md:flex xl:gap-4 2xl:gap-5 4xl:gap-6"
             >
@@ -58,7 +61,7 @@ export default function TheHeader() {
                     <NextImg
                       src={getAssetUrlById(file?.directus_files_id)}
                       alt="Military hospital"
-                      loading='eager'
+                      loading="eager"
                     />
                   </div>
                 ))}
@@ -77,7 +80,7 @@ export default function TheHeader() {
                     <NextImg
                       src="/assets/icons/map_pin.svg"
                       alt="hospital location"
-                      loading='eager'
+                      loading="eager"
                     />
                   </div>
                 </CustomLink>

@@ -34,11 +34,11 @@ export default function MegaMenuContent({ item }: any) {
                   key={item_third_index}
                   className={`${item_third?.sub_items?.length >= 7 ? 'row-span-2' : ''}`}
                 >
-                  {item_third?.url &&
-                  item_third?.title ? (
+                  {item_third?.url && item_third?.title ? (
                     <CustomLink
                       href={item_third?.url || ''}
                       asNavigationLink
+                      title={item_third?.title || ''}
                       className="block text-sm font-bold uppercase text-black 3xl:text-base"
                     >
                       {item_third?.title || ''}
@@ -59,6 +59,7 @@ export default function MegaMenuContent({ item }: any) {
                             key={item_fourth_index}
                             href={item_fourth?.url || ''}
                             asNavigationLink
+                            title={item_fourth?.title || ''}
                             className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[8px]"
                           >
                             {item_fourth?.title || ''}

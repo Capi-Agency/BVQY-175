@@ -54,6 +54,7 @@ export default function NavHeader() {
                       ref={(el: any) => {
                         menuItemsRef.current[index] = el;
                       }}
+                      title={item?.title || ''}
                       asNavigationLink
                       className="relative flex items-center gap-[2px] whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:gap-1 3xl:text-base"
                     >
@@ -70,7 +71,7 @@ export default function NavHeader() {
                       ref={(el: any) => {
                         menuItemsRef.current[index] = el;
                       }}
-                      className="relative flex items-center gap-[2px] whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:gap-1 3xl:text-base"
+                      className="relative flex items-center gap-[2px] whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white cursor-default 3xl:gap-1 3xl:text-base"
                     >
                       {item?.title}
                       <div className="relative size-5 origin-center duration-200 group-data-[state=open]:-rotate-180 3xl:size-6">
@@ -101,6 +102,7 @@ export default function NavHeader() {
                             <CustomLink
                               href={item_second?.url || ''}
                               asNavigationLink
+                              title={item_second?.title || ''}
                               className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 group-hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[8px_16px]"
                             >
                               <div className="flex-1">
@@ -151,6 +153,7 @@ export default function NavHeader() {
                                       <CustomLink
                                         href={item_third?.url || ''}
                                         asNavigationLink
+                                        title={item_third?.title || ''}
                                         className="block text-sm font-bold uppercase text-black 3xl:text-base"
                                       >
                                         {item_third?.title || ''}
@@ -172,6 +175,7 @@ export default function NavHeader() {
                                               key={item_fourth_index}
                                               href={item_fourth?.url || ''}
                                               asNavigationLink
+                                              title={item_fourth?.title || ''}
                                               className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[8px]"
                                             >
                                               {item_fourth?.title || ''}
@@ -202,6 +206,7 @@ export default function NavHeader() {
                 <CustomLink
                   href={item?.url || ''}
                   asNavigationLink
+                  title={item?.title || ''}
                   className="relative block whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:text-base"
                 >
                   {item?.title || ''}
