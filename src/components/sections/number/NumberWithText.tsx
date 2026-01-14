@@ -24,11 +24,11 @@ export default function NumberWithText({ data, dataDetail }: CommonSection) {
             const num = Number(item?.number) || index + 1;
 
             return (
-              <Counter
-                innerText={num}
-                snap={1}
-                duration={1.5}
+              <div
                 key={index}
+                // innerText={num}
+                // snap={1}
+                // duration={1.5}
                 className="flex-1 space-y-1 lg:space-y-[6px] 2xl:space-y-2 4xl:space-y-3"
               >
                 {item?.number && (
@@ -36,7 +36,7 @@ export default function NumberWithText({ data, dataDetail }: CommonSection) {
                     data-aos="true"
                     className="text-[28px] font-medium leading-[1.4] text-white md:leading-[1.3] lg:text-[32px] xl:text-[36px] 2xl:text-[40px] 3xl:text-[44px] 4xl:text-[48px]"
                   >
-                    0
+                    {item.number}
                   </div>
                 )}
 
@@ -46,7 +46,7 @@ export default function NumberWithText({ data, dataDetail }: CommonSection) {
                     __html: item?.text,
                   }}
                 ></div>
-              </Counter>
+              </div>
             );
           })}
         </div>

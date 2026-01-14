@@ -6,7 +6,7 @@ import { getAssetUrlById } from '@/src/utils/image';
 import CustomLink from '../../common/custom-link';
 export default function FeatureWithImage4Col({ data }: CommonSection) {
   return (
-    <section className="py-8 lg:py-9 xl:py-10 2xl:py-12 3xl:py-14 4xl:py-[60px]">
+    <section className="p-[20px_0_40px] lg:p-[36px_0_52px] xl:p-[40px_0_60px] 3xl:p-[48px_0_72px] 4xl:p-[56px_0_90px]">
       <div className="section-sub-title text-center">{data?.subtitle}</div>
       {data?.title && (
         <h1 className="section-title mt-1 text-center">{data?.title}</h1>

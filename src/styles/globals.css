@@ -18,45 +18,6 @@
 /* ==================================================================================== */
 body {}
 
-@font-face {
-  font-family: 'PlusJakartaSans';
-  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PlusJakartaSans';
-  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PlusJakartaSans';
-  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-SemiBold.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PlusJakartaSans';
-  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PlusJakartaSans';
-  src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-ExtraBold.woff2') format('woff2');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
 
 .grecaptcha-badge {
   opacity: 0 !important;
@@ -65,20 +26,11 @@ body {}
 
 @layer base {
   * {
-    font-family: 'PlusJakartaSans', sans-serif;
-    /* letter-spacing: 0.02em; */
     font-kerning: none;
     -webkit-text-rendering: optimizeSpeed;
     text-rendering: optimizeSpeed;
     -webkit-font-feature-settings: normal;
     font-feature-settings: normal;
-  }
-
-
-
-  .font-plusJakartaSans * {
-    font-family: 'PlusJakartaSans', sans-serif;
-    letter-spacing: 0.02em;
   }
 
   .content-wrapper h1,

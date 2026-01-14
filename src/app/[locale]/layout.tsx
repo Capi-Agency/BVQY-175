@@ -18,6 +18,41 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/src/i18n/routing';
 import { LoadingComp } from '@/src/components/sections/custom';
 import Loading from '../loading';
+import localFont from 'next/font/local';
+
+const plusJakartaSans = localFont({
+  src: [
+    {
+      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-SemiBold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-Bold.woff2',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-ExtraBold.woff2',
+      weight: '800',
+      style: 'normal',
+    },
+  ],
+  display: 'swap',
+  preload: true,
+  fallback: ['Arial', 'sans-serif'],
+  variable: '--font-plus-jakarta-sans',
+});
 
 export const revalidate = 300;
 
@@ -43,7 +78,11 @@ export default async function RootLayout({
   const messages = await getMessages({ locale });
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html
+      lang={locale}
+      suppressHydrationWarning
+      className={plusJakartaSans.className}
+    >
       <head>
         <link rel="icon" href="/assets/logo/favicon.ico" sizes="any" />
         <link
@@ -105,12 +144,12 @@ export default async function RootLayout({
                 <GsapMatchMediaProvider>
                   <ScrollSmootherProvider>
                     <Loading />
+                    <TheHeader />
                     <Suspense fallback={<LoadingComp />}>
-                      <TheHeader />
                       <BackToTop />
                       {children}
-                      <TheFooter />
                     </Suspense>
+                    <TheFooter />
                   </ScrollSmootherProvider>
                 </GsapMatchMediaProvider>
               </ThemeProvider>

@@ -30,7 +30,7 @@ export default function DepartmentCard({
       <div
         className="line-clamp-2 text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100 xl:text-base"
         dangerouslySetInnerHTML={{
-          __html: item?.blurb,
+          __html: item?.[blurb],
         }}
       ></div>
     </CustomLink>
@@ -57,9 +57,9 @@ export default function DepartmentCard({
             {item?.title} {item?.code && ` (${item.code})`}
           </div>
           <div
-            className="line-clamp-3 text-sm font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
+            className="line-clamp-3 text-sm 3xl:text-base font-thin text-[#03110899] duration-200 group-hover:text-primary-100"
             dangerouslySetInnerHTML={{
-              __html: item?.blurb,
+              __html: item?.[blurb],
             }}
           ></div>
         </div>

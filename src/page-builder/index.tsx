@@ -7,8 +7,6 @@ import {
   SectionMap,
 } from '@/src/types/pageBuilder';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
-import { LoadingComp } from '../components/sections/custom';
 
 const sectionMap: SectionMap = {
   // Home

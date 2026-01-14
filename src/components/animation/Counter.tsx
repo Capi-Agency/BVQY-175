@@ -18,6 +18,7 @@ type Props = {
   end?: string | number | ScrollTrigger.StartEndFunc;
   duration?: number | undefined;
   once?: boolean;
+  dependencies?: any[];
   onAnimationStart?: () => void;
   onAnimationComplete?: () => void;
   [key: string]: any;
@@ -33,6 +34,7 @@ export default function Counter({
   end = 'clamp(top 90%)',
   duration = 1,
   once = false,
+  dependencies = [],
   onAnimationStart,
   onAnimationComplete,
   ...props
@@ -73,7 +75,7 @@ export default function Counter({
     },
     {
       scope: containerRef,
-      dependencies: [animateOnScroll, once, onAnimationComplete],
+      dependencies: [animateOnScroll, once, onAnimationComplete, ...dependencies],
     },
   );
 

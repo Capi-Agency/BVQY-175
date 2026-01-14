@@ -1,5 +1,4 @@
 import JsonLDProvider from '@/src/components/common/the-json-ld';
-import { routing } from '@/src/i18n/routing';
 import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { createSeoData } from '@/src/utils/metadata';
@@ -13,10 +12,6 @@ export const revalidate = 300;
 type Props = {
   params: Promise<{ locale: string; slug: string; cate: string }>;
 };
-
-export function generateStaticParams() {
-  return routing.locales.map((locale: string) => ({ locale }));
-}
 
 export async function generateMetadata(
   { params }: Props,

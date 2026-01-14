@@ -1,13 +1,10 @@
 'use client';
-import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Progress } from 'radix-ui';
-import NextImg from '../components/common/next-img';
 
 export default function Loading() {
   const [loading, setLoading] = useState<boolean>(true);
   const [progress, setProgress] = useState<number>(0);
-  const pathname = usePathname();
 
   useEffect(() => {
     const progressTimer = setTimeout(() => {
@@ -23,7 +20,7 @@ export default function Loading() {
       clearTimeout(progressTimer);
       clearTimeout(loadingTimer);
     };
-  }, [pathname]);
+  }, []);
 
   return (
     <div
@@ -42,9 +39,9 @@ export default function Loading() {
           />
         </div>
 
-        <div>
+        <div className='container'>
           <Progress.Root
-            className="bg-blackA6 relative h-[2px] w-[320px] md:w-[650px] lg:w-[800px] xl:w-[1000px] 2xl:w-[1100px] 4xl:w-[1200px] overflow-hidden rounded-full"
+            className="bg-blackA6 relative h-[2px] w-full overflow-hidden rounded-full"
             style={{
               transform: 'translateZ(0)',
             }}

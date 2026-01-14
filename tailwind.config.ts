@@ -31,9 +31,6 @@ const config = {
       },
     },
     extend: {
-      fontFamily: {
-        PlusJakartaSans: ['PlusJakartaSans'],
-      },
       colors: {
         primary: {
           50: '#F6FAF7',

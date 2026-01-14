@@ -66,7 +66,7 @@ export default function CustomSearch({ data }: CommonSection) {
 
   return (
     <section className="py-8 lg:container lg:py-12 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px] 4xl:py-[120px]">
-      <div className="relative flex flex-col gap-5 lg:grid lg:grid-cols-[auto,180px] lg:gap-6 xl:gap-7 2xl:gap-8 3xl:grid-cols-[auto,200px] 3xl:gap-10">
+      <div className="relative flex flex-col gap-5 lg:grid-cols-[auto,220px] lg:grid 2xl:grid-cols-[auto,240px] 3xl:grid-cols-[auto,260px] lg:gap-6 xl:gap-7 2xl:gap-8 3xl:gap-10">
         <div className="space-y-3 md:space-y-4 xl:space-y-6 3xl:space-y-7 4xl:space-y-8">
           {data?.title && (
             <h1 className="section-title px-6 text-primary-600 md:px-[calc((100vw-688px)/2)] lg:px-0">

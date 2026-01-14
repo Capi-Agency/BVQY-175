@@ -26,6 +26,12 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
         img.style.cursor = 'pointer';
       }
     });
+
+    const links = container.querySelectorAll('a');
+    links.forEach((a) => {
+      a.setAttribute('target', '_blank');
+      a.setAttribute('rel', 'noopener');
+    });
   }, [dataDetail]);
 
   return (

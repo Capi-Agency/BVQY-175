@@ -110,7 +110,7 @@ export default function Card4Col({ data }: CommonSection) {
       >
         <div className="container">
           {adminDepartData?.length > 0 ? (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 2xl:gap-5 3xl:gap-6 4xl:gap-8">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 2xl:gap-5 3xl:gap-6 4xl:gap-7">
               {adminDepartData?.map((item: any, index: number) => (
                 <div
                   key={item?.slug ?? index}

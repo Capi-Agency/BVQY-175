@@ -51,6 +51,11 @@ export const fnGetAllPageSlug = async () => {
     const res: any = await directusClientWithRest.request(
       readItems('pages', {
         fields: ['slug', 'language'],
+        filter: {
+          slug: {
+            _nistarts_with: 'chi-tiet'
+          }
+        }
       }),
     );
 
