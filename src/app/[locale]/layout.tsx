@@ -11,7 +11,7 @@ import { ScrollSmootherProvider } from '../../providers/ScrollSmootherProvider';
 import TheHeader from '../../components/common/the-header';
 import TheFooter from '../../components/common/the-footer';
 import BackToTop from '../../components/common/back-to-top';
-import ReCaptchatProvider from '@/src/providers/GoogleRecaptchaProvider';
+import LazyReCaptchaProvider from '@/src/components/common/lazy-recaptcha-provider';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -133,7 +133,7 @@ export default async function RootLayout({
           closeButton={false}
           className={'z-[99999] text-sm'}
         />
-        <ReCaptchatProvider>
+        <LazyReCaptchaProvider>
           <MetadataProvider value={metadata}>
             <NextIntlClientProvider messages={messages}>
               <ThemeProvider
@@ -155,7 +155,7 @@ export default async function RootLayout({
               </ThemeProvider>
             </NextIntlClientProvider>
           </MetadataProvider>
-        </ReCaptchatProvider>
+        </LazyReCaptchaProvider>
       </body>
     </html>
   );
