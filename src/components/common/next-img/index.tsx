@@ -12,7 +12,7 @@ interface NextImgProps {
   objectFit?: 'cover' | 'contain' | 'none';
   quality?: number;
   loading?: 'lazy' | 'eager';
-  fetchPriority?: "auto" | "high" | "low";
+  fetchPriority?: 'auto' | 'high' | 'low';
   [key: string]: any;
 }
 
@@ -40,13 +40,9 @@ const NextImg = ({
     <Image
       id={id}
       src={(src || fallback) + '?format=webp'}
-      blurDataURL={src || fallback}
+      blurDataURL={(src || fallback) + '?format=webp'}
       alt={alt}
-      className={
-        className
-          ? `${className} h-full w-full`
-          : `h-full w-full`
-      }
+      className={className ? `${className} h-full w-full` : `h-full w-full`}
       onError={handleError}
       width={width}
       height={height}
