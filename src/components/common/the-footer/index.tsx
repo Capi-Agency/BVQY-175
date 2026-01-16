@@ -253,29 +253,25 @@ export default function TheFooter() {
           <div className="flex w-full items-stretch justify-center gap-3 text-xs font-medium text-white md:text-nowrap lg:text-sm">
             {contact_information?.security_url && (
               <>
-                <Link
-                  target="_blank"
-                  rel="noopener"
+                <CustomLink
                   href={`${contact_information?.security_url || '/'}`}
                   className="block tracking-wider"
-                  aria-label="Thông tin bảo mật"
+                  aria-label="Chính sách và bảo mật"
                 >
                   {t('Footer.policy-label')}
-                </Link>
+                </CustomLink>
                 <div className="w-[1px] bg-white"></div>
               </>
             )}
 
-            {contact_information?.security_url && (
-              <Link
-                target="_blank"
-                rel="noopener"
-                href={`${contact_information?.security_url || '/'}`}
-                aria-label="Thông tin bảo mật"
+            {contact_information?.terms_url && (
+              <CustomLink
+                href={`${contact_information?.terms_url || '/'}`}
+                aria-label="Điều khoản và dịch vụ"
                 className="block tracking-wider"
               >
                 {t('Footer.terms-services-label')}
-              </Link>
+              </CustomLink>
             )}
           </div>
 
