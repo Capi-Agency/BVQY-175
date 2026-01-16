@@ -13,6 +13,7 @@ import { fnSendReview } from '@/src/services/contact';
 import { cn } from '@/src/lib/utils';
 import { useTranslations } from 'next-intl';
 import DOMPurify from 'dompurify';
+import { useMounted } from '@/src/hooks/use-mounted';
 
 type Review = {
   rating: number | null;
@@ -31,6 +32,7 @@ const initialValue: Review = {
 };
 
 export default function ReviewSplitWithText({ data }: CommonSection) {
+  const mounted = useMounted();
   const t = useTranslations();
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [loading, setLoading] = useState<boolean>(false);
@@ -245,7 +247,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
             <div
               className="section-sub-title font-semibold text-primary-600"
               dangerouslySetInnerHTML={{
-                __html: data?.blurb,
+                __html: mounted ? data?.blurb : '',
               }}
             ></div>
 
@@ -269,9 +271,8 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
               {errors.rating && isSubmitted && (
                 <p
                   id="outlined_error_help"
-                  className={`text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
-                    errors.rating ? 'block' : 'hidden'
-                  }`}
+                  className={`text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${errors.rating ? 'block' : 'hidden'
+                    }`}
                 >
                   <span className="font-medium">{errors?.rating?.message}</span>
                 </p>
@@ -294,9 +295,8 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                     isSubmitted && (
                       <p
                         id="outlined_error_help"
-                        className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${
-                          errors[input.key as keyof Review] ? 'block' : 'hidden'
-                        }`}
+                        className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${errors[input.key as keyof Review] ? 'block' : 'hidden'
+                          }`}
                       >
                         <span className="font-medium">
                           {errors[input.key as keyof Review]?.message}
@@ -318,9 +318,8 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
                 {errors.message && isSubmitted && (
                   <p
                     id="outlined_error_help"
-                    className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
-                      errors.message ? 'block' : 'hidden'
-                    }`}
+                    className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${errors.message ? 'block' : 'hidden'
+                      }`}
                   >
                     <span className="font-medium">
                       {errors?.message?.message}

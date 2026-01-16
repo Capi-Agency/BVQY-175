@@ -11,8 +11,10 @@ import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
 import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 import { useTranslations } from 'next-intl';
+import { useMounted } from '@/src/hooks/use-mounted';
 
 export default function FancyboxViewer({ data }: CommonSection) {
+  const mounted = useMounted();
   const images = data?.cover ?? [];
   const imageStyle = data?.custom || {};
 
@@ -27,7 +29,7 @@ export default function FancyboxViewer({ data }: CommonSection) {
           maxWidth: imageStyle?.['maxWidth'] ?? 'auto',
         }}
         dangerouslySetInnerHTML={{
-          __html: data?.blurb as string,
+          __html: mounted ? (data?.blurb as string) : '',
         }}
       ></div>
 
@@ -41,7 +43,8 @@ export default function FancyboxViewer({ data }: CommonSection) {
           },
         }}
       >
-        {images?.length > 0 &&
+        {mounted &&
+          images?.length > 0 &&
           paginationClass &&
           paginationConfig &&
           images.map((image: any) => (

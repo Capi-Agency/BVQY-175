@@ -5,10 +5,12 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import DoctorCard from '../../common/doctor-card';
+import { useMounted } from '@/src/hooks/use-mounted';
 
 export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
-  const description = dataDetail.leadership_board_description;
-  const doctors = dataDetail.doctors;
+  const mounted = useMounted();
+  const description = dataDetail?.leadership_board_description;
+  const doctors = dataDetail?.doctors;
   const { custom } = data;
 
   const hasContent = !!description || (doctors?.length ?? 0) > 0;
@@ -29,7 +31,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
               <h2
                 className="section-title mt-1"
                 dangerouslySetInnerHTML={{
-                  __html: data?.title,
+                  __html: mounted ? data?.title : '',
                 }}
               ></h2>
             )}
@@ -38,7 +40,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
           <div
             className="section-content pt-2 text-justify lg:pt-4 2xl:pt-6"
             dangerouslySetInnerHTML={{
-              __html: dataDetail?.leadership_board_description,
+              __html: mounted ? dataDetail?.leadership_board_description : '',
             }}
           ></div>
         </div>
@@ -46,7 +48,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
         <div
           className={`col-span-full ${doctorCount < 3 ? 'lg:col-span-7 xl:pl-10 2xl:pl-16 3xl:pl-[72px] 4xl:pl-20' : 'lg:col-span-7 2xl:col-span-8'}`}
         >
-          {doctorCount > 0 && (
+          {doctorCount > 0 && mounted && (
             <Swiper
               touchEventsTarget="container"
               grabCursor={true}
@@ -89,7 +91,7 @@ export default function TeamSlider4Col({ data, dataDetail }: CommonSection) {
                     avatarRatio="3/4"
                     isLink={
                       item?.doctor?.is_admin === true ||
-                      custom?.is_link === false
+                        custom?.is_link === false
                         ? false
                         : custom?.is_link
                     }

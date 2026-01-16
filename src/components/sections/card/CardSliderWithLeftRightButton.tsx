@@ -15,9 +15,6 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
   const t = useTranslations('Doctor');
   const mounted = useMounted();
 
-  if (!mounted) return null;
-  
-
   return (
     <section className="flex flex-col items-stretch gap-6 bg-[#F6FAF7] py-10 md:gap-8 md:py-6 lg:py-10 xl:gap-11 xl:py-11 2xl:gap-12 2xl:py-12 3xl:gap-[52px] 3xl:py-[52px] 4xl:gap-[60px] 4xl:py-[60px]">
       <div className="container flex items-center justify-between">
@@ -53,7 +50,7 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
 
       <div className="space-y-6 lg:container md:space-y-8 lg:space-y-10 xl:space-y-12">
         <div className="relative">
-          <Swiper
+          {mounted && (<Swiper
             touchEventsTarget="container"
             grabCursor={true}
             slidesPerView={1.5}
@@ -93,13 +90,13 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
                   <div
                     className="px-3 text-center text-sm font-medium text-black md:px-4 lg:px-5 lg:text-base 2xl:text-lg 4xl:text-xl"
                     dangerouslySetInnerHTML={{
-                      __html: item?.title,
+                      __html: mounted ? item?.title : '',
                     }}
                   ></div>
                 </div>
               </SwiperSlide>
             ))}
-          </Swiper>
+          </Swiper>)}
 
           <button className="card-slider-with-l-r-button-prev absolute left-0 top-1/2 z-[1] hidden size-8 -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-[#24422D] hover:bg-[#3E9459] lg:flex xl:size-10 xl:-translate-x-[calc(100%+24px)] 2xl:size-11 3xl:-translate-x-[calc(100%+30px)] 4xl:size-[54px]">
             <div className="relative size-6">
@@ -155,7 +152,7 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
                 <div
                   className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
                   dangerouslySetInnerHTML={{
-                    __html: data?.contents,
+                    __html: mounted ? data?.contents : "",
                   }}
                 ></div>
               </div>
@@ -164,7 +161,7 @@ export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
             <div
               className="text-sm font-normal text-gray-700 md:hidden lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
               dangerouslySetInnerHTML={{
-                __html: data?.contents,
+                __html: mounted ? data?.contents : "",
               }}
             ></div>
           </div>

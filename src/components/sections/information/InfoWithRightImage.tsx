@@ -12,11 +12,13 @@ import Link from 'next/link';
 import { cn } from '@/src/lib/utils';
 import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 import { useTranslations } from 'next-intl';
+import { useMounted } from '@/src/hooks/use-mounted';
 
 export default function InfoWithRightImage({
   data,
   dataDetail,
 }: CommonSection) {
+  const mounted = useMounted();
   const blurb = dataDetail?.facilities ?? data?.blurb;
   const images = dataDetail?.facilities_images ?? data?.cover ?? [];
 
@@ -71,7 +73,7 @@ export default function InfoWithRightImage({
                 <h2
                   className="section-title"
                   dangerouslySetInnerHTML={{
-                    __html: data?.title,
+                    __html: mounted ? data?.title : '',
                   }}
                 ></h2>
               )}
@@ -82,7 +84,7 @@ export default function InfoWithRightImage({
                 'content-wrapper section-content relative text-justify md:pr-2 lg:flex-1',
               )}
               dangerouslySetInnerHTML={{
-                __html: blurb,
+                __html: mounted ? blurb : '',
               }}
             ></div>
           </div>
@@ -118,48 +120,50 @@ export default function InfoWithRightImage({
               ref={imageRef}
               className="relative aspect-[4/3] w-full md:aspect-[2/1] lg:aspect-[4/3]"
             >
-              <Swiper
-                touchEventsTarget="container"
-                grabCursor={true}
-                slidesPerView={1}
-                loop={true}
-                spaceBetween={0}
-                speed={700}
-                modules={[Pagination, EffectFade, Autoplay]}
-                effect="fade"
-                autoplay={{
-                  delay: 3000,
-                  disableOnInteraction: false,
-                }}
-                pagination={paginationConfig}
-                className="!h-full !w-full"
-              >
-                {images?.map((item: any, index: number) => {
-                  return (
-                    <SwiperSlide
-                      key={item?.directus_files_id || item?.id || item}
-                    >
-                      <Link
-                        href={getAssetUrlById(
-                          item?.directus_files_id || item?.id || item,
-                        )}
-                        data-fancybox="gallery"
-                        className="relative block size-full"
+              {mounted && (
+                <Swiper
+                  touchEventsTarget="container"
+                  grabCursor={true}
+                  slidesPerView={1}
+                  loop={true}
+                  spaceBetween={0}
+                  speed={700}
+                  modules={[Pagination, EffectFade, Autoplay]}
+                  effect="fade"
+                  autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: false,
+                  }}
+                  pagination={paginationConfig}
+                  className="!h-full !w-full"
+                >
+                  {images?.map((item: any, index: number) => {
+                    return (
+                      <SwiperSlide
+                        key={item?.directus_files_id || item?.id || item}
                       >
-                        <div className="relative size-full">
-                          <NextImg
-                            src={getAssetUrlById(
-                              item?.directus_files_id || item?.id || item,
-                            )}
-                            objectFit="cover"
-                            alt="facilities images"
-                          />
-                        </div>
-                      </Link>
-                    </SwiperSlide>
-                  );
-                })}
-              </Swiper>
+                        <Link
+                          href={getAssetUrlById(
+                            item?.directus_files_id || item?.id || item,
+                          )}
+                          data-fancybox="gallery"
+                          className="relative block size-full"
+                        >
+                          <div className="relative size-full">
+                            <NextImg
+                              src={getAssetUrlById(
+                                item?.directus_files_id || item?.id || item,
+                              )}
+                              objectFit="cover"
+                              alt="facilities images"
+                            />
+                          </div>
+                        </Link>
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              )}
             </div>
 
             <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">

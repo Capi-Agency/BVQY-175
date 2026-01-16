@@ -9,8 +9,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import Link from 'next/link';
 import CustomLink from '../../common/custom-link';
 import Fancybox from '../../common/Fancybox';
+import { useMounted } from '@/src/hooks/use-mounted';
 
 const CardSlider = ({ data }: CommonSection) => {
+  const mounted = useMounted();
   const [activeItem, setActiveItem] = useState<number>(0);
 
   const item = useMemo(
@@ -29,63 +31,65 @@ const CardSlider = ({ data }: CommonSection) => {
       {/* navigation dots */}
       <div className="pt-6 lg:container lg:pt-7 xl:pt-9 2xl:pt-10 3xl:pt-11 4xl:pt-14">
         <div className="relative w-full overflow-hidden">
-          <Swiper
-            touchEventsTarget="container"
-            grabCursor={true}
-            slidesPerView={'auto'}
-            loop={false}
-            spaceBetween={80}
-            speed={700}
-            breakpoints={{
-              768: {
-                spaceBetween: 80,
-              },
-              1280: {
-                spaceBetween: 70,
-              },
-              1440: {
-                spaceBetween: 80,
-              },
-              1600: {
-                spaceBetween: 94,
-              },
-              1920: {
-                spaceBetween: 104,
-              },
-            }}
-            className="!w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-6 xl:!px-7 3xl:!px-8 4xl:!px-10"
-          >
-            {data?.items?.map((item: any, index: number) => {
-              const isActive = index === activeItem;
-              // const year = new Date(item?.subtitle).getFullYear();
+          {mounted && (
+            <Swiper
+              touchEventsTarget="container"
+              grabCursor={true}
+              slidesPerView={'auto'}
+              loop={false}
+              spaceBetween={80}
+              speed={700}
+              breakpoints={{
+                768: {
+                  spaceBetween: 80,
+                },
+                1280: {
+                  spaceBetween: 70,
+                },
+                1440: {
+                  spaceBetween: 80,
+                },
+                1600: {
+                  spaceBetween: 94,
+                },
+                1920: {
+                  spaceBetween: 104,
+                },
+              }}
+              className="!w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-6 xl:!px-7 3xl:!px-8 4xl:!px-10"
+            >
+              {data?.items?.map((item: any, index: number) => {
+                const isActive = index === activeItem;
+                // const year = new Date(item?.subtitle).getFullYear();
 
-              return (
-                <SwiperSlide key={'dot_' + index} className="!w-fit">
-                  <div
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setActiveItem(index);
-                    }}
-                    className="flex w-fit cursor-pointer flex-col items-center gap-2 xl:gap-3 4xl:gap-4"
-                  >
+                return (
+                  <SwiperSlide key={'dot_' + index} className="!w-fit">
                     <div
-                      className={`${isActive ? 'bg-white' : 'bg-transparent'} size-9 rounded-full p-[6px] transition-all duration-200 xl:size-10 4xl:size-11`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveItem(index);
+                      }}
+                      className="flex w-fit cursor-pointer flex-col items-center gap-2 xl:gap-3 4xl:gap-4"
                     >
                       <div
-                        className={`${isActive ? 'bg-primary-600' : 'bg-[#D4D4D8]'} size-full rounded-full transition-all duration-200`}
-                      ></div>
-                    </div>
+                        className={`${isActive ? 'bg-white' : 'bg-transparent'} size-9 rounded-full p-[6px] transition-all duration-200 xl:size-10 4xl:size-11`}
+                      >
+                        <div
+                          className={`${isActive ? 'bg-primary-600' : 'bg-[#D4D4D8]'} size-full rounded-full transition-all duration-200`}
+                        ></div>
+                      </div>
 
-                    <div
-                      className={`${isActive ? 'text-primary-600' : 'text-[#6e6e6e]'} text-2xl font-semibold transition-all duration-200 xl:text-[28px] xl:!leading-[1.5] 4xl:text-[32px]`}
-                    >
-                      {item?.subtitle}
+                      <div
+                        className={`${isActive ? 'text-primary-600' : 'text-[#6e6e6e]'} text-2xl font-semibold transition-all duration-200 xl:text-[28px] xl:!leading-[1.5] 4xl:text-[32px]`}
+                      >
+                        {item?.subtitle}
+                      </div>
                     </div>
-                  </div>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          )}
 
           <div className="absolute left-0 top-0 h-[6px] w-full translate-y-[calc(18px-3px)] bg-[#D4D4D8] xl:translate-y-[calc(20px-4px)] 4xl:translate-y-[calc(22px-4px)]"></div>
         </div>
@@ -105,7 +109,7 @@ const CardSlider = ({ data }: CommonSection) => {
           <div
             className="section-content my-4 text-justify lg:my-6 xl:my-7 3xl:my-8 4xl:my-10"
             dangerouslySetInnerHTML={{
-              __html: item?.blurb as string,
+              __html: mounted ? (item?.blurb as string) : '',
             }}
           ></div>
 

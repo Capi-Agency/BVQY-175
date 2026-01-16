@@ -13,11 +13,13 @@ import Link from 'next/link';
 import { cn } from '@/src/lib/utils';
 import { useTranslations } from 'next-intl';
 import useSwiperPagination from '@/src/hooks/useSwiperPagination';
+import { useMounted } from '@/src/hooks/use-mounted';
 
 export default function InfoWithLeftImageTopTitle({
   data,
   dataDetail,
 }: CommonSection) {
+  const mounted = useMounted();
   const t = useTranslations('Common');
 
   const imageRef = useRef<HTMLDivElement | null>(null);
@@ -60,7 +62,7 @@ export default function InfoWithLeftImageTopTitle({
           <h1
             className="section-title mt-1"
             dangerouslySetInnerHTML={{
-              __html: data?.title,
+              __html: mounted ? data?.title : '',
             }}
           />
         </div>
@@ -78,43 +80,45 @@ export default function InfoWithLeftImageTopTitle({
                     }}
                   >
                     <div ref={imageRef} className="relative aspect-[4/3]">
-                      <Swiper
-                        touchEventsTarget="container"
-                        grabCursor
-                        slidesPerView={1}
-                        loop
-                        speed={700}
-                        effect="fade"
-                        autoplay={{
-                          delay: 5000,
-                          disableOnInteraction: false,
-                        }}
-                        modules={[Pagination, EffectFade, Autoplay]}
-                        pagination={paginationConfig}
-                        className="!h-full !w-full"
-                      >
-                        {images?.map((item: any) => (
-                          <SwiperSlide
-                            key={item?.directus_files_id || item?.id}
-                          >
-                            <Link
-                              href={getAssetUrlById(
-                                item?.directus_files_id || item?.id,
-                              )}
-                              data-fancybox="gallery"
-                              className="relative block size-full"
+                      {mounted && (
+                        <Swiper
+                          touchEventsTarget="container"
+                          grabCursor
+                          slidesPerView={1}
+                          loop
+                          speed={700}
+                          effect="fade"
+                          autoplay={{
+                            delay: 5000,
+                            disableOnInteraction: false,
+                          }}
+                          modules={[Pagination, EffectFade, Autoplay]}
+                          pagination={paginationConfig}
+                          className="!h-full !w-full"
+                        >
+                          {images?.map((item: any) => (
+                            <SwiperSlide
+                              key={item?.directus_files_id || item?.id}
                             >
-                              <NextImg
-                                src={getAssetUrlById(
+                              <Link
+                                href={getAssetUrlById(
                                   item?.directus_files_id || item?.id,
                                 )}
-                                alt="image"
-                                objectFit="cover"
-                              />
-                            </Link>
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
+                                data-fancybox="gallery"
+                                className="relative block size-full"
+                              >
+                                <NextImg
+                                  src={getAssetUrlById(
+                                    item?.directus_files_id || item?.id,
+                                  )}
+                                  alt="image"
+                                  objectFit="cover"
+                                />
+                              </Link>
+                            </SwiperSlide>
+                          ))}
+                        </Swiper>
+                      )}
                     </div>
                   </Fancybox>
 
@@ -145,7 +149,7 @@ export default function InfoWithLeftImageTopTitle({
                   !expanded && isOverflow && 'overflow-hidden',
                 )}
                 dangerouslySetInnerHTML={{
-                  __html: description,
+                  __html: mounted ? description : '',
                 }}
               />
 
@@ -169,7 +173,7 @@ export default function InfoWithLeftImageTopTitle({
           <div
             className="relative space-y-3 text-justify text-sm font-normal text-[#09090B] xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6"
             dangerouslySetInnerHTML={{
-              __html: description,
+              __html: mounted ? description : '',
             }}
           />
         )}

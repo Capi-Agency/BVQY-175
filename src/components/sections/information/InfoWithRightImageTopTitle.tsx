@@ -11,11 +11,13 @@ import Fancybox from '../../common/Fancybox';
 import Link from 'next/link';
 import { cn } from '@/src/lib/utils';
 import useSwiperPagination from '@/src/hooks/useSwiperPagination';
+import { useMounted } from '@/src/hooks/use-mounted';
 
 export default function InfoWithRightImageTopTitle({
   data,
   dataDetail,
 }: CommonSection) {
+  const mounted = useMounted();
   const hasContent = !!dataDetail?.activities;
 
   const { paginationClass, paginationConfig } = useSwiperPagination();
@@ -31,7 +33,7 @@ export default function InfoWithRightImageTopTitle({
           <h1
             className="section-title mt-1"
             dangerouslySetInnerHTML={{
-              __html: data?.title,
+              __html: mounted ? data?.title : '',
             }}
           ></h1>
         </div>
@@ -52,38 +54,40 @@ export default function InfoWithRightImageTopTitle({
                     }}
                   >
                     <div className="relative aspect-[4/3]">
-                      <Swiper
-                        touchEventsTarget="container"
-                        grabCursor={true}
-                        slidesPerView={1}
-                        loop={true}
-                        spaceBetween={0}
-                        speed={700}
-                        modules={[Pagination, EffectFade, Autoplay]}
-                        effect="fade"
-                        autoplay={{
-                          delay: 5000,
-                          disableOnInteraction: false,
-                        }}
-                        pagination={paginationConfig}
-                        className="!h-full !w-full"
-                      >
-                        {dataDetail?.activities_images?.map((item: any) => (
-                          <SwiperSlide key={item?.directus_files_id}>
-                            <Link
-                              href={getAssetUrlById(item?.directus_files_id)}
-                              data-fancybox="gallery"
-                              className="relative block size-full"
-                            >
-                              <NextImg
-                                src={getAssetUrlById(item?.directus_files_id)}
-                                alt="image"
-                                objectFit="cover"
-                              />
-                            </Link>
-                          </SwiperSlide>
-                        ))}
-                      </Swiper>
+                      {mounted && (
+                        <Swiper
+                          touchEventsTarget="container"
+                          grabCursor={true}
+                          slidesPerView={1}
+                          loop={true}
+                          spaceBetween={0}
+                          speed={700}
+                          modules={[Pagination, EffectFade, Autoplay]}
+                          effect="fade"
+                          autoplay={{
+                            delay: 5000,
+                            disableOnInteraction: false,
+                          }}
+                          pagination={paginationConfig}
+                          className="!h-full !w-full"
+                        >
+                          {dataDetail?.activities_images?.map((item: any) => (
+                            <SwiperSlide key={item?.directus_files_id}>
+                              <Link
+                                href={getAssetUrlById(item?.directus_files_id)}
+                                data-fancybox="gallery"
+                                className="relative block size-full"
+                              >
+                                <NextImg
+                                  src={getAssetUrlById(item?.directus_files_id)}
+                                  alt="image"
+                                  objectFit="cover"
+                                />
+                              </Link>
+                            </SwiperSlide>
+                          ))}
+                        </Swiper>
+                      )}
                     </div>
                   </Fancybox>
                   <div className="relative mt-3 flex h-5 justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
@@ -107,7 +111,7 @@ export default function InfoWithRightImageTopTitle({
                   `content-wrapper relative space-y-3 text-justify text-sm font-normal text-[#09090B] transition-all duration-700 ease-in-out xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`,
                 )}
                 dangerouslySetInnerHTML={{
-                  __html: dataDetail?.activities,
+                  __html: mounted ? dataDetail?.activities : '',
                 }}
               ></div>
             </div>
@@ -118,7 +122,7 @@ export default function InfoWithRightImageTopTitle({
               `content-wrapper relative space-y-3 text-justify text-sm font-normal text-[#09090B] xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`,
             )}
             dangerouslySetInnerHTML={{
-              __html: dataDetail?.activities,
+              __html: mounted ? dataDetail?.activities : '',
             }}
           ></div>
         )}
