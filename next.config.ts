@@ -21,6 +21,7 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+    minimumCacheTTL: 60 * 60 * 24,
     dangerouslyAllowSVG: true,
   },
   env: {
