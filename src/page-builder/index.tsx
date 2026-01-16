@@ -203,6 +203,7 @@ const sectionMap: SectionMap = {
   'pdf-viewer': dynamic(() =>
     import('../components/sections/custom').then((m) => m.PDFViewer),
   ),
+
   'fancybox-viewer': dynamic(() =>
     import('../components/sections/custom').then((m) => m.FancyboxViewer),
   ),
@@ -242,6 +243,10 @@ const sectionMap: SectionMap = {
   'team-2-col': dynamic(() =>
     import('../components/sections/team').then((m) => m.Team2Col),
   ),
+
+  'custom-full-size': dynamic(() =>
+    import('../components/sections/custom').then((m) => m.ContentFullSize),
+  ),
 };
 
 type PageBuilderProps = {
@@ -262,18 +267,18 @@ const PageBuilder = ({ pageContent, pageDetail }: PageBuilderProps) => {
   return (
     <>
       <main className="padding-top-body">
-          {sections.map((section: CommonSection, index: number) => {
-            const SectionComp = sectionMap[section.type];
-            if (!SectionComp) return null;
+        {sections.map((section: CommonSection, index: number) => {
+          const SectionComp = sectionMap[section.type];
+          if (!SectionComp) return null;
 
-            return (
-              <SectionComp
-                key={'section_' + index}
-                data={section}
-                {...(pageDetail ? { dataDetail: pageDetail } : {})}
-              />
-            );
-          })}
+          return (
+            <SectionComp
+              key={'section_' + index}
+              data={section}
+              {...(pageDetail ? { dataDetail: pageDetail } : {})}
+            />
+          );
+        })}
       </main>
     </>
   );
