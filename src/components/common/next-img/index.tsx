@@ -27,8 +27,8 @@ const NextImg = ({
   height,
   objectFit = 'contain',
   loading = 'lazy',
-  quality = 90,
-  fetchPriority = 'auto',
+  quality = 80,
+  fetchPriority = 'low',
   ...props
 }: NextImgProps) => {
   const [fallback, setFallback] = useState('');

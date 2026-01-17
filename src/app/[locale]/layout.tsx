@@ -1,11 +1,9 @@
 import React, { Suspense } from 'react';
 import '../../styles/globals.css';
-import '../../styles/swiper-custom.css';
-import { ToastContainer } from 'react-toastify';
+
 import { ThemeProvider } from '../../providers/theme-provider';
 import { fnGetMetadata } from '../../services/metadata';
 import { MetadataProvider } from '../../providers/MetadataProvider';
-import 'react-toastify/dist/ReactToastify.css';
 import { GsapMatchMediaProvider } from '../../providers/GsapMatchMediaProvider';
 import { ScrollSmootherProvider } from '../../providers/ScrollSmootherProvider';
 import TheHeader from '../../components/common/the-header';
@@ -19,6 +17,7 @@ import { routing } from '@/src/i18n/routing';
 import { LoadingComp } from '@/src/components/sections/custom';
 import Loading from '../loading';
 import localFont from 'next/font/local';
+import LazyToastContainer from '../../components/common/lazy-toast-container';
 
 const plusJakartaSans = localFont({
   src: [
@@ -27,26 +26,26 @@ const plusJakartaSans = localFont({
       weight: '400',
       style: 'normal',
     },
-    {
-      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-Medium.woff2',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-SemiBold.woff2',
-      weight: '600',
-      style: 'normal',
-    },
+    // {
+    //   path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-Medium.woff2',
+    //   weight: '500',
+    //   style: 'normal',
+    // },
+    // {
+    //   path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-SemiBold.woff2',
+    //   weight: '600',
+    //   style: 'normal',
+    // },
     {
       path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-Bold.woff2',
       weight: '700',
       style: 'normal',
     },
-    {
-      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-ExtraBold.woff2',
-      weight: '800',
-      style: 'normal',
-    },
+    // {
+    //   path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-ExtraBold.woff2',
+    //   weight: '800',
+    //   style: 'normal',
+    // },
   ],
   display: 'swap',
   preload: true,
@@ -110,7 +109,9 @@ export default async function RootLayout({
           href="/assets/logo/apple-touch-icon-180x180.png"
         ></link>
 
-        <link rel="manifest" href="/manifest.webmanifest" />
+        <link rel="manifest" href="/manifest.webmanifest" fetchPriority="low" />
+        <link rel="dns-prefetch" href="//www.google.com" />
+        <link rel="preconnect" href="//www.google.com" crossOrigin="anonymous" />
         <meta
           name="msapplication-TileImage"
           content="/assets/logo/logo-icon-270x270.png"
@@ -121,7 +122,7 @@ export default async function RootLayout({
       </head>
 
       <body className="antialiased">
-        <ToastContainer
+        <LazyToastContainer
           position="top-right"
           autoClose={3000}
           hideProgressBar={true}

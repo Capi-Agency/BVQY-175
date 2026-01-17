@@ -12,8 +12,10 @@ import { getListNews } from '@/src/services/news';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { Link } from '@/src/i18n/navigation';
 import { useLocale } from 'next-intl';
+import { useMounted } from '@/src/hooks/use-mounted';
 
 const RelatedPosts = ({ data }: CommonSection) => {
+  const mounted = useMounted();
   const locale = useLocale()
   const params = useParams() || {};
   const category = (params?.cate as string) || '';
@@ -65,47 +67,49 @@ const RelatedPosts = ({ data }: CommonSection) => {
 
       <div className="lg:container">
         <div className="relative mt-6 md:mt-8 lg:mt-10 xl:mt-11 2xl:mt-12 3xl:mt-[52px] 4xl:mt-[60px]">
-          <Swiper
-            touchEventsTarget="container"
-            grabCursor={true}
-            slidesPerView={1.15}
-            loop={false}
-            spaceBetween={16}
-            speed={700}
-            breakpoints={{
-              768: {
-                slidesPerView: 2.4,
-              },
-              1024: {
-                slidesPerView: 3,
-                spaceBetween: 24,
-              },
-              1280: {
-                slidesPerView: 3,
-                spaceBetween: 28,
-              },
-              1440: {
-                slidesPerView: 3,
-                spaceBetween: 32,
-              },
-              1920: {
-                slidesPerView: 3,
-                spaceBetween: 40,
-              },
-            }}
-            className="w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-0"
-          >
-            {newsData?.length > 0 &&
-              newsData?.map((item: any, index: number) => (
-                <SwiperSlide key={'post_' + index}>
-                  <NewsCard
-                    item={item}
-                    url={data?.buttons?.[0]?.url ?? '/bai-viet'}
-                    cateUrl={category}
-                  />
-                </SwiperSlide>
-              ))}
-          </Swiper>
+          {mounted && (
+            <Swiper
+              touchEventsTarget="container"
+              grabCursor={true}
+              slidesPerView={1.15}
+              loop={false}
+              spaceBetween={16}
+              speed={700}
+              breakpoints={{
+                768: {
+                  slidesPerView: 2.4,
+                },
+                1024: {
+                  slidesPerView: 3,
+                  spaceBetween: 24,
+                },
+                1280: {
+                  slidesPerView: 3,
+                  spaceBetween: 28,
+                },
+                1440: {
+                  slidesPerView: 3,
+                  spaceBetween: 32,
+                },
+                1920: {
+                  slidesPerView: 3,
+                  spaceBetween: 40,
+                },
+              }}
+              className="w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-0"
+            >
+              {newsData?.length > 0 &&
+                newsData?.map((item: any, index: number) => (
+                  <SwiperSlide key={'post_' + index}>
+                    <NewsCard
+                      item={item}
+                      url={data?.buttons?.[0]?.url ?? '/bai-viet'}
+                      cateUrl={category}
+                    />
+                  </SwiperSlide>
+                ))}
+            </Swiper>
+          )}
         </div>
       </div>
     </section>
