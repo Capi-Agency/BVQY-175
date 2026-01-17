@@ -103,7 +103,7 @@ export default function DoctorCard({
       <>
         <div
           className={cn(
-            'relative w-full max-w-[240px] overflow-hidden',
+            'relative w-full overflow-hidden',
             isRounded && 'rounded-[8px]',
             isHover &&
             'border-[2px] border-transparent transition-colors duration-200 group-hover:!border-primary-600 3xl:border-[3px]',

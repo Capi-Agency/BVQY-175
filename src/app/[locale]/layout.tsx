@@ -9,7 +9,6 @@ import { ScrollSmootherProvider } from '../../providers/ScrollSmootherProvider';
 import TheHeader from '../../components/common/the-header';
 import TheFooter from '../../components/common/the-footer';
 import BackToTop from '../../components/common/back-to-top';
-import LazyReCaptchaProvider from '@/src/components/common/lazy-recaptcha-provider';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -18,6 +17,7 @@ import { LoadingComp } from '@/src/components/sections/custom';
 import Loading from '../loading';
 import localFont from 'next/font/local';
 import LazyToastContainer from '../../components/common/lazy-toast-container';
+import ReCaptchatProvider from '@/src/providers/GoogleRecaptchaProvider';
 
 const plusJakartaSans = localFont({
   src: [
@@ -134,7 +134,7 @@ export default async function RootLayout({
           closeButton={false}
           className={'z-[99999] text-sm'}
         />
-        <LazyReCaptchaProvider>
+        <ReCaptchatProvider>
           <MetadataProvider value={metadata}>
             <NextIntlClientProvider messages={messages}>
               <ThemeProvider
@@ -156,7 +156,7 @@ export default async function RootLayout({
               </ThemeProvider>
             </NextIntlClientProvider>
           </MetadataProvider>
-        </LazyReCaptchaProvider>
+        </ReCaptchatProvider>
       </body>
     </html>
   );
