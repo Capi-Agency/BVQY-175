@@ -26,26 +26,26 @@ const plusJakartaSans = localFont({
       weight: '400',
       style: 'normal',
     },
-    // {
-    //   path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-Medium.woff2',
-    //   weight: '500',
-    //   style: 'normal',
-    // },
-    // {
-    //   path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-SemiBold.woff2',
-    //   weight: '600',
-    //   style: 'normal',
-    // },
+    {
+      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-Medium.woff2',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-SemiBold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
     {
       path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-Bold.woff2',
       weight: '700',
       style: 'normal',
     },
-    // {
-    //   path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-ExtraBold.woff2',
-    //   weight: '800',
-    //   style: 'normal',
-    // },
+    {
+      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-ExtraBold.woff2',
+      weight: '800',
+      style: 'normal',
+    },
   ],
   display: 'swap',
   preload: true,
