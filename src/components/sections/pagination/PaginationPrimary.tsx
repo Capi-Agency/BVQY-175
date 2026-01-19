@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import { getPaginatedPages } from '@/src/utils/pagination';
-import { useMounted } from '@/src/hooks/use-mounted';
 
 type PaginationPrimaryProps = {
   currentPage: number;
@@ -20,7 +19,6 @@ export default function PaginationPrimary({
   idSection,
   pageName = "page"
 }: PaginationPrimaryProps) {
-  const mounted = useMounted();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { conditions } = useGsapMatchMedia();
@@ -60,7 +58,7 @@ export default function PaginationPrimary({
         </div>
       </button>
 
-      {pagination && mounted &&
+      {pagination &&
         pagination?.map((item: any, index: any) => (
           <button
             onClick={
