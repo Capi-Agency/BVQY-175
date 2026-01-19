@@ -15,11 +15,9 @@ export const fnGetPageBySlug = async (slug: string) => {
     return res?.raw_content ?? null;
   } catch (error: any) {
     console.log(
-      'Error in fnGetPageBySlug: ',
+      'Error getting page content: ',
       error?.errors?.[0]?.message || error?.message || error,
     );
-    console.log('slug:', slug);
-    console.log('============');
     return null;
   }
 };
@@ -55,9 +53,9 @@ export const fnGetAllPageSlug = async () => {
         fields: ['slug', 'language'],
         filter: {
           slug: {
-            _nistarts_with: 'chi-tiet',
-          },
-        },
+            _nistarts_with: 'chi-tiet'
+          }
+        }
       }),
     );
 
