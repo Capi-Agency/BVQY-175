@@ -24,7 +24,9 @@
     "all": "Tất cả",
     "search-results": "Kết quả tìm kiếm",
     "send-now": "Gửi ngay",
-    "click-image": "Nhấn vào hình để xem rõ hơn"
+    "click-image": "Nhấn vào hình để xem rõ hơn",
+    "documents": "Tài liệu đính kèm",
+    "download": "Tải tài liệu"
   },
   "Href": {
     "achievements": "/thanh-tich",

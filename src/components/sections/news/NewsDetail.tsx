@@ -1,15 +1,17 @@
 'use client';
 import NextImg from '@/src/components/common/next-img';
-import { getAssetUrlById } from '@/src/utils/image';
-import { formatDate } from '@/src/utils/validate';
 import { CommonSection } from '@/src/types/pageBuilder';
-import Fancybox from '../../common/Fancybox';
-import { useEffect } from 'react';
+import { getAssetUrlById } from '@/src/utils/image';
+import { formatDate, formatFileSize } from '@/src/utils/validate';
+import { Download } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
+import { useEffect } from 'react';
+import Fancybox from '../../common/Fancybox';
 
 export default function NewsDetail({ data, dataDetail }: CommonSection) {
   const t = useTranslations('Format');
+  const tCommon = useTranslations('Common');
   const transContent = dataDetail?.translations?.[0];
 
   useEffect(() => {
@@ -33,6 +35,8 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
       a.setAttribute('rel', 'noopener');
     });
   }, [dataDetail]);
+
+  console.log(dataDetail);
 
   return (
     <section className="container my-10 lg:my-12 2xl:my-[72px] 3xl:my-20">
@@ -95,6 +99,58 @@ export default function NewsDetail({ data, dataDetail }: CommonSection) {
               }}
             ></div>
           </Fancybox>
+
+          {/* Documents */}
+          {dataDetail?.documents && dataDetail?.documents?.length > 0 && (
+            <div className="mt-8 space-y-4">
+              <h3 className="text-lg font-bold text-primary-600 lg:text-xl">
+                {tCommon('documents')}
+              </h3>
+              <div className="sm:grid-cols-2 grid grid-cols-1 gap-4">
+                {dataDetail?.documents?.map((item: any, index: number) => {
+                  const fileId =
+                    item?.directus_files_id?.id || item?.directus_files_id;
+                  const title =
+                    item?.directus_files_id?.title ||
+                    item?.directus_files_id?.filename_download ||
+                    `${tCommon('documents')} ${index + 1}`;
+                  const fileSize = item?.directus_files_id?.filesize;
+
+                  return (
+                    <Link
+                      key={index}
+                      href={getAssetUrlById(fileId) + '?download=true'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-4 rounded-xl border border-gray-100 bg-white p-4 shadow-sm transition-all hover:border-primary-200 hover:shadow-md"
+                    >
+                      <div className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary-50 transition-colors group-hover:bg-primary-100">
+                        <Download className="size-6 text-primary-600" />
+                      </div>
+                      <div className="flex flex-col overflow-hidden">
+                        <span className="truncate text-sm font-semibold text-gray-900 lg:text-base">
+                          {title}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-medium text-primary-600">
+                            {tCommon('download')}
+                          </span>
+                          {fileSize && (
+                            <>
+                              <span className="size-1 rounded-full bg-gray-300"></span>
+                              <span className="text-xs font-medium text-gray-500">
+                                {formatFileSize(fileSize)}
+                              </span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {dataDetail?.files && dataDetail?.files?.length > 0 && (
             <Fancybox

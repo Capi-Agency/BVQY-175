@@ -200,6 +200,7 @@ export const getNewsDetail = async ({
           'categories.category.translations.*',
           'translations.*',
           'files.*',
+          'documents.*.*',
         ],
       }),
     );

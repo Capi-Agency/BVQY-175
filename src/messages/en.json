@@ -24,7 +24,9 @@
     "all": "All",
     "search-results": "Search results",
     "send-now": "Send now",
-    "click-image": "Click on the image to see it more clearly"
+    "click-image": "Click on the image to see it more clearly",
+    "documents": "Attached documents",
+    "download": "Download document"
   },
   "Href": {
     "achievements": "/achievements",
