@@ -7,10 +7,8 @@ import { Navigation, Pagination } from 'swiper/modules';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import useSwiperPagination from '@/src/hooks/useSwiperPagination';
-import { useMounted } from '@/src/hooks/use-mounted';
 
 export default function GalleryAlternate({ data }: CommonSection) {
-  const mounted = useMounted();
   const { paginationClass, paginationConfig } = useSwiperPagination();
 
   return (
@@ -18,7 +16,7 @@ export default function GalleryAlternate({ data }: CommonSection) {
       <div
         className="section-title container uppercase text-primary-600"
         dangerouslySetInnerHTML={{
-          __html: mounted ? data?.title : '',
+          __html: data?.title,
         }}
       ></div>
 
@@ -27,7 +25,7 @@ export default function GalleryAlternate({ data }: CommonSection) {
           <div
             className="px-6 text-justify text-sm font-normal text-[#3F3F46] md:px-[calc((100vw-688px)/2)] lg:px-0 xl:text-base xl:!leading-[1.5] 3xl:text-lg 4xl:text-xl 4xl:!leading-[1.6]"
             dangerouslySetInnerHTML={{
-              __html: mounted ? data?.blurb : '',
+              __html: data?.blurb,
             }}
           ></div>
 
@@ -35,44 +33,42 @@ export default function GalleryAlternate({ data }: CommonSection) {
             {paginationClass && paginationConfig && (
               <div className="relative w-full lg:aspect-[3/4] lg:w-[90%]">
                 <div className="relative size-full overflow-hidden lg:rounded-[16px] 2xl:rounded-[20px] 4xl:rounded-[24px]">
-                  {mounted && (
-                    <Swiper
-                      touchEventsTarget="container"
-                      grabCursor={true}
-                      slidesPerView={1.1}
-                      loop={false}
-                      spaceBetween={16}
-                      speed={700}
-                      modules={[Navigation, Pagination]}
-                      navigation={{
-                        nextEl: '.gallery-alternate-btn-next',
-                        prevEl: '.gallery-alternate-btn-prev',
-                      }}
-                      pagination={paginationConfig}
-                      breakpoints={{
-                        768: {
-                          slidesPerView: 2.2,
-                        },
-                        1024: {
-                          slidesPerView: 1,
-                          spaceBetween: 0,
-                        },
-                      }}
-                      className="!px-6 md:!px-[calc((100vw-688px)/2)] lg:!h-full lg:!px-0"
-                    >
-                      {data?.cover?.map((item: any, index: number) => (
-                        <SwiperSlide key={index} className="lg:!h-full">
-                          <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[6px] lg:aspect-auto lg:h-full lg:rounded-none">
-                            <NextImg
-                              src={getAssetUrlById(item?.id)}
-                              objectFit="cover"
-                              alt="image"
-                            />
-                          </div>
-                        </SwiperSlide>
-                      ))}
-                    </Swiper>
-                  )}
+                  <Swiper
+                    touchEventsTarget="container"
+                    grabCursor={true}
+                    slidesPerView={1.1}
+                    loop={false}
+                    spaceBetween={16}
+                    speed={700}
+                    modules={[Navigation, Pagination]}
+                    navigation={{
+                      nextEl: '.gallery-alternate-btn-next',
+                      prevEl: '.gallery-alternate-btn-prev',
+                    }}
+                    pagination={paginationConfig}
+                    breakpoints={{
+                      768: {
+                        slidesPerView: 2.2,
+                      },
+                      1024: {
+                        slidesPerView: 1,
+                        spaceBetween: 0,
+                      },
+                    }}
+                    className="!px-6 md:!px-[calc((100vw-688px)/2)] lg:!h-full lg:!px-0"
+                  >
+                    {data?.cover?.map((item: any, index: number) => (
+                      <SwiperSlide key={index} className="lg:!h-full">
+                        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[6px] lg:aspect-auto lg:h-full lg:rounded-none">
+                          <NextImg
+                            src={getAssetUrlById(item?.id)}
+                            objectFit="cover"
+                            alt="image"
+                          />
+                        </div>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
                 </div>
 
                 <button className="btn-slider gallery-alternate-btn-prev absolute left-0 top-1/2 z-[1] hidden -translate-x-1/2 -translate-y-1/2 lg:flex">

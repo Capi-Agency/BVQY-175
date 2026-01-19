@@ -8,24 +8,21 @@ import { getAssetUrlById } from '@/src/utils/image';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import { useTranslations } from 'next-intl';
-import { useMounted } from '@/src/hooks/use-mounted';
 
 const TeamGrid = ({ data }: CommonSection) => {
-  const mounted = useMounted();
-
   return (
     <section>
       <div className="py-10 md:container md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
         {data?.title && (
           <h2
             className="section-title px-6 uppercase text-primary-600 md:px-0"
-            dangerouslySetInnerHTML={{ __html: mounted ? data?.title : '' }}
+            dangerouslySetInnerHTML={{ __html: data?.title }}
           />
         )}
 
         <div
           className="section-content px-6 pt-4 text-justify md:px-0 lg:pt-5 2xl:pt-6"
-          dangerouslySetInnerHTML={{ __html: mounted ? data?.blurb : '' }}
+          dangerouslySetInnerHTML={{ __html: data?.blurb }}
         />
 
         <div className="hidden space-y-8 pt-10 md:block md:pt-6 lg:space-y-10 lg:pt-8 xl:space-y-12 xl:pt-10 3xl:space-y-14 3xl:pt-12">
@@ -41,29 +38,27 @@ const TeamGrid = ({ data }: CommonSection) => {
         </div>
 
         <div className="relative w-full pt-10 md:hidden">
-          {mounted && (
-            <Swiper
-              touchEventsTarget="container"
-              grabCursor
-              slidesPerView={1.1}
-              spaceBetween={16}
-              speed={500}
-              className="!w-full !px-6"
-            >
-              {data?.items.map((item: any, index: number) => (
-                <SwiperSlide key={'card_' + index}>
-                  <div id={item?.buttons?.[0]?.url}>
-                    <LeaderCard
-                      key={'card_' + index}
-                      item={item}
-                      directionLTR={index % 2 === 0}
-                      data={data}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          )}
+          <Swiper
+            touchEventsTarget="container"
+            grabCursor
+            slidesPerView={1.1}
+            spaceBetween={16}
+            speed={500}
+            className="!w-full !px-6"
+          >
+            {data?.items.map((item: any, index: number) => (
+              <SwiperSlide key={'card_' + index}>
+                <div id={item?.buttons?.[0]?.url}>
+                  <LeaderCard
+                    key={'card_' + index}
+                    item={item}
+                    directionLTR={index % 2 === 0}
+                    data={data}
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </div>
     </section>
@@ -82,7 +77,6 @@ const LeaderCard = ({
   data: any;
 }) => {
   const t = useTranslations('Doctor');
-  const mounted = useMounted();
   const [expanded, setExpanded] = useState(false);
   const { conditions } = useGsapMatchMedia();
 
@@ -164,7 +158,7 @@ const LeaderCard = ({
               expanded ? '!text-primary-200' : '!text-gray-700',
             )}
             dangerouslySetInnerHTML={{
-              __html: mounted ? item?.blurb : '',
+              __html: item?.blurb,
             }}
           ></div>
 
@@ -223,7 +217,7 @@ const LeaderCard = ({
                     <div
                       className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
                       dangerouslySetInnerHTML={{
-                        __html: mounted ? item?.content?.contents?.[0] : '',
+                        __html: item?.content?.contents?.[0],
                       }}
                     ></div>
                   </div>
@@ -232,7 +226,7 @@ const LeaderCard = ({
                 <div
                   className="text-sm font-normal text-gray-700 md:hidden lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
                   dangerouslySetInnerHTML={{
-                    __html: mounted ? item?.content?.contents?.[0] : '',
+                    __html: item?.content?.contents?.[0],
                   }}
                 ></div>
               </div>
@@ -256,48 +250,46 @@ const LeaderCard = ({
                 </div>
 
                 <div className="relative w-full overflow-hidden">
-                  {mounted && (
-                    <Swiper
-                      touchEventsTarget="container"
-                      grabCursor={true}
-                      slidesPerView={1.2}
-                      loop={false}
-                      spaceBetween={16}
-                      speed={700}
-                      breakpoints={{
-                        768: {
-                          slidesPerView: 2.1,
-                        },
-                        1024: {
-                          slidesPerView: 2.5,
-                          spaceBetween: 20,
-                        },
-                        1280: {
-                          slidesPerView: 3,
-                          spaceBetween: 20,
-                        },
-                        1600: {
-                          slidesPerView: 3,
-                          spaceBetween: 24,
-                        },
-                      }}
-                      className="!w-full !flex-1"
-                    >
-                      {item?.cover
-                        ?.slice(1)
-                        .map((itemCover: any, indexCover: number) => (
-                          <SwiperSlide key={indexCover}>
-                            <div className="relative aspect-[4/3] overflow-hidden rounded-[6px]">
-                              <NextImg
-                                src={getAssetUrlById(itemCover?.id)}
-                                alt="image"
-                                objectFit="cover"
-                              />
-                            </div>
-                          </SwiperSlide>
-                        ))}
-                    </Swiper>
-                  )}
+                  <Swiper
+                    touchEventsTarget="container"
+                    grabCursor={true}
+                    slidesPerView={1.2}
+                    loop={false}
+                    spaceBetween={16}
+                    speed={700}
+                    breakpoints={{
+                      768: {
+                        slidesPerView: 2.1,
+                      },
+                      1024: {
+                        slidesPerView: 2.5,
+                        spaceBetween: 20,
+                      },
+                      1280: {
+                        slidesPerView: 3,
+                        spaceBetween: 20,
+                      },
+                      1600: {
+                        slidesPerView: 3,
+                        spaceBetween: 24,
+                      },
+                    }}
+                    className="!w-full !flex-1"
+                  >
+                    {item?.cover
+                      ?.slice(1)
+                      .map((itemCover: any, indexCover: number) => (
+                        <SwiperSlide key={indexCover}>
+                          <div className="relative aspect-[4/3] overflow-hidden rounded-[6px]">
+                            <NextImg
+                              src={getAssetUrlById(itemCover?.id)}
+                              alt="image"
+                              objectFit="cover"
+                            />
+                          </div>
+                        </SwiperSlide>
+                      ))}
+                  </Swiper>
                 </div>
               </div>
             )}
@@ -319,7 +311,7 @@ const LeaderCard = ({
                     <div
                       className="hidden text-sm font-normal text-gray-700 md:block lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
                       dangerouslySetInnerHTML={{
-                        __html: mounted ? item?.content?.contents?.[1] : '',
+                        __html: item?.content?.contents?.[1],
                       }}
                     ></div>
                   </div>
@@ -328,7 +320,7 @@ const LeaderCard = ({
                 <div
                   className="text-sm font-normal text-gray-700 md:hidden lg:text-base 4xl:text-lg [&>ul]:list-inside [&>ul]:list-disc"
                   dangerouslySetInnerHTML={{
-                    __html: mounted ? item?.content?.contents?.[1] : '',
+                    __html: item?.content?.contents?.[1],
                   }}
                 ></div>
               </div>

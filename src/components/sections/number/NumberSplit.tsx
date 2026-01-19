@@ -14,10 +14,8 @@ import NextImg from '../../common/next-img';
 import Fancybox from '../../common/Fancybox';
 import { SETTINGS } from '@/src/utils/const';
 import useSwiperPagination from '@/src/hooks/useSwiperPagination';
-import { useMounted } from '@/src/hooks/use-mounted';
 
 export default function NumberSplit({ data, dataDetail }: CommonSection) {
-  const mounted = useMounted();
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const { paginationClass, paginationConfig } = useSwiperPagination();
 
@@ -31,10 +29,9 @@ export default function NumberSplit({ data, dataDetail }: CommonSection) {
       <div className="container">
         <div className="grid grid-cols-1 gap-4 bg-white p-4 md:p-5 lg:grid-cols-2 lg:gap-0 lg:p-6 xl:p-7 2xl:p-8 3xl:p-9 4xl:p-10">
           <div className="relative aspect-[4/3] overflow-hidden">
-            {mounted &&
-              paginationClass &&
-              paginationConfig &&
-              dataDetail?.achievements_images?.length > 0 ? (
+            {paginationClass &&
+            paginationConfig &&
+            dataDetail?.achievements_images?.length > 0 ? (
               <Fancybox
                 options={{
                   Carousel: {
@@ -93,11 +90,11 @@ export default function NumberSplit({ data, dataDetail }: CommonSection) {
             <div
               className="section-title font-bold text-primary-600 lg:px-10 xl:px-12 2xl:px-[60px] 3xl:px-[70px] 4xl:px-[80px]"
               dangerouslySetInnerHTML={{
-                __html: mounted ? data?.title : '',
+                __html: data?.title,
               }}
             ></div>
 
-            {mounted && paginationClass && paginationConfig && (
+            {paginationClass && paginationConfig && (
               <>
                 <div>
                   <Swiper
@@ -118,13 +115,13 @@ export default function NumberSplit({ data, dataDetail }: CommonSection) {
                             <div
                               className="text-xl font-semibold !leading-[1.3] text-[#09090B] lg:text-2xl xl:text-[28px] 3xl:text-[32px]"
                               dangerouslySetInnerHTML={{
-                                __html: mounted ? item?.text : '',
+                                __html: item?.text,
                               }}
                             ></div>
                             <div
                               className="text-base font-normal text-[#71717A] lg:text-lg"
                               dangerouslySetInnerHTML={{
-                                __html: mounted ? item?.timestamp : '',
+                                __html: item?.timestamp,
                               }}
                             ></div>
                           </div>

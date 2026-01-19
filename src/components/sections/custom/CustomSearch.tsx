@@ -15,10 +15,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { cn } from '@/src/lib/utils';
 import { debounce } from 'lodash';
 import { useTranslations } from 'next-intl';
-import { useMounted } from '@/src/hooks/use-mounted';
 
 export default function CustomSearch({ data }: CommonSection) {
-  const mounted = useMounted();
   const inputRef = useRef<HTMLInputElement>(null);
   const t = useTranslations();
   const searchParams = useSearchParams();
@@ -117,52 +115,50 @@ export default function CustomSearch({ data }: CommonSection) {
           </div>
 
           <div className="relative w-full lg:hidden">
-            {mounted && (
-              <Swiper
-                touchEventsTarget="container"
-                grabCursor={true}
-                slidesPerView="auto"
-                loop={false}
-                spaceBetween={20}
-                breakpoints={{
-                  768: {
-                    spaceBetween: 24,
-                  },
-                }}
-                speed={600}
-                className="!px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-0"
-              >
-                <SwiperSlide key={99} className="!w-fit">
+            <Swiper
+              touchEventsTarget="container"
+              grabCursor={true}
+              slidesPerView="auto"
+              loop={false}
+              spaceBetween={20}
+              breakpoints={{
+                768: {
+                  spaceBetween: 24,
+                },
+              }}
+              speed={600}
+              className="!px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-0"
+            >
+              <SwiperSlide key={99} className="!w-fit">
+                <div
+                  onClick={() => {
+                    debouncedUpdateParam('subnet', '');
+                  }}
+                  className={cn(
+                    'block cursor-pointer py-2.5 text-base font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base',
+                    !subnet && 'text-primary-600',
+                  )}
+                >
+                  {t('Common.all')}
+                </div>
+              </SwiperSlide>
+
+              {data?.buttons?.map((button: any, index: number) => (
+                <SwiperSlide key={index} className="!w-fit">
                   <div
                     onClick={() => {
-                      debouncedUpdateParam('subnet', '');
+                      debouncedUpdateParam('subnet', button?.icon?.collection);
                     }}
                     className={cn(
                       'block cursor-pointer py-2.5 text-base font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base',
-                      !subnet && 'text-primary-600',
+                      subnet === button?.icon?.collection && 'text-primary-600',
                     )}
                   >
-                    {t('Common.all')}
+                    {button?.title}
                   </div>
                 </SwiperSlide>
-
-                {data?.buttons?.map((button: any, index: number) => (
-                  <SwiperSlide key={index} className="!w-fit">
-                    <div
-                      onClick={() => {
-                        debouncedUpdateParam('subnet', button?.icon?.collection);
-                      }}
-                      className={cn(
-                        'block cursor-pointer py-2.5 text-base font-medium text-gray-700 transition-all duration-200 hover:text-primary-600 lg:py-3 lg:text-base',
-                        subnet === button?.icon?.collection && 'text-primary-600',
-                      )}
-                    >
-                      {button?.title}
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            )}
+              ))}
+            </Swiper>
             <div className="px-6 md:px-[calc((100vw-688px)/2)]">
               <div className="h-[1px] w-full bg-gray-200"></div>
             </div>
@@ -241,6 +237,6 @@ export default function CustomSearch({ data }: CommonSection) {
           </div>
         </div>
       </div>
-    </section >
+    </section>
   );
 }
