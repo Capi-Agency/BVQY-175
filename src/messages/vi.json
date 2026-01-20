@@ -36,6 +36,7 @@
   "Contact": {
     "title": "Liên hệ",
     "hotline": "Hotline: {hotline}",
+    "hot-line-label": "Hotline",
     "book-app": "Đặt khám trên App",
     "book-via-zalo": "Đặt khám qua Zalo",
     "book-via-app": "Đặt lịch qua App",

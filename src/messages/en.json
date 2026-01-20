@@ -36,6 +36,7 @@
   "Contact": {
     "title": "Contact",
     "hotline": "Hotline: {hotline}",
+    "hot-line-label": "Hotline",
     "book-app": "Book an appointment via App",
     "book-via-zalo": "Book via Zalo",
     "book-via-app": "Book via App",

@@ -21,7 +21,7 @@ export default function CtaBackgroundImage({ data }: CommonSection) {
   const dataContact = useMemo(
     () => [
       {
-        title: t('phone'),
+        title: t('hot-line-label'),
         icon: '',
         url: contact_information?.hot_line_url || '/',
         content: contact_information?.hot_line,
