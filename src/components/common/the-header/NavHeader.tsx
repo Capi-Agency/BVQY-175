@@ -71,7 +71,7 @@ export default function NavHeader() {
                       ref={(el: any) => {
                         menuItemsRef.current[index] = el;
                       }}
-                      className="relative flex items-center gap-[2px] whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white cursor-default 3xl:gap-1 3xl:text-base"
+                      className="relative flex cursor-default items-center gap-[2px] whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:gap-1 3xl:text-base"
                     >
                       {item?.title}
                       <div className="relative size-5 origin-center duration-200 group-data-[state=open]:-rotate-180 3xl:size-6">
@@ -134,67 +134,125 @@ export default function NavHeader() {
                           )}
 
                           {/* Cấp 2 */}
-                          {item_second?.sub_items?.length > 0 && (
-                            <div
-                              className="pointer-events-none absolute left-[calc(100%+8px)] translate-y-[-8px] flex w-fit scale-95 grid-cols-3 gap-4 rounded-[6px] bg-white p-3 opacity-0 shadow-lg transition-all duration-200 after:absolute after:-left-2 after:top-0 after:h-full after:w-2 group-hover:pointer-events-auto group-hover:scale-100 group-hover:opacity-100 3xl:gap-6 3xl:p-4"
-                              style={{
-                                boxShadow:
-                                  '0 20px 25px -4px rgba(18, 26, 43, 0.10), 0 8px 8px -6px rgba(18, 26, 43, 0.04)',
-                                top: `calc(100%/${item?.sub_items?.length}*${item_second_index})`,
-                              }}
-                            >
-                              {item_second?.sub_items.map(
-                                (item_third: any, item_third_index: number) => (
-                                  <div
-                                    key={item_third_index}
-                                    className={`w-[200px] 3xl:w-[230px]`}
-                                  >
-                                    {item_third?.url ? (
+                          {item_second?.sub_items?.length > 0 &&
+                            (item_second?.type === 'mega_menu' ? (
+                              <div
+                                className="pointer-events-none absolute left-[calc(100%+8px)] flex w-fit translate-y-[-8px] scale-95 grid-cols-3 gap-4 rounded-[6px] bg-white p-3 opacity-0 shadow-lg transition-all duration-200 after:absolute after:-left-2 after:top-0 after:h-full after:w-2 group-hover:pointer-events-auto group-hover:scale-100 group-hover:opacity-100 3xl:gap-6 3xl:p-4"
+                                style={{
+                                  boxShadow:
+                                    '0 20px 25px -4px rgba(18, 26, 43, 0.10), 0 8px 8px -6px rgba(18, 26, 43, 0.04)',
+                                  top: `calc(100%/${item?.sub_items?.length}*${item_second_index})`,
+                                }}
+                              >
+                                {item_second?.sub_items.map(
+                                  (
+                                    item_third: any,
+                                    item_third_index: number,
+                                  ) => (
+                                    <div
+                                      key={item_third_index}
+                                      className={`w-[200px] 3xl:w-[230px]`}
+                                    >
+                                      {item_third?.url ? (
+                                        <CustomLink
+                                          href={item_third?.url || ''}
+                                          asNavigationLink
+                                          title={item_third?.title || ''}
+                                          className="block text-sm font-bold uppercase text-black 3xl:text-base"
+                                        >
+                                          {item_third?.title || ''}
+                                        </CustomLink>
+                                      ) : (
+                                        <div className="block text-sm font-bold uppercase text-black 3xl:text-base">
+                                          {item_third?.title || ''}
+                                        </div>
+                                      )}
+
+                                      <div className="pt-1">
+                                        {item_third?.sub_items?.map(
+                                          (
+                                            item_fourth: any,
+                                            item_fourth_index: number,
+                                          ) =>
+                                            item_fourth?.url ? (
+                                              <CustomLink
+                                                key={item_fourth_index}
+                                                href={item_fourth?.url || ''}
+                                                asNavigationLink
+                                                title={item_fourth?.title || ''}
+                                                className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[8px]"
+                                              >
+                                                {item_fourth?.title || ''}
+                                              </CustomLink>
+                                            ) : (
+                                              <div
+                                                key={item_fourth_index}
+                                                className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[8px]"
+                                              >
+                                                {item_fourth?.title || ''}
+                                              </div>
+                                            ),
+                                        )}
+                                      </div>
+                                    </div>
+                                  ),
+                                )}
+                              </div>
+                            ) : (
+                              <div
+                                className="pointer-events-none absolute left-[calc(100%+8px)] w-fit min-w-[160px] scale-95 rounded-md bg-white py-2 opacity-0 shadow-lg transition-all duration-200 after:absolute after:-left-2 after:top-0 after:h-full after:w-2 group-hover:pointer-events-auto group-hover:scale-100 group-hover:opacity-100"
+                                style={{
+                                  boxShadow:
+                                    '0 20px 25px -4px rgba(18, 26, 43, 0.10), 0 8px 8px -6px rgba(18, 26, 43, 0.04)',
+                                  top: `calc(100%/${item?.sub_items?.length}*${item_second_index})`,
+                                }}
+                              >
+                                {item_second?.sub_items.map(
+                                  (
+                                    item_third: any,
+                                    item_third_index: number,
+                                  ) =>
+                                    item_third?.url ? (
                                       <CustomLink
+                                        key={item_third_index}
                                         href={item_third?.url || ''}
                                         asNavigationLink
                                         title={item_third?.title || ''}
-                                        className="block text-sm font-bold uppercase text-black 3xl:text-base"
+                                        className="group/sub-nav flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[8px_16px]"
                                       >
-                                        {item_third?.title || ''}
+                                        <div className="flex-1">
+                                          {item_third?.title || ''}
+                                        </div>
+                                        {item_third?.sub_items?.length > 0 && (
+                                          <div className="relative size-5 brightness-0 transition-all duration-200 group-hover/sub-nav:-rotate-90 group-hover/sub-nav:brightness-100">
+                                            <NextImg
+                                              src="/assets/icons/arrow_down_primary.svg"
+                                              alt="arrow icon"
+                                            />
+                                          </div>
+                                        )}
                                       </CustomLink>
                                     ) : (
-                                      <div className="block text-sm font-bold uppercase text-black 3xl:text-base">
-                                        {item_third?.title || ''}
+                                      <div
+                                        key={item_third_index}
+                                        className="flex items-center gap-2 whitespace-nowrap text-nowrap p-[6px_12px] text-sm font-medium text-black transition-all duration-100 hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[8px_16px]"
+                                      >
+                                        <div className="flex-1">
+                                          {item_third?.title || ''}
+                                        </div>
+                                        {item_third?.sub_items?.length > 0 && (
+                                          <div className="relative size-5 brightness-0 transition-all duration-200 group-hover/sub-nav:-rotate-90 group-hover/sub-nav:brightness-100">
+                                            <NextImg
+                                              src="/assets/icons/arrow_down_primary.svg"
+                                              alt="arrow icon"
+                                            />
+                                          </div>
+                                        )}
                                       </div>
-                                    )}
-
-                                    <div className="pt-1">
-                                      {item_third?.sub_items?.map(
-                                        (
-                                          item_fourth: any,
-                                          item_fourth_index: number,
-                                        ) =>
-                                          item_fourth?.url ? (
-                                            <CustomLink
-                                              key={item_fourth_index}
-                                              href={item_fourth?.url || ''}
-                                              asNavigationLink
-                                              title={item_fourth?.title || ''}
-                                              className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[8px]"
-                                            >
-                                              {item_fourth?.title || ''}
-                                            </CustomLink>
-                                          ) : (
-                                            <div
-                                              key={item_fourth_index}
-                                              className="block py-[6px] text-sm font-medium text-[#010502] duration-100 hover:text-primary-600 3xl:py-[8px]"
-                                            >
-                                              {item_fourth?.title || ''}
-                                            </div>
-                                          ),
-                                      )}
-                                    </div>
-                                  </div>
-                                ),
-                              )}
-                            </div>
-                          )}
+                                    ),
+                                )}
+                              </div>
+                            ))}
                         </div>
                       ),
                     )}

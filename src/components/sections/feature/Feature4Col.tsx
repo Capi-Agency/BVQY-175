@@ -11,7 +11,7 @@ import { Link } from '@/src/i18n/navigation';
 export default function Feature4Col({ data }: CommonSection) {
   return (
     <section className="bg-white py-10 md:py-6 lg:py-10 xl:py-[52px] 2xl:py-[64px] 3xl:py-[72px] 4xl:py-[80px]">
-      <div className="grid-cols-1 gap-6 md:container md:grid md:grid-cols-3 md:gap-4 xl:gap-4 xl:grid-cols-4 2xl:gap-6 3xl:gap-7">
+      <div className="grid-cols-1 gap-6 md:container md:grid md:grid-cols-3 md:gap-4 xl:gap-4 3xl:grid-cols-4 2xl:gap-6">
         <div className="px-6 md:col-span-2 md:px-0 lg:col-span-1">
           <div className="section-sub-title">{data?.subtitle}</div>
           {data?.title && <h1 className="section-title mt-1">{data?.title}</h1>}
@@ -54,8 +54,8 @@ export default function Feature4Col({ data }: CommonSection) {
                 />
               </div>
 
-              <div className="space-y-1">
-                <div className="line-clamp-2 h-[56px] text-lg font-semibold text-[#010502] transition-all duration-200 group-hover:text-primary-50 xl:h-[64px] xl:text-xl 3xl:h-[68px] 3xl:text-[22px] 4xl:h-[72px] 4xl:text-2xl">
+              <div className="space-y-1 xl:space-y-2">
+                <div className="tracking-tight line-clamp-2 xl:line-clamp-1 h-[56px] text-lg font-semibold text-[#010502] transition-all duration-200 group-hover:text-primary-50 xl:text-xl xl:h-[28px] 3xl:h-auto 3xl:text-lg  4xl:text-xl">
                   {item?.title}
                 </div>
                 <div
