@@ -7,7 +7,6 @@ import 'swiper/css';
 import ThePagination from '@/src/components/common/the-pagination';
 import DialogVideo from '@/src/components/common/dialog-video';
 import NextImg from '../../common/next-img';
-import { useMounted } from '@/src/hooks/use-mounted';
 
 // ===== CONFIG =====
 const PAGE_SIZE = 6;
@@ -27,7 +26,6 @@ const getThumbnail = (url?: string) => {
 };
 
 export default function GallerySliderTall({ data }: CommonSection) {
-  const mounted = useMounted();
   const items = data?.items || [];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -59,23 +57,21 @@ export default function GallerySliderTall({ data }: CommonSection) {
 
       {/* ===== MOBILE: SLIDER ===== */}
       <div className="mt-6 block md:hidden">
-        {mounted && (
-          <Swiper
-            spaceBetween={16}
-            slidesPerView={1.15}
-            speed={500}
-            className="!px-6"
-          >
-            {pagedItems.map((item: any, index: number) => (
-              <SwiperSlide key={index}>
-                <ThumbnailItem
-                  item={item}
-                  onClick={() => handleOpenVideo(item?.blurb)}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        )}
+        <Swiper
+          spaceBetween={16}
+          slidesPerView={1.15}
+          speed={500}
+          className="!px-6"
+        >
+          {pagedItems.map((item: any, index: number) => (
+            <SwiperSlide key={index}>
+              <ThumbnailItem
+                item={item}
+                onClick={() => handleOpenVideo(item?.blurb)}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
 
       {/* ===== DESKTOP: GRID ===== */}

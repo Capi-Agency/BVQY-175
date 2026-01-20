@@ -5,12 +5,10 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import DoctorCard from '../../common/doctor-card';
-import { useMounted } from '@/src/hooks/use-mounted';
 
 export default function Team2Col({ data, dataDetail }: CommonSection) {
-  const mounted = useMounted();
-  const description = dataDetail?.leadership_board_description;
-  const leaders = dataDetail?.leaders;
+  const description = dataDetail.leadership_board_description;
+  const leaders = dataDetail.leaders;
   const { custom } = data;
 
   const hasContent = !!description || (leaders?.length ?? 0) > 0;
@@ -32,7 +30,7 @@ export default function Team2Col({ data, dataDetail }: CommonSection) {
               <h2
                 className="section-title mt-1"
                 dangerouslySetInnerHTML={{
-                  __html: mounted ? data?.title : '',
+                  __html: data?.title,
                 }}
               ></h2>
             )}
@@ -41,7 +39,7 @@ export default function Team2Col({ data, dataDetail }: CommonSection) {
           <div
             className="section-content pt-2 text-justify lg:pt-4 2xl:pt-6"
             dangerouslySetInnerHTML={{
-              __html: mounted ? dataDetail?.leadership_board_description : '',
+              __html: dataDetail?.leadership_board_description,
             }}
           ></div>
         </div>
@@ -49,7 +47,7 @@ export default function Team2Col({ data, dataDetail }: CommonSection) {
         <div
           className={`col-span-full ${leaderCount < 3 ? 'lg:col-span-7 xl:pl-10 2xl:pl-16 3xl:pl-[72px] 4xl:pl-20' : 'lg:col-span-7 2xl:col-span-8'}`}
         >
-          {leaderCount > 0 && mounted && (
+          {leaderCount > 0 && (
             <Swiper
               touchEventsTarget="container"
               grabCursor={true}

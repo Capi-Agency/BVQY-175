@@ -11,12 +11,10 @@ import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import CustomLink from '../../common/custom-link';
 import useSwiperPagination from '@/src/hooks/useSwiperPagination';
-import { useMounted } from '@/src/hooks/use-mounted';
 
 gsap.registerPlugin(useGSAP);
 
 export default function HeroWithTopImage({ data }: CommonSection) {
-  const mounted = useMounted();
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
   const { paginationClass, paginationConfig } = useSwiperPagination();
@@ -84,70 +82,68 @@ export default function HeroWithTopImage({ data }: CommonSection) {
             ref={containerRef}
             className="relative hidden aspect-[3/2] h-auto w-full overflow-hidden md:aspect-[5/2] lg:block"
           >
-            {mounted && (
-              <Swiper
-                touchEventsTarget="container"
-                allowTouchMove={false}
-                loop={true}
-                slidesPerView={1}
-                spaceBetween={0}
-                speed={1000}
-                modules={[Pagination, Autoplay, Keyboard]}
-                keyboard={{
-                  enabled: true,
-                  onlyInViewport: true,
-                }}
-                autoplay={{
-                  delay: 5000,
-                  disableOnInteraction: false,
-                  pauseOnMouseEnter: true,
-                }}
-                pagination={{
-                  clickable: true,
-                  type: 'bullets',
-                  el: `.swiper-bullets-container.swiper-hero-bg-focus`,
-                  bulletElement: 'div',
-                }}
-                onSlideNextTransitionStart={(swiper: any) =>
-                  handleSlideNextTransitionStart(
-                    swiper.realIndex,
-                    swiper.previousRealIndex,
-                  )
-                }
-                onSlidePrevTransitionStart={(swiper: any) =>
-                  handleSlidePrevTransitionStart(
-                    swiper.realIndex,
-                    swiper.previousRealIndex,
-                  )
-                }
-                className="swiper-hero-background-focus h-full w-full"
-              >
-                {data?.items?.map((item: any, index: number) => (
-                  <SwiperSlide key={`cover-${index}`} className="!h-full !w-full">
-                    {item?.buttons?.[0]?.url ? (
-                      <CustomLink
-                        href={item?.buttons?.[0]?.url}
-                        className="relative block h-full w-full overflow-hidden"
+            <Swiper
+              touchEventsTarget="container"
+              allowTouchMove={false}
+              loop={true}
+              slidesPerView={1}
+              spaceBetween={0}
+              speed={1000}
+              modules={[Pagination, Autoplay, Keyboard]}
+              keyboard={{
+                enabled: true,
+                onlyInViewport: true,
+              }}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+              }}
+              pagination={{
+                clickable: true,
+                type: 'bullets',
+                el: `.swiper-bullets-container.swiper-hero-bg-focus`,
+                bulletElement: 'div',
+              }}
+              onSlideNextTransitionStart={(swiper: any) =>
+                handleSlideNextTransitionStart(
+                  swiper.realIndex,
+                  swiper.previousRealIndex,
+                )
+              }
+              onSlidePrevTransitionStart={(swiper: any) =>
+                handleSlidePrevTransitionStart(
+                  swiper.realIndex,
+                  swiper.previousRealIndex,
+                )
+              }
+              className="swiper-hero-background-focus h-full w-full"
+            >
+              {data?.items?.map((item: any, index: number) => (
+                <SwiperSlide key={`cover-${index}`} className="!h-full !w-full">
+                  {item?.buttons?.[0]?.url ? (
+                    <CustomLink
+                      href={item?.buttons?.[0]?.url}
+                      className="relative block h-full w-full overflow-hidden"
+                    >
+                      <div
+                        className={`slide slide-${index} absolute inset-0 size-full`}
                       >
-                        <div
-                          className={`slide slide-${index} absolute inset-0 size-full`}
-                        >
-                          <SlideContent item={item} isFirst={index === 0} mounted={mounted} />
-                        </div>
-                      </CustomLink>
-                    ) : (
-                      <div className="relative h-full w-full overflow-hidden">
-                        <div
-                          className={`slide slide-${index} absolute inset-0 size-full`}
-                        >
-                          <SlideContent item={item} isFirst={index === 0} mounted={mounted} />
-                        </div>
+                        <SlideContent item={item} isFirst={index === 0} />
                       </div>
-                    )}
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            )}
+                    </CustomLink>
+                  ) : (
+                    <div className="relative h-full w-full overflow-hidden">
+                      <div
+                        className={`slide slide-${index} absolute inset-0 size-full`}
+                      >
+                        <SlideContent item={item} isFirst={index === 0} />
+                      </div>
+                    </div>
+                  )}
+                </SwiperSlide>
+              ))}
+            </Swiper>
 
             <div className="pointer-events-none absolute bottom-2 left-0 z-[5] flex w-full justify-center lg:bottom-4 xl:bottom-5 3xl:bottom-6">
               <div className="container relative w-fit">
@@ -158,7 +154,7 @@ export default function HeroWithTopImage({ data }: CommonSection) {
             </div>
           </div>
 
-          {mounted && paginationClass && paginationConfig && (
+          {paginationClass && paginationConfig && (
             <div className="relative block aspect-[3/2] h-auto w-full overflow-hidden md:aspect-[5/2] lg:hidden">
               <Swiper
                 touchEventsTarget="container"
@@ -183,11 +179,11 @@ export default function HeroWithTopImage({ data }: CommonSection) {
                         href={item?.buttons?.[0]?.url}
                         className="relative block h-full w-full overflow-hidden"
                       >
-                        <SlideContent item={item} isFirst={index === 0} mounted={mounted} />
+                        <SlideContent item={item} isFirst={index === 0} />
                       </CustomLink>
                     ) : (
                       <div className="relative h-full w-full overflow-hidden">
-                        <SlideContent item={item} isFirst={index === 0} mounted={mounted} />
+                        <SlideContent item={item} isFirst={index === 0} />
                       </div>
                     )}
                   </SwiperSlide>
@@ -239,7 +235,7 @@ export default function HeroWithTopImage({ data }: CommonSection) {
   );
 }
 
-const SlideContent = ({ item, isFirst, mounted }: any) => {
+const SlideContent = ({ item, isFirst }: any) => {
   return (
     <>
       <div className="absolute inset-0 z-[1] hidden size-full md:block">
@@ -271,14 +267,14 @@ const SlideContent = ({ item, isFirst, mounted }: any) => {
           <div
             className="w-full text-sm font-normal text-[#E4E4E7] md:!leading-[1.4] lg:!leading-[1.5] xl:text-base 3xl:text-lg 3xl:!leading-[1.6] 4xl:text-xl"
             dangerouslySetInnerHTML={{
-              __html: mounted ? item?.blurb : '',
+              __html: item?.blurb || '',
             }}
           ></div>
           {item?.title && (
             <h2
               className="text-[30px] font-bold !leading-[1.4] text-white md:text-[32px] lg:text-[36px] xl:text-[40px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]"
               dangerouslySetInnerHTML={{
-                __html: mounted ? item?.title : '',
+                __html: item?.title || '',
               }}
             ></h2>
           )}
@@ -286,11 +282,11 @@ const SlideContent = ({ item, isFirst, mounted }: any) => {
           <div
             className="w-full text-sm font-normal text-[#E4E4E7] md:!leading-[1.4] lg:!leading-[1.5] xl:text-base 3xl:text-lg 3xl:!leading-[1.6] 4xl:text-xl"
             dangerouslySetInnerHTML={{
-              __html: mounted ? item?.subtitle : '',
+              __html: item?.subtitle || '',
             }}
           ></div>
         </div>
-      </div>
+      </div >
     </>
   );
 };

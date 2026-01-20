@@ -13,10 +13,8 @@ import Link from 'next/link';
 import { cn } from '@/src/lib/utils';
 import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 import { useTranslations } from 'next-intl';
-import { useMounted } from '@/src/hooks/use-mounted';
 
 export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
-  const mounted = useMounted();
   const t = useTranslations('Common');
 
   const hasContent =
@@ -73,7 +71,7 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
                 <h2
                   className="section-title"
                   dangerouslySetInnerHTML={{
-                    __html: mounted ? data?.title : '',
+                    __html: data?.title,
                   }}
                 ></h2>
               )}
@@ -84,7 +82,7 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
                 'content-wrapper section-content relative text-justify md:pr-2 lg:flex-1',
               )}
               dangerouslySetInnerHTML={{
-                __html: mounted ? dataDetail?.technologies : '',
+                __html: dataDetail?.technologies,
               }}
             ></div>
           </div>
@@ -120,43 +118,41 @@ export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
               ref={imageRef}
               className="relative aspect-[4/3] w-full md:aspect-[2/1] lg:aspect-[4/3]"
             >
-              {mounted && (
-                <Swiper
-                  touchEventsTarget="container"
-                  grabCursor={true}
-                  slidesPerView={1}
-                  loop={true}
-                  spaceBetween={0}
-                  speed={700}
-                  modules={[Pagination, EffectFade, Autoplay]}
-                  effect="fade"
-                  fadeEffect={{ crossFade: true }}
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                  }}
-                  pagination={paginationConfig}
-                  className="!h-full !w-full"
-                >
-                  {dataDetail?.technologies_images?.map((item: any) => (
-                    <SwiperSlide key={item?.directus_files_id}>
-                      <Link
-                        href={getAssetUrlById(item?.directus_files_id)}
-                        data-fancybox="gallery"
-                        className="relative block size-full"
-                      >
-                        <div className="relative size-full">
-                          <NextImg
-                            src={getAssetUrlById(item?.directus_files_id)}
-                            objectFit="cover"
-                            alt="facilities images"
-                          />
-                        </div>
-                      </Link>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              )}
+              <Swiper
+                touchEventsTarget="container"
+                grabCursor={true}
+                slidesPerView={1}
+                loop={true}
+                spaceBetween={0}
+                speed={700}
+                modules={[Pagination, EffectFade, Autoplay]}
+                effect="fade"
+                fadeEffect={{ crossFade: true }}
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                }}
+                pagination={paginationConfig}
+                className="!h-full !w-full"
+              >
+                {dataDetail?.technologies_images?.map((item: any) => (
+                  <SwiperSlide key={item?.directus_files_id}>
+                    <Link
+                      href={getAssetUrlById(item?.directus_files_id)}
+                      data-fancybox="gallery"
+                      className="relative block size-full"
+                    >
+                      <div className="relative size-full">
+                        <NextImg
+                          src={getAssetUrlById(item?.directus_files_id)}
+                          objectFit="cover"
+                          alt="facilities images"
+                        />
+                      </div>
+                    </Link>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
             </div>
             <div className="relative mt-3 flex justify-center lg:mt-4 xl:mt-5 3xl:mt-6">
               <div className={`${paginationClass} !w-fit`}></div>

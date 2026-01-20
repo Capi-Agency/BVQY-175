@@ -9,10 +9,8 @@ import { getAssetUrlById } from '@/src/utils/image';
 import Fancybox from '../../common/Fancybox';
 import DialogVideo from '../../common/dialog-video';
 import { Link } from '@/src/i18n/navigation';
-import { useMounted } from '@/src/hooks/use-mounted';
 
 export default function GalleryWithText({ data }: CommonSection) {
-  const mounted = useMounted();
   const [currentTab, setCurrentTab] = useState<number>(0);
   const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
 
@@ -57,39 +55,37 @@ export default function GalleryWithText({ data }: CommonSection) {
 
         <div className="col-span-full bg-white p-4 xl:col-span-8 2xl:p-5 4xl:p-6">
           <div className="w-full">
-            {mounted && (
-              <Swiper
-                touchEventsTarget="container"
-                grabCursor={true}
-                slidesPerView={'auto'}
-                loop={false}
-                spaceBetween={12}
-                speed={700}
-                breakpoints={{
-                  1440: {
-                    spaceBetween: 16,
-                  },
-                }}
-                className="w-full"
-              >
-                {data?.items?.map((item: any, index: number) => (
-                  <SwiperSlide key={index} className="!w-fit">
-                    <div
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCurrentTab(index);
-                      }}
-                      className={`${currentTab === index ? 'text-primary-600' : 'text-[#71717A]'} relative cursor-pointer pb-[6px] text-sm font-medium uppercase transition-colors duration-200 xl:pb-2 2xl:text-base`}
-                    >
-                      {item?.title}
-                    </div>
-                    <div
-                      className={`${currentTab === index ? 'bg-primary-600' : 'bg-transparent'} relative h-[1px] w-full transition-colors duration-200`}
-                    ></div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            )}
+            <Swiper
+              touchEventsTarget="container"
+              grabCursor={true}
+              slidesPerView={'auto'}
+              loop={false}
+              spaceBetween={12}
+              speed={700}
+              breakpoints={{
+                1440: {
+                  spaceBetween: 16,
+                },
+              }}
+              className="w-full"
+            >
+              {data?.items?.map((item: any, index: number) => (
+                <SwiperSlide key={index} className="!w-fit">
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCurrentTab(index);
+                    }}
+                    className={`${currentTab === index ? 'text-primary-600' : 'text-[#71717A]'} relative cursor-pointer pb-[6px] text-sm font-medium uppercase transition-colors duration-200 xl:pb-2 2xl:text-base`}
+                  >
+                    {item?.title}
+                  </div>
+                  <div
+                    className={`${currentTab === index ? 'bg-primary-600' : 'bg-transparent'} relative h-[1px] w-full transition-colors duration-200`}
+                  ></div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
 
           <div className="pt-2 lg:pt-3 xl:pt-4 3xl:pt-5">
@@ -105,7 +101,7 @@ export default function GalleryWithText({ data }: CommonSection) {
                 <div
                   className="text-sm font-normal text-[#3F3F46] 3xl:text-base"
                   dangerouslySetInnerHTML={{
-                    __html: mounted ? (item?.blurb as string) : '',
+                    __html: item?.blurb as string,
                   }}
                 ></div>
 
