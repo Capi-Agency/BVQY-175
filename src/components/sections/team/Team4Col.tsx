@@ -40,6 +40,7 @@ export default function Team4Col({ data }: CommonSection) {
                 subTitle="hospital_title"
                 isHover={false}
                 isRounded={false}
+                textSize="sm"
               />
             </div>
           </div>
