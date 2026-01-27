@@ -37,7 +37,7 @@ export default function NavHeader() {
 
   return (
     <NavigationMenu.Root className="relative w-full bg-primary-600 shadow-md">
-      <NavigationMenu.List className="container flex justify-between gap-5 2xl:gap-6 3xl:gap-8 4xl:gap-10">
+      <NavigationMenu.List className="container flex justify-center gap-5 2xl:gap-6 3xl:gap-8 4xl:gap-10">
         {top_navigation?.length > 0 &&
           top_navigation?.map((item: any, index: any) => {
             return item?.sub_items ? (
