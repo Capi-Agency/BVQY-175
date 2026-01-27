@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/legacy/image';
 
 interface NextImgProps {
@@ -31,16 +31,27 @@ const NextImg = ({
   fetchPriority = 'low',
   ...props
 }: NextImgProps) => {
+  const [mounted, setMounted] = useState(false);
   const [fallback, setFallback] = useState('');
   const handleError = () => {
     setFallback(srcDefault);
   };
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  const imageSrc = (src || fallback || srcDefault) + '?format=webp';
+
   return (
     <Image
       id={id}
-      src={(src || fallback) + '?format=webp'}
-      blurDataURL={(src || fallback) + '?format=webp'}
+      src={imageSrc}
+      blurDataURL={imageSrc}
       alt={alt}
       className={className ? `${className} h-full w-full` : `h-full w-full`}
       onError={handleError}
