@@ -278,7 +278,7 @@ export default function TheFooter() {
           <div className="my-3 h-[1px] w-full bg-[#00A032] xl:my-4 3xl:mb-5"></div>
 
           <div className="text-center text-sm font-normal tracking-normal text-white md:tracking-wider 2xl:text-base">
-            {t('Footer.copy-right-label')}
+            {t('Footer.copy-right-label', { year: new Date().getFullYear() })}
           </div>
 
           <div className="mt-3 text-center text-sm font-normal tracking-normal text-white md:tracking-wide lg:tracking-normal xl:tracking-wide 2xl:text-base">
