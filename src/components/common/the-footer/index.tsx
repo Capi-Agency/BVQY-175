@@ -281,8 +281,18 @@ export default function TheFooter() {
             {t('Footer.copy-right-label', { year: new Date().getFullYear() })}
           </div>
 
-          <div className="mt-3 text-center text-sm font-normal tracking-normal text-white md:tracking-wide lg:tracking-normal xl:tracking-wide 2xl:text-base">
-            {t('Footer.note-web-demo')}
+          <div className="mt-3 text-center text-xs font-normal tracking-normal text-gray-200 md:tracking-wide lg:tracking-normal xl:tracking-wide 2xl:text-sm">
+            {t.rich('Footer.note-web-demo', {
+              link: (chunks) => (
+                <a
+                  href="https://mka.com.vn"
+                  target="_blank"
+                  className="font-semibold text-white hover:underline"
+                >
+                  {chunks}
+                </a>
+              ),
+            })}
           </div>
         </div>
         {/* End: policy */}
