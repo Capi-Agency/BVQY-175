@@ -17,6 +17,7 @@ import { LoadingComp } from '@/src/components/sections/custom';
 import Loading from '../loading';
 import localFont from 'next/font/local';
 import LazyToastContainer from '../../components/common/lazy-toast-container';
+import ReCaptchatProvider from '@/src/providers/GoogleRecaptchaProvider';
 
 const plusJakartaSans = localFont({
   src: [
@@ -110,11 +111,7 @@ export default async function RootLayout({
 
         <link rel="manifest" href="/manifest.webmanifest" fetchPriority="low" />
         <link rel="dns-prefetch" href="//www.google.com" />
-        <link
-          rel="preconnect"
-          href="//www.google.com"
-          crossOrigin="anonymous"
-        />
+        <link rel="preconnect" href="//www.google.com" crossOrigin="anonymous" />
         <meta
           name="msapplication-TileImage"
           content="/assets/logo/logo-icon-270x270.png"
@@ -137,23 +134,29 @@ export default async function RootLayout({
           closeButton={false}
           className={'z-[99999] text-sm'}
         />
-        <MetadataProvider value={metadata}>
-          <NextIntlClientProvider messages={messages}>
-            <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-              <GsapMatchMediaProvider>
-                <ScrollSmootherProvider>
-                  <Loading />
-                  <TheHeader />
-                  <Suspense fallback={<LoadingComp />}>
-                    <BackToTop />
-                    {children}
-                  </Suspense>
-                  <TheFooter />
-                </ScrollSmootherProvider>
-              </GsapMatchMediaProvider>
-            </ThemeProvider>
-          </NextIntlClientProvider>
-        </MetadataProvider>
+        <ReCaptchatProvider>
+          <MetadataProvider value={metadata}>
+            <NextIntlClientProvider messages={messages}>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="light"
+                enableSystem
+              >
+                <GsapMatchMediaProvider>
+                  <ScrollSmootherProvider>
+                    <Loading />
+                    <TheHeader />
+                    <Suspense fallback={<LoadingComp />}>
+                      <BackToTop />
+                      {children}
+                    </Suspense>
+                    <TheFooter />
+                  </ScrollSmootherProvider>
+                </GsapMatchMediaProvider>
+              </ThemeProvider>
+            </NextIntlClientProvider>
+          </MetadataProvider>
+        </ReCaptchatProvider>
       </body>
     </html>
   );

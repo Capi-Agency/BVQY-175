@@ -11,7 +11,6 @@ import { ContactInfo, fnSendContact } from '@/src/services/contact';
 import { cn } from '@/src/lib/utils';
 import { useTranslations } from 'next-intl';
 import DOMPurify from 'dompurify';
-import ReCaptchaProvider from '@/src/providers/GoogleRecaptchaProvider';
 
 const initialValue: ContactInfo = {
   name: '',
@@ -176,80 +175,78 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
   };
 
   return (
-    <ReCaptchaProvider>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="grid w-full grid-cols-2 gap-y-5 md:gap-x-6 md:gap-y-6 xl:gap-y-8 2xl:gap-y-9 3xl:gap-y-10"
-      >
-        {inputs?.map((input: any) => (
-          <div key={input?.key} className={cn('', input?.className)}>
-            <input
-              {...register(input?.key)}
-              autoComplete="off"
-              aria-describedby="outlined_error_help"
-              type="text"
-              className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-base font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
-              placeholder={input?.placeholder}
-            />
-
-            {(errors[input.key as keyof ContactInfo] || !watch(input?.key)) &&
-              isSubmitted && (
-                <p
-                  id="outlined_error_help"
-                  className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${
-                    errors[input.key as keyof ContactInfo] ? 'block' : 'hidden'
-                  }`}
-                >
-                  <span className="font-medium">
-                    {errors[input.key as keyof ContactInfo]?.message}
-                  </span>
-                </p>
-              )}
-          </div>
-        ))}
-
-        <div className="col-span-full">
-          <textarea
-            {...register('message')}
-            rows={3}
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="grid w-full grid-cols-2 gap-y-5 md:gap-x-6 md:gap-y-6 xl:gap-y-8 2xl:gap-y-9 3xl:gap-y-10"
+    >
+      {inputs?.map((input: any) => (
+        <div key={input?.key} className={cn('', input?.className)}>
+          <input
+            {...register(input?.key)}
             autoComplete="off"
             aria-describedby="outlined_error_help"
-            placeholder={t('Validate.message.placeholder')}
+            type="text"
             className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-base font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
+            placeholder={input?.placeholder}
           />
-          {errors.message && isSubmitted && (
-            <p
-              id="outlined_error_help"
-              className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
-                errors.message ? 'block' : 'hidden'
-              }`}
-            >
-              <span className="font-medium">{errors?.message?.message}</span>
-            </p>
-          )}
-        </div>
 
-        <div className="col-span-full pt-4 md:pt-0">
-          <button
-            type="submit"
-            disabled={loading}
-            className="relative w-full overflow-hidden rounded-[6px] bg-[#E50000] p-[8px_20px] text-base text-white md:w-fit lg:p-[10px_24px] lg:text-lg"
+          {(errors[input.key as keyof ContactInfo] || !watch(input?.key)) &&
+            isSubmitted && (
+              <p
+                id="outlined_error_help"
+                className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${
+                  errors[input.key as keyof ContactInfo] ? 'block' : 'hidden'
+                }`}
+              >
+                <span className="font-medium">
+                  {errors[input.key as keyof ContactInfo]?.message}
+                </span>
+              </p>
+            )}
+        </div>
+      ))}
+
+      <div className="col-span-full">
+        <textarea
+          {...register('message')}
+          rows={3}
+          autoComplete="off"
+          aria-describedby="outlined_error_help"
+          placeholder={t('Validate.message.placeholder')}
+          className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-base font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
+        />
+        {errors.message && isSubmitted && (
+          <p
+            id="outlined_error_help"
+            className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
+              errors.message ? 'block' : 'hidden'
+            }`}
           >
-            {buttonTitle}
+            <span className="font-medium">{errors?.message?.message}</span>
+          </p>
+        )}
+      </div>
 
-            <div
-              className={`absolute inset-0 z-[1] flex size-full items-center justify-center bg-[#E50000] ${loading ? 'block' : 'hidden'}`}
-            >
-              <div className="relative size-4 animate-spin">
-                <NextImg
-                  src="/assets/icons/loading_spin.svg"
-                  alt="loading spin"
-                />
-              </div>
+      <div className="col-span-full pt-4 md:pt-0">
+        <button
+          type="submit"
+          disabled={loading}
+          className="relative w-full overflow-hidden rounded-[6px] bg-[#E50000] p-[8px_20px] text-base text-white md:w-fit lg:p-[10px_24px] lg:text-lg"
+        >
+          {buttonTitle}
+
+          <div
+            className={`absolute inset-0 z-[1] flex size-full items-center justify-center bg-[#E50000] ${loading ? 'block' : 'hidden'}`}
+          >
+            <div className="relative size-4 animate-spin">
+              <NextImg
+                src="/assets/icons/loading_spin.svg"
+                alt="loading spin"
+              />
             </div>
-          </button>
-        </div>
-      </form>
-    </ReCaptchaProvider>
+          </div>
+        </button>
+      </div>
+    </form>
   );
 }

@@ -13,7 +13,6 @@ import { fnSendReview } from '@/src/services/contact';
 import { cn } from '@/src/lib/utils';
 import { useTranslations } from 'next-intl';
 import DOMPurify from 'dompurify';
-import ReCaptchaProvider from '@/src/providers/GoogleRecaptchaProvider';
 
 type Review = {
   rating: number | null;
@@ -239,126 +238,119 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
         </div>
         <div className="col-span-1 hidden xl:block"></div>
         <div className="col-span-full xl:col-span-6">
-          <ReCaptchaProvider>
-            <form
-              onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col items-stretch justify-center gap-2 lg:gap-3 xl:h-full 2xl:gap-4"
-            >
-              <div
-                className="section-sub-title font-semibold text-primary-600"
-                dangerouslySetInnerHTML={{
-                  __html: data?.blurb,
-                }}
-              ></div>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col items-stretch justify-center gap-2 lg:gap-3 xl:h-full 2xl:gap-4"
+          >
+            <div
+              className="section-sub-title font-semibold text-primary-600"
+              dangerouslySetInnerHTML={{
+                __html: data?.blurb,
+              }}
+            ></div>
 
-              <div>
-                <div className="flex flex-wrap gap-3 py-2 md:py-3 lg:gap-4 2xl:py-4 3xl:gap-4">
-                  {reviewOptions?.map((option: any) => (
-                    <button
-                      type="button"
-                      key={option?.rating}
-                      onClick={() =>
-                        setValue('rating', option?.rating, {
-                          shouldValidate: true,
-                        })
-                      }
-                      className={`${watch('rating') === option?.rating ? 'border-primary-600 bg-primary-100 text-primary-500' : 'border-gray-600 bg-transparent text-gray-600'} flex h-9 items-center justify-center rounded-[4px] border-[2px] px-3 text-sm font-medium transition-all duration-100 hover:border-primary-600 hover:bg-primary-100 hover:text-primary-600 md:h-10 md:px-3 lg:text-base 2xl:h-11 2xl:px-3 3xl:h-12 3xl:px-4 3xl:text-lg 4xl:px-5`}
-                    >
-                      {option?.title}
-                    </button>
-                  ))}
+            <div>
+              <div className="flex flex-wrap gap-3 py-2 md:py-3 lg:gap-4 2xl:py-4 3xl:gap-4">
+                {reviewOptions?.map((option: any) => (
+                  <button
+                    type="button"
+                    key={option?.rating}
+                    onClick={() =>
+                      setValue('rating', option?.rating, {
+                        shouldValidate: true,
+                      })
+                    }
+                    className={`${watch('rating') === option?.rating ? 'border-primary-600 bg-primary-100 text-primary-500' : 'border-gray-600 bg-transparent text-gray-600'} flex h-9 items-center justify-center rounded-[4px] border-[2px] px-3 text-sm font-medium transition-all duration-100 hover:border-primary-600 hover:bg-primary-100 hover:text-primary-600 md:h-10 md:px-3 lg:text-base 2xl:h-11 2xl:px-3 3xl:h-12 3xl:px-4 3xl:text-lg 4xl:px-5`}
+                  >
+                    {option?.title}
+                  </button>
+                ))}
+              </div>
+              {errors.rating && isSubmitted && (
+                <p
+                  id="outlined_error_help"
+                  className={`text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
+                    errors.rating ? 'block' : 'hidden'
+                  }`}
+                >
+                  <span className="font-medium">{errors?.rating?.message}</span>
+                </p>
+              )}
+            </div>
+
+            <div className="grid grid-cols-2 gap-y-5 md:gap-x-6 md:gap-y-6 xl:gap-y-8 2xl:gap-y-9 3xl:gap-y-10">
+              {inputs?.map((input: any) => (
+                <div key={input?.key} className={cn('', input?.className)}>
+                  <input
+                    {...register(input?.key)}
+                    autoComplete="off"
+                    aria-describedby="outlined_error_help"
+                    type="text"
+                    className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-base font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
+                    placeholder={input?.placeholder}
+                  />
+
+                  {(errors[input.key as keyof Review] || !watch(input?.key)) &&
+                    isSubmitted && (
+                      <p
+                        id="outlined_error_help"
+                        className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${
+                          errors[input.key as keyof Review] ? 'block' : 'hidden'
+                        }`}
+                      >
+                        <span className="font-medium">
+                          {errors[input.key as keyof Review]?.message}
+                        </span>
+                      </p>
+                    )}
                 </div>
-                {errors.rating && isSubmitted && (
+              ))}
+
+              <div className="col-span-full">
+                <textarea
+                  {...register('message')}
+                  rows={3}
+                  autoComplete="off"
+                  aria-describedby="outlined_error_help"
+                  placeholder={t('Validate.message.placeholder')}
+                  className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-base font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
+                />
+                {errors.message && isSubmitted && (
                   <p
                     id="outlined_error_help"
-                    className={`text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
-                      errors.rating ? 'block' : 'hidden'
+                    className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
+                      errors.message ? 'block' : 'hidden'
                     }`}
                   >
                     <span className="font-medium">
-                      {errors?.rating?.message}
+                      {errors?.message?.message}
                     </span>
                   </p>
                 )}
               </div>
 
-              <div className="grid grid-cols-2 gap-y-5 md:gap-x-6 md:gap-y-6 xl:gap-y-8 2xl:gap-y-9 3xl:gap-y-10">
-                {inputs?.map((input: any) => (
-                  <div key={input?.key} className={cn('', input?.className)}>
-                    <input
-                      {...register(input?.key)}
-                      autoComplete="off"
-                      aria-describedby="outlined_error_help"
-                      type="text"
-                      className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-base font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
-                      placeholder={input?.placeholder}
-                    />
+              <div className="col-span-full flex justify-end pt-4 md:pt-0">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="relative w-full overflow-hidden rounded-[6px] bg-[#E50000] p-[8px_20px] text-base text-white md:w-fit lg:p-[10px_24px] lg:text-lg"
+                >
+                  {t('Common.send-now')}
 
-                    {(errors[input.key as keyof Review] ||
-                      !watch(input?.key)) &&
-                      isSubmitted && (
-                        <p
-                          id="outlined_error_help"
-                          className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${
-                            errors[input.key as keyof Review]
-                              ? 'block'
-                              : 'hidden'
-                          }`}
-                        >
-                          <span className="font-medium">
-                            {errors[input.key as keyof Review]?.message}
-                          </span>
-                        </p>
-                      )}
-                  </div>
-                ))}
-
-                <div className="col-span-full">
-                  <textarea
-                    {...register('message')}
-                    rows={3}
-                    autoComplete="off"
-                    aria-describedby="outlined_error_help"
-                    placeholder={t('Validate.message.placeholder')}
-                    className="w-full border-b-[1px] border-gray-500 bg-transparent p-[8px_12px] text-base font-medium text-gray-950 outline-none placeholder:font-normal placeholder:text-gray-500 lg:p-[10px_14px] lg:text-base 2xl:p-[10px_16px] 2xl:text-lg"
-                  />
-                  {errors.message && isSubmitted && (
-                    <p
-                      id="outlined_error_help"
-                      className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
-                        errors.message ? 'block' : 'hidden'
-                      }`}
-                    >
-                      <span className="font-medium">
-                        {errors?.message?.message}
-                      </span>
-                    </p>
-                  )}
-                </div>
-
-                <div className="col-span-full flex justify-end pt-4 md:pt-0">
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="relative w-full overflow-hidden rounded-[6px] bg-[#E50000] p-[8px_20px] text-base text-white md:w-fit lg:p-[10px_24px] lg:text-lg"
+                  <div
+                    className={`absolute inset-0 z-[1] flex size-full items-center justify-center bg-[#E50000] ${loading ? 'block' : 'hidden'}`}
                   >
-                    {t('Common.send-now')}
-
-                    <div
-                      className={`absolute inset-0 z-[1] flex size-full items-center justify-center bg-[#E50000] ${loading ? 'block' : 'hidden'}`}
-                    >
-                      <div className="relative size-4 animate-spin">
-                        <NextImg
-                          src="/assets/icons/loading_spin.svg"
-                          alt="loading spin"
-                        />
-                      </div>
+                    <div className="relative size-4 animate-spin">
+                      <NextImg
+                        src="/assets/icons/loading_spin.svg"
+                        alt="loading spin"
+                      />
                     </div>
-                  </button>
-                </div>
+                  </div>
+                </button>
               </div>
-            </form>
-          </ReCaptchaProvider>
+            </div>
+          </form>
         </div>
       </div>
     </section>
