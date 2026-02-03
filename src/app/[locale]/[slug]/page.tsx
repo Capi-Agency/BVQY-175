@@ -14,14 +14,14 @@ type Props = {
   params: Promise<{ locale: string; slug: string }>;
 };
 
-// export async function generateStaticParams() {
-//   const pages = await fnGetAllPageSlug();
+export async function generateStaticParams() {
+  const pages = await fnGetAllPageSlug();
 
-//   return pages.map((page: { slug: string; language: string }) => ({
-//     locale: page.language,
-//     slug: page.slug,
-//   }));
-// }
+  return pages.map((page: { slug: string; language: string }) => ({
+    locale: page.language,
+    slug: page.slug,
+  }));
+}
 
 export async function generateMetadata(
   { params }: Props,
