@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
+        protocol: 'https',
         hostname: `${process.env.ASSETS_DOMAIN}`,
         pathname: '/**',
       },
