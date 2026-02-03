@@ -1,23 +1,23 @@
 import { defineRouting } from 'next-intl/routing';
 
 export const routing = defineRouting({
-  locales: ['vi', 'en'],
+  locales: ['vi'],
   defaultLocale: 'vi',
   localePrefix: 'always',
   localeCookie: true,
   alternateLinks: true,
   localeDetection: true,
-  pathnames: {
-    '/[slug]': {
-      en: '/[slug]'
-    },
-    '/[slug]/[cate]': {
-      en: '/[slug]/[cate]'
-    },
-    '/bai-viet/[cate]/[slug]': {
-      en: '/posts/[cate]/[slug]'
-    },
-  }
+  // pathnames: {
+  //   '/[slug]': {
+  //     en: '/[slug]'
+  //   },
+  //   '/[slug]/[cate]': {
+  //     en: '/[slug]/[cate]'
+  //   },
+  //   '/bai-viet/[cate]/[slug]': {
+  //     en: '/posts/[cate]/[slug]'
+  //   },
+  // }
 });
 
 // chỉ dùng cho trang home
