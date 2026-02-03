@@ -250,12 +250,12 @@ export default function TheFooter() {
 
         {/* Start: policy */}
         <div>
-          <div className="flex w-full items-stretch justify-center gap-3 text-xs font-medium text-white md:text-nowrap lg:text-sm">
+          <div className="flex w-full items-stretch justify-center gap-3 text-xs font-medium text-white md:text-nowrap lg:text-sm text-center">
             {contact_information?.security_url && (
               <>
                 <CustomLink
                   href={`${contact_information?.security_url || '/'}`}
-                  className="block tracking-wider"
+                  className="flex-1 md:flex-none block tracking-wider"
                   aria-label="Chính sách và bảo mật"
                 >
                   {t('Footer.policy-label')}
@@ -268,7 +268,7 @@ export default function TheFooter() {
               <CustomLink
                 href={`${contact_information?.terms_url || '/'}`}
                 aria-label="Điều khoản và dịch vụ"
-                className="block tracking-wider"
+                className="flex-1 md:flex-none block tracking-wider"
               >
                 {t('Footer.terms-services-label')}
               </CustomLink>

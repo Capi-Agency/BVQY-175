@@ -48,8 +48,8 @@ export default function TheHeader() {
           <div className="flex items-center gap-3 md:gap-4 lg:gap-6 2xl:gap-8 4xl:gap-10">
             {/* Start: medal*/}
             <CustomLink
-              title="Thành tích"
-              aria-label="Thành tích"
+              title="Các danh hiệu cao quý"
+              aria-label="Các danh hiệu cao quý"
               href={t('achievements')}
               className="hidden items-center gap-3 md:flex xl:gap-4 2xl:gap-5 4xl:gap-6"
             >
