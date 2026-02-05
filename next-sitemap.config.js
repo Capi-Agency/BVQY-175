@@ -1,7 +1,6 @@
 module.exports = {
   siteUrl: process.env.SITE_URL,
   changefreq: 'daily',
-  // here is the new code
   priority: 0.8,
   sitemapSize: 5000,
   generateRobotsTxt: true,
@@ -22,10 +21,10 @@ module.exports = {
       href: process.env.SITE_URL,
       hreflang: 'vi',
     },
-    {
-      href: `${process.env.SITE_URL}/en`,
-      hreflang: 'en',
-    },
+    // {
+    //   href: `${process.env.SITE_URL}/en`,
+    //   hreflang: 'en',
+    // },
   ],
   additionalPaths: async (config) => [
     {
@@ -54,10 +53,10 @@ module.exports = {
           href: `${process.env.SITE_URL}${path}`,
           hreflang: 'vi',
         },
-        {
-          href: `${process.env.SITE_URL}/en${path}`,
-          hreflang: 'en',
-        },
+        // {
+        //   href: `${process.env.SITE_URL}/en${path}`,
+        //   hreflang: 'en',
+        // },
       ],
     };
   },
