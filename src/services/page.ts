@@ -46,16 +46,21 @@ export const fnGetSchemaBySlug = async (slug: string) => {
 /* ============================
    GET ALL PAGE SLUGS
 ============================ */
-export const fnGetAllPageSlug = async () => {
+export const fnGetAllPageSlug = async (languages?: string[]) => {
   try {
     const res: any = await directusClientWithRest.request(
       readItems('pages', {
         fields: ['slug', 'language'],
         filter: {
+          ...(languages && {
+            language: {
+              _in: languages,
+            },
+          }),
           slug: {
-            _nistarts_with: 'chi-tiet'
-          }
-        }
+            _nistarts_with: 'chi-tiet',
+          },
+        },
       }),
     );
 

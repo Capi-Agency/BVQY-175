@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { fnGetAllPageSlug } from '../services/page';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const pages = await fnGetAllPageSlug();
+  const pages = await fnGetAllPageSlug(['vi']);
   const siteUrl = process.env.SITE_URL || '';
 
   const homepage: MetadataRoute.Sitemap[number] = {
