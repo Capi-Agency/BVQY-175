@@ -24,6 +24,14 @@ body {}
   pointer-events: none !important;
 }
 
+.yhy-append-wrap {
+  @apply max-w-[150px] h-[30px] p-0 fixed bottom-0 left-0 z-[1000] rounded-[6px];
+}
+
+.yhy-append-btn.yhy-btn-emc {
+  scale: 0.8 !important;
+}
+
 @layer base {
   * {
     font-kerning: none;
