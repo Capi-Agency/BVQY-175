@@ -45,7 +45,7 @@ module.exports = {
 
     return {
       loc: path, // => this will be exported as http(s)://<config.siteUrl>/<path>
-      changefreq: config.changefreq,
+      changefreq: changefreq,
       priority: priority, // Dynamic priority based on the page
       lastmod: config.autoLastmod ? new Date().toISOString() : undefined,
       alternateRefs: [
