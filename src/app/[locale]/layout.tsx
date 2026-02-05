@@ -18,6 +18,7 @@ import Loading from '../loading';
 import localFont from 'next/font/local';
 import LazyToastContainer from '../../components/common/lazy-toast-container';
 import ReCaptchatProvider from '@/src/providers/GoogleRecaptchaProvider';
+import Script from 'next/script';
 
 const plusJakartaSans = localFont({
   src: [
@@ -111,7 +112,11 @@ export default async function RootLayout({
 
         <link rel="manifest" href="/manifest.webmanifest" fetchPriority="low" />
         <link rel="dns-prefetch" href="//www.google.com" />
-        <link rel="preconnect" href="//www.google.com" crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href="//www.google.com"
+          crossOrigin="anonymous"
+        />
         <meta
           name="msapplication-TileImage"
           content="/assets/logo/logo-icon-270x270.png"
@@ -119,6 +124,27 @@ export default async function RootLayout({
 
         <meta name="robots" content="index" />
         <meta name="format-detection" content="telephone=no" />
+        {/* Begin EMC Tracking Code */}
+        <Script id="emc-tracking" strategy="afterInteractive">
+          {`
+            var _govaq = window._govaq || [];
+            _govaq.push(['trackPageView']);
+            _govaq.push(['enableLinkTracking']);
+            (function () {
+            _govaq.push(['setTrackerUrl', 'https://f-emc.ngsp.gov.vn/tracking']);
+            _govaq.push(['setSiteId', '4686']);
+            var d = document,
+            g = d.createElement('script'),
+            s = d.getElementsByTagName('script')[0];
+            g.type = 'text/javascript';
+            g.async = true;
+            g.defer = true;
+            g.src = 'https://f-emc.ngsp.gov.vn/embed/gov-tracking.min.js';
+            s.parentNode.insertBefore(g, s);
+            })();
+          `}
+        </Script>
+        {/* End EMC Tracking Code */}
       </head>
 
       <body className="antialiased">
