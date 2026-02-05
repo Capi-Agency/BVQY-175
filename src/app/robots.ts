@@ -10,6 +10,6 @@ export default function robots(): MetadataRoute.Robots {
       },
     ],
     sitemap: `${process.env.SITE_URL}/sitemap.xml`,
-    host: process.env.ASSETS_DOMAIN,
+    host: process.env.DOMAIN,
   };
 }
