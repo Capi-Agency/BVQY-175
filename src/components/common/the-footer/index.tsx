@@ -224,12 +224,12 @@ export default function TheFooter() {
           </div>
 
           <div className="flex items-center gap-6 md:items-end md:px-0 xl:flex-col xl:items-start xl:gap-4 2xl:gap-5 4xl:gap-6">
-            <div className="relative h-[54px] w-[136px] 2xl:h-[58px] 2xl:w-[147px] 4xl:h-[66px] 4xl:w-[167px]">
+            {/* <div className="relative h-[54px] w-[136px] 2xl:h-[58px] 2xl:w-[147px] 4xl:h-[66px] 4xl:w-[167px]">
               <NextImg
                 src="/assets/images/bo_cong_thuong.png"
                 alt="Bộ công thương"
               />
-            </div>
+            </div> */}
 
             <a
               target="_blank"
