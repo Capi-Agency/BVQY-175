@@ -26,11 +26,11 @@ export default function LanguageBtn({
   return (
     <div
       title="Chuyển đổi ngôn ngữ"
-      // onClick={() => setIsOpen(true)}
-      // onMouseEnter={() => setIsOpen(true)}
-      // onMouseLeave={() => setIsOpen(false)}
+      onClick={() => setIsOpen(true)}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
       className={cn(
-        'btn-menu relative flex gap-1 text-sm font-medium uppercase text-white xl:text-base cursor-not-allowed',
+        'btn-menu relative flex gap-1 text-sm font-medium uppercase text-white xl:text-base',
         className,
       )}
     >

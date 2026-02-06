@@ -33,6 +33,7 @@ export default async function Page({ params }: Props) {
   const { locale, slug, cate } = await params;
 
   const regex = /^[a-zA-Z0-9-_]+$/;
+  
   if (!locale || !slug || !cate || !regex.test(slug) || !regex.test(cate)) {
     notFound();
   }

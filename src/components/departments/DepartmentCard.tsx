@@ -2,7 +2,6 @@ import React from 'react';
 import NextImg from '../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import CustomLink from '../common/custom-link';
-import { useTranslations } from 'next-intl';
 
 type DepartmentCardProps = {
   item: any;
@@ -16,7 +15,6 @@ export default function DepartmentCard({
   blurb = 'description',
   type = 'default',
 }: DepartmentCardProps) {
-  const t = useTranslations('Common');
 
   const renderSearch = () => (
     <CustomLink

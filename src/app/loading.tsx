@@ -41,7 +41,7 @@ export default function Loading() {
 
         <div className='container'>
           <Progress.Root
-            className="bg-blackA6 relative h-[2px] w-full overflow-hidden rounded-full"
+            className="relative h-[2px] w-full overflow-hidden rounded-full"
             style={{
               transform: 'translateZ(0)',
             }}
