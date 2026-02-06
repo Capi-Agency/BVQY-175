@@ -2,6 +2,25 @@ import type { NextConfig } from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig: NextConfig = {
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        has: [
+          {
+            type: 'query',
+            key: '_rsc',
+          },
+        ],
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 's-maxage=300, stale-while-revalidate=31536000',
+          },
+        ],
+      },
+    ];
+  },
   reactStrictMode: false,
   images: {
     remotePatterns: [

@@ -6,7 +6,7 @@ export const routing = defineRouting({
   localePrefix: 'always',
   localeCookie: true,
   alternateLinks: true,
-  localeDetection: true,
+  localeDetection: false,
   // pathnames: {
   //   '/[slug]': {
   //     en: '/[slug]'

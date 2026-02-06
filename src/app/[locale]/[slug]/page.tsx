@@ -47,7 +47,7 @@ export default async function Page({ params }: Props) {
     notFound();
   }
 
-  setRequestLocale(locale as Locale);
+  // setRequestLocale(locale as Locale);
   const pageContent = await fnGetPageBySlug(slug);
   const pageSchema = pageContent?.seo?.meta_schema;
 
