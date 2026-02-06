@@ -49,7 +49,7 @@ const RelatedPosts = ({ data }: CommonSection) => {
       <div className="container flex items-center justify-between">
         {data?.title && <h1 className="section-title">{data?.title}</h1>}
         <Link
-          href={`${data?.buttons?.[0]?.url}` as any}
+          href={`${data?.buttons?.[0]?.url}/${category}` as any}
           aria-label="Xem tất cả tin tức"
           className="group flex items-center gap-1.5 text-gray-950"
         >
