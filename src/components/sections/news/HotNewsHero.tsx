@@ -11,8 +11,8 @@ import { Link } from '@/src/i18n/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 
 export default function HotNewsHero({ data }: CommonSection) {
-  const locale = useLocale()
-  const t = useTranslations("Format")
+  const locale = useLocale();
+  const t = useTranslations('Format');
   const [dataNews, setDataNews] = useState<any>([]);
   const param = useParams() || {};
   const category = (param?.cate as string) || '';
@@ -25,14 +25,14 @@ export default function HotNewsHero({ data }: CommonSection) {
           page: 1,
           limit: 1,
           category: category,
-          locale
+          locale,
         });
 
         setDataNews(response);
       } catch (error) {
         console.log('Error:', error);
       } finally {
-        ScrollTrigger.refresh()
+        ScrollTrigger.refresh();
       }
     })();
   }, [data, category]);
@@ -49,16 +49,21 @@ export default function HotNewsHero({ data }: CommonSection) {
               }}
             ></h2>
           )}
-          {dataNews?.length > 0 &&
+          {dataNews?.length > 0 ? (
             dataNews?.map((news: any, index: number) => {
-              const cateUrl = category || news?.categories?.[0]?.category?.translations?.[0]?.slug || '';
+              const cateUrl =
+                category ||
+                news?.categories?.[0]?.category?.translations?.[0]?.slug ||
+                '';
 
-              const newTrans = news?.translations?.[0] || {}
+              const newTrans = news?.translations?.[0] || {};
 
               return (
                 <Link
                   key={index}
-                  href={`${data?.buttons?.[0]?.url}/${cateUrl}/${newTrans?.slug}` as any}
+                  href={
+                    `${data?.buttons?.[0]?.url}/${cateUrl}/${newTrans?.slug}` as any
+                  }
                   aria-label="Xem chi tiết tin tức"
                   className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-11 3xl:gap-[52px] 4xl:gap-[60px]"
                 >
@@ -91,7 +96,7 @@ export default function HotNewsHero({ data }: CommonSection) {
                           />
                         </div>
                         <p className="text-sm font-medium text-black lg:text-base 3xl:text-lg 4xl:text-xl">
-                          {formatDate(news?.date_published, t("date"))}
+                          {formatDate(news?.date_published, t('date'))}
                         </p>
                       </div>
 
@@ -111,7 +116,12 @@ export default function HotNewsHero({ data }: CommonSection) {
                   </div>
                 </Link>
               );
-            })}
+            })
+          ) : (
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-11 3xl:gap-[52px] 4xl:gap-[60px]">
+              <div className="relative aspect-video overflow-hidden bg-gray-200"></div>
+            </div>
+          )}
         </div>
       </div>
     </section>

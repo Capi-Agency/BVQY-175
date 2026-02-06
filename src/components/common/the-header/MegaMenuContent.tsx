@@ -7,7 +7,7 @@ export default function MegaMenuContent({ item }: any) {
   const [currentTab, setCurrentTab] = useState<number>(0);
 
   return (
-    <NavigationMenu.Content className="relative flex w-[calc(100vw*0.65)] gap-6 overflow-hidden p-[12px_16px] data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft 2xl:gap-7 2xl:p-[20px_24px] 3xl:gap-8 4xl:gap-10 4xl:p-[24px_32px]">
+    <NavigationMenu.Content className="relative flex w-[calc(100vw*0.65)] gap-6 overflow-hidden p-[4px_16px_12px] data-[motion=from-end]:animate-enterFromRight data-[motion=from-start]:animate-enterFromLeft data-[motion=to-end]:animate-exitToRight data-[motion=to-start]:animate-exitToLeft 2xl:gap-7 2xl:p-[12px_24px_20px] 3xl:gap-8 4xl:gap-10 4xl:p-[16px_32px_24px]">
       <div className="flex-1">
         <div className="flex w-full items-stretch">
           {item?.sub_items?.map(
@@ -15,7 +15,7 @@ export default function MegaMenuContent({ item }: any) {
               <div
                 onClick={() => setCurrentTab(item_second_index)}
                 key={item_second_index}
-                className={`${currentTab === item_second_index ? 'border-primary-600 text-primary-600' : 'border-[#E4E4E7] text-[#71717A] hover:border-primary-300 hover:text-primary-400'} flex-1 cursor-pointer border-b-[2px] pb-3 text-center text-sm font-semibold uppercase transition-all duration-100 3xl:text-base`}
+                className={`${currentTab === item_second_index ? 'border-primary-600 text-primary-600' : 'border-[#E4E4E7] text-[#71717A] hover:border-primary-300 hover:text-primary-400'} flex-1 cursor-pointer border-b-[2px] pt-2 pb-3 text-center text-sm font-semibold uppercase transition-all duration-100 3xl:text-base`}
               >
                 {item_second?.title || ''}
               </div>

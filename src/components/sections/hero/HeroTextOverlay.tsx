@@ -68,7 +68,7 @@ export default function HeroTextOverlay({ data }: CommonSection) {
       {/* Search form */}
       <div className="relative z-[2] mx-auto w-full max-w-[320px] -translate-y-1/2 bg-transparent md:bottom-0 md:max-w-[600px] md:px-0 md:py-0 lg:max-w-[800px] xl:max-w-[1000px]">
         <form
-          className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
+          className="flex items-center justify-between gap-2 rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
           onSubmit={handleSearch}
         >
           <div className="flex flex-1 flex-col text-start">

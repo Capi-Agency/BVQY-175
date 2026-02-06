@@ -17,6 +17,8 @@ const RelatedPosts = ({ data }: CommonSection) => {
   const locale = useLocale()
   const params = useParams() || {};
   const category = (params?.cate as string) || '';
+  const neqSlug = (params?.slug as string) || '';
+
   const [newsData, setNewsData] = useState<any>([]);
 
   const isSort: boolean = data?.collection_items_order === '-date_published';
@@ -30,7 +32,8 @@ const RelatedPosts = ({ data }: CommonSection) => {
           limit: data?.collection_items_limit,
           sort: isSort,
           category: category,
-          locale
+          locale,
+          neqSlug
         });
         setNewsData(response);
       } catch (error) {

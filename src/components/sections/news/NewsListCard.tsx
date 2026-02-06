@@ -69,7 +69,6 @@ export default function NewsListCard({ data }: CommonSection) {
         sort: isSort,
         category: category || '',
         keyword: search || '',
-        offset: 1,
         locale
       });
       setDataNews(response);

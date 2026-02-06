@@ -46,7 +46,7 @@ export default function DoctorDetail({ data, dataDetail }: CommonSection) {
   );
 
   return (
-    <section className="bg-primary-50 py-6 md:py-10">
+    <section className="bg-primary-50 py-6 md:py-10 xl:p-[40px_0_48px] 2xl:p-[40px_0_52px] 3xl:p-[40px_0_56px] 4xl:p-[40px_0_64px]">
       <div className="container grid grid-cols-11 gap-6 md:gap-[68px] lg:gap-8 xl:gap-10 3xl:gap-12 4xl:gap-14">
         <div className="col-span-full flex flex-col items-stretch gap-16 md:flex-row md:items-start md:gap-7 lg:col-span-4 lg:flex-col lg:items-stretch lg:gap-[72px]">
           <div className="relative aspect-[480/600] w-full bg-gray-200 md:basis-1/2 lg:basis-0">

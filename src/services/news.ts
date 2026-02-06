@@ -14,8 +14,8 @@ export const getListNews = async ({
   page = 1,
   sort = true,
   keyword = '',
-  offset = 0,
   locale = routing.defaultLocale,
+  neqSlug
 }: {
   collection: string;
   limit?: number;
@@ -23,8 +23,8 @@ export const getListNews = async ({
   sort?: boolean;
   keyword?: string;
   category?: string;
-  offset?: number;
   locale?: Locale;
+  neqSlug?: string;
 }) => {
   const filter: any = {};
   if (category) {
@@ -40,22 +40,28 @@ export const getListNews = async ({
     };
   }
 
-  // search theo content_plain của post_translations
-  if (keyword) {
+  if (keyword || neqSlug) {
     filter.translations = {
       _and: [
-        {
-          languages_code: { _eq: locale },
-        },
-        {
-          _or: [
-            { title: { _icontains: keyword } },
-            { blurb: { _icontains: keyword } },
-            { content: { _icontains: keyword } },
-            { content_plain: { _icontains: keyword } },
-          ],
-        },
+        { languages_code: { _eq: locale } },
+        ...(keyword
+          ? [
+            {
+              _or: [
+                { title: { _icontains: keyword } },
+                { blurb: { _icontains: keyword } },
+                { content: { _icontains: keyword } },
+                { content_plain: { _icontains: keyword } },
+              ],
+            },
+          ]
+          : []),
+        ...(neqSlug ? [{ slug: { _neq: neqSlug } }] : []),
       ],
+    };
+  } else {
+    filter.translations = {
+      languages_code: { _eq: locale },
     };
   }
 
@@ -101,11 +107,13 @@ export const getTotalNewsCount = async ({
   keyword,
   category,
   locale = routing.defaultLocale,
+  neqSlug
 }: {
   collection: string;
   keyword?: string;
   category?: string;
   locale?: Locale;
+  neqSlug?: string;
 }) => {
   try {
     const filter: any = {};
@@ -123,21 +131,28 @@ export const getTotalNewsCount = async ({
       };
     }
 
-    if (keyword) {
+    if (keyword || neqSlug) {
       filter.translations = {
         _and: [
-          {
-            languages_code: { _eq: locale },
-          },
-          {
-            _or: [
-              { title: { _icontains: keyword } },
-              { blurb: { _icontains: keyword } },
-              { content: { _icontains: keyword } },
-              { content_plain: { _icontains: keyword } },
-            ],
-          },
+          { languages_code: { _eq: locale } },
+          ...(keyword
+            ? [
+              {
+                _or: [
+                  { title: { _icontains: keyword } },
+                  { blurb: { _icontains: keyword } },
+                  { content: { _icontains: keyword } },
+                  { content_plain: { _icontains: keyword } },
+                ],
+              },
+            ]
+            : []),
+          ...(neqSlug ? [{ slug: { _neq: neqSlug } }] : []),
         ],
+      };
+    } else {
+      filter.translations = {
+        languages_code: { _eq: locale },
       };
     }
 

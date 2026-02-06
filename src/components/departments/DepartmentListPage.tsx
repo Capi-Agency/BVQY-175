@@ -148,7 +148,7 @@ const DepartmentDetailPage = ({
         {/* Search form */}
         <div className="z-[2] mx-auto hidden w-full bg-transparent md:bottom-0 md:left-1/2 md:max-w-[600px] md:-translate-x-1/2 md:translate-y-1/2 md:bg-transparent md:px-0 md:py-0 lg:max-w-[800px] 3xl:absolute 3xl:block">
           <form
-            className="flex items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
+            className="flex gap-2 items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
             onSubmit={(e: any) => {
               e.preventDefault();
               handleSearch(searchText);
@@ -180,7 +180,7 @@ const DepartmentDetailPage = ({
                   }
                 }}
                 placeholder={data?.contents}
-                className="text-base font-normal placeholder:text-[#0F2F64] focus:border-none focus:outline-none md:text-lg"
+                className="text-base bg-none font-normal placeholder:text-[#0F2F64] focus:border-none focus:outline-none md:text-lg"
               />
             </div>
             <button
@@ -290,7 +290,7 @@ const DepartmentDetailPage = ({
                       __html: ctaButtonData?.title,
                     }}
                   ></div>
-                  <Link
+                  <a
                     href={ctaButtonData?.url}
                     className="flex w-fit items-center gap-2.5 rounded-[6px] bg-[#E50000] p-[10px_12px_10px_16px] text-lg font-medium leading-none text-white"
                   >
@@ -300,7 +300,7 @@ const DepartmentDetailPage = ({
                       alt="phone"
                       className="size-5"
                     />
-                  </Link>
+                  </a>
                 </div>
                 <img
                   src="/assets/images/net-overlay.png"

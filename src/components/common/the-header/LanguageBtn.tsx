@@ -54,7 +54,7 @@ export default function LanguageBtn({
         )}
       >
         <div
-          className="relative w-full overflow-hidden rounded-[6px] bg-white py-[2px]"
+          className="relative w-full overflow-hidden rounded-[6px] bg-white"
           style={{
             boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
           }}
@@ -69,7 +69,7 @@ export default function LanguageBtn({
                   switchLocale(item);
                   setIsOpen(false);
                 }}
-                className="w-full whitespace-nowrap text-nowrap p-[6px_10px] text-start text-sm font-medium uppercase text-black transition-all duration-100 hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[10px_16px]"
+                className="w-full whitespace-nowrap text-nowrap p-[6px_10px] text-start text-sm font-medium uppercase text-black transition-all duration-100 first:mt-0.5 last:mb-0.5 hover:text-primary-600 2xl:p-[6px_12px] 3xl:p-[10px_16px]"
               >
                 {item}
               </button>
