@@ -1,3 +1,4 @@
+"use client"
 import { CommonSection } from '@/src/types/pageBuilder';
 import React, { useState } from 'react';
 import 'swiper/css';

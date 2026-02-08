@@ -1,6 +1,5 @@
-'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React, { useEffect } from 'react';
+import React from 'react';
 import CustomLink from '../../common/custom-link';
 import * as Accordion from '@radix-ui/react-accordion';
 import {
@@ -13,26 +12,6 @@ import Fancybox from '../../common/Fancybox';
 
 export default function ContentFullSize({ data }: CommonSection) {
   const button = data?.buttons?.[0];
-
-  useEffect(() => {
-    const container = document.querySelector(
-      '.content-wrapper.content-fancybox',
-    );
-    if (!container) return;
-
-    try {
-      const images = container.querySelectorAll('img');
-      images.forEach((img) => {
-        if (img && !img.hasAttribute('data-fancybox')) {
-          img.setAttribute('data-fancybox', 'gallery');
-          img.setAttribute('data-src', img.getAttribute('src') || '');
-          img.style.cursor = 'pointer';
-        }
-      });
-    } catch (err) {
-      console.error('Fancybox setup error:', err);
-    }
-  }, [data?.contents]);
 
   return (
     <section className="container py-[60px] md:py-[80px] xl:py-[120px]">

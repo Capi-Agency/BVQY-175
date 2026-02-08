@@ -1,4 +1,3 @@
-'use client';
 import CustomLink from '@/src/components/common/custom-link';
 import NextImg from '@/src/components/common/next-img';
 import { CommonSection } from '@/src/types/pageBuilder';
@@ -12,13 +11,15 @@ export default function EmbeddedMap({ data }: CommonSection) {
     <section className="container py-10 md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
       <h2 className="section-title mt-2 text-center">{data.title}</h2>
 
-      <div
-        className="section-content mx-auto text-justify"
-        style={data?.custom ?? {}}
-        dangerouslySetInnerHTML={{
-          __html: data?.blurb,
-        }}
-      ></div>
+      {data?.blurb && (
+        <div
+          className="section-content mx-auto text-justify"
+          style={data?.custom ?? {}}
+          dangerouslySetInnerHTML={{
+            __html: data?.blurb,
+          }}
+        ></div>
+      )}
 
       <div className="mb-2 mt-6 flex justify-end md:mt-8 lg:mt-10 xl:mt-12">
         <CustomLink
@@ -29,13 +30,17 @@ export default function EmbeddedMap({ data }: CommonSection) {
         </CustomLink>
       </div>
 
-      <div
-        dangerouslySetInnerHTML={{
-          __html: data?.cover,
-        }}
-      ></div>
+      {data?.cover && (
+        <div
+          dangerouslySetInnerHTML={{
+            __html: data?.cover,
+          }}
+        ></div>
+      )}
 
-      <p className="section-title my-10 md:my-14 xl:my-16 3xl:my-[72px] 4xl:my-20 text-center">{data?.subtitle}</p>
+      <p className="section-title my-10 text-center md:my-14 xl:my-16 3xl:my-[72px] 4xl:my-20">
+        {data?.subtitle}
+      </p>
 
       <CustomLink
         href={buttonViewMap360?.url}

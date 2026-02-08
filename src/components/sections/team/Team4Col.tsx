@@ -1,8 +1,7 @@
 import { CommonSection } from '@/src/types/pageBuilder';
 import React from 'react';
 import DoctorCard from '../../common/doctor-card';
-import 'swiper/css';
-import 'swiper/css/pagination';
+
 
 export default function Team4Col({ data }: CommonSection) {
   return (

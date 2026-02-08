@@ -1,4 +1,3 @@
-'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
 import React from 'react';
 import NextImg from '../../common/next-img';

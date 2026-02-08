@@ -20,12 +20,14 @@ export default function HeroBackgroundFocus2({ data }: CommonSection) {
       >
         {/* subtitle */}
         <div className="container">
-          <div
-            className="text-base font-normal text-gray-200 md:text-lg lg:text-xl"
-            dangerouslySetInnerHTML={{
-              __html: data?.blurb,
-            }}
-          ></div>
+          {data?.blurb && (
+            <div
+              className="text-base font-normal text-gray-200 md:text-lg lg:text-xl"
+              dangerouslySetInnerHTML={{
+                __html: data?.blurb,
+              }}
+            ></div>
+          )}
           {/* title */}
           {data?.title && (
             <h1 className="text-[28px] font-bold !leading-[1.5] text-white md:text-[40px] lg:text-[44px] 2xl:text-[48px] 3xl:text-[60px] 4xl:text-[72px]">

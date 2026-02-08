@@ -1,9 +1,7 @@
-'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
 import React from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
-import 'swiper/css';
 
 export default function Card3Col({ data }: CommonSection) {
   return (

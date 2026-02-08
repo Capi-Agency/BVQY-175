@@ -1,7 +1,5 @@
 import { CommonSection } from '@/src/types/pageBuilder';
 import React, { JSX } from 'react';
-import 'swiper/css';
-import 'swiper/css/pagination';
 import { getAssetUrlById } from '@/src/utils/image';
 import { cn } from '@/src/lib/utils';
 import NextImg from '@/src/components/common/next-img';

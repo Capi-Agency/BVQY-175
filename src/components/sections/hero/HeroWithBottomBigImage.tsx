@@ -1,4 +1,3 @@
-'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { formatDate } from '@/src/utils/validate';
 import React from 'react';
