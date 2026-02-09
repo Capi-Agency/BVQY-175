@@ -18,6 +18,8 @@ export const fnGetPageBySlug = async (slug: string) => {
       'Error getting page content: ',
       error?.errors?.[0]?.message || error?.message || error,
     );
+    console.log('slug: ', slug);
+    console.log('----');
     return null;
   }
 };
@@ -39,6 +41,8 @@ export const fnGetSchemaBySlug = async (slug: string) => {
       'Error getting page schema: ',
       error?.errors?.[0]?.message || error?.message || error,
     );
+    console.log('slug: ', slug);
+    console.log('----');
     return null;
   }
 };
@@ -91,6 +95,8 @@ export const fnGetTopNavBySlug = async (slug: string) => {
       'Error getting top navigation: ',
       error?.errors?.[0]?.message || error?.message || error,
     );
+    console.log('slug: ', slug);
+    console.log('----');
     return null;
   }
 };
@@ -112,6 +118,8 @@ export const fnGetBottomNavBySlug = async (slug: string) => {
       'Error getting bottom navigation:  ',
       error?.errors?.[0]?.message || error?.message || error,
     );
+    console.log('slug: ', slug);
+    console.log('----');
     return null;
   }
 };
