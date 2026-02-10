@@ -44,7 +44,12 @@ export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
         className="flex cursor-pointer items-center justify-center md:h-9 md:w-[52px] md:rounded-[6px] md:bg-primary-600 md:hover:bg-primary-500 2xl:h-10 2xl:w-[60px]"
       >
         <div className="relative size-6 brightness-0 md:brightness-100 2xl:size-6">
-          <img src="/assets/icons/search_white.svg" alt="search icon" loading='eager' />
+          <img
+            src="/assets/icons/search_white.svg"
+            alt="search icon"
+            loading="eager"
+            className="size-full"
+          />
         </div>
       </div>
 
@@ -66,7 +71,12 @@ export default function SearchHeader({ handleSearch }: SearchHeaderProps) {
             }}
             className="relative size-5"
           >
-            <img src="/assets/icons/search_gray.svg" alt="search_gray" loading='eager' />
+            <img
+              src="/assets/icons/search_gray.svg"
+              alt="search_gray"
+              loading="eager"
+              className="size-full"
+            />
           </button>
 
           <input

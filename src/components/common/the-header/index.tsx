@@ -82,6 +82,7 @@ export default function TheHeader() {
                       src="/assets/icons/map_pin.svg"
                       alt="hospital location"
                       loading="eager"
+                      className="size-full"
                     />
                   </div>
                 </CustomLink>

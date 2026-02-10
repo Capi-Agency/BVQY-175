@@ -25,7 +25,7 @@ export default function FeatureWithImage4Col({ data }: CommonSection) {
                   <img
                     src={getAssetUrlById(item?.icon?.id)}
                     alt="icon"
-                    className="size-full"
+                    className="size-full object-contain"
                   />
                 </div>
               </div>

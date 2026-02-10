@@ -54,7 +54,7 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
               src="/assets/icons/ham_menu.svg"
               alt="menu icon"
               loading="eager"
-              className='size-full'
+              className="size-full"
             />
           </div>
         </button>
@@ -104,6 +104,7 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                       src="/assets/icons/map_pin.svg"
                       alt="hospital location"
                       loading="eager"
+                      className="size-full"
                     />
                   </div>
                 </div>
@@ -124,7 +125,11 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
               >
                 <div className="btn-menu cursor-pointer">
                   <div className="relative size-5 2xl:size-6">
-                    <img src="/assets/icons/close.svg" alt="menu icon" />
+                    <img
+                      src="/assets/icons/close.svg"
+                      alt="menu icon"
+                      className="size-full"
+                    />
                   </div>
                 </div>
               </DialogClose>
