@@ -50,10 +50,11 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
       >
         <button className="flex items-center justify-center md:h-9 md:w-[52px] md:rounded-[6px] md:bg-primary-600 xl:hidden 2xl:h-10 2xl:w-[60px]">
           <div className="relative size-6 brightness-0 md:brightness-100 2xl:size-6">
-            <NextImg
+            <img
               src="/assets/icons/ham_menu.svg"
               alt="menu icon"
               loading="eager"
+              className='size-full'
             />
           </div>
         </button>
@@ -99,7 +100,7 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
               >
                 <div className="btn-menu cursor-pointer">
                   <div className="relative size-5 2xl:size-6">
-                    <NextImg
+                    <img
                       src="/assets/icons/map_pin.svg"
                       alt="hospital location"
                       loading="eager"
@@ -123,7 +124,7 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
               >
                 <div className="btn-menu cursor-pointer">
                   <div className="relative size-5 2xl:size-6">
-                    <NextImg src="/assets/icons/close.svg" alt="menu icon" />
+                    <img src="/assets/icons/close.svg" alt="menu icon" />
                   </div>
                 </div>
               </DialogClose>

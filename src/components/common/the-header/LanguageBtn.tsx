@@ -36,9 +36,10 @@ export default function LanguageBtn({
     >
       {locale}
       <div className="relative size-4">
-        <NextImg
+        <img
           src="/assets/icons/arrow_down_white.svg"
           alt="icon arrow down"
+          className="size-full"
         />
       </div>
 

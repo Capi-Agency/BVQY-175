@@ -78,7 +78,7 @@ export default function TheHeader() {
                   className="hidden h-9 w-[52px] items-center justify-center rounded-[6px] bg-primary-600 hover:bg-primary-500 md:flex 2xl:h-10 2xl:w-[60px]"
                 >
                   <div className="relative size-5 2xl:size-6">
-                    <NextImg
+                    <img
                       src="/assets/icons/map_pin.svg"
                       alt="hospital location"
                       loading="eager"

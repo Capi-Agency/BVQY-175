@@ -18,7 +18,7 @@ export default function HeroWithTopImage({ data }: CommonSection) {
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
   const { paginationClass, paginationConfig } = useSwiperPagination();
-  const { contextSafe } = useGSAP(() => { }, { scope: containerRef });
+  const { contextSafe } = useGSAP(() => {}, { scope: containerRef });
 
   const handleSlideNextTransitionStart = contextSafe(
     (realIndex: number, previousRealIndex: number) => {
@@ -173,7 +173,10 @@ export default function HeroWithTopImage({ data }: CommonSection) {
                 className="h-full w-full"
               >
                 {data?.items?.map((item: any, index: number) => (
-                  <SwiperSlide key={`cover-${index}`} className="!h-full !w-full">
+                  <SwiperSlide
+                    key={`cover-${index}`}
+                    className="!h-full !w-full"
+                  >
                     {item?.buttons?.[0]?.url ? (
                       <CustomLink
                         href={item?.buttons?.[0]?.url}
@@ -212,7 +215,11 @@ export default function HeroWithTopImage({ data }: CommonSection) {
                   className="group flex items-center gap-3 bg-primary-50 p-[12px_24px] transition-colors duration-200 hover:bg-secondary md:p-[12px_40px] lg:p-[12px_80px] xl:p-[12px_120px] 2xl:flex-1 2xl:p-[12px_16px] 3xl:gap-4 3xl:p-[12px_20px] 4xl:p-[12px_24px]"
                 >
                   <div className="relative size-9 duration-200 group-hover:brightness-[0] group-hover:invert group-hover:saturate-[100%] md:size-8 xl:size-9 3xl:size-11 4xl:size-12">
-                    <NextImg src={getAssetUrlById(button?.icon?.id)} alt="icon" />
+                    <img
+                      src={getAssetUrlById(button?.icon?.id)}
+                      alt="icon"
+                      className="size-full"
+                    />
                   </div>
 
                   <div className="flex-1">
@@ -286,7 +293,7 @@ const SlideContent = ({ item, isFirst }: any) => {
             }}
           ></div>
         </div>
-      </div >
+      </div>
     </>
   );
 };

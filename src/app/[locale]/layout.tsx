@@ -74,8 +74,10 @@ export default async function RootLayout({
 
   setRequestLocale(locale);
 
-  const metadata = await fnGetMetadata(locale);
-  const messages = await getMessages({ locale });
+  const [metadata, messages] = await Promise.all([
+    fnGetMetadata(locale),
+    getMessages({ locale }),
+  ]);
 
   return (
     <html
@@ -110,7 +112,6 @@ export default async function RootLayout({
           href="/assets/logo/apple-touch-icon-180x180.png"
         ></link>
 
-        <link rel="manifest" href="/manifest.webmanifest" fetchPriority="low" />
         <link rel="dns-prefetch" href="//www.google.com" />
         <link
           rel="preconnect"
@@ -122,7 +123,6 @@ export default async function RootLayout({
           content="/assets/logo/logo-icon-270x270.png"
         ></meta>
 
-        <meta name="robots" content="index" />
         <meta name="format-detection" content="telephone=no" />
         {/* Begin EMC Tracking Code */}
         <Script id="emc-tracking" strategy="afterInteractive">

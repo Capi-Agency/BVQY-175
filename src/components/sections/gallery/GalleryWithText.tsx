@@ -35,11 +35,10 @@ export default function GalleryWithText({ data }: CommonSection) {
               videoUrl={embedUrl}
               trigger={
                 <button role='button' className="relative h-full w-full cursor-pointer">
-                  <img
+                  <NextImg
                     src={`https://img.youtube.com/vi/${embedUrl}/hqdefault.jpg`}
                     alt="Video Bệnh viện Quân Y 175"
-                    className="h-full w-full object-cover"
-                    loading="lazy"
+                    objectFit='cover'
                   />
                   <div className="pointer-events-none absolute left-1/2 top-1/2 z-[1] aspect-[512/361] w-[70px] md:w-[60px] lg:w-[70px] -translate-x-1/2 -translate-y-1/2">
                     <NextImg
