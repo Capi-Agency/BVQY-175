@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from '@/src/i18n/navigation';
 import {
   getListDoctorPreview,
   getTotalDoctorCount,
@@ -18,7 +18,7 @@ import { cn } from '@/src/lib/utils';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useLocale, useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from '@/src/i18n/navigation';
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 type SearchListContentProps = {

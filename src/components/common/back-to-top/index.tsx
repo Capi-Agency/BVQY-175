@@ -4,7 +4,7 @@ import { gsap } from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { useGSAP } from '@gsap/react';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/src/i18n/navigation';
 import NextImg from '../next-img';
 import ContactFixed from '../contact-fixed';
 

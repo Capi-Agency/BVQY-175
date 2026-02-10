@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import { getAssetUrlById } from '@/src/utils/image';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 
 const TeamGrid = ({ data }: CommonSection) => {
   return (

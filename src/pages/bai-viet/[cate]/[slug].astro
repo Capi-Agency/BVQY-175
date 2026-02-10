@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { fnGetPageBySlug } from '../../../services/page';
+import { createSeoData } from '../../../utils/metadata';
+import PageBuilder from '../../../page-builder';
+import JsonLDProvider from '../../../components/common/the-json-ld/index.astro';
+
+import { getNewsDetail } from '../../../services/news';
+
+const { locale, metadata } = Astro.locals;
+const { cate, slug } = Astro.params;
+
+if (!cate || !slug) {
+  return Astro.redirect('/404');
+}
+
+// Fetch generic detail template and specific news data
+const [pageContent, pageDetail] = await Promise.all([
+  fnGetPageBySlug(locale === 'vi' ? 'chi-tiet-bai-viet' : 'chi-tiet-bai-viet-en'),
+  getNewsDetail({
+    collection: 'news',
+    slug: slug,
+    locale: locale,
+  }),
+]);
+
+if (!pageContent || !pageDetail) {
+  return Astro.redirect('/404');
+}
+
+const pageSchema = pageContent?.seo?.meta_schema;
+const seoData = createSeoData(pageDetail, locale, `bai-viet/${cate}/${slug}`);
+---
+
+<BaseLayout title={seoData?.title} description={seoData?.description}>
+  <JsonLDProvider pageSchema={pageSchema} />
+  <PageBuilder
+    client:only="react"
+    pageContent={pageContent}
+    pageDetail={pageDetail}
+    metadata={metadata}
+  />
+</BaseLayout>

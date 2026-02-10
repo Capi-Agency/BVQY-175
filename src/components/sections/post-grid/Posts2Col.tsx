@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import NextImg from '@/src/components/common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import Fancybox from '../../common/Fancybox';
-import Link from 'next/link';
+import { Link } from '@/src/i18n/navigation';
 
 const Posts2Col = ({ data }: CommonSection) => {
   const items = data?.items || [];

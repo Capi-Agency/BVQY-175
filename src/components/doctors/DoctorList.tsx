@@ -5,8 +5,8 @@ import { getDoctorsCount, getListDoctors } from '@/src/services/doctors';
 import { getAssetUrlById } from '@/src/utils/image';
 import { getDoctorTitles } from '@/src/utils/render-doctor-title';
 import clsx from 'clsx';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { Link } from '@/src/i18n/navigation';
+import { useRouter, useSearchParams } from '@/src/i18n/navigation';
 import React, {
   useCallback,
   useEffect,

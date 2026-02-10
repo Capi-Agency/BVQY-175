@@ -4,7 +4,7 @@ import React from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import Fancybox from '../../common/Fancybox';
-import Link from 'next/link';
+import { Link } from '@/src/i18n/navigation';
 
 export default function HeroWithBottomBigImage({
   data,

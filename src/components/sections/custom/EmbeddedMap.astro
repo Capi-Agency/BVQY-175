@@ -1,0 +1,50 @@
+---
+// Embedded map section with iframe
+import type { CommonSection } from '@/src/types/pageBuilder';
+import CustomLink from '@/src/components/common/custom-link';
+import { getAssetUrlById } from '@/src/utils/image';
+
+const { data } = Astro.props as CommonSection;
+const buttonViewMap = data?.buttons?.[0] || {};
+const buttonViewMap360 = data?.buttons?.[1] || {};
+---
+
+<section class="container py-10 md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
+  <h2 class="section-title mt-2 text-center">{data.title}</h2>
+
+  {data?.blurb && (
+    <div
+      class="section-content mx-auto text-justify"
+      style={data?.custom ?? {}}
+      set:html={data?.blurb}
+    />
+  )}
+
+  <div class="mb-2 mt-6 flex justify-end md:mt-8 lg:mt-10 xl:mt-12">
+    <CustomLink
+      href={buttonViewMap?.url || '#'}
+      class="font-normal italic text-primary-500"
+    >
+      {buttonViewMap?.title}
+    </CustomLink>
+  </div>
+
+  {data?.cover && (
+    <div set:html={data?.cover} />
+  )}
+
+  <p class="section-title my-10 text-center md:my-14 xl:my-16 3xl:my-[72px] 4xl:my-20">
+    {data?.subtitle}
+  </p>
+
+  <CustomLink
+    href={buttonViewMap360?.url}
+    class="relative block aspect-video"
+  >
+    <img
+      src={getAssetUrlById(buttonViewMap360?.icon?.id)}
+      alt="map-360"
+      class="size-full object-cover"
+    />
+  </CustomLink>
+</section>

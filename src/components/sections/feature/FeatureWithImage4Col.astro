@@ -1,0 +1,37 @@
+---
+// Feature grid with icons and links - 4 columns
+import type { CommonSection } from '@/src/types/pageBuilder';
+import { getAssetUrlById } from '@/src/utils/image';
+import CustomLink from '../../common/custom-link';
+
+const { data } = Astro.props as CommonSection;
+---
+
+<section class="p-[20px_0_40px] lg:p-[36px_0_52px] xl:p-[40px_0_60px] 3xl:p-[48px_0_72px] 4xl:p-[56px_0_90px]">
+  <div class="section-sub-title text-center">{data?.subtitle}</div>
+  {data?.title && (
+    <h1 class="section-title mt-1 text-center">{data?.title}</h1>
+  )}
+
+  <div class="container pt-8 md:pt-8 lg:pt-10 xl:pt-11 2xl:pt-12 3xl:pt-14">
+    <div class="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 md:gap-y-10 lg:grid-cols-4 lg:gap-x-6 xl:grid-cols-5 2xl:grid-cols-6 4xl:gap-y-12">
+      {data?.buttons?.map((item: any, index: number) => (
+        <CustomLink
+          key={index}
+          href={item?.url}
+          class="bg-red-50 group relative flex flex-col items-center gap-3"
+        >
+          <div class="flex size-[60px] items-center justify-center rounded-[12px] bg-[#E7F3EB] lg:size-[64px] xl:size-[68px] 2xl:size-[72px] 3xl:size-[76px] 4xl:size-[80px]">
+            <div class="relative size-9 duration-200 lg:size-10 2xl:size-11 3xl:size-12">
+              <img src={getAssetUrlById(item?.icon?.id)} alt="icon" class="size-full object-contain" />
+            </div>
+          </div>
+
+          <div class="w-full text-center text-sm font-semibold !leading-[1.5] text-primary-600 md:text-base 3xl:text-lg">
+            {item?.title}
+          </div>
+        </CustomLink>
+      ))}
+    </div>
+  </div>
+</section>

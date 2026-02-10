@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import NextImg from '../next-img';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 
 type SearchHeaderProps = {
   handleSearch: (key: string, value: string) => void;

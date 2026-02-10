@@ -12,7 +12,7 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from '@/src/i18n/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);

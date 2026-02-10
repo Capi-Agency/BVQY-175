@@ -6,7 +6,7 @@ import { getAssetUrlById } from '@/src/utils/image';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Link from 'next/link';
+import { Link } from '@/src/i18n/navigation';
 import CustomLink from '../../common/custom-link';
 import Fancybox from '../../common/Fancybox';
 

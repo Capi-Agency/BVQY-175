@@ -4,7 +4,7 @@ import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
 import CustomLink from '../../common/custom-link';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 
 type NewsCardProps = {
   item: any;

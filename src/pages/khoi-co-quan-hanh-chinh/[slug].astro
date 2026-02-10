@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fnGetPageBySlug } from '../../services/page';
+import { createSeoData } from '../../utils/metadata';
+import PageBuilder from '../../page-builder';
+import JsonLDProvider from '../../components/common/the-json-ld/index.astro';
+
+import { fnGetAdminDepartmentDetail } from '../../services/adminDepartment';
+
+const { locale, metadata } = Astro.locals;
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/404');
+}
+
+// Fetch generic detail template and specific admin department data
+const [pageContent, pageDetail] = await Promise.all([
+  fnGetPageBySlug('chi-tiet-khoi-co-quan-hanh-chinh'),
+  fnGetAdminDepartmentDetail({
+    collection: 'admin_departments',
+    slug: slug,
+  }),
+]);
+
+if (!pageContent || !pageDetail) {
+  return Astro.redirect('/404');
+}
+
+const pageSchema = pageContent?.seo?.meta_schema;
+const seoData = createSeoData(pageDetail, locale, `khoi-co-quan-hanh-chinh/${slug}`);
+---
+
+<BaseLayout title={seoData?.title} description={seoData?.description}>
+  <JsonLDProvider pageSchema={pageSchema} />
+  <PageBuilder
+    client:only="react"
+    pageContent={pageContent}
+    pageDetail={pageDetail}
+    metadata={metadata}
+  />
+</BaseLayout>

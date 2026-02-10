@@ -1,0 +1,177 @@
+---
+import '../styles/globals.css';
+import { fnGetMetadata } from '../services/metadata';
+import TheHeader from '../components/common/the-header';
+import TheFooter from '../components/common/the-footer';
+import BackToTop from '../components/common/back-to-top';
+import { LoadingComp } from '../components/sections/custom';
+import LazyToastContainer from '../components/common/lazy-toast-container';
+import ReCaptchatProvider from '../providers/GoogleRecaptchaProvider';
+import { ThemeProvider } from '../providers/theme-provider';
+import { MetadataProvider } from '../providers/MetadataProvider';
+import { GsapMatchMediaProvider } from '../providers/GsapMatchMediaProvider';
+import { ScrollSmootherProvider } from '../providers/ScrollSmootherProvider';
+
+// Get locale and metadata from Astro context (populated by middleware)
+const { locale, metadata } = Astro.locals;
+
+// Get translations (will be setup with astro-i18next)
+// const messages = await getTranslations(locale);
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang={locale} class="font-jakarta">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title || metadata?.site_name || 'Site'}</title>
+    <meta name="description" content={description || metadata?.site_description || ''} />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content={metadata?.site_keywords || ''} />
+    <meta name="author" content={metadata?.site_name || ''} />
+    <link rel="canonical" href={Astro.url.href} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:title" content={title || metadata?.site_name || 'Site'} />
+    <meta property="og:description" content={description || metadata?.site_description || ''} />
+    <meta property="og:image" content={metadata?.site_cover ? `${import.meta.env.PUBLIC_ASSETS_URL || import.meta.env.NEXT_PUBLIC_ASSETS_URL || 'https://admin175.minhkhang.net/assets/'}${metadata.site_cover}` : '/assets/logo/og-image.png'} />
+    <meta property="og:locale" content={locale === 'vi' ? 'vi_VN' : 'en_US'} />
+    <meta property="og:site_name" content={metadata?.site_name || 'Site'} />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={Astro.url.href} />
+    <meta name="twitter:title" content={title || metadata?.site_name || 'Site'} />
+    <meta name="twitter:description" content={description || metadata?.site_description || ''} />
+    <meta name="twitter:image" content={metadata?.site_cover ? `${import.meta.env.PUBLIC_ASSETS_URL || import.meta.env.NEXT_PUBLIC_ASSETS_URL || 'https://admin175.minhkhang.net/assets/'}${metadata.site_cover}` : '/assets/logo/og-image.png'} />
+    
+    <!-- Favicons -->
+    <link rel="icon" href="/assets/logo/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/logo/android-chrome-192x192.png" />
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="/assets/logo/apple-touch-icon-180x180.png" />
+    
+    <!-- Manifest & Meta -->
+    <link rel="manifest" href="/manifest.webmanifest" fetchpriority="low" />
+    <link rel="dns-prefetch" href="//www.google.com" />
+    <link rel="preconnect" href="//www.google.com" crossorigin />
+    <meta name="msapplication-TileImage" content="/assets/logo/logo-icon-270x270.png" />
+    <meta name="robots" content="index, follow" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#ffffff" />
+    
+    <!-- Fonts preload -->
+    <link rel="preload" href="/assets/fonts/Plus-Jakarta/PlusJakartaSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/Plus-Jakarta/PlusJakartaSans-Medium.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/Plus-Jakarta/PlusJakartaSans-Bold.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <!-- EMC Tracking Code -->
+    <script is:inline>
+      var _govaq = window._govaq || [];
+      _govaq.push(['trackPageView']);
+      _govaq.push(['enableLinkTracking']);
+      (function () {
+        _govaq.push(['setTrackerUrl', 'https://f-emc.ngsp.gov.vn/tracking']);
+        _govaq.push(['setSiteId', '4686']);
+        var d = document,
+          g = d.createElement('script'),
+          s = d.getElementsByTagName('script')[0];
+        g.type = 'text/javascript';
+        g.async = true;
+        g.defer = true;
+        g.src = 'https://f-emc.ngsp.gov.vn/embed/gov-tracking.min.js';
+        s.parentNode.insertBefore(g, s);
+      })();
+    </script>
+  </head>
+  
+  <body class="antialiased">
+    <LazyToastContainer
+      client:load
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={true}
+      newestOnTop={true}
+      closeOnClick
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      closeButton={false}
+      className="z-[99999] text-sm"
+    />
+    
+    <ReCaptchatProvider client:only="react">
+      <ThemeProvider client:load attribute="class" defaultTheme="light" enableSystem>
+        <GsapMatchMediaProvider client:load>
+          <ScrollSmootherProvider client:load>
+            <!-- Loading component will be handled differently in Astro -->
+            <TheHeader client:load metadata={metadata} />
+            <BackToTop client:load />
+            <slot />
+            <TheFooter client:load metadata={metadata} />
+          </ScrollSmootherProvider>
+        </GsapMatchMediaProvider>
+      </ThemeProvider>
+    </ReCaptchatProvider>
+  </body>
+</html>
+
+<style is:global>
+  @font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-Bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Plus Jakarta Sans';
+    src: url('/assets/fonts/Plus-Jakarta/PlusJakartaSans-ExtraBold.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  :root {
+    --font-plus-jakarta-sans: 'Plus Jakarta Sans', Arial, sans-serif;
+  }
+  
+  html {
+    font-family: var(--font-plus-jakarta-sans);
+  }
+  
+  .font-jakarta {
+    font-family: var(--font-plus-jakarta-sans);
+  }
+</style>

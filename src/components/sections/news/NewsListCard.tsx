@@ -3,13 +3,13 @@ import React, { useEffect, useMemo, useState, useRef } from 'react';
 import NewsCard from './NewsCard';
 import { getListNews, getTotalNewsCount } from '@/src/services/news';
 import { CommonSection } from '@/src/types/pageBuilder';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams, useSearchParams } from '@/src/i18n/navigation';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import PaginationPrimary from '../pagination/PaginationPrimary';
-import { useLocale, useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from '@/src/i18n/navigation';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 

@@ -9,10 +9,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import Fancybox from '../../common/Fancybox';
-import Link from 'next/link';
+import { Link } from '@/src/i18n/navigation';
 import { cn } from '@/src/lib/utils';
 import useSwiperPagination from '@/src/hooks/useSwiperPagination';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 
 export default function InfoWithLeftImage({ data, dataDetail }: CommonSection) {
   const t = useTranslations('Common');

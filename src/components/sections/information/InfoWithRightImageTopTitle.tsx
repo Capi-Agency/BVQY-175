@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Fancybox from '../../common/Fancybox';
-import Link from 'next/link';
+import { Link } from '@/src/i18n/navigation';
 import { cn } from '@/src/lib/utils';
 import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 

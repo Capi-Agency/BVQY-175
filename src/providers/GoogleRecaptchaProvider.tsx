@@ -8,7 +8,11 @@ export default function ReCaptchatProvider({
 }) {
   return (
     <GoogleReCaptchaProvider
-      reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+      reCaptchaKey={
+        import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ||
+        import.meta.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ||
+        ''
+      }
     >
       {children}
     </GoogleReCaptchaProvider>

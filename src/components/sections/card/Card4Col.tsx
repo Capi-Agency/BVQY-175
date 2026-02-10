@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import PaginationPrimary from '../pagination/PaginationPrimary';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from '@/src/i18n/navigation';
 import {
   fnGetAdminDepartments,
   getTotalAdminDepartmentCount,
@@ -12,7 +12,7 @@ import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import DepartmentCard from '../../departments/DepartmentCard';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 

@@ -1,29 +1,42 @@
-// middleware.ts
-import createMiddleware from 'next-intl/middleware';
+// Astro Middleware for i18n locale detection
+// Migrated from Next.js next-intl middleware
+
+import type { MiddlewareHandler } from 'astro';
 import { routing } from './i18n/routing';
-import { NextRequest } from 'next/server';
+import { fnGetMetadata } from './services/metadata';
 
-const intlMiddleware = createMiddleware(routing);
+export const onRequest: MiddlewareHandler = async (context, next) => {
+  const { pathname } = context.url;
 
-export default function middleware(request: NextRequest) {
-  // Clone URL và xóa _rsc nếu có
-  const url = request.nextUrl.clone();
-  const hasRscParam = url.searchParams.has('_rsc');
+  // Extract locale from pathname (e.g., /vi/page or /en/page)
+  const segments = pathname.split('/').filter(Boolean);
+  const firstSegment = segments[0];
 
-  if (hasRscParam) {
-    url.searchParams.delete('_rsc');
-
-    // Tạo request mới với URL đã normalize
-    const modifiedRequest = new Request(url, request);
-
-    // Chuyển qua intl middleware với request đã sửa
-    return intlMiddleware(modifiedRequest as NextRequest);
+  // If already have locale and metadata from a previous pass (rewrite), just skip
+  if (
+    context.locals.locale &&
+    context.locals.metadata &&
+    !routing.locales.includes(firstSegment as any)
+  ) {
+    return next();
   }
 
-  // Không có _rsc, chạy bình thường
-  return intlMiddleware(request);
-}
+  // Check if first segment is a valid locale
+  const isLocale = routing.locales.includes(firstSegment as any);
+  const locale = isLocale ? (firstSegment as string) : routing.defaultLocale;
 
-export const config = {
-  matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
+  // Store locale in context.locals for access in pages/layouts
+  context.locals.locale = locale;
+
+  // Fetch and store metadata
+  context.locals.metadata = await fnGetMetadata(locale as any);
+
+  // If locale prefix is present, rewrite to the base path
+  if (isLocale) {
+    const newPath = '/' + segments.slice(1).join('/') || '/';
+    // Use rewrite for Astro 4.x+
+    return context.rewrite(newPath);
+  }
+
+  return next();
 };

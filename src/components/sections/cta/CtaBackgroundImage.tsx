@@ -9,9 +9,9 @@ import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Fancybox from '../../common/Fancybox';
 import { useMetadata } from '@/src/providers/MetadataProvider';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 import useSwiperPagination from '@/src/hooks/useSwiperPagination';
-import Link from 'next/link';
+import { Link } from '@/src/i18n/navigation';
 
 export default function CtaBackgroundImage({ data }: CommonSection) {
   const metadata = useMetadata();

@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import NextImg from '../next-img';
 import { cn } from '@/src/lib/utils';
-import { useLocale } from 'next-intl';
+import { useLocale } from '@/src/i18n/navigation';
 import { useRouter } from '@/src/i18n/navigation';
 import { routing } from '@/src/i18n/routing';
 

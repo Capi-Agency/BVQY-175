@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { fnSendContact } from '@/src/services/contact';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 
 type Contact = {
   email: string;

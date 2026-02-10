@@ -4,7 +4,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { ScrollSmoother } from 'gsap/dist/ScrollSmoother';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/src/i18n/navigation';
 import { useScrollSmoother } from '@/src/providers/ScrollSmootherProvider';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother);

@@ -8,7 +8,7 @@ import 'swiper/css/effect-fade';
 import { EffectFade, Pagination, Thumbs } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import type { Swiper as SwiperType } from 'swiper';
-import Link from 'next/link';
+import { Link } from '@/src/i18n/navigation';
 import { getAssetUrlById } from '@/src/utils/image';
 import NextImg from '../../common/next-img';
 import Fancybox from '../../common/Fancybox';

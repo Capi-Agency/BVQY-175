@@ -8,13 +8,13 @@ import React, {
 } from 'react';
 import NextImg from '../../common/next-img';
 import { CommonSection } from '@/src/types/pageBuilder';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from '@/src/i18n/navigation';
 import SearchListContent from './SearchListContent';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { cn } from '@/src/lib/utils';
 import { debounce } from 'lodash';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 
 export default function CustomSearch({ data }: CommonSection) {
   const inputRef = useRef<HTMLInputElement>(null);

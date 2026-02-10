@@ -4,7 +4,7 @@ import {
   getTotalMilestoneCount,
 } from '@/src/services/milestone';
 import { CommonSection } from '@/src/types/pageBuilder';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from '@/src/i18n/navigation';
 import React, { useEffect, useMemo, useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import {
@@ -24,7 +24,7 @@ import Card1ColDetail from './Card1ColDetail';
 import PaginationPrimary from '../pagination/PaginationPrimary';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
-import { useLocale, useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from '@/src/i18n/navigation';
 
 export default function Card1Col({ data }: CommonSection) {
   const t = useTranslations('Common');

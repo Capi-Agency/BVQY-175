@@ -1,0 +1,14 @@
+---
+// JSON-LD Component for Astro
+// Migrated from Next.js Script component
+
+export interface Props {
+  pageSchema?: any;
+}
+
+const { pageSchema } = Astro.props;
+---
+
+{pageSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
+)}

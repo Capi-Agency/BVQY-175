@@ -5,10 +5,10 @@ import { CommonSection } from '@/src/types/pageBuilder';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate } from '@/src/utils/validate';
 import { getListNews } from '@/src/services/news';
-import { useParams } from 'next/navigation';
+import { useParams } from '@/src/i18n/navigation';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { Link } from '@/src/i18n/navigation';
-import { useLocale, useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from '@/src/i18n/navigation';
 
 export default function HotNewsHero({ data }: CommonSection) {
   const locale = useLocale();

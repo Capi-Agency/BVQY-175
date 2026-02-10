@@ -26,7 +26,11 @@ export default function OnDemandReCaptchaProvider({
 
   return (
     <GoogleReCaptchaProvider
-      reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+      reCaptchaKey={
+        import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY ||
+        import.meta.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ||
+        ''
+      }
       scriptProps={{
         async: true,
         defer: true,

@@ -1,7 +1,5 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Image from 'next/legacy/image';
-
 interface NextImgProps {
   id?: string;
   src: string;
@@ -33,6 +31,7 @@ const NextImg = ({
 }: NextImgProps) => {
   const [mounted, setMounted] = useState(false);
   const [fallback, setFallback] = useState('');
+
   const handleError = () => {
     setFallback(srcDefault);
   };
@@ -45,24 +44,24 @@ const NextImg = ({
     return null;
   }
 
-  const imageSrc = (src || fallback || srcDefault) + '?format=webp';
+  // Add webp format for CMS images automatically
+  const imageSrc = (src || fallback || srcDefault).includes('?')
+    ? src || fallback || srcDefault
+    : (src || fallback || srcDefault) + '?format=webp';
 
   return (
-    <Image
+    <img
       id={id}
       src={imageSrc}
-      blurDataURL={imageSrc}
       alt={alt}
       className={className ? `${className} h-full w-full` : `h-full w-full`}
       onError={handleError}
-      width={width}
-      height={height}
       loading={loading}
-      quality={quality}
-      objectFit={objectFit}
-      layout="fill"
-      placeholder="blur"
-      fetchPriority={fetchPriority}
+      style={{
+        objectFit,
+        width: width ? `${width}px` : '100%',
+        height: height ? `${height}px` : '100%',
+      }}
       {...props}
     />
   );

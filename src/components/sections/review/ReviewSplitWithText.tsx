@@ -11,7 +11,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { fnSendReview } from '@/src/services/contact';
 import { cn } from '@/src/lib/utils';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 import DOMPurify from 'dompurify';
 
 type Review = {

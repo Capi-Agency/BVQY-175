@@ -1,7 +1,7 @@
 import { directusClientWithRest } from '@/src/lib/directus';
 import { aggregate, readItem, readItems } from '@directus/sdk';
 import { routing } from '../i18n/routing';
-import { Locale } from 'next-intl';
+import { Locale } from '@/src/i18n/navigation';
 
 export const getListDoctors = async ({
   limit = 6,

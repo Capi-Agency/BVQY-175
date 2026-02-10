@@ -1,0 +1,60 @@
+---
+// Optimized Image component for Astro files
+// Uses Astro's built-in Image component for optimization
+import { Image } from 'astro:assets';
+
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  quality?: number;
+  format?: 'webp' | 'avif' | 'png' | 'jpg';
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  class: className = '',
+  loading = 'lazy',
+  quality = 80,
+  format = 'webp',
+  ...rest
+} = Astro.props;
+
+// Check if it's a remote image (from CMS)
+const isRemote = src.startsWith('http://') || src.startsWith('https://');
+
+// For remote images from CMS, use standard img tag with format parameter
+const optimizedSrc = isRemote 
+  ? (src.includes('?') ? `${src}&format=${format}` : `${src}?format=${format}`)
+  : src;
+---
+
+{isRemote ? (
+  <img
+    src={optimizedSrc}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    class={className}
+    {...rest}
+  />
+) : (
+  <Image
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    quality={quality}
+    format={format}
+    class={className}
+    {...rest}
+  />
+)}

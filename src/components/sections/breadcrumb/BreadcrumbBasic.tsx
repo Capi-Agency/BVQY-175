@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import NextImg from '../../common/next-img';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useParams } from 'next/navigation';
+import { useParams } from '@/src/i18n/navigation';
 import CustomLink from '../../common/custom-link';
 import { fnGetCategoriesNews } from '@/src/services/news';
-import { useLocale } from 'next-intl';
+import { useLocale } from '@/src/i18n/navigation';
 
 export default function BreadcrumbBasic({ data }: CommonSection) {
   const locale = useLocale();

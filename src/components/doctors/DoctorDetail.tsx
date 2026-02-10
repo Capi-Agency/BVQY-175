@@ -9,7 +9,7 @@ import {
   AccordionTrigger,
 } from '../ui/accordion';
 import { getDoctorTitles } from '@/src/utils/render-doctor-title';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 import { Link } from '@/src/i18n/navigation';
 
 export default function DoctorDetail({ data, dataDetail }: CommonSection) {

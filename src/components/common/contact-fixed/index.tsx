@@ -9,7 +9,7 @@ import {
   TooltipArrow,
 } from '../../ui/tooltip';
 import { useMetadata } from '@/src/providers/MetadataProvider';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 
 export default function ContactFixed() {
   const metadata = useMetadata();

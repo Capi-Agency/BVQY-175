@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import { Link } from '@/src/i18n/navigation';
 import React from 'react';
 import NextImg from '../../common/next-img';
 import { CommonSection } from '@/src/types/pageBuilder';

@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import NewsCard from '../news/NewsCard';
 import { getListNews } from '@/src/services/news';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useLocale } from 'next-intl';
+import { useLocale } from '@/src/i18n/navigation';
 
 const Posts3Col = ({ data }: CommonSection) => {
   const locale = useLocale()

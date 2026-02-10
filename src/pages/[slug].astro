@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { fnGetPageBySlug } from '../services/page';
+import { createSeoData } from '../utils/metadata';
+import PageBuilder from '../page-builder';
+import JsonLDProvider from '../components/common/the-json-ld/index.astro';
+
+const { locale, metadata } = Astro.locals;
+const { slug } = Astro.params;
+
+if (!slug) {
+  return Astro.redirect('/404');
+}
+
+// Helper function to get localized slug
+const getLangSlug = (locale: string, slug: string): string => {
+  return locale === 'vi' ? slug : `${slug}-${locale}`;
+};
+
+const langSlug = getLangSlug(locale, slug);
+const pageContent = await fnGetPageBySlug(langSlug);
+
+if (!pageContent) {
+  return Astro.redirect('/404');
+}
+
+const pageSchema = pageContent?.seo?.meta_schema;
+const seoData = createSeoData(pageContent?.seo, locale);
+---
+
+<BaseLayout title={seoData?.title} description={seoData?.description}>
+  <JsonLDProvider pageSchema={pageSchema} />
+  <PageBuilder
+    client:only="react"
+    pageContent={pageContent}
+    metadata={metadata}
+  />
+</BaseLayout>

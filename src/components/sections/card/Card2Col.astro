@@ -1,0 +1,49 @@
+---
+// 2-column card grid with icons and titles
+import type { CommonSection } from '@/src/types/pageBuilder';
+import { getAssetUrlById } from '@/src/utils/image';
+
+const { data } = Astro.props as CommonSection;
+---
+
+<section class="bg-primary-50 py-10 md:py-12 lg:py-14 xl:py-[60px] 2xl:py-[72px] 3xl:py-[80px] 4xl:py-[100px]">
+  <div class="flex flex-col items-stretch gap-6 md:gap-6 xl:gap-12 2xl:gap-[52px] 4xl:gap-[60px]">
+    <div class="container space-y-4 lg:space-y-5 2xl:space-y-6">
+      {data?.title && (
+        <h1 class="section-title text-center md:text-start uppercase text-primary-600">
+          {data?.title}
+        </h1>
+      )}
+      <div
+        class="section-content w-full text-justify 2xl:w-1/2"
+        set:html={data?.blurb}
+      />
+    </div>
+
+    <div class="container grid grid-cols-2 justify-between gap-10 md:gap-4 lg:gap-5 xl:gap-6 3xl:gap-7 4xl:gap-8 md:flex">
+      {data?.items?.map((item: any, index: number) => {
+        const isOdd = data?.items?.length % 2 !== 0;
+
+        return (
+          <div
+            key={index}
+            class={`flex flex-col items-center gap-3 lg:gap-4 xl:gap-5 3xl:gap-6 md:flex-1 ${isOdd ? 'last:col-span-full' : ''}`}
+          >
+            <div class="relative size-14 lg:size-16 xl:size-16 2xl:size-[72px] 3xl:size-[80px]">
+              <img
+                src={getAssetUrlById(item?.cover?.id)}
+                alt="Giá trị cốt lõi icon"
+                class="size-full object-contain"
+              />
+            </div>
+            {item?.title && (
+              <h2 class="text-xl font-bold leading-[1.25] text-gray-950 duration-200 group-hover:text-white lg:text-2xl xl:text-[30px] 2xl:text-[32px] 3xl:text-[36px]">
+                {item?.title}
+              </h2>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

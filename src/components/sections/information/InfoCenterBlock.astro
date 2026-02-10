@@ -1,0 +1,31 @@
+---
+// Banner section with different images for mobile/desktop
+import type { CommonSection } from '@/src/types/pageBuilder';
+import { Image } from 'astro:assets';
+import { getAssetUrlById } from '@/src/utils/image';
+
+const { data } = Astro.props as CommonSection;
+
+const mobileImageUrl = getAssetUrlById(data?.cover?.[0]?.id);
+const desktopImageUrl = getAssetUrlById(data?.cover?.[1]?.id);
+---
+
+<section class="relative h-[640px] w-full overflow-hidden md:h-[174px] lg:h-[232px] xl:h-[290px] 2xl:h-[326px] 3xl:h-[364px] 4xl:h-[436px]">
+  {/* Mobile image */}
+  <div class="absolute inset-0 z-[1] size-full md:hidden">
+    <img
+      src={mobileImageUrl}
+      alt="banner image"
+      class="size-full object-cover"
+    />
+  </div>
+
+  {/* Desktop image */}
+  <div class="absolute inset-0 z-[1] hidden size-full md:block">
+    <img
+      src={desktopImageUrl}
+      alt="banner image"
+      class="size-full object-cover"
+    />
+  </div>
+</section>

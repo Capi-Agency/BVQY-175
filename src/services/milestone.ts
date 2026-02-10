@@ -1,7 +1,7 @@
 import { aggregate, readItem } from '@directus/sdk';
 import { directusClientWithRest } from '@/src/lib/directus';
 import { readItems } from '@directus/sdk';
-import { Locale } from 'next-intl';
+import { Locale } from '@/src/i18n/navigation';
 import { routing } from '../i18n/routing';
 
 /** Lấy danh sách item - có bộ lọc/ phân trang */

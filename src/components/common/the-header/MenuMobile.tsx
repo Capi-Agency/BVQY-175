@@ -22,7 +22,7 @@ import { getAssetUrlById } from '@/src/utils/image';
 import CustomLink from '../custom-link';
 import LanguageBtn from './LanguageBtn';
 import { cn } from '@/src/lib/utils';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 import { Link } from '@/src/i18n/navigation';
 
 type MobileMenuProps = {

@@ -3,7 +3,7 @@ import { directusClient, directusClientWithRest } from '@/src/lib/directus';
 import { readItems } from '@directus/sdk';
 import { customEndpoint } from '@directus/sdk';
 import { routing } from '../i18n/routing';
-import { Locale } from 'next-intl';
+import { Locale } from '@/src/i18n/navigation';
 
 /** Lấy danh sách item - có bộ lọc/ phân trang */
 

@@ -6,20 +6,37 @@ import { readItem, readItems } from '@directus/sdk';
 ============================ */
 export const fnGetPageBySlug = async (slug: string) => {
   try {
+    // Try readItems with filter first as slug is usually a field, not the ID
     const res = await directusClientWithRest.request(
+      readItems('pages', {
+        fields: ['raw_content'],
+        filter: {
+          slug: {
+            _eq: slug,
+          },
+        },
+        limit: 1,
+      }),
+    );
+
+    if (res && res.length > 0) {
+      return res[0].raw_content ?? null;
+    }
+
+    // Fallback to readItem in case slug IS the ID
+    const item = await directusClientWithRest.request(
       readItem('pages', slug, {
         fields: ['raw_content'],
       }),
     );
 
-    return res?.raw_content ?? null;
+    return item?.raw_content ?? null;
   } catch (error: any) {
     console.log(
-      'Error getting page content: ',
+      'Error getting page content for slug: ',
+      slug,
       error?.errors?.[0]?.message || error?.message || error,
     );
-    console.log('slug: ', slug);
-    console.log('----');
     return null;
   }
 };
@@ -30,19 +47,34 @@ export const fnGetPageBySlug = async (slug: string) => {
 export const fnGetSchemaBySlug = async (slug: string) => {
   try {
     const res = await directusClientWithRest.request(
+      readItems('pages', {
+        fields: ['metadata'],
+        filter: {
+          slug: {
+            _eq: slug,
+          },
+        },
+        limit: 1,
+      }),
+    );
+
+    if (res && res.length > 0) {
+      return res[0].metadata ?? null;
+    }
+
+    const item = await directusClientWithRest.request(
       readItem('pages', slug, {
         fields: ['metadata'],
       }),
     );
 
-    return res?.metadata ?? null;
+    return item?.metadata ?? null;
   } catch (error: any) {
     console.log(
-      'Error getting page schema: ',
+      'Error getting page schema for slug: ',
+      slug,
       error?.errors?.[0]?.message || error?.message || error,
     );
-    console.log('slug: ', slug);
-    console.log('----');
     return null;
   }
 };
@@ -84,19 +116,34 @@ export const fnGetAllPageSlug = async (languages?: string[]) => {
 export const fnGetTopNavBySlug = async (slug: string) => {
   try {
     const res = await directusClientWithRest.request(
+      readItems('top_navigation', {
+        fields: ['raw_content'],
+        filter: {
+          slug: {
+            _eq: slug,
+          },
+        },
+        limit: 1,
+      }),
+    );
+
+    if (res && res.length > 0) {
+      return res[0].raw_content ?? null;
+    }
+
+    const item = await directusClientWithRest.request(
       readItem('top_navigation', slug, {
         fields: ['raw_content'],
       }),
     );
 
-    return res?.raw_content ?? null;
+    return item?.raw_content ?? null;
   } catch (error: any) {
     console.log(
-      'Error getting top navigation: ',
+      'Error getting top navigation for slug: ',
+      slug,
       error?.errors?.[0]?.message || error?.message || error,
     );
-    console.log('slug: ', slug);
-    console.log('----');
     return null;
   }
 };
@@ -107,19 +154,34 @@ export const fnGetTopNavBySlug = async (slug: string) => {
 export const fnGetBottomNavBySlug = async (slug: string) => {
   try {
     const res = await directusClientWithRest.request(
+      readItems('bottom_navigation', {
+        fields: ['raw_content'],
+        filter: {
+          slug: {
+            _eq: slug,
+          },
+        },
+        limit: 1,
+      }),
+    );
+
+    if (res && res.length > 0) {
+      return res[0].raw_content ?? null;
+    }
+
+    const item = await directusClientWithRest.request(
       readItem('bottom_navigation', slug, {
         fields: ['raw_content'],
       }),
     );
 
-    return res?.raw_content ?? null;
+    return item?.raw_content ?? null;
   } catch (error: any) {
     console.error(
-      'Error getting bottom navigation:  ',
+      'Error getting bottom navigation for slug: ',
+      slug,
       error?.errors?.[0]?.message || error?.message || error,
     );
-    console.log('slug: ', slug);
-    console.log('----');
     return null;
   }
 };

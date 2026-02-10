@@ -1,9 +1,8 @@
 'use client';
-import { Link } from '@/src/i18n/navigation';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import React from 'react';
 
-interface CustomLinkProps
+export interface CustomLinkProps
   extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
   children: React.ReactNode;
@@ -26,8 +25,8 @@ const CustomLink = React.forwardRef<HTMLAnchorElement, CustomLinkProps>(
 
     return (
       <Wrapper {...wrapperProps}>
-        <Link
-          href={localizedHref as any}
+        <a
+          href={localizedHref}
           target={isExternal ? '_blank' : undefined}
           rel={isExternal ? 'noopener noreferrer' : undefined}
           className={className}
@@ -35,7 +34,7 @@ const CustomLink = React.forwardRef<HTMLAnchorElement, CustomLinkProps>(
           {...props}
         >
           {children}
-        </Link>
+        </a>
       </Wrapper>
     );
   },

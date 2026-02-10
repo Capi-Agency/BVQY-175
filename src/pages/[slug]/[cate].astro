@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { fnGetPageBySlug } from '../../services/page';
+import { createSeoData } from '../../utils/metadata';
+import PageBuilder from '../../page-builder';
+import JsonLDProvider from '../../components/common/the-json-ld/index.astro';
+
+const { locale, metadata } = Astro.locals;
+const { slug, cate } = Astro.params;
+
+if (!slug || !cate) {
+  return Astro.redirect('/404');
+}
+
+// Construct full slug for nested route
+const fullSlug = `${slug}/${cate}`;
+const pageContent = await fnGetPageBySlug(fullSlug);
+
+if (!pageContent) {
+  return Astro.redirect('/404');
+}
+
+const pageSchema = pageContent?.seo?.meta_schema;
+const seoData = createSeoData(pageContent?.seo, locale);
+---
+
+<BaseLayout title={seoData?.title} description={seoData?.description}>
+  <JsonLDProvider pageSchema={pageSchema} />
+  <PageBuilder
+    client:only="react"
+    pageContent={pageContent}
+    metadata={metadata}
+  />
+</BaseLayout>

@@ -4,7 +4,7 @@ import NextImg from '../next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import { cn } from '@/src/lib/utils';
 import { Link } from '@/src/i18n/navigation';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 
 export interface DoctorCardProps {
   item: any;

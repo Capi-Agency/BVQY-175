@@ -1,0 +1,46 @@
+---
+// Info section with title, content, and grid of images
+import type { CommonSection } from '@/src/types/pageBuilder';
+import { getAssetUrlById } from '@/src/utils/image';
+
+const { data } = Astro.props as CommonSection;
+---
+
+<section class="bg-white py-10 md:py-6 lg:py-10 xl:py-[60px] 2xl:py-[80px] 3xl:py-[100px]">
+  <div class="container grid grid-cols-1 gap-11 md:gap-6 lg:grid-cols-2 2xl:gap-7 3xl:gap-8 4xl:gap-10">
+    <div class="space-y-4 xl:space-y-6 2xl:space-y-7 3xl:space-y-8 4xl:space-y-10">
+      {data?.title && (
+        <h1 class="section-title uppercase text-primary-600">
+          {data?.title}
+        </h1>
+      )}
+
+      <div
+        class="section-content text-justify"
+        set:html={data?.blurb}
+      />
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 xl:gap-5 3xl:gap-6">
+      {data?.cover?.map((coverItem: any, index: number) => {
+        const isGroup1 = index % 4 === 0 || index % 4 === 3;
+
+        return (
+          <div
+            class={`${isGroup1 ? 'items-end even:items-start' : 'items-start even:items-end'} group flex aspect-square justify-end even:justify-start md:aspect-auto lg:aspect-square`}
+          >
+            <div
+              class={`relative ${isGroup1 ? 'aspect-[4/5] h-full md:h-[200px] lg:h-[196px] xl:h-[210px] 2xl:h-[233px] 3xl:h-[260px] 4xl:h-[300px]' : 'aspect-[5/4] w-full md:w-[200px] lg:w-[196px] xl:w-[210px] 2xl:w-[233px] 3xl:w-[260px] 4xl:w-[300px]'}`}
+            >
+              <img
+                src={getAssetUrlById(coverItem?.id)}
+                class="size-full object-cover"
+                alt="about us image"
+              />
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

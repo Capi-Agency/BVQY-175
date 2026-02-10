@@ -8,7 +8,7 @@ import { Navigation } from 'swiper/modules';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import CustomLink from '../../common/custom-link';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/src/i18n/navigation';
 
 export default function CardSliderWithLeftRightButton({ data }: CommonSection) {
   const t = useTranslations('Doctor');

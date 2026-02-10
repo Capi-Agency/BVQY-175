@@ -3,7 +3,7 @@ import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { getAssetUrlById } from '@/src/utils/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from '@/src/i18n/navigation';
 import React, { useState } from 'react';
 import NextImg from '../../common/next-img';
 

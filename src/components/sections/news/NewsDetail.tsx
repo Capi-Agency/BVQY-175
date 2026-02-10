@@ -4,8 +4,8 @@ import { CommonSection } from '@/src/types/pageBuilder';
 import { getAssetUrlById } from '@/src/utils/image';
 import { formatDate, formatFileSize } from '@/src/utils/validate';
 import { Download } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import Link from 'next/link';
+import { useTranslations } from '@/src/i18n/navigation';
+import { Link } from '@/src/i18n/navigation';
 import { useEffect } from 'react';
 import Fancybox from '../../common/Fancybox';
 

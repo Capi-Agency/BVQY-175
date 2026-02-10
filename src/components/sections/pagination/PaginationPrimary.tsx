@@ -1,7 +1,7 @@
 'use client';
 import React, { useCallback, useMemo } from 'react';
 import NextImg from '../../common/next-img';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from '@/src/i18n/navigation';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import { getPaginatedPages } from '@/src/utils/pagination';
