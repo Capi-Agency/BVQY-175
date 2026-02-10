@@ -36,8 +36,8 @@ export default function FaqsOneCol({ data }: CommonSection) {
   const [loading, setLoading] = useState<boolean>(true);
   const [searchText, setSearchText] = useState<string>('');
 
-  const currentPage = Number(searchParams.get('page')) || 1;
-  const currentSearch = searchParams.get('s') ?? '';
+  const currentPage = Number(searchParams?.get('page')) || 1;
+  const currentSearch = searchParams?.get('s') ?? '';
   const startIndex = (currentPage - 1) * data?.collection_items_limit;
 
   const totalPage: number = useMemo(() => {
@@ -90,11 +90,11 @@ export default function FaqsOneCol({ data }: CommonSection) {
   const handleSearch = useCallback(
     (searchText: string) => {
       const newText = searchText.trim();
-      const currentSearchValue = searchParams.get('s')?.trim() ?? '';
+      const currentSearchValue = searchParams?.get('s')?.trim() ?? '';
 
       if (newText === currentSearchValue) return;
 
-      const params = new URLSearchParams(searchParams);
+      const params = new URLSearchParams(searchParams?.toString());
       params.set('s', newText);
       params.delete('page');
       router.push(`?${params.toString()}`, { scroll: false });

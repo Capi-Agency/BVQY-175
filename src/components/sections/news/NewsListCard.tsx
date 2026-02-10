@@ -28,8 +28,8 @@ export default function NewsListCard({ data }: CommonSection) {
 
   // Bộ lọc
   const category = (params?.cate as string) ?? data?.custom?.category ?? '';
-  const currentPage = Number(searchParams.get('page')) || 1;
-  const search = searchParams.get('s');
+  const currentPage = Number(searchParams?.get('page')) || 1;
+  const search = searchParams?.get('s');
   const isSort: boolean = data?.collection_items_order === '-date_published';
 
   // Phân trang
@@ -69,7 +69,7 @@ export default function NewsListCard({ data }: CommonSection) {
         sort: isSort,
         category: category || '',
         keyword: search || '',
-        locale
+        locale,
       });
       setDataNews(response);
     } catch (error) {
@@ -86,7 +86,7 @@ export default function NewsListCard({ data }: CommonSection) {
           collection: data?.collections,
           category: category || '',
           keyword: search || '',
-          locale
+          locale,
         });
         setLength(response);
       } catch (error) {

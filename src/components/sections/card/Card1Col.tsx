@@ -36,7 +36,7 @@ export default function Card1Col({ data }: CommonSection) {
   const [length, setLength] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const currentPage = Number(searchParams.get('page')) || 1;
+  const currentPage = Number(searchParams?.get('page')) || 1;
   const totalPage: number = useMemo(() => {
     return length
       ? Math.ceil(Number(length) / data?.collection_items_limit)

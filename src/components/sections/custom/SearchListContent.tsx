@@ -46,7 +46,7 @@ export default function SearchListContent({
   const selector = gsap.utils.selector(containerRef);
 
   const t = useTranslations('Common');
-  const locale = useLocale()
+  const locale = useLocale();
   const searchParams = useSearchParams();
 
   const [data, setData] = useState<any>([]);
@@ -55,9 +55,9 @@ export default function SearchListContent({
 
   // lấy các thông tin search
   const pageParam = `page-${type}`;
-  const currentPage = Number(searchParams.get(pageParam) || 1);
-  const keyword = searchParams.get('s') || '';
-  const subnet = searchParams.get('subnet') || '';
+  const currentPage = Number(searchParams?.get(pageParam) || 1);
+  const keyword = searchParams?.get('s') || '';
+  const subnet = searchParams?.get('subnet') || '';
 
   // Map component, hàm gọi api và total, props card theo collection
   const cardRegistry: Record<
@@ -141,7 +141,7 @@ export default function SearchListContent({
         keyword,
         limit,
         page: currentPage,
-        locale
+        locale,
       });
       setData(response || []);
     } catch (error) {
@@ -182,7 +182,11 @@ export default function SearchListContent({
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await registry.getCount({ collection, keyword, locale });
+        const response = await registry.getCount({
+          collection,
+          keyword,
+          locale,
+        });
 
         setLength(response || 0);
         setTotalAll((prev: number) => prev + Number(response || 0));

@@ -12,11 +12,11 @@ export default function HeroTextOverlay({ data }: CommonSection) {
   const searchParams = useSearchParams();
   const { conditions } = useGsapMatchMedia();
 
-  const searchText = searchParams.get('q') || '';
+  const searchText = searchParams?.get('q') || '';
   const [inputValue, setInputValue] = useState(searchText);
 
   const updateQueryParams = (params: Record<string, string | null>) => {
-    const current = new URLSearchParams(searchParams.toString());
+    const current = new URLSearchParams(searchParams?.toString());
 
     Object.entries(params).forEach(([key, value]) => {
       if (value === null || value === '') {

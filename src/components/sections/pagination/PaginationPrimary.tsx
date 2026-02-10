@@ -17,7 +17,7 @@ export default function PaginationPrimary({
   currentPage,
   totalPage,
   idSection,
-  pageName = "page"
+  pageName = 'page',
 }: PaginationPrimaryProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -30,7 +30,7 @@ export default function PaginationPrimary({
 
   const handleChangePage = useCallback(
     (pageNumber: number) => {
-      const params = new URLSearchParams(searchParams);
+      const params = new URLSearchParams(searchParams?.toString());
       params.set(pageName, pageNumber.toString());
       router.push(`?${params.toString()}`, { scroll: false });
     },

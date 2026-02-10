@@ -26,7 +26,7 @@ export default function Card4Col({ data }: CommonSection) {
   const [adminDepartData, setAdminDepartData] = useState<any>([]);
   const [length, setLength] = useState<number>(0);
 
-  const currentPage = Number(searchParams.get('page')) || 1;
+  const currentPage = Number(searchParams?.get('page')) || 1;
   const totalPage: number = useMemo(() => {
     return length
       ? Math.ceil(Number(length) / data?.collection_items_limit)

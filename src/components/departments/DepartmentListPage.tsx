@@ -30,7 +30,7 @@ const DepartmentDetailPage = ({
 
   const [parentGroups, setParentGroups] = useState<any[]>([]);
 
-  const keyword = searchParams.get('s') || '';
+  const keyword = searchParams?.get('s') || '';
 
   const [searchText, setSearchText] = useState<string>(keyword);
   const ctaButtonData = data?.buttons[0];
@@ -81,7 +81,7 @@ const DepartmentDetailPage = ({
 
   const handleSearch = useCallback(
     (searchText: string) => {
-      const params = new URLSearchParams(searchParams);
+      const params = new URLSearchParams(searchParams?.toString());
       if (searchText && searchText.trim() !== '') {
         params.set('s', searchText.trim());
       } else {
@@ -148,7 +148,7 @@ const DepartmentDetailPage = ({
         {/* Search form */}
         <div className="z-[2] mx-auto hidden w-full bg-transparent md:bottom-0 md:left-1/2 md:max-w-[600px] md:-translate-x-1/2 md:translate-y-1/2 md:bg-transparent md:px-0 md:py-0 lg:max-w-[800px] 3xl:absolute 3xl:block">
           <form
-            className="flex gap-2 items-center justify-between rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
+            className="flex items-center justify-between gap-2 rounded-[6px] bg-white px-3 py-2 shadow-md 3xl:p-6"
             onSubmit={(e: any) => {
               e.preventDefault();
               handleSearch(searchText);
@@ -180,7 +180,7 @@ const DepartmentDetailPage = ({
                   }
                 }}
                 placeholder={data?.contents}
-                className="text-base bg-none font-normal placeholder:text-[#0F2F64] focus:border-none focus:outline-none md:text-lg"
+                className="bg-none text-base font-normal placeholder:text-[#0F2F64] focus:border-none focus:outline-none md:text-lg"
               />
             </div>
             <button

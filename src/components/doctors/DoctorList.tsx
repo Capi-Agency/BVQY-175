@@ -42,12 +42,12 @@ const DoctorList = ({ data }: CommonSection) => {
   }, []);
 
   // Đọc query params
-  const searchText = searchParams.get('q') || '';
-  const selectedLetter = searchParams.get('letter') || '';
-  const departmentSlug = searchParams.get('department') || '';
-  const currentPage = parseInt(searchParams.get('page') || '1', 10);
-  const searchByName = searchParams.get('searchByName') === 'true';
-  const searchByDepartment = searchParams.get('searchByDepartment') === 'true';
+  const searchText = searchParams?.get('q') || '';
+  const selectedLetter = searchParams?.get('letter') || '';
+  const departmentSlug = searchParams?.get('department') || '';
+  const currentPage = parseInt(searchParams?.get('page') || '1', 10);
+  const searchByName = searchParams?.get('searchByName') === 'true';
+  const searchByDepartment = searchParams?.get('searchByDepartment') === 'true';
 
   // UI state
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -104,7 +104,7 @@ const DoctorList = ({ data }: CommonSection) => {
 
   // Hàm update query params
   const updateQueryParams = (params: Record<string, string | null>) => {
-    const current = new URLSearchParams(searchParams.toString());
+    const current = new URLSearchParams(searchParams?.toString() ?? '');
 
     Object.entries(params).forEach(([key, value]) => {
       if (value === null || value === '') {
@@ -859,4 +859,3 @@ const DoctorCard = ({ doctor }: { doctor: any }) => {
     </div>
   );
 };
-
