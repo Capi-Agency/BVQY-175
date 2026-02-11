@@ -156,9 +156,9 @@ export default async function RootLayout({
               >
                 <GsapMatchMediaProvider>
                   <ScrollSmootherProvider>
-                    <Loading />
+                    {/* <LoadingComp /> */}
                     <TheHeader />
-                    <Suspense fallback={<LoadingComp />}>
+                    <Suspense fallback={<Loading />}>
                       <BackToTop />
                       {children}
                     </Suspense>

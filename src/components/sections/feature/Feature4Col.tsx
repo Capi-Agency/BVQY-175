@@ -1,12 +1,9 @@
-'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
 import React from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
-import 'swiper/css';
-import 'swiper/css/pagination';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link } from '@/src/i18n/navigation';
+import Feature4ColClient from './Feature4Col.client';
 
 export default function Feature4Col({ data }: CommonSection) {
   return (
@@ -87,67 +84,7 @@ export default function Feature4Col({ data }: CommonSection) {
           </Link>
         ))}
 
-        <div className="relative mt-6 md:hidden">
-          <Swiper
-            touchEventsTarget="container"
-            grabCursor={true}
-            slidesPerView={1.15}
-            loop={false}
-            spaceBetween={16}
-            speed={700}
-            className="w-full !px-6 md:!px-0"
-          >
-            {data?.items?.map((item: any, index: number) => (
-              <SwiperSlide key={index}>
-                <Link
-                  href={`${item?.buttons?.[0]?.url || ''}` as any}
-                  aria-label="Xem chi tiết chuyên khoa"
-                  className="group relative flex flex-col justify-between gap-3 bg-primary-50 p-3 transition-all duration-200 hover:bg-primary-600 hover:shadow-[0_25px_45px_-12px_rgba(18,26,43,0.20)] xl:gap-4 xl:p-4"
-                >
-                  <div className="space-y-3 xl:space-y-4">
-                    <div className="relative aspect-video w-full overflow-hidden">
-                      <NextImg
-                        src={getAssetUrlById(item?.cover?.id)}
-                        alt="Chuyên khoa image"
-                        objectFit="cover"
-                        quality={75}
-                      />
-                    </div>
-
-                    <div className="space-y-1">
-                      <div className="line-clamp-2 h-[56px] text-lg font-semibold text-[#010502] transition-all duration-200 group-hover:text-primary-50 xl:h-[64px] xl:text-xl 3xl:h-[68px] 3xl:text-[22px] 4xl:h-[72px] 4xl:text-2xl">
-                        {item?.title}
-                      </div>
-                      <div
-                        className="line-clamp-3 h-[60px] text-sm font-normal text-[#3F3F46] transition-all duration-200 group-hover:text-[#D1E6D7]"
-                        dangerouslySetInnerHTML={{
-                          __html: item?.blurb,
-                        }}
-                      ></div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-[6px] 2xl:gap-2">
-                    <div className="text-sm font-medium text-[#09090B] transition-all duration-200 group-hover:text-primary-50 2xl:text-base 4xl:text-lg">
-                      {data?.buttons?.[1]?.title}
-                    </div>
-
-                    <div className="relative size-5 transition-all duration-200 group-hover:invert 2xl:size-6">
-                      <NextImg
-                        src={getAssetUrlById(data?.buttons?.[1]?.icon.id)}
-                        alt="arrow icon"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="absolute bottom-[5%] left-0 hidden aspect-[204/136] w-[90%] group-hover:block">
-                    <NextImg src="/assets/images/arrow_bg.png" alt="icon" />
-                  </div>
-                </Link>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+        <Feature4ColClient data={data} />
       </div>
     </section>
   );

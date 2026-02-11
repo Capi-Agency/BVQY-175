@@ -1,0 +1,82 @@
+'use client';
+import { CommonSection } from '@/src/types/pageBuilder';
+import React, { useEffect, useState } from 'react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import NewsCard from '../news/NewsCard';
+import { getListNews } from '@/src/services/news';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { useLocale } from 'next-intl';
+
+export default function Posts3ColClient({
+  data,
+}: {
+  data: CommonSection['data'];
+}) {
+  const locale = useLocale();
+  const [newsData, setNewsData] = useState<any>([]);
+  const category = data?.custom?.category;
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await getListNews({
+          collection: data?.collections,
+          page: 1,
+          limit: 3,
+          category,
+          locale,
+        });
+
+        setNewsData(response);
+      } catch (error) {
+        console.log('Error:', error);
+      } finally {
+        ScrollTrigger.refresh();
+      }
+    })();
+  }, [data]);
+
+  return (
+    <div className="relative pt-6 xl:pt-7 2xl:pt-8 4xl:pt-10">
+      <Swiper
+        touchEventsTarget="container"
+        grabCursor={true}
+        slidesPerView={1.15}
+        loop={false}
+        spaceBetween={16}
+        speed={700}
+        breakpoints={{
+          768: {
+            slidesPerView: 2.2,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 24,
+          },
+          1280: {
+            slidesPerView: 3,
+            spaceBetween: 28,
+          },
+          1440: {
+            slidesPerView: 3,
+            spaceBetween: 32,
+          },
+          1920: {
+            slidesPerView: 3,
+            spaceBetween: 40,
+          },
+        }}
+        className="w-full !px-6 md:!px-[calc((100vw-688px)/2)] lg:!px-0"
+      >
+        {newsData?.length > 0 &&
+          newsData?.map((item: any, index: number) => (
+            <SwiperSlide key={'post_' + index}>
+              <NewsCard item={item} url={data?.buttons?.[0]?.url} />
+            </SwiperSlide>
+          ))}
+      </Swiper>
+    </div>
+  );
+}

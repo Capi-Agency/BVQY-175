@@ -60,21 +60,21 @@ export default function HeroWithTopImage({ data }: CommonSection) {
     },
   );
 
-  const firstSlide = data?.items?.[0];
-  const firstImageUrl = firstSlide?.cover?.id
-    ? getAssetUrlById(firstSlide.cover.id) + '?format=webp'
-    : null;
+  // const firstSlide = data?.items?.[0];
+  // const firstImageUrl = firstSlide?.cover?.id
+  //   ? getAssetUrlById(firstSlide.cover.id) + '?format=webp'
+  //   : null;
 
   return (
     <>
-      {firstImageUrl && (
+      {/* {firstImageUrl && (
         <link
           rel="preload"
           as="image"
           href={firstImageUrl}
           fetchPriority="high"
         />
-      )}
+      )} */}
 
       <section>
         <div className="relative">
@@ -254,6 +254,7 @@ const SlideContent = ({ item, isFirst }: any) => {
           loading={isFirst ? 'eager' : 'lazy'}
           fetchPriority={isFirst ? 'high' : 'auto'}
           priority={isFirst}
+          quality={isFirst ? 75 : 80}
         />
       </div>
 
