@@ -134,7 +134,7 @@ export default function InfoWithLeftImageTopTitle({
             </div>
 
             {/* Content */}
-            <div className="sidebar relative lg:aspect-[4/3]">
+            <div className="relative lg:aspect-[4/3]">
               <div
                 ref={contentRef}
                 style={{

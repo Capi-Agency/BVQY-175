@@ -1,9 +1,8 @@
-'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
 import React from 'react';
-import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
 import CustomLink from '../../common/custom-link';
+
 export default function FeatureWithImage4Col({ data }: CommonSection) {
   return (
     <section className="p-[20px_0_40px] lg:p-[36px_0_52px] xl:p-[40px_0_60px] 3xl:p-[48px_0_72px] 4xl:p-[56px_0_90px]">
@@ -18,7 +17,7 @@ export default function FeatureWithImage4Col({ data }: CommonSection) {
             <CustomLink
               key={index}
               href={item?.url}
-              className="bg-ed-50 group relative flex flex-col items-center gap-3"
+              className="group relative flex flex-col items-center gap-3"
             >
               <div className="flex size-[60px] items-center justify-center rounded-[12px] bg-[#E7F3EB] lg:size-[64px] xl:size-[68px] 2xl:size-[72px] 3xl:size-[76px] 4xl:size-[80px]">
                 <div className="relative size-9 duration-200 lg:size-10 2xl:size-11 3xl:size-12">

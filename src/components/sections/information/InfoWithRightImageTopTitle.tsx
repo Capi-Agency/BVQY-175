@@ -101,7 +101,7 @@ export default function InfoWithRightImageTopTitle({
               )}
             </div>
 
-            <div className="sidebar relative md:overflow-y-auto md:pr-2 lg:order-1 lg:aspect-[4/3]">
+            <div className="relative md:overflow-y-auto md:pr-2 lg:order-1 lg:aspect-[4/3]">
               <div
                 className={cn(
                   `content-wrapper relative space-y-3 text-justify text-sm font-normal text-[#09090B] transition-all duration-700 ease-in-out xl:space-y-4 xl:text-base 2xl:space-y-5 3xl:space-y-6`,

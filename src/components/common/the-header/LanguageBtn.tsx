@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import NextImg from '../next-img';
 import { cn } from '@/src/lib/utils';
 import { useLocale } from 'next-intl';
 import { useRouter } from '@/src/i18n/navigation';

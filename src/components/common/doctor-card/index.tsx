@@ -1,4 +1,3 @@
-'use client';
 import React, { JSX } from 'react';
 import NextImg from '../next-img';
 import { getAssetUrlById } from '@/src/utils/image';
