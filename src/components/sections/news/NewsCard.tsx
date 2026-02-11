@@ -37,6 +37,7 @@ export default function NewsCard({
           src={getAssetUrlById(newTrans?.thumbnail?.id || newTrans?.thumbnail)}
           alt="post cover"
           objectFit="cover"
+          quality={70}
         />
       </div>
       <div className="space-y-1">
@@ -62,7 +63,7 @@ export default function NewsCard({
           </div>
 
           <p className="text-sm font-medium text-gray-700 duration-200 group-hover:text-primary-50 2xl:text-base">
-            {formatDate(item?.date_published, t("Format.date"))}
+            {formatDate(item?.date_published, t('Format.date'))}
           </p>
         </div>
         <div className="flex items-center gap-1.5">

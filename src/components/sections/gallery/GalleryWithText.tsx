@@ -34,13 +34,16 @@ export default function GalleryWithText({ data }: CommonSection) {
               onToggle={setIsOpenDialog}
               videoUrl={embedUrl}
               trigger={
-                <button role='button' className="relative h-full w-full cursor-pointer">
+                <button
+                  role="button"
+                  className="relative h-full w-full cursor-pointer"
+                >
                   <NextImg
                     src={`https://img.youtube.com/vi/${embedUrl}/hqdefault.jpg`}
                     alt="Video Bệnh viện Quân Y 175"
-                    objectFit='cover'
+                    objectFit="cover"
                   />
-                  <div className="pointer-events-none absolute left-1/2 top-1/2 z-[1] aspect-[512/361] w-[70px] md:w-[60px] lg:w-[70px] -translate-x-1/2 -translate-y-1/2">
+                  <div className="pointer-events-none absolute left-1/2 top-1/2 z-[1] aspect-[512/361] w-[70px] -translate-x-1/2 -translate-y-1/2 md:w-[60px] lg:w-[70px]">
                     <NextImg
                       src="/assets/images/youtube_play.png"
                       alt="youtube icon"
@@ -128,6 +131,7 @@ export default function GalleryWithText({ data }: CommonSection) {
                               src={getAssetUrlById(itemCover?.id)}
                               alt="Cơ sở vật chất image"
                               objectFit="cover"
+                              quality={80}
                             />
                           </Link>
                         ),

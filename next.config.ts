@@ -31,6 +31,8 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     scrollRestoration: true,
+    cssChunking: true,
+    optimizeCss: true,
   },
   compiler: {
     styledComponents: true,

@@ -23,28 +23,13 @@ import Script from 'next/script';
 const plusJakartaSans = localFont({
   src: [
     {
-      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-Regular.woff2',
-      weight: '400',
+      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-VF-latin.woff2',
+      weight: '400 800',
       style: 'normal',
     },
     {
-      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-Medium.woff2',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-SemiBold.woff2',
-      weight: '600',
-      style: 'normal',
-    },
-    {
-      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-Bold.woff2',
-      weight: '700',
-      style: 'normal',
-    },
-    {
-      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-ExtraBold.woff2',
-      weight: '800',
+      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-VariableFont_wght.woff2',
+      weight: '400 800',
       style: 'normal',
     },
   ],
@@ -52,6 +37,7 @@ const plusJakartaSans = localFont({
   preload: true,
   fallback: ['Arial', 'sans-serif'],
   variable: '--font-plus-jakarta-sans',
+  adjustFontFallback: 'Arial',
 });
 
 export const revalidate = 300;

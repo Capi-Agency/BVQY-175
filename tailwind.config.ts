@@ -141,6 +141,9 @@ const config = {
         slideDown: 'slideDown 400ms cubic-bezier(0.87, 0, 0.13, 1)',
         slideUp: 'slideUp 400ms cubic-bezier(0.87, 0, 0.13, 1)',
       },
+      fontFamily: {
+        sans: ['var(--font-plus-jakarta-sans)', 'Arial', 'sans-serif'],
+      },
       spacing: {
         gutter: 'var(--gutter)',
       },
