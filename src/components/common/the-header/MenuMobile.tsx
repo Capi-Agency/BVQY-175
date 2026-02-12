@@ -2,7 +2,6 @@
 
 import React, { useRef, useState } from 'react';
 import { DialogDescription } from '@radix-ui/react-dialog';
-import { useScrollSmoother } from '@/src/providers/ScrollSmootherProvider';
 import NextImg from '../next-img';
 import {
   AccordionContent,
@@ -38,13 +37,11 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
   const [isOpenSubMenu, setIsOpenSubMenu] = useState<boolean>(false);
   const [itemSecond, setItemSecond] = useState<any>();
   const [searchText, setSearchText] = useState<string>('');
-  const { smoother } = useScrollSmoother();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <Dialog>
       <DialogTrigger
-        onClick={() => smoother?.paused(true)}
         asChild
         className="block"
       >
@@ -73,7 +70,6 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
             <DialogClose
               onClick={() => {
                 setIsOpenSubMenu(false);
-                smoother?.paused(false);
               }}
               asChild
               className="border-none outline-none"
@@ -118,7 +114,6 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                 ref={closeButtonRef}
                 onClick={() => {
                   setIsOpenSubMenu(false);
-                  smoother?.paused(false);
                 }}
                 asChild
                 className="border-none outline-none"
@@ -212,7 +207,6 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                             {item?.url ? (
                               <DialogClose
                                 onClick={() => {
-                                  smoother?.paused(false);
                                 }}
                                 asChild
                                 className="border-none outline-none"
@@ -251,11 +245,7 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                                     >
                                       <div className="flex cursor-pointer items-center gap-1">
                                         {item_second?.url ? (
-                                          <DialogClose
-                                            onClick={() =>
-                                              smoother?.paused(false)
-                                            }
-                                            asChild
+                                          <DialogClose                                            asChild
                                           >
                                             <CustomLink
                                               href={item_second?.url || ''}
@@ -298,7 +288,6 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                                     </div>
                                   ) : (
                                     <DialogClose
-                                      onClick={() => smoother?.paused(false)}
                                       asChild
                                       key={item_second_index}
                                       className="w-full"
@@ -320,7 +309,6 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                       ) : (
                         <AccordionItem key={index}>
                           <DialogClose
-                            onClick={() => smoother?.paused(false)}
                             asChild
                           >
                             <CustomLink
@@ -401,7 +389,6 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                                   <DialogClose
                                     onClick={() => {
                                       setIsOpenSubMenu(false);
-                                      smoother?.paused(false);
                                     }}
                                     asChild
                                     className="border-none outline-none"
@@ -456,7 +443,6 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                                       <DialogClose
                                         onClick={() => {
                                           setIsOpenSubMenu(false);
-                                          smoother?.paused(false);
                                         }}
                                         asChild
                                         key={item_fourth_index}
@@ -479,7 +465,6 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                             <DialogClose
                               onClick={() => {
                                 setIsOpenSubMenu(false);
-                                smoother?.paused(false);
                               }}
                               asChild
                             >

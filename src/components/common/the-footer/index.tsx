@@ -121,7 +121,7 @@ export default function TheFooter() {
               return item?.title ? (
                 <div
                   key={index}
-                  className="w-full md:w-[200px] xl:w-[172px] 3xl:w-[200px]"
+                  className="w-full md:w-[254px] lg:w-[230px] xl:w-[185px] 2xl:w-[200px] 3xl:w-[220px]"
                 >
                   <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
                     {item?.title}
@@ -146,7 +146,7 @@ export default function TheFooter() {
           {/* End: site map */}
 
           {/* Start: social network */}
-          <div className="md:pr-5 xl:px-3 2xl:px-4 3xl:px-6">
+          <div className="lg:pr-6 xl:pr-3 2xl:pr-5 3xl:pr-4">
             <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
               {t('Footer.social-network-label')}
             </h2>
@@ -198,54 +198,38 @@ export default function TheFooter() {
                   </Link>
                 )}
               </div>
-
-              <div className="flex items-center gap-3 xl:flex-col 2xl:gap-4">
-                <CustomLink
-                  href={contact_information?.googleplay_url}
-                  className="relative block aspect-[180/50] w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]"
-                >
-                  <NextImg
-                    src="/assets/images/gg_play_cta.png"
-                    alt="gg play cta"
-                  />
-                </CustomLink>
-
-                <CustomLink
-                  href={contact_information?.appstore_url}
-                  className="relative block aspect-[180/50] w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]"
-                >
-                  <NextImg
-                    src="/assets/images/app_store_cta.png"
-                    alt="app store cta"
-                  />
-                </CustomLink>
-              </div>
             </div>
           </div>
-
-          <div className="flex items-center gap-6 md:items-end md:px-0 xl:flex-col xl:items-start xl:gap-4 2xl:gap-5 4xl:gap-6">
-            {/* <div className="relative h-[54px] w-[136px] 2xl:h-[58px] 2xl:w-[147px] 4xl:h-[66px] 4xl:w-[167px]">
-              <NextImg
-                src="/assets/images/bo_cong_thuong.png"
-                alt="Bộ công thương"
-              />
-            </div> */}
-
-            {/* <a
-              target="_blank"
-              rel="noopener"
-              href="//www.dmca.com/Protection/Status.aspx?ID=3fea7e96-c255-4e43-955e-8d80a85d3048"
-              title="DMCA.com Protection Status"
-              className="dmca-badge relative block h-[54px] w-[116px] 2xl:h-[58px] 2xl:w-[116px] 4xl:h-[66px] 4xl:w-[132px]"
-            >
-              <NextImg
-                src="https://images.dmca.com/Badges/dmca-badge-w250-2x1-04.png?ID=3fea7e96-c255-4e43-955e-8d80a85d3048"
-                alt="DMCA.com Protection Status"
-              />
-            </a>
-            <Script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></Script> */}
-          </div>
           {/* End: social network */}
+
+          {/* Start: download app */}
+          <div>
+            <h2 className="text-base font-bold tracking-wider text-white 3xl:text-lg">
+              {t('Footer.download-app')}
+            </h2>
+            <div className="mt-2 h-[1px] w-8 bg-[#D4D4D8]"></div>
+            <div className="mt-5 flex items-center gap-3 xl:flex-col 2xl:gap-4">
+              <CustomLink
+                href={contact_information?.googleplay_url}
+                className="relative block aspect-[180/50] w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]"
+              >
+                <NextImg
+                  src="/assets/images/gg_play_cta.png"
+                  alt="gg play cta"
+                />
+              </CustomLink>
+
+              <CustomLink
+                href={contact_information?.appstore_url}
+                className="relative block aspect-[180/50] w-[150px] 2xl:w-[160px] 3xl:w-[170px] 4xl:w-[180px]"
+              >
+                <NextImg
+                  src="/assets/images/app_store_cta.png"
+                  alt="app store cta"
+                />
+              </CustomLink>
+            </div>
+          </div>
         </div>
 
         {/* Start: policy */}
