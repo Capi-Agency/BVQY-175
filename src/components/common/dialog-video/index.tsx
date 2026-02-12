@@ -66,6 +66,7 @@ export default function DialogVideo({
                 src={`https://www.youtube-nocookie.com/embed/${videoUrl}?autoplay=1&modestbranding=1&rel=0`}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
+                loading="lazy"
               />
 
               <DialogClose

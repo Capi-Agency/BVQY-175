@@ -231,7 +231,7 @@ export default function TheFooter() {
               />
             </div> */}
 
-            <a
+            {/* <a
               target="_blank"
               rel="noopener"
               href="//www.dmca.com/Protection/Status.aspx?ID=3fea7e96-c255-4e43-955e-8d80a85d3048"
@@ -243,19 +243,19 @@ export default function TheFooter() {
                 alt="DMCA.com Protection Status"
               />
             </a>
-            <Script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></Script>
+            <Script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"></Script> */}
           </div>
           {/* End: social network */}
         </div>
 
         {/* Start: policy */}
         <div>
-          <div className="flex w-full items-stretch justify-center gap-3 text-xs font-medium text-white md:text-nowrap lg:text-sm text-center">
+          <div className="flex w-full items-stretch justify-center gap-3 text-center text-xs font-medium text-white md:text-nowrap lg:text-sm">
             {contact_information?.security_url && (
               <>
                 <CustomLink
                   href={`${contact_information?.security_url || '/'}`}
-                  className="flex-1 md:flex-none block tracking-wider"
+                  className="block flex-1 tracking-wider md:flex-none"
                   aria-label="Chính sách và bảo mật"
                 >
                   {t('Footer.policy-label')}
@@ -268,7 +268,7 @@ export default function TheFooter() {
               <CustomLink
                 href={`${contact_information?.terms_url || '/'}`}
                 aria-label="Điều khoản và dịch vụ"
-                className="flex-1 md:flex-none block tracking-wider"
+                className="block flex-1 tracking-wider md:flex-none"
               >
                 {t('Footer.terms-services-label')}
               </CustomLink>
