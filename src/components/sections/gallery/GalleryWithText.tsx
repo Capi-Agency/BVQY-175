@@ -39,7 +39,7 @@ export default function GalleryWithText({ data }: CommonSection) {
                   className="relative h-full w-full cursor-pointer"
                 >
                   <NextImg
-                    src={`https://img.youtube.com/vi/${embedUrl}/hqdefault.jpg`}
+                    src={`https://i.ytimg.com/vi/${embedUrl}/hqdefault.jpg`}
                     alt="Video Bệnh viện Quân Y 175"
                     objectFit="cover"
                   />

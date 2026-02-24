@@ -1,11 +1,9 @@
 import React, { Suspense } from 'react';
 import '../../styles/globals.css';
-
 import { ThemeProvider } from '../../providers/theme-provider';
 import { fnGetMetadata } from '../../services/metadata';
 import { MetadataProvider } from '../../providers/MetadataProvider';
 import { GsapMatchMediaProvider } from '../../providers/GsapMatchMediaProvider';
-import { ScrollSmootherProvider } from '../../providers/ScrollSmootherProvider';
 import TheHeader from '../../components/common/the-header';
 import TheFooter from '../../components/common/the-footer';
 import BackToTop from '../../components/common/back-to-top';
@@ -13,7 +11,6 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/src/i18n/routing';
-import { LoadingComp } from '@/src/components/sections/custom';
 import Loading from '../loading';
 import localFont from 'next/font/local';
 import LazyToastContainer from '../../components/common/lazy-toast-container';
@@ -155,15 +152,12 @@ export default async function RootLayout({
                 enableSystem
               >
                 <GsapMatchMediaProvider>
-                  <ScrollSmootherProvider>
-                    {/* <LoadingComp /> */}
                     <TheHeader />
                     <Suspense fallback={<Loading />}>
                       <BackToTop />
                       {children}
                     </Suspense>
                     <TheFooter />
-                  </ScrollSmootherProvider>
                 </GsapMatchMediaProvider>
               </ThemeProvider>
             </NextIntlClientProvider>

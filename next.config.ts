@@ -20,6 +20,11 @@ const nextConfig: NextConfig = {
         hostname: 'images.dmca.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+        pathname: '/**',
+      },
     ],
     minimumCacheTTL: 60 * 60 * 24,
     dangerouslyAllowSVG: true,
