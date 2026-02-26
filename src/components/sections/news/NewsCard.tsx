@@ -37,7 +37,6 @@ export default function NewsCard({
           src={getAssetUrlById(newTrans?.thumbnail?.id || newTrans?.thumbnail)}
           alt="post cover"
           objectFit="cover"
-          quality={70}
         />
       </div>
       <div className="space-y-1">
