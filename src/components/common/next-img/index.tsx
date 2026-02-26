@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import Image from 'next/legacy/image';
+import Image from 'next/image';
 
 interface NextImgProps {
   id?: string;
@@ -13,6 +13,7 @@ interface NextImgProps {
   quality?: number;
   loading?: 'lazy' | 'eager';
   fetchPriority?: 'auto' | 'high' | 'low';
+  sizes?: string;
   [key: string]: any;
 }
 
@@ -29,30 +30,29 @@ const NextImg = ({
   loading = 'lazy',
   quality = 80,
   fetchPriority = 'low',
+  sizes = '100vw',
   ...props
 }: NextImgProps) => {
-  const [fallback, setFallback] = useState('');
+  const [error, setError] = useState(false);
   const handleError = () => {
-    setFallback(srcDefault);
+    setError(true);
   };
 
-  const imageSrc = (src || fallback || srcDefault) + '?format=webp';
+  const imageSrc = error ? srcDefault : (src || srcDefault);
+
+  const containerClass = className ? `${className} h-full w-full object-${objectFit}` : `h-full w-full object-${objectFit}`;
 
   return (
     <Image
       id={id}
       src={imageSrc}
-      blurDataURL={imageSrc}
       alt={alt}
-      className={className ? `${className} h-full w-full` : `h-full w-full`}
+      className={containerClass}
       onError={handleError}
-      width={width}
-      height={height}
       loading={loading}
       quality={quality}
-      objectFit={objectFit}
-      layout="fill"
-      placeholder="blur"
+      fill={true}
+      sizes={sizes}
       fetchPriority={fetchPriority}
       {...props}
     />
