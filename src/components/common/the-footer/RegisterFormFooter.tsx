@@ -10,10 +10,12 @@ import { useTranslations } from 'next-intl';
 
 type Contact = {
   email: string;
+  website?: string;
 };
 
 const initialValue: Contact = {
   email: '',
+  website: '',
 };
 
 export default function RegisterFormFooter() {
@@ -54,6 +56,20 @@ export default function RegisterFormFooter() {
   const onSubmit: SubmitHandler<Contact> = async (data) => {
     setLoading(true);
 
+    if (data.website) {
+      toast.success(t('Notification.success.footer-register'), {
+        style: {
+          padding: 16,
+          borderRadius: 16,
+          color: '#136C34',
+          backgroundColor: '#F4FCF7',
+        },
+      });
+      reset(initialValue);
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await fnSendContact({
         ...data,
@@ -91,6 +107,13 @@ export default function RegisterFormFooter() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <input
+        {...register('website')}
+        type="text"
+        className="sr-only"
+        tabIndex={-1}
+        autoComplete="off"
+      />
       <div className="mb-3 text-[13px] font-bold tracking-wide text-white md:text-sm xl:text-sm 3xl:mb-4 3xl:text-base">
         {t('Footer.register-form-title')}
       </div>

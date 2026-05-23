@@ -3,7 +3,6 @@ import { CommonSection } from '@/src/types/pageBuilder';
 import React from 'react';
 import NextImg from '../../common/next-img';
 import { getAssetUrlById } from '@/src/utils/image';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useMemo, useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -20,6 +19,7 @@ type Review = {
   phone: string;
   email: string;
   message?: string | null;
+  website?: string;
 };
 
 const initialValue: Review = {
@@ -28,11 +28,11 @@ const initialValue: Review = {
   phone: '',
   email: '',
   message: '',
+  website: '',
 };
 
 export default function ReviewSplitWithText({ data }: CommonSection) {
   const t = useTranslations();
-  const { executeRecaptcha } = useGoogleReCaptcha();
   const [loading, setLoading] = useState<boolean>(false);
 
   const reviewOptions = useMemo(
@@ -159,31 +159,21 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
   const onSubmit: SubmitHandler<Review> = async (data) => {
     setLoading(true);
 
-    try {
-      if (!executeRecaptcha) {
-        throw new Error(t('Notification.error.recapcha-not-ready'));
-      }
-      const token = await executeRecaptcha('review_form');
-
-      const verifyRes = await fetch('/api/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token }),
+    if (data.website) {
+      toast.success(t('Notification.success.review'), {
+        style: {
+          padding: 16,
+          borderRadius: 16,
+          color: '#136C34',
+          backgroundColor: '#F4FCF7',
+        },
       });
+      reset(initialValue);
+      setLoading(false);
+      return;
+    }
 
-      if (!verifyRes.ok) {
-        toast.error(t('Notification.error.verify-recapcha'), {
-          style: {
-            padding: 16,
-            borderRadius: 16,
-            color: '#80122E',
-            backgroundColor: '#FCECF0',
-          },
-        });
-        setLoading(false);
-        return;
-      }
-
+    try {
       const response = await fnSendReview({
         ...data,
         title: 'Đánh giá chất lượng',
@@ -242,6 +232,13 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col items-stretch justify-center gap-2 lg:gap-3 xl:h-full 2xl:gap-4"
           >
+            <input
+              {...register('website')}
+              type="text"
+              className="sr-only"
+              tabIndex={-1}
+              autoComplete="off"
+            />
             <div
               className="section-sub-title font-semibold text-primary-600"
               dangerouslySetInnerHTML={{

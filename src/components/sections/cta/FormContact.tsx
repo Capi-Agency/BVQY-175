@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import NextImg from '../../common/next-img';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { useMemo, useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,16 +11,16 @@ import { cn } from '@/src/lib/utils';
 import { useTranslations } from 'next-intl';
 import DOMPurify from 'dompurify';
 
-const initialValue: ContactInfo = {
+const initialValue: ContactInfo & { website?: string } = {
   name: '',
   phone: '',
   email: '',
   message: '',
+  website: '',
 };
 
 export default function FormContact({ buttonTitle = 'Send' }: any) {
   const t = useTranslations();
-  const { executeRecaptcha } = useGoogleReCaptcha();
   const [loading, setLoading] = useState<boolean>(false);
 
   const CONTACT_SCHEMA = useMemo(
@@ -89,7 +88,7 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
     setValue,
     watch,
     formState: { errors, isSubmitted },
-  } = useForm<ContactInfo>({
+  } = useForm<ContactInfo & { website?: string }>({
     resolver: yupResolver(CONTACT_SCHEMA as any),
     defaultValues: initialValue,
   });
@@ -115,34 +114,24 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
     [],
   );
 
-  const onSubmit: SubmitHandler<ContactInfo> = async (data) => {
+  const onSubmit: SubmitHandler<ContactInfo & { website?: string }> = async (data) => {
     setLoading(true);
 
-    try {
-      if (!executeRecaptcha) {
-        throw new Error(t('Notification.error.recapcha-not-ready'));
-      }
-      const token = await executeRecaptcha('review_form');
-
-      const verifyRes = await fetch('/api/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token }),
+    if (data.website) {
+      toast.success(t('Notification.success.contact'), {
+        style: {
+          padding: 16,
+          borderRadius: 16,
+          color: '#136C34',
+          backgroundColor: '#F4FCF7',
+        },
       });
+      reset(initialValue);
+      setLoading(false);
+      return;
+    }
 
-      if (!verifyRes.ok) {
-        toast.error(t('Notification.error.verify-recapcha'), {
-          style: {
-            padding: 16,
-            borderRadius: 16,
-            color: '#80122E',
-            backgroundColor: '#FCECF0',
-          },
-        });
-        setLoading(false);
-        return;
-      }
-
+    try {
       const response = await fnSendContact({
         ...data,
         title: 'Thông tin liên hệ',
@@ -179,6 +168,13 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
       onSubmit={handleSubmit(onSubmit)}
       className="grid w-full grid-cols-2 gap-y-5 md:gap-x-6 md:gap-y-6 xl:gap-y-8 2xl:gap-y-9 3xl:gap-y-10"
     >
+      <input
+        {...register('website')}
+        type="text"
+        className="sr-only"
+        tabIndex={-1}
+        autoComplete="off"
+      />
       {inputs?.map((input: any) => (
         <div key={input?.key} className={cn('', input?.className)}>
           <input

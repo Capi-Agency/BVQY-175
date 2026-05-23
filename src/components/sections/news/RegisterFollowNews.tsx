@@ -10,10 +10,12 @@ import { useTranslations } from 'next-intl';
 
 type Contact = {
   email: string;
+  website?: string;
 };
 
 const initialValue: Contact = {
   email: '',
+  website: '',
 };
 
 export default function RegisterFollowNews() {
@@ -53,6 +55,20 @@ export default function RegisterFollowNews() {
 
   const onSubmit: SubmitHandler<Contact> = async (data) => {
     setLoading(true);
+
+    if (data.website) {
+      toast.success(t('Notification.success.footer-register'), {
+        style: {
+          padding: 16,
+          borderRadius: 16,
+          color: '#136C34',
+          backgroundColor: '#F4FCF7',
+        },
+      });
+      reset(initialValue);
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await fnSendContact({
@@ -94,6 +110,13 @@ export default function RegisterFollowNews() {
       onSubmit={handleSubmit(onSubmit)}
       className="w-full space-y-4 rounded-[6px] border border-primary-700 bg-primary-100 p-4 xl:rounded-xl"
     >
+      <input
+        {...register('website')}
+        type="text"
+        className="sr-only"
+        tabIndex={-1}
+        autoComplete="off"
+      />
       <div className="space-y-2">
         <p className="text-base font-semibold text-black">
           {t('Footer.register-follow-news')}
