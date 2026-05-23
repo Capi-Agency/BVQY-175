@@ -26,6 +26,7 @@ export const fnSendContact = async ({ title, name, email, phone, message }: Cont
     return response?.create_contact_tickets_item
   } catch (error) {
     console.log("Error sending contact: ", error)
+    throw error;
   }
 }
 
@@ -57,5 +58,6 @@ export const fnSendReview = async ({ title, name, email, phone, message, rating 
     return response?.create_quality_assessment_item
   } catch (error) {
     console.log("Error sending review: ", error)
+    throw error;
   }
 }

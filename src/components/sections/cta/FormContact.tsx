@@ -11,12 +11,12 @@ import { cn } from '@/src/lib/utils';
 import { useTranslations } from 'next-intl';
 import DOMPurify from 'dompurify';
 
-const initialValue: ContactInfo & { website?: string } = {
+const initialValue: ContactInfo & { website?: string | null } = {
   name: '',
   phone: '',
   email: '',
   message: '',
-  website: '',
+  website: null,
 };
 
 export default function FormContact({ buttonTitle = 'Send' }: any) {
@@ -88,7 +88,7 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
     setValue,
     watch,
     formState: { errors, isSubmitted },
-  } = useForm<ContactInfo & { website?: string }>({
+  } = useForm<ContactInfo & { website?: string | null }>({
     resolver: yupResolver(CONTACT_SCHEMA as any),
     defaultValues: initialValue,
   });
@@ -114,10 +114,11 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
     [],
   );
 
-  const onSubmit: SubmitHandler<ContactInfo & { website?: string }> = async (data) => {
+  const onSubmit: SubmitHandler<ContactInfo & { website?: string | null }> = async (data) => {
     setLoading(true);
 
     if (data.website) {
+      console.log("spam", data.website);
       toast.success(t('Notification.success.contact'), {
         style: {
           padding: 16,
@@ -149,8 +150,8 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
         },
       });
       reset(initialValue);
-    } catch (error) {
-      toast.error(t('Notification.error.contact'), {
+    } catch (error: any) {
+      toast.error(error?.errors?.[0]?.message || t('Notification.error.contact'), {
         style: {
           padding: 16,
           borderRadius: 16,
@@ -165,12 +166,13 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
 
   return (
     <form
+      autoComplete="off"
       onSubmit={handleSubmit(onSubmit)}
       className="grid w-full grid-cols-2 gap-y-5 md:gap-x-6 md:gap-y-6 xl:gap-y-8 2xl:gap-y-9 3xl:gap-y-10"
     >
       <input
         {...register('website')}
-        type="text"
+        type="hidden"
         className="sr-only"
         tabIndex={-1}
         autoComplete="off"
@@ -190,9 +192,8 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
             isSubmitted && (
               <p
                 id="outlined_error_help"
-                className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${
-                  errors[input.key as keyof ContactInfo] ? 'block' : 'hidden'
-                }`}
+                className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:mt-2 lg:text-sm 2xl:mt-3 ${errors[input.key as keyof ContactInfo] ? 'block' : 'hidden'
+                  }`}
               >
                 <span className="font-medium">
                   {errors[input.key as keyof ContactInfo]?.message}
@@ -214,9 +215,8 @@ export default function FormContact({ buttonTitle = 'Send' }: any) {
         {errors.message && isSubmitted && (
           <p
             id="outlined_error_help"
-            className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
-              errors.message ? 'block' : 'hidden'
-            }`}
+            className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${errors.message ? 'block' : 'hidden'
+              }`}
           >
             <span className="font-medium">{errors?.message?.message}</span>
           </p>

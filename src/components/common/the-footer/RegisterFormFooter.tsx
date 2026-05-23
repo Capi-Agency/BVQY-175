@@ -57,6 +57,7 @@ export default function RegisterFormFooter() {
     setLoading(true);
 
     if (data.website) {
+      console.log('spam: ', data.website);
       toast.success(t('Notification.success.footer-register'), {
         style: {
           padding: 16,
@@ -91,8 +92,8 @@ export default function RegisterFormFooter() {
         },
       });
       reset(initialValue);
-    } catch (error) {
-      toast.error(t('Notification.error.footer-register'), {
+    } catch (error: any) {
+      toast.error(error?.errors?.[0]?.message || t('Notification.error.footer-register'), {
         style: {
           padding: 16,
           borderRadius: 16,
@@ -106,10 +107,10 @@ export default function RegisterFormFooter() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
       <input
         {...register('website')}
-        type="text"
+        type="hidden"
         className="sr-only"
         tabIndex={-1}
         autoComplete="off"
@@ -155,9 +156,8 @@ export default function RegisterFormFooter() {
       {errors.email && isSubmitted && (
         <p
           id="outlined_error_help"
-          className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${
-            errors.email ? 'block' : 'hidden'
-          }`}
+          className={`mt-[6px] text-xs text-[#FF124F] dark:text-[#FF124F] lg:text-sm ${errors.email ? 'block' : 'hidden'
+            }`}
         >
           <span className="font-semibold">
             {String(errors?.email?.message || '')}

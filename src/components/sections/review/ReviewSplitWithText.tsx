@@ -191,8 +191,8 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
         },
       });
       reset(initialValue);
-    } catch (error) {
-      toast.error(t('Notification.error.review'), {
+    } catch (error: any) {
+      toast.error(error?.errors?.[0]?.message || t('Notification.error.review'), {
         style: {
           padding: 16,
           borderRadius: 16,
@@ -229,6 +229,7 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
         <div className="col-span-1 hidden xl:block"></div>
         <div className="col-span-full xl:col-span-6">
           <form
+            autoComplete="off"
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col items-stretch justify-center gap-2 lg:gap-3 xl:h-full 2xl:gap-4"
           >
