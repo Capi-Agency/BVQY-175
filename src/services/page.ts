@@ -14,12 +14,16 @@ export const fnGetPageBySlug = async (slug: string) => {
 
     return res?.raw_content ?? null;
   } catch (error: any) {
+    const code = error?.errors?.[0]?.extensions?.code || error?.response?.status;
     console.log(
       'Error getting page content: ',
       error?.errors?.[0]?.message || error?.message || error,
     );
     console.log('slug: ', slug);
     console.log('----');
+    if (code === 'FORBIDDEN' || code === 403) throw new Error('403');
+    if (code === 'SERVICE_UNAVAILABLE' || code === 503 || code === 502) throw new Error('503');
+    if (code === 'INTERNAL_SERVER_ERROR' || code === 500) throw new Error('500');
     return null;
   }
 };
@@ -37,12 +41,16 @@ export const fnGetSchemaBySlug = async (slug: string) => {
 
     return res?.metadata ?? null;
   } catch (error: any) {
+    const code = error?.errors?.[0]?.extensions?.code || error?.response?.status;
     console.log(
       'Error getting page schema: ',
       error?.errors?.[0]?.message || error?.message || error,
     );
     console.log('slug: ', slug);
     console.log('----');
+    if (code === 'FORBIDDEN' || code === 403) throw new Error('403');
+    if (code === 'SERVICE_UNAVAILABLE' || code === 503 || code === 502) throw new Error('503');
+    if (code === 'INTERNAL_SERVER_ERROR' || code === 500) throw new Error('500');
     return null;
   }
 };
@@ -91,12 +99,16 @@ export const fnGetTopNavBySlug = async (slug: string) => {
 
     return res?.raw_content ?? null;
   } catch (error: any) {
+    const code = error?.errors?.[0]?.extensions?.code || error?.response?.status;
     console.log(
       'Error getting top navigation: ',
       error?.errors?.[0]?.message || error?.message || error,
     );
     console.log('slug: ', slug);
     console.log('----');
+    if (code === 'FORBIDDEN' || code === 403) throw new Error('403');
+    if (code === 'SERVICE_UNAVAILABLE' || code === 503 || code === 502) throw new Error('503');
+    if (code === 'INTERNAL_SERVER_ERROR' || code === 500) throw new Error('500');
     return null;
   }
 };
@@ -114,12 +126,16 @@ export const fnGetBottomNavBySlug = async (slug: string) => {
 
     return res?.raw_content ?? null;
   } catch (error: any) {
+    const code = error?.errors?.[0]?.extensions?.code || error?.response?.status;
     console.error(
       'Error getting bottom navigation:  ',
       error?.errors?.[0]?.message || error?.message || error,
     );
     console.log('slug: ', slug);
     console.log('----');
+    if (code === 'FORBIDDEN' || code === 403) throw new Error('403');
+    if (code === 'SERVICE_UNAVAILABLE' || code === 503 || code === 502) throw new Error('503');
+    if (code === 'INTERNAL_SERVER_ERROR' || code === 500) throw new Error('500');
     return null;
   }
 };

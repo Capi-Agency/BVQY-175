@@ -152,12 +152,12 @@ export default async function RootLayout({
                 enableSystem
               >
                 <GsapMatchMediaProvider>
-                    <TheHeader />
-                    <Suspense fallback={<Loading />}>
-                      <BackToTop />
-                      {children}
-                    </Suspense>
-                    <TheFooter />
+                  <TheHeader />
+                  <Suspense fallback={<Loading />}>
+                    <BackToTop />
+                    {children}
+                  </Suspense>
+                  <TheFooter />
                 </GsapMatchMediaProvider>
               </ThemeProvider>
             </NextIntlClientProvider>
