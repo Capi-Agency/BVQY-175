@@ -25,7 +25,7 @@
     "error-429-title": "Quá nhiều yêu cầu",
     "error-429-subtitle": "Bạn đã thao tác quá nhiều lần trong thời gian ngắn. Vui lòng thử lại sau ít phút.",
     "error-500-title": "Hệ thống đang bảo trì",
-    "error-500-subtitle": "Hệ thống đang được kiểm tra kỹ thuật. Chúng tôi sẽ khôi phục dịch vụ sớm nhất.",
+    "error-500-subtitle": "Hệ thống đang được kiểm tra kỹ thuật. Vui lòng thử lại sau ít phút.",
     "error-503-title": "Hệ thống đang bảo trì",
     "error-503-subtitle": "Vui lòng liên hệ với người quản trị website hoặc thử lại sau ít phút.",
     "return-main-menu": "Quay lại menu chính",

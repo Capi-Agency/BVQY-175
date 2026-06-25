@@ -19,18 +19,22 @@ export default function ErrorPage({
 
   let errorTitle = t('error-500-title'); // Default
   let errorSubtitle = t('error-500-subtitle');
+  let is5xx = true;
   if (error.message.includes('403')) {
     errorTitle = t('error-403-title');
     errorSubtitle = t('error-403-subtitle');
+    is5xx = false;
   } else if (error.message.includes('503')) {
     errorTitle = t('error-503-title');
     errorSubtitle = t('error-503-subtitle');
   } else if (error.message.includes('429')) {
     errorTitle = t('error-429-title');
     errorSubtitle = t('error-429-subtitle');
+    is5xx = false;
   } else if (error.message.includes('404')) {
     errorTitle = t('error-404-title');
     errorSubtitle = t('error-404-subtitle');
+    is5xx = false;
   }
 
   return (
@@ -38,9 +42,11 @@ export default function ErrorPage({
       <div className="section-title container py-[150px] text-center flex flex-col items-center gap-3 lg:gap-4 xl:gap-5 3xl:gap-6">
         <h2>{errorTitle}</h2>
         <p className="text-gray-500 text-base md:text-lg max-w-2xl">{errorSubtitle}</p>
-        <Link href={"/" as any} className="btn-danger mt-2">
-          {t('return-home')}
-        </Link>
+        {!is5xx && (
+          <Link href={"/" as any} className="btn-danger mt-2">
+            {t('return-home')}
+          </Link>
+        )}
       </div>
     </section>
   );

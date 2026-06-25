@@ -7,7 +7,8 @@ export default function NotFound() {
   return (
     <section className="padding-top-body">
       <div className="section-title container py-[150px] text-center flex flex-col items-center gap-3 lg:gap-4 xl:gap-5 3xl:gap-6">
-        <h2>{t('error-404')}</h2>
+        <h2>{t('error-404-title')}</h2>
+        <p className="text-gray-500 text-base md:text-lg max-w-2xl">{t('error-404-subtitle')}</p>
         <Link href={"/" as any} className="btn-danger">
           {t('return-home')}
         </Link>
