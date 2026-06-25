@@ -14,24 +14,31 @@ export default function ErrorPage({
   const t = useTranslations('Common');
 
   useEffect(() => {
-    // Log the error to an error reporting service
     console.error(error);
   }, [error]);
 
-  let errorMessage = t('error-500'); // Default
-  if (error.message === '403') {
-    errorMessage = t('error-403');
-  } else if (error.message === '503') {
-    errorMessage = t('error-503');
-  } else if (error.message === '404') {
-    errorMessage = t('error-404');
+  let errorTitle = t('error-500-title'); // Default
+  let errorSubtitle = t('error-500-subtitle');
+  if (error.message.includes('403')) {
+    errorTitle = t('error-403-title');
+    errorSubtitle = t('error-403-subtitle');
+  } else if (error.message.includes('503')) {
+    errorTitle = t('error-503-title');
+    errorSubtitle = t('error-503-subtitle');
+  } else if (error.message.includes('429')) {
+    errorTitle = t('error-429-title');
+    errorSubtitle = t('error-429-subtitle');
+  } else if (error.message.includes('404')) {
+    errorTitle = t('error-404-title');
+    errorSubtitle = t('error-404-subtitle');
   }
 
   return (
     <section className="padding-top-body">
       <div className="section-title container py-[150px] text-center flex flex-col items-center gap-3 lg:gap-4 xl:gap-5 3xl:gap-6">
-        <h2>{errorMessage}</h2>
-        <Link href={"/" as any} className="btn-danger">
+        <h2>{errorTitle}</h2>
+        <p className="text-gray-500 text-base md:text-lg max-w-2xl">{errorSubtitle}</p>
+        <Link href={"/" as any} className="btn-danger mt-2">
           {t('return-home')}
         </Link>
       </div>
