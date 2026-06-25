@@ -1,0 +1,2980 @@
+{
+    "header_script": "<script>\n    !function(t,e){var o,n,p,r;e.__SV||(window.posthog && window.posthog.__loaded)||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(\".\");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement(\"script\")).type=\"text/javascript\",p.crossOrigin=\"anonymous\",p.async=!0,p.src=s.api_host.replace(\".i.posthog.com\",\"-assets.i.posthog.com\")+\"/static/array.js\",(r=t.getElementsByTagName(\"script\")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a=\"posthog\",u.people=u.people||[],u.toString=function(t){var e=\"posthog\";return\"posthog\"!==a&&(e+=\".\"+a),t||(e+=\" (stub)\"),e},u.people.toString=function(){return u.toString(1)+\".people (stub)\"},o=\"init fi Cr Or ci Tr Ir capture Mi calculateEventProperties Ar register register_once register_for_session unregister unregister_for_session Nr getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey displaySurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty jr Mr createPersonProfile Lr kr Ur opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing get_explicit_consent_status is_capturing clear_opt_in_out_capturing Fr debug M Dr getPageViewId captureTraceFeedback captureTraceMetric Sr\".split(\" \"),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);\n    posthog.init('phc_HPLHq5ZYvWNt43x9cQamPJiDX5evkQ4lXGN9QH962l5', {\n        api_host: 'https://us.i.posthog.com',\n        defaults: '2025-05-24',\n        person_profiles: 'always', // or 'always' to create profiles for anonymous users as well\n    })\n</script>",
+    "top_navigation": [
+        {
+            "type": "card",
+            "translations": [
+                {
+                    "title": "HOME",
+                    "url": "/",
+                    "languages_code": {
+                        "code": "en"
+                    }
+                },
+                {
+                    "title": "TRANG CHỦ",
+                    "url": "/",
+                    "languages_code": {
+                        "code": "vi"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "sub_items": [
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Hospital overview",
+                            "url": "/hospital-overview",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Tổng quan Bệnh viện",
+                            "url": "/tong-quan-benh-vien",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Formation History",
+                            "url": "/formation-history",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Những cột mốc đáng nhớ",
+                            "url": "/nhung-cot-moc-dang-nho",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Board of Directors",
+                            "url": "/board-of-directors",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Ban Giám đốc",
+                            "url": "/ban-giam-doc",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Organizational strucure",
+                            "url": "/organizational-structure",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Sơ đồ tổ chức",
+                            "url": "/so-do-to-chuc",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Achievements",
+                            "url": "/achievements",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Các danh hiệu cao quý",
+                            "url": "/cac-danh-hieu-cao-quy",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Team of Doctors",
+                            "url": "/",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Đội ngũ Bác sĩ",
+                            "url": "/doi-ngu-bac-si",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Facilities",
+                            "url": "/facilities",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Cơ sở vật chất",
+                            "url": "/co-so-vat-chat",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "mega_menu",
+                    "sub_items": [
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Political Department",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Phòng Chính trị",
+                                            "url": "/khoi-co-quan-hanh-chinh/phong-chinh-tri",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "General Planning Department",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Phòng Kế hoạch tổng hợp",
+                                            "url": "/khoi-co-quan-hanh-chinh/phong-ke-hoach-tong-hop",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Nursing Department",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Phòng Điều dưỡng",
+                                            "url": "/khoi-co-quan-hanh-chinh/phong-dieu-duong",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Logistics and Technical Department",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Phòng Hậu cần - Kỹ thuật",
+                                            "url": "/khoi-co-quan-hanh-chinh/phong-hau-can-ky-thuat",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Staff and Administration Department",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Phòng Tham mưu – Hành chính",
+                                            "url": "/khoi-co-quan-hanh-chinh/phong-tham-muu-hanh-chinh",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Finance Department",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Phòng Tài chính",
+                                            "url": "/khoi-co-quan-hanh-chinh/phong-tai-chinh",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Military Science Department",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Phòng Khoa học Quân sự",
+                                            "url": "/khoi-co-quan-hanh-chinh/phong-khoa-hoc-quan-su",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "DEPARTMENT",
+                                    "languages_code": {
+                                        "code": "en"
+                                    }
+                                },
+                                {
+                                    "title": "PHÒNG",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Inspection and Legal Affairs division",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Ban Thanh tra - Pháp chế",
+                                            "url": "/khoi-co-quan-hanh-chinh/ban-thanh-tra-phap-che",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Military Affairs Division",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Ban Quân lực",
+                                            "url": "/khoi-co-quan-hanh-chinh/ban-quan-luc",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Information Technology Division",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Ban Công nghệ Thông tin",
+                                            "url": "/khoi-co-quan-hanh-chinh/ban-cong-nghe-thong-tin",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Social Work Division",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Ban Công tác Xã hội",
+                                            "url": "/khoi-co-quan-hanh-chinh/ban-cong-tac-xa-hoi",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Radiation Safety Division",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Ban An toàn bức xạ",
+                                            "url": "/khoi-co-quan-hanh-chinh/ban-an-toan-buc-xa",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Quality Management Division",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Ban Quản lý chất lượng",
+                                            "url": "/khoi-co-quan-hanh-chinh/ban-quan-ly-chat-luong",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Southern National Funeral Home Management Division",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Ban Quản lý Nhà tang lễ Quốc gia Phía nam",
+                                            "url": "/khoi-co-quan-hanh-chinh/ban-quan-ly-nha-tang-le-quoc-gia-phia-nam",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "DIVISION",
+                                    "languages_code": {
+                                        "code": "en"
+                                    }
+                                },
+                                {
+                                    "title": "BAN",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Party Disciplinary Inspection Commission",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Cơ quan Ủy ban kiểm tra Đảng",
+                                            "url": "/khoi-co-quan-hanh-chinh/co-quan-uy-ban-kiem-tra-dang",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Training, Education and Guidance Center",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Trung tâm Huấn luyện, Đào tạo và chỉ đạo tuyến",
+                                            "url": "/khoi-co-quan-hanh-chinh/trung-tam-huan-luyen-dao-tao-va-chi-dao-tuyen",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "OTHERS",
+                                    "languages_code": {
+                                        "code": "en"
+                                    }
+                                },
+                                {
+                                    "title": "CƠ QUAN KHÁC",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "translations": [
+                        {
+                            "title": "Administration departments",
+                            "url": "/",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Khối cơ quan hành chính",
+                            "url": "/khoi-co-quan-hanh-chinh",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "mega_menu",
+                    "sub_items": [
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Viet Duc Medical Center",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Trung tâm Y học Việt Đức",
+                                            "url": "/don-vi-truc-thuoc/trung-tam-y-hoc-viet-duc",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Organ Transplant Coordination Center",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Trung tâm Điều phối ghép tạng",
+                                            "url": "/don-vi-truc-thuoc/trung-tam-dieu-phoi-ghep-tang",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "International Trauma Training Center",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Trung tâm Đào tạo Cấp cứu Chấn thương quốc tế ITLS (Hoa Kỳ)",
+                                            "url": "/don-vi-truc-thuoc/trung-tam-huan-luyen-cap-cuu-chan-thuong-quoc-te",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Center for Emergency Response, Maritime and Island Emergency Medicine, and Out-of-Hospital Emergency Care",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Trung tâm Ứng phó các tình huống khẩn cấp, cấp cứu biển đảo và cấp cứu ngoại viện",
+                                            "url": "/don-vi-truc-thuoc/trung-tam-ung-pho-cac-tinh-huong-khan-cap-cap-cuu-bien-dao-va-cap-cuu-ngoai-vien",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Trung tâm Đào tạo Quốc tế - Hiệp hội Tim mạch Hoa Kỳ (AHA)",
+                                            "url": "/don-vi-truc-thuoc/trung-tam-dao-tao-quoc-te-hiep-hoi-tim-mach-hoa-ky-aha",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "CENTER",
+                                    "languages_code": {
+                                        "code": "en"
+                                    }
+                                },
+                                {
+                                    "title": "TRUNG TÂM",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Project Management DIVISION",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Ban Quản lý các Dự án",
+                                            "url": "/don-vi-truc-thuoc/ban-quan-ly-cac-du-an",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "DIVISION",
+                                    "languages_code": {
+                                        "code": "en"
+                                    }
+                                },
+                                {
+                                    "title": "BAN",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Truong Sa Island Clinic",
+                                            "url": "/",
+                                            "languages_code": {
+                                                "code": "en"
+                                            }
+                                        },
+                                        {
+                                            "title": "Trung tâm Y tế thị trấn Trường Sa",
+                                            "url": "/don-vi-truc-thuoc/benh-xa-dao-truong-sa",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "OTHERS",
+                                    "languages_code": {
+                                        "code": "en"
+                                    }
+                                },
+                                {
+                                    "title": "ĐƠN VỊ KHÁC",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "translations": [
+                        {
+                            "title": "Dependent units",
+                            "url": "/",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Đơn vị trực thuộc",
+                            "url": "/don-vi-truc-thuoc",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Institute of Trauma and Orthopedics",
+                            "url": "/",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Viện Chấn thương Chỉnh hình",
+                            "url": "/vien/vien-chan-thuong-chinh-hinh",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Institute of Oncology and Nuclear Medicine",
+                            "url": "/",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Viện Ung bướu và Y học hạt nhân",
+                            "url": "/vien/vien-ung-buou-and-y-hoc-hat-nhan",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Hospital Directors throughout the years",
+                            "url": "/hospital-directors-throughout-the-years",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Lãnh đạo qua các thời kỳ",
+                            "url": "/lanh-dao-qua-cac-thoi-ky",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Air medical emergency",
+                            "url": "/posts/air-medical-emergency",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Cấp cứu đường không",
+                            "url": "/bai-viet/cap-cuu-duong-khong",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Journal of Practical Medicine 175",
+                            "url": "/posts/journal-of-practical-medicine-175",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Tạp chí y dược thực hành 175",
+                            "url": "/bai-viet/tap-chi-y-duoc-thuc-hanh-175",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Digital conversion",
+                            "url": "/posts/digital-conversion",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Chuyển đổi số",
+                            "url": "/bai-viet/chuyen-doi-so",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "translations": [
+                {
+                    "title": "Introduce",
+                    "url": "/hospital-overview",
+                    "languages_code": {
+                        "code": "en"
+                    }
+                },
+                {
+                    "title": "Giới thiệu",
+                    "url": "/tong-quan-benh-vien",
+                    "languages_code": {
+                        "code": "vi"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "sub_items": [
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Public service portal",
+                            "url": "/public-service-portal",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Cổng dịch vụ công",
+                            "url": "/cong-dich-vu-cong",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Medical appointment schedule",
+                            "url": "/medical-appointment-schedule",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Lịch khám bệnh",
+                            "url": "/lich-kham-benh",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Medical examination process",
+                            "url": "/medical-examination-process",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Quy trình khám bệnh",
+                            "url": "/quy-trinh-kham-benh",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "View map",
+                            "url": "/view-map",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Bản đồ",
+                            "url": "/xem-ban-do",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Service price list",
+                            "url": "/service-price-list",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Bảng giá dịch vụ",
+                            "url": "/bang-gia-dich-vu",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Health insurance information",
+                            "url": "/posts/health-insurance-information",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Thông tin bảo hiểm y tế",
+                            "url": "/bai-viet/thong-tin-bhyt",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Hospital admission & discharge procedures",
+                            "url": "/hospital-admission-and-discharge-procedures",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Thủ tục nhập  - xuất viện",
+                            "url": "/thu-tuc-nhap-xuat-vien",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Vaccination Services",
+                            "url": "/vaccination-services",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Dịch vụ Tiêm chủng",
+                            "url": "/dich-vu-tiem-chung",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Electronic health records",
+                            "url": "/electronic-health-records",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Hồ sơ sức khỏe điện tử",
+                            "url": "/ho-so-suc-khoe-dien-tu",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Treatment information summary sheet",
+                            "url": "/posts/treatment-information-summary-sheet",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Phiếu tóm tắt thông tin điều trị",
+                            "url": "/bai-viet/phieu-tom-tat-thong-tin-dieu-tri",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Drug information",
+                            "url": "/posts/drug-information",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Thông tin thuốc",
+                            "url": "/bai-viet/thong-tin-thuoc",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Q&A",
+                            "url": "/faq",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Hỏi đáp",
+                            "url": "/hoi-dap",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Utility services",
+                            "url": "/posts/utility-services",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Dịch vụ tiện ích",
+                            "url": "/bai-viet/dich-vu-tien-ich",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Recruitment news",
+                            "url": "/posts/recruitment-news",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Tin tuyển dụng",
+                            "url": "/bai-viet/tin-tuyen-dung",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "translations": [
+                {
+                    "title": "Informations",
+                    "languages_code": {
+                        "code": "en"
+                    }
+                },
+                {
+                    "title": "Thông tin",
+                    "languages_code": {
+                        "code": "vi"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "mega_menu",
+            "sub_items": [
+                {
+                    "type": "list",
+                    "sub_items": [
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Phẫu thuật Gan - Mật - Tụy (B3.a)",
+                                            "url": "/chuyen-khoa/khoa-phau-thuat-gan-mat-tuy",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Phẫu thuật ống Tiêu hóa (B3.b)",
+                                            "url": "/chuyen-khoa/khoa-phau-thuat-ong-tieu-hoa",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Ngoại lồng ngực (B4)",
+                                            "url": "/chuyen-khoa/khoa-ngoai-long-nguc",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Gây mê hồi sức (B5)",
+                                            "url": "/chuyen-khoa/khoa-gay-me-hoi-suc",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Mắt (B7)",
+                                            "url": "/chuyen-khoa/khoa-mat",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Phẫu thuật và Tạo hình hàm mặt (B8)",
+                                            "url": "/chuyen-khoa/khoa-phau-thuat-va-tao-hinh-ham-mat",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Tai - Mũi - Họng (B9)",
+                                            "url": "/chuyen-khoa/khoa-tai-mui-hong",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Răng (B10)",
+                                            "url": "/chuyen-khoa/khoa-rang",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Hồi sức tích cực ngoại (B12)",
+                                            "url": "/chuyen-khoa/khoa-hoi-suc-tich-cuc-ngoai",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Tạo hình - Thẩm mỹ (B14)",
+                                            "url": "/chuyen-khoa/khoa-tao-hinh-tham-my",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Quốc tế (A16)",
+                                            "url": "/chuyen-khoa/khoa-quoc-te",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "Khối ngoại",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Sinh hóa (C3)",
+                                            "url": "/chuyen-khoa/khoa-sinh-hoa",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Vi sinh (C4)",
+                                            "url": "/chuyen-khoa/khoa-vi-sinh",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Giải phẫu bệnh (C5)",
+                                            "url": "/chuyen-khoa/khoa-giai-phau-benh",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Chẩn đoán chức năng (C7)",
+                                            "url": "/chuyen-khoa/khoa-chan-doan-chuc-nang",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Dược (C9)",
+                                            "url": "/chuyen-khoa/khoa-duoc",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Trang bị (C10)",
+                                            "url": "/chuyen-khoa/khoa-trang-bi",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Dinh dưỡng (C11)",
+                                            "url": "/chuyen-khoa/khoa-dinh-duong",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Kiểm soát nhiễm khuẩn (C12)",
+                                            "url": "/chuyen-khoa/khoa-kiem-soat-nhiem-khuan",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "Khối cận lâm sàng",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Nội tiêu hóa (A3)",
+                                            "url": "/chuyen-khoa/khoa-noi-tieu-hoa",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Nội soi (A3.a)",
+                                            "url": "/chuyen-khoa/khoa-noi-soi",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Truyền nhiễm (A4)",
+                                            "url": "/chuyen-khoa/khoa-truyen-nhiem",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Nội hô hấp (A5)",
+                                            "url": "/chuyen-khoa/khoa-noi-ho-hap",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Sức khỏe Tâm thần (A6)",
+                                            "url": "/chuyen-khoa/khoa-suc-khoe-tam-than",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Da liễu - Dị ứng (A8)",
+                                            "url": "/chuyen-khoa/khoa-da-lieu-di-ung",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Y học cổ truyền (A10)",
+                                            "url": "/chuyen-khoa/khoa-y-hoc-co-truyen",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Hồi sức tích cực - Chống độc (A12)",
+                                            "url": "/chuyen-khoa/khoa-hoi-suc-tich-cuc-chong-doc",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Nội tiết (A14)",
+                                            "url": "/chuyen-khoa/khoa-noi-tiet",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Nội Cơ - Xương - Khớp (A17)",
+                                            "url": "/chuyen-khoa/khoa-noi-co-xuong-khop",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Bệnh nghề nghiệp (A25)",
+                                            "url": "/chuyen-khoa/khoa-benh-nghe-nghiep",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "Khối nội",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "translations": [
+                        {
+                            "title": "DEPARTMENT",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "KHOA",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "list",
+                    "sub_items": [
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Nội Tim mạch (A2.a)",
+                                            "url": "/chuyen-khoa/khoa-noi-tim-mach",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Phẫu thuật Tim mạch (A2.b)",
+                                            "url": "/chuyen-khoa/khoa-phau-thuat-tim-mach",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Can thiệp Tim mạch (A2.c)",
+                                            "url": "/chuyen-khoa/khoa-can-thiep-tim-mach",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "TRUNG TÂM TIM MẠCH (A2)",
+                                    "url": "/trung-tam/trung-tam-tim-mach",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Nội thần kinh (A7.a)",
+                                            "url": "/chuyen-khoa/khoa-noi-than-kinh",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Đột quỵ (A7.b)",
+                                            "url": "/chuyen-khoa/khoa-dot-quy",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Ngoại thần kinh (B6)",
+                                            "url": "/chuyen-khoa/khoa-ngoai-than-kinh",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "TRUNG TÂM THẦN KINH (A7)",
+                                    "url": "/trung-tam/trung-tam-than-kinh",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Nội thận - Lọc máu (A15.a)",
+                                            "url": "/chuyen-khoa/khoa-noi-than-loc-mau",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Ngoại thận - Tiết niệu (B2.a)",
+                                            "url": "/chuyen-khoa/khoa-ngoai-than-tiet-nieu",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Nam học (B2.b)",
+                                            "url": "/chuyen-khoa/khoa-nam-hoc",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "TRUNG TÂM THẬN, TIẾT NIỆU VÀ NAM KHOA (A15)",
+                                    "url": "/trung-tam/trung-tam-than-tiet-nieu-va-nam-khoa",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Cấp cứu (C1.3a)",
+                                            "url": "/chuyen-khoa/khoa-cap-cuu",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Cấp cứu chấn thương (C1.3b)",
+                                            "url": "/chuyen-khoa/khoa-cap-cuu-chan-thuong",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "TRUNG TÂM CẤP CỨU (C1.3)",
+                                    "url": "/trung-tam/trung-tam-cap-cuu",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Khám bệnh (C1.a)",
+                                            "url": "/chuyen-khoa/khoa-kham-benh",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Điều trị theo yêu cầu (C1.b)",
+                                            "url": "/chuyen-khoa/khoa-dieu-tri-theo-yeu-cau",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Điều trị ban ngày (C1.c)",
+                                            "url": "/chuyen-khoa/khoa-dieu-tri-ban-ngay",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "TRUNG TÂM KHÁM BỆNH VÀ ĐIỀU TRỊ THEO YÊU CẦU (C1)",
+                                    "url": "/trung-tam/trung-tam-kham-benh-va-dieu-tri-theo-yeu-cau",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Siêu âm (C8.a)",
+                                            "url": "/chuyen-khoa/khoa-sieu-am",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Điện quang (C8.b)",
+                                            "url": "/chuyen-khoa/khoa-dien-quang",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "TRUNG TÂM CHẨN ĐOÁN HÌNH ẢNH (C8)",
+                                    "url": "/trung-tam/trung-tam-chan-doan-hinh-anh",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Xét nghiệm huyết học (C2)",
+                                            "url": "/chuyen-khoa/khoa-xet-nghiem-huyet-hoc",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Truyền máu (C16)",
+                                            "url": "/chuyen-khoa/khoa-truyen-mau",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Huyết học lâm sàng (A25.b)",
+                                            "url": "/chuyen-khoa/khoa-huyet-hoc-lam-sang",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Ngân hàng mô",
+                                            "url": "/chuyen-khoa/ngan-hang-mo",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "TRUNG TÂM HUYẾT HỌC - TRUYỀN MÁU (C16)",
+                                    "url": "/trung-tam/trung-tam-huyet-hoc-truyen-mau",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "translations": [
+                        {
+                            "title": "CENTER",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "TRUNG TÂM",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "list",
+                    "sub_items": [
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Chi trên (B1.a)",
+                                            "url": "/chuyen-khoa/khoa-chi-tren",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Chi dưới (B1.b)",
+                                            "url": "/chuyen-khoa/khoa-chi-duoi",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Y học thể thao (B1.c)",
+                                            "url": "/chuyen-khoa/khoa-y-hoc-the-thao",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Cột sống (B1.d)",
+                                            "url": "/chuyen-khoa/khoa-cot-song",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Bỏng - Tạo hình (B1.e)",
+                                            "url": "/chuyen-khoa/khoa-bong-tao-hinh",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Gây mê hồi sức (B1.f)",
+                                            "url": "/chuyen-khoa/khoa-gay-me-hoi-suc",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Hồi sức tích cực (B1.g)",
+                                            "url": "/chuyen-khoa/khoa-hoi-suc-tich-cuc",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa phục hồi chức năng (B1.h)",
+                                            "url": "/chuyen-khoa/khoa-phuc-hoi-chuc-nang",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa khám bệnh (B1.i)",
+                                            "url": "/chuyen-khoa/khoa-kham-benh-vctch",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Chẩn đoán hình ảnh (B1.k)",
+                                            "url": "/chuyen-khoa/khoa-chan-doan-hinh-anh",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "VIỆN CHẤN THƯƠNG CHỈNH HÌNH",
+                                    "url": "/vien/vien-chan-thuong-chinh-hinh",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Khám và điều trị ngoại trú (A20.a)",
+                                            "url": "/chuyen-khoa/khoa-kham-va-dieu-tri-ngoai-tru",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Xạ trị (A20.b)",
+                                            "url": "/chuyen-khoa/khoa-xa-tri",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Hóa trị (A20.c)",
+                                            "url": "/chuyen-khoa/khoa-hoa-tri",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Chăm sóc giảm nhẹ (A20.d)",
+                                            "url": "/chuyen-khoa/khoa-cham-soc-giam-nhe",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Y học hạt nhân (A20.e)",
+                                            "url": "/chuyen-khoa/khoa-y-hoc-hat-nhan",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "VIỆN UNG BƯỚU VÀ Y HỌC HẠT NHÂN (A20)",
+                                    "url": "/vien/vien-ung-buou-and-y-hoc-hat-nhan",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Khám bệnh cán bộ cao cấp (A1.a)",
+                                            "url": "/chuyen-khoa/khoa-kham-benh-can-bo-cao-cap",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Điều trị cán bộ cao cấp (A1.b)",
+                                            "url": "/chuyen-khoa/khoa-dieu-tri-can-bo-cao-cap",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Điều trị, chăm sóc và bảo vệ sức khỏe cán bộ Trung ương (A11)",
+                                            "url": "/chuyen-khoa/khoa-dieu-tri-cham-soc-va-bao-ve-suc-khoe-can-bo-trung-uong",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "VIỆN ĐIỀU TRỊ VÀ CHĂM SÓC SỨC KHỎE CÁN BỘ CAO CẤP (A1)",
+                                    "url": "/vien/vien-dieu-tri-va-cham-soc-suc-khoe-can-bo-cao-cap",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Vật lý trị liệu (A26.a)",
+                                            "url": "/chuyen-khoa/khoa-vat-ly-tri-lieu",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Điều dưỡng - Phục hồi chức năng (A26.b)",
+                                            "url": "/chuyen-khoa/khoa-dieu-duong-phuc-hoi-chuc-nang",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Lão khoa (A26.c)",
+                                            "url": "/chuyen-khoa/khoa-lao-khoa",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "VIỆN LÃO KHOA VÀ PHỤC HỒI CHỨC NĂNG (A26)",
+                                    "url": "/vien/vien-lao-khoa-and-phuc-hoi-chuc-nang",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "sub_items": [
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Sản (B11.a)",
+                                            "url": "/chuyen-khoa/khoa-san",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Nhi (A9)",
+                                            "url": "/chuyen-khoa/khoa-nhi",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "card",
+                                    "translations": [
+                                        {
+                                            "title": "Khoa Hỗ trợ sinh sản (B11.b)",
+                                            "url": "/chuyen-khoa/khoa-ho-tro-sinh-san",
+                                            "languages_code": {
+                                                "code": "vi"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "translations": [
+                                {
+                                    "title": "VIỆN SẢN - NHI (B11)",
+                                    "url": "/vien/vien-san-nhi",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "list",
+                            "translations": [
+                                {
+                                    "title": "VIỆN VẬT LÝ Y SINH",
+                                    "url": "/vien/vien-vat-ly-y-sinh",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "translations": [
+                        {
+                            "title": "INSTITUTE",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "VIỆN",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "translations": [
+                {
+                    "title": "Specialties",
+                    "url": "/",
+                    "languages_code": {
+                        "code": "en"
+                    }
+                },
+                {
+                    "title": "CHUYÊN KHOA",
+                    "url": "/chuyen-khoa",
+                    "languages_code": {
+                        "code": "vi"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "sub_items": [
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Training & Clinical Guidance",
+                            "url": "/posts/training-and-clinical-guidance",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Huấn luyện đào tạo & Chỉ đạo tuyến",
+                            "url": "/bai-viet/huan-luyen-dao-tao-and-chi-dao-tuyen",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "list",
+                    "sub_items": [
+                        {
+                            "type": "card",
+                            "translations": [
+                                {
+                                    "title": "Conference and Seminar Information",
+                                    "url": "/posts/conference-and-seminar-information",
+                                    "languages_code": {
+                                        "code": "en"
+                                    }
+                                },
+                                {
+                                    "title": "Thông tin Hội nghị - Hội thảo",
+                                    "url": "/bai-viet/thong-tin-hoi-nghi-hoi-thao",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "type": "card",
+                            "translations": [
+                                {
+                                    "title": "Science and technology projects",
+                                    "url": "/posts/science-and-technology-projects",
+                                    "languages_code": {
+                                        "code": "en"
+                                    }
+                                },
+                                {
+                                    "title": "Các dự án khoa học công nghệ",
+                                    "url": "/bai-viet/cac-du-an-khoa-hoc-cong-nghe",
+                                    "languages_code": {
+                                        "code": "vi"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "translations": [
+                        {
+                            "title": "Scientific research",
+                            "url": "/posts/scientific-research",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Nghiên cứu khoa học",
+                            "url": "/bai-viet/nghien-cuu-khoa-hoc",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "translations": [
+                {
+                    "title": "Training & Research",
+                    "languages_code": {
+                        "code": "en"
+                    }
+                },
+                {
+                    "title": "Đào tạo & Nghiên cứu",
+                    "languages_code": {
+                        "code": "vi"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "sub_items": [
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "United Nations Peacekeeping",
+                            "url": "/posts/united-nations-peacekeeping",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Hoạt động gìn giữ hòa bình Liên Hợp Quốc",
+                            "url": "/bai-viet/gin-giu-hoa-binh-lien-hop-quoc",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Strategic Partners",
+                            "url": "/posts/strategic-partners",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Đối tác chiến lược",
+                            "url": "/bai-viet/doi-tac-chien-luoc",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "translations": [
+                {
+                    "title": "International Collaboration",
+                    "languages_code": {
+                        "code": "en"
+                    }
+                },
+                {
+                    "title": "Hợp tác quốc tế",
+                    "languages_code": {
+                        "code": "vi"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "sub_items": [
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Alo Doctor",
+                            "url": "/posts/alo-doctor",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Alo Bác sĩ",
+                            "url": "/bai-viet/alo-bac-si",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Melody of love",
+                            "url": "/posts/melody-of-love",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Giai điệu kết nối yêu thương",
+                            "url": "/bai-viet/giai-dieu-yeu-thuong",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Patient support",
+                            "url": "/posts/patient-support",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Góc tri ân",
+                            "url": "/bai-viet/goc-tri-an",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "New techniques",
+                            "url": "/posts/new-techniques",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Các kỹ thuật mới",
+                            "url": "/bai-viet/cac-ky-thuat-moi",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Medical news",
+                            "url": "/posts/medical-news",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Điểm tin Y học",
+                            "url": "/bai-viet/diem-tin-y-hoc",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "translations": [
+                        {
+                            "title": "Tin mời thầu",
+                            "url": "/bai-viet/tin-moi-thau",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "translations": [
+                {
+                    "title": "News",
+                    "url": "/posts",
+                    "languages_code": {
+                        "code": "en"
+                    }
+                },
+                {
+                    "title": "Tin tức",
+                    "url": "/bai-viet",
+                    "languages_code": {
+                        "code": "vi"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "card",
+            "translations": [
+                {
+                    "title": "TUYỂN DỤNG",
+                    "url": "/bai-viet/tin-tuyen-dung",
+                    "languages_code": {
+                        "code": "vi"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "card",
+            "translations": [
+                {
+                    "title": "Contact",
+                    "url": "/contact",
+                    "languages_code": {
+                        "code": "en"
+                    }
+                },
+                {
+                    "title": "Liên hệ",
+                    "url": "/lien-he",
+                    "languages_code": {
+                        "code": "vi"
+                    }
+                }
+            ]
+        }
+    ],
+    "bottom_navigation": [
+        {
+            "type": "list",
+            "sub_items": [
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Hospital overview",
+                            "url": "/hospital-overview",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Tổng quan Bệnh viện",
+                            "url": "/tong-quan-benh-vien",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Formation History",
+                            "url": "/formation-history",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Những cột mốc đáng nhớ",
+                            "url": "/nhung-cot-moc-dang-nho",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Facilities",
+                            "url": "/facilities",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Cơ sở vật chất",
+                            "url": "/co-so-vat-chat",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Achievements",
+                            "url": "/achievements",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Các danh hiệu cao quý",
+                            "url": "/cac-danh-hieu-cao-quy",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Find Doctors",
+                            "url": "/doctors",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Đội ngũ Bác sĩ",
+                            "url": "/doi-ngu-bac-si",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "translations": [
+                {
+                    "title": "Introduce",
+                    "languages_code": {
+                        "code": "en"
+                    }
+                },
+                {
+                    "title": "Giới thiệu ",
+                    "languages_code": {
+                        "code": "vi"
+                    }
+                }
+            ]
+        },
+        {
+            "type": "list",
+            "sub_items": [
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Medical appointment schedule",
+                            "url": "/medical-appointment-schedule",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Lịch khám bệnh",
+                            "url": "/lich-kham-benh",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Service price list",
+                            "url": "/service-price-list",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Bảng giá dịch vụ",
+                            "url": "/bang-gia-dich-vu",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Medical examination process",
+                            "url": "/medical-examination-process",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Quy trình khám bệnh",
+                            "url": "/quy-trinh-kham-benh",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Find Specialties",
+                            "url": "/specialties",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Tìm Chuyên khoa",
+                            "url": "/chuyen-khoa",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Tin mời thầu",
+                            "url": "/bai-viet/tin-moi-thau",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "View map",
+                            "url": "/view-map",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Xem bản đồ",
+                            "url": "/xem-ban-do",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "card",
+                    "translations": [
+                        {
+                            "title": "Contact",
+                            "url": "/contact",
+                            "languages_code": {
+                                "code": "en"
+                            }
+                        },
+                        {
+                            "title": "Liên hệ",
+                            "url": "/lien-he",
+                            "languages_code": {
+                                "code": "vi"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "translations": [
+                {
+                    "title": "Utilities",
+                    "languages_code": {
+                        "code": "en"
+                    }
+                },
+                {
+                    "title": "Tiện ích",
+                    "languages_code": {
+                        "code": "vi"
+                    }
+                }
+            ]
+        }
+    ],
+    "contact_information": {
+        "id": 1,
+        "terms_url": "/dieu-khoan-va-dich-vu",
+        "googleplay_url": "https://bv175.page.link/vgNL",
+        "status": "published",
+        "security_url": "/chinh-sach-va-bao-mat",
+        "appstore_url": "https://apps.apple.com/vn/app/bv-qu%C3%A2n-y-175/id1623105779?l=vi",
+        "customer_service_url": "/",
+        "date_created": "2025-04-25T02:28:32.845Z",
+        "date_updated": "2026-02-10T16:34:03.102Z",
+        "hot_line": "1900 1175",
+        "hot_line_url": "tel:19001175",
+        "email": "vanthu@benhvien175.vn",
+        "email_url": "mailto:vanthu@benhvien175.vn",
+        "address": "786 Nguyễn Kiệm, Phường Hạnh Thông, TP. Hồ Chí Minh",
+        "address_url": "https://maps.app.goo.gl/sMWmnEbCoUpKRsDb7",
+        "zalo_url": "https://zalo.me/4258555353782473564",
+        "youtube_url": "https://www.youtube.com/channel/UChdAfp1SoRlQ1Ba9YcaJebw",
+        "facebook_url": "https://www.facebook.com/BVQY175",
+        "dmca_url": "/www.dmca.com/Protection/Status.aspx?ID=3fea7e96-c255-4e43-955e-8d80a85d3048",
+        "map_url": "https://app.mappedin.com/map/670e3da7cffbc7000b33691e/directions?floor=m_d92002b5ca366048&location=s_069ecf74cacecabc&departure=10.818106916728901%2C106.67998079740087%2Cm_d92002b5ca366048",
+        "medical_appointment_url": "https://zalo.me/0399175175",
+        "medical_appointment": "0399 175 175",
+        "email_ctxh": "banctxhbenhvienquany175@gmail.com",
+        "email_ctxh_url": "mailto:banctxhbenhvienquany175@gmail.com",
+        "files": [
+            {
+                "id": 18,
+                "contact_information_id": 1,
+                "directus_files_id": "aaaff32b-1669-4f8d-aa66-25e419d244b6",
+                "sort": 1
+            },
+            {
+                "id": 22,
+                "contact_information_id": 1,
+                "directus_files_id": "5e199d7a-db15-4e62-9e9b-a0b622f38898",
+                "sort": 6
+            },
+            {
+                "id": 21,
+                "contact_information_id": 1,
+                "directus_files_id": "a7ae54f5-e625-4987-ab79-7d53c9de19be",
+                "sort": 7
+            },
+            {
+                "id": 20,
+                "contact_information_id": 1,
+                "directus_files_id": "f910a79e-b545-4ad6-a88a-ac393d15920a",
+                "sort": 8
+            },
+            {
+                "id": 19,
+                "contact_information_id": 1,
+                "directus_files_id": "94ecaba8-c57f-463a-b6a1-60ca0ba8982a",
+                "sort": 9
+            }
+        ]
+    },
+    "on_maintenance_mode": true
+}
