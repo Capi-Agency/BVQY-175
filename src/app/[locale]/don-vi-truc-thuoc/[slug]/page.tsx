@@ -8,6 +8,7 @@ import { fnGetPageBySlug } from '@/src/services/page';
 import { fnGetAdminDepartmentDetail } from '@/src/services/adminDepartment';
 import { getLangSlug } from '@/src/i18n/routing';
 import { getTranslations } from 'next-intl/server';
+import ViewTracker from '@/src/components/ViewTracker';
 
 export const revalidate = 600;
 
@@ -81,6 +82,7 @@ const DepartmentDetailPage = async ({ params }: Props) => {
   return (
     <>
       <JsonLDProvider pageSchema={pageSchema} />
+      <ViewTracker collection="dependent_units" slug={slug} />
       <PageBuilder pageContent={pageContent} pageDetail={dataDetail} />
     </>
   );

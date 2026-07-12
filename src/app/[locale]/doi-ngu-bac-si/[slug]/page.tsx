@@ -8,6 +8,7 @@ import { fnGetPageBySlug } from '@/src/services/page';
 import { fnGetDoctorDetail } from '@/src/services/doctors';
 import { getLangSlug } from '@/src/i18n/routing';
 import { getTranslations } from 'next-intl/server';
+import ViewTracker from '@/src/components/ViewTracker';
 
 export const revalidate = 600;
 
@@ -77,6 +78,7 @@ const NewsDetailPage = async ({ params }: Props) => {
   return (
     <>
       <JsonLDProvider pageSchema={pageSchema} />
+      <ViewTracker collection="doctors" slug={slug} />
       <PageBuilder pageContent={pageContent} pageDetail={dataDetail} />
     </>
   );

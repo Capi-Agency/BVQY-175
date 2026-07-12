@@ -7,6 +7,7 @@ import JsonLDProvider from '@/src/components/common/the-json-ld';
 import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { getLangSlug } from '@/src/i18n/routing';
+import ViewTracker from '@/src/components/ViewTracker';
 
 export const revalidate = 60;
 
@@ -72,6 +73,7 @@ const NewsDetailPage = async ({ params }: Props) => {
   return (
     <>
       <JsonLDProvider pageSchema={pageSchema} />
+      <ViewTracker collection="posts" slug={slug} />
       <PageBuilder pageContent={pageContent} pageDetail={post} />
     </>
   );
