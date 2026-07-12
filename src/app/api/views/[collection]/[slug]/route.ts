@@ -28,9 +28,9 @@ export async function POST(
     return NextResponse.json({ ok: true, counted: false });
   }
 
-  const internalDirectusUrl = process.env.NEXT_PUBLIC_API_URL || 'http://core_cms:8055/';
+  const internalDirectusUrl = 'http://core_cms:8055';
   const res = await fetch(
-    `${internalDirectusUrl}increment-views/${collection}/${slug}`,
+    `${internalDirectusUrl}/increment-views/${collection}/${slug}`,
     {
       method: 'PATCH',
       headers: { Authorization: `Bearer ${process.env.DIRECTUS_STATIC_TOKEN}` },
