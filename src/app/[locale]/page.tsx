@@ -6,7 +6,7 @@ import { createSeoData } from '@/src/utils/metadata';
 import { Metadata, ResolvingMetadata } from 'next';
 import { Locale } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
-
+import ViewTracker from '@/src/components/ViewTracker';
 export const revalidate = 300;
 
 type Props = {
@@ -40,6 +40,7 @@ export default async function HomePage({ params }: Props) {
   return (
     <>
       <JsonLDProvider pageSchema={pageSchema} />
+      <ViewTracker collection="pages" slug={langSlug} />
       <PageBuilder pageContent={pageContent} />
     </>
   );
