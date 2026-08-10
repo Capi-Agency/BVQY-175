@@ -26,9 +26,16 @@ export async function generateMetadata(
     notFound();
   }
 
-  const data = await fnGetPageBySlug(slug);
-  const seo = createSeoData(data?.seo, locale, slug) ?? {};
-  return seo;
+  try {
+    const data = await fnGetPageBySlug(slug);
+    const seo = createSeoData(data?.seo, locale, slug) ?? {};
+    return seo;
+  } catch (error: any) {
+    if (error.message === '403') {
+      notFound();
+    }
+    throw error;
+  }
 }
 
 export default async function Page({ params }: Props) {
@@ -41,14 +48,21 @@ export default async function Page({ params }: Props) {
 
   setRequestLocale(locale as Locale);
   
-  const pageContent = await fnGetPageBySlug(slug);
-  const pageSchema = pageContent?.seo?.meta_schema;
+  try {
+    const pageContent = await fnGetPageBySlug(slug);
+    const pageSchema = pageContent?.seo?.meta_schema;
 
-  return (
-    <>
-      <JsonLDProvider pageSchema={pageSchema} />
-      <ViewTracker collection="pages" slug={slug} />
-      <PageBuilder pageContent={pageContent} />
-    </>
-  );
+    return (
+      <>
+        <JsonLDProvider pageSchema={pageSchema} />
+        <ViewTracker collection="pages" slug={slug} />
+        <PageBuilder pageContent={pageContent} />
+      </>
+    );
+  } catch (error: any) {
+    if (error.message === '403') {
+      notFound();
+    }
+    throw error;
+  }
 }
