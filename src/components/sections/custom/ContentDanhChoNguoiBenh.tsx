@@ -62,23 +62,13 @@ export default function ContentCongDichVuCong({ data }: CommonSection) {
             </CustomLink>
           )}
 
-          <Fancybox
-            options={{
-              Carousel: {
-                infinite: true,
-              },
-              Images: {
-                zoom: true,
-              },
+
+          <div
+            className="content-wrapper [&_ul]:ml-2 [&_ul_ul]:ml-4"
+            dangerouslySetInnerHTML={{
+              __html: data?.contents,
             }}
-          >
-            <div
-              className="content-wrapper content-fancybox [&_ul]:ml-2 [&_ul_ul]:ml-4"
-              dangerouslySetInnerHTML={{
-                __html: data?.contents,
-              }}
-            ></div>
-          </Fancybox>
+          ></div>
 
           {data?.items?.length > 0 && (
             <Accordion.Root
