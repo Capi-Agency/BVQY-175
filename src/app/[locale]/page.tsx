@@ -22,6 +22,10 @@ export async function generateMetadata(
   _parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { locale } = await params;
+  if (locale.startsWith('sitemap') || locale.startsWith('favicon') || locale.startsWith('manifest') || locale.startsWith('robots.txt')) {
+    const { notFound } = require('next/navigation');
+    return notFound();
+  }
   const langSlug = await getLangSlug(locale, 'trang-chu');
 
   const data = await fnGetPageBySlug(langSlug);
@@ -31,6 +35,10 @@ export async function generateMetadata(
 
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
+  if (locale.startsWith('sitemap') || locale.startsWith('favicon') || locale.startsWith('manifest') || locale.startsWith('robots.txt')) {
+    const { notFound } = require('next/navigation');
+    return notFound();
+  }
   setRequestLocale(locale as Locale);
 
   const langSlug = await getLangSlug(locale, 'trang-chu');

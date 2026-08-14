@@ -41,16 +41,33 @@ async function getAllEntities(
 }
 
 // Helper function to get all news slugs with translations
-async function getAllNewsSlugs(collection: string, locale: string = 'vi') {
+async function getAllNewsSlugs(
+  collection: string,
+  locale: string = 'vi',
+  categorySlug?: string
+) {
   try {
+    const filter: any = {
+      translations: {
+        languages_code: { _eq: locale },
+      },
+    };
+
+    if (categorySlug) {
+      filter.categories = {
+        category: {
+          translations: {
+            languages_code: { _eq: locale },
+            slug: { _eq: categorySlug },
+          },
+        },
+      };
+    }
+
     const res = await directusClientWithRest.request(
       readItems(collection, {
         fields: ['slug', 'translations.slug', 'translations.languages_code'],
-        filter: {
-          translations: {
-            languages_code: { _eq: locale },
-          },
-        },
+        filter,
         deep: {
           translations: {
             _filter: {
@@ -96,125 +113,141 @@ async function getAllNewsCategories(locale: string = 'vi') {
   }
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const pages = await fnGetAllPageSlug(['vi']);
+export async function generateSitemaps() {
+  const locale = 'vi';
+  const newsCategories = await getAllNewsCategories(locale);
+
+  const sitemaps = [
+    { id: 'pages' },
+    { id: 'news-categories' },
+    { id: 'departments' },
+    { id: 'doctors' },
+    { id: 'dependent-units' },
+    { id: 'admin-departments' },
+    { id: 'centers' },
+    { id: 'institutes' },
+  ];
+
+  if (newsCategories && newsCategories.length > 0) {
+    newsCategories.forEach((category: string) => {
+      sitemaps.push({ id: `news-${category}` });
+    });
+  }
+
+  return sitemaps;
+}
+
+export default async function sitemap({
+  id,
+}: {
+  id: string;
+}): Promise<MetadataRoute.Sitemap> {
   const siteUrl = process.env.SITE_URL || '';
   const locale = 'vi';
 
-  const homepage: MetadataRoute.Sitemap[number] = {
-    url: siteUrl,
-    lastModified: new Date(),
-    changeFrequency: 'daily',
-    priority: 1.0,
-  };
+  if (id === 'pages') {
+    const pages = await fnGetAllPageSlug(['vi']);
+    const homepage: MetadataRoute.Sitemap[number] = {
+      url: siteUrl,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 1.0,
+    };
 
-  // Static pages
-  const pageItems = pages.map((page: any) => ({
-    url: `${siteUrl}/${page.language}/${page.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'daily',
-    priority: 0.8,
-  }));
+    const pageItems = pages.map((page: any) => ({
+      url: `${siteUrl}/${page.language}/${page.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.8,
+    }));
 
-  // Get all slugs for different collections
-  const [
-    newsSlugs,
-    newsCategories,
-    departmentSlugs,
-    doctorSlugs,
-    adminDepartmentSlugs,
-    dependentUnitSlugs,
-    departmentGroups,
-  ] = await Promise.all([
-    getAllNewsSlugs('posts', locale),
-    getAllNewsCategories(locale),
-    getAllSlugs('departments', locale),
-    getAllSlugs('doctors', locale),
-    getAllSlugs('administration_departments', locale),
-    getAllSlugs('dependent_units', locale),
-    getAllEntities('department_groups', ['slug', 'parent_group'], locale),
-  ]);
+    return [homepage, ...pageItems];
+  }
 
-  // Bài viết - News categories list pages
-  const newsCategoryPages = newsCategories.map((slug) => ({
-    url: `${siteUrl}/${locale}/bai-viet/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'daily' as const,
-    priority: 0.7,
-  }));
+  if (id === 'news-categories') {
+    const newsCategories = await getAllNewsCategories(locale);
+    return newsCategories.map((slug: string) => ({
+      url: `${siteUrl}/${locale}/bai-viet/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'daily' as const,
+      priority: 0.7,
+    }));
+  }
 
-  // Bài viết - News detail pages
-  const newsDetailPages = newsSlugs.flatMap((slug) =>
-    newsCategories.map((category) => ({
+  if (id && id.startsWith('news-') && id !== 'news-categories') {
+    const category = id.replace('news-', '');
+    const newsSlugs = await getAllNewsSlugs('posts', locale, category);
+    return newsSlugs.map((slug: string) => ({
       url: `${siteUrl}/${locale}/bai-viet/${category}/${slug}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.6,
-    })),
-  );
+    }));
+  }
 
-  // Chuyên khoa - Department detail pages
-  const departmentPages = departmentSlugs.map((slug) => ({
-    url: `${siteUrl}/${locale}/chuyen-khoa/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }));
-
-  // Đội ngũ bác sĩ - Doctor detail pages
-  const doctorPages = doctorSlugs.map((slug) => ({
-    url: `${siteUrl}/${locale}/doi-ngu-bac-si/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }));
-
-  // Đơn vị trực thuộc - Department detail pages
-  const dependentUnitPages = dependentUnitSlugs.map((slug) => ({
-    url: `${siteUrl}/${locale}/don-vi-truc-thuoc/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }));
-
-  // Khối cơ quan hành chính - Admin department detail pages
-  const adminDepartmentPages = adminDepartmentSlugs.map((slug) => ({
-    url: `${siteUrl}/${locale}/khoi-co-quan-hanh-chinh/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.6,
-  }));
-
-  // Trung tâm - Department detail pages
-  const centerPages = departmentGroups
-    .filter((group: any) => group.parent_group === 'trung-tam')
-    .map((group: any) => ({
-      url: `${siteUrl}/${locale}/trung-tam/${group.slug}`,
+  if (id === 'departments') {
+    const departmentSlugs = await getAllSlugs('departments', locale);
+    return departmentSlugs.map((slug: string) => ({
+      url: `${siteUrl}/${locale}/chuyen-khoa/${slug}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     }));
+  }
 
-  // Viện - Department detail pages
-  const instituePages = departmentGroups
-    .filter((group: any) => group.parent_group === 'vien')
-    .map((group: any) => ({
-      url: `${siteUrl}/${locale}/vien/${group.slug}`,
+  if (id === 'doctors') {
+    const doctorSlugs = await getAllSlugs('doctors', locale);
+    return doctorSlugs.map((slug: string) => ({
+      url: `${siteUrl}/${locale}/doi-ngu-bac-si/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }));
+  }
+
+  if (id === 'dependent-units') {
+    const dependentUnitSlugs = await getAllSlugs('dependent_units', locale);
+    return dependentUnitSlugs.map((slug: string) => ({
+      url: `${siteUrl}/${locale}/don-vi-truc-thuoc/${slug}`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     }));
+  }
 
-  return [
-    homepage,
-    ...pageItems,
-    ...newsCategoryPages,
-    ...newsDetailPages,
-    ...departmentPages,
-    ...doctorPages,
-    ...dependentUnitPages,
-    ...adminDepartmentPages,
-    ...centerPages,
-    ...instituePages,
-  ];
+  if (id === 'admin-departments') {
+    const adminDepartmentSlugs = await getAllSlugs('administration_departments', locale);
+    return adminDepartmentSlugs.map((slug: string) => ({
+      url: `${siteUrl}/${locale}/khoi-co-quan-hanh-chinh/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }));
+  }
+
+  if (id === 'centers') {
+    const departmentGroups = await getAllEntities('department_groups', ['slug', 'parent_group'], locale);
+    return departmentGroups
+      .filter((group: any) => group.parent_group === 'trung-tam')
+      .map((group: any) => ({
+        url: `${siteUrl}/${locale}/trung-tam/${group.slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+      }));
+  }
+
+  if (id === 'institutes') {
+    const departmentGroups = await getAllEntities('department_groups', ['slug', 'parent_group'], locale);
+    return departmentGroups
+      .filter((group: any) => group.parent_group === 'vien')
+      .map((group: any) => ({
+        url: `${siteUrl}/${locale}/vien/${group.slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+      }));
+  }
+
+  return [];
 }
