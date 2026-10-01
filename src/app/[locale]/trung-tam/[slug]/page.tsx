@@ -40,6 +40,9 @@ export async function generateMetadata(
     ? `${process.env.NEXT_PUBLIC_ASSETS_URL}${data?.cover}`
     : '/assets/images/open_graph.png';
 
+  const siteUrl = process.env.SITE_URL ?? '';
+  const canonical = `${siteUrl}/${locale}/trung-tam/${slug}`;
+
   return {
     title,
     keywords: ['Bệnh viện Quân y 175', 'Military hospital 175"'],
@@ -51,11 +54,11 @@ export async function generateMetadata(
       title,
       description,
       images: [imageUrl],
-      url: process.env.SITE_URL ?? '',
+      url: canonical,
       type: 'website',
     },
     alternates: {
-      canonical: process.env.SITE_URL ?? '',
+      canonical,
     },
     metadataBase: new URL(process.env.SITE_URL!),
   };

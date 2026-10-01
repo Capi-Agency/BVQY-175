@@ -31,7 +31,7 @@ export const createSeoData = (seo: any, locale: Locale = routing.defaultLocale, 
       images: seo?.meta_cover?.id
         ? [`${process.env.NEXT_PUBLIC_ASSETS_URL}${seo?.meta_cover?.id}`]
         : [],
-      url: `${siteUrl}/${locale}`,
+      url: canonical,
       type: 'website',
     },
     alternates: {

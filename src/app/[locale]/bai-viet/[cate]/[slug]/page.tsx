@@ -12,7 +12,7 @@ import ViewTracker from '@/src/components/ViewTracker';
 export const revalidate = 60;
 
 type Props = {
-  params: Promise<{ locale: string; slug: string }>;
+  params: Promise<{ locale: string; slug: string; cate: string }>;
 };
 
 export async function generateMetadata(
@@ -24,7 +24,7 @@ export async function generateMetadata(
   if (!slug || !idRegex.test(slug)) return notFound();
 
   const data = await getNewsDetail({ collection: 'posts', slug, locale });
-    const transContent = data?.translations?.[0];
+  const transContent = data?.translations?.[0];
 
   if (!transContent) notFound();
 
@@ -35,6 +35,10 @@ export async function generateMetadata(
   const imageUrl = transContent?.thumbnail
     ? `${process.env.NEXT_PUBLIC_ASSETS_URL}${transContent.thumbnail}`
     : '/assets/images/open_graph.png';
+
+  const { cate } = await params;
+  const siteUrl = process.env.SITE_URL ?? '';
+  const canonical = `${siteUrl}/${locale}/bai-viet/${cate}/${slug}`;
 
   return {
     title,
@@ -47,11 +51,11 @@ export async function generateMetadata(
       title,
       description,
       images: [imageUrl],
-      url: process.env.SITE_URL ?? '',
+      url: canonical,
       type: 'website',
     },
     alternates: {
-      canonical: process.env.SITE_URL ?? '',
+      canonical,
     },
     metadataBase: new URL(process.env.SITE_URL!),
   };

@@ -52,11 +52,11 @@ export async function generateMetadata(
             `${process.env.NEXT_PUBLIC_ASSETS_URL}${pageContent?.seo?.meta_cover.id}`,
           ]
         : [],
-      url: process.env.SITE_URL ?? '',
+      url: `${process.env.SITE_URL ?? ''}/${locale}/doi-ngu-bac-si/${slug}`,
       type: 'website',
     },
     alternates: {
-      canonical: process.env.SITE_URL ?? '',
+      canonical: `${process.env.SITE_URL ?? ''}/${locale}/doi-ngu-bac-si/${slug}`,
     },
     metadataBase: new URL(process.env.SITE_URL!),
   };
