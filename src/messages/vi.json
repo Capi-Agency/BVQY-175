@@ -102,7 +102,9 @@
       "head_of_division": "Trưởng ban",
       "deputy_head_of_division": "Phó Trưởng ban",
       "head_of_unit": "Chủ nhiệm",
-      "deputy_head_of_unit": "Phó Chủ nhiệm"
+      "deputy_head_of_unit": "Phó Chủ nhiệm",
+      "head_of_political_department": "Chủ nhiệm Chính trị",
+      "deputy_head_of_political_department": "Phó Chủ nhiệm Chính trị"
     },
     "updating": "Đang cập nhật"
   },

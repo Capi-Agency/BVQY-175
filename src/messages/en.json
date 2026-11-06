@@ -102,7 +102,9 @@
       "head_of_division": "Head of Division",
       "deputy_head_of_division": "Deputy Head of Division",
       "head_of_unit": "Head of Unit",
-      "deputy_head_of_unit": "Deputy Head of Unit"
+      "deputy_head_of_unit": "Deputy Head of Unit",
+      "head_of_political_department": "Head of Political Department",
+      "deputy_head_of_political_department": "Deputy Head of Political Department"
     },
     "updating": "Updating"
   },
