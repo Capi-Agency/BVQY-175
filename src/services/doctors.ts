@@ -3,6 +3,16 @@ import { aggregate, readItem, readItems } from '@directus/sdk';
 import { routing } from '../i18n/routing';
 import { Locale } from 'next-intl';
 
+// The CMS names these relations member_of_departments ("Thuộc khoa") and member_of_institutes
+// ("Thuộc viện / trung tâm", M09). Components keep reading the original keys.
+const LEGACY_KEYS: Record<string, string> = { member_of_departments: 'departments', member_of_institutes: 'department_groups' };
+const legacyDoctor = (d: any) => {
+  if (!d || typeof d !== 'object') return d;
+  for (const [now, old] of Object.entries(LEGACY_KEYS)) if (now in d) { d[old] = d[now]; delete d[now]; }
+  return d;
+};
+const legacyDoctors = (r: any) => (Array.isArray(r) ? r.map(legacyDoctor) : legacyDoctor(r));
+
 export const getListDoctors = async ({
   limit = 6,
   page = 1,
@@ -42,7 +52,7 @@ export const getListDoctors = async ({
 
     // 3. Filter theo khoa
     if (departmentId) {
-      filter.departments = {
+      filter.member_of_departments = {
         department: {
           slug: {
             _eq: departmentId,
@@ -55,9 +65,9 @@ export const getListDoctors = async ({
       readItems('doctors', {
         fields: [
           '*',
-          'departments.department.code',
-          'departments.department.title',
-          'department_groups.department_groups_slug.title',
+          'member_of_departments.department.code',
+          'member_of_departments.department.title',
+          'member_of_institutes.department_groups_slug.title',
         ],
         limit,
         page,
@@ -66,7 +76,7 @@ export const getListDoctors = async ({
       }),
     );
 
-    return res;
+    return legacyDoctors(res);
   } catch (error) {
     console.log('Err in getListDoctors: ', error);
   }
@@ -101,7 +111,7 @@ export const getDoctorsCount = async ({
 
     // 3. Filter theo khoa
     if (departmentId) {
-      filter.departments = {
+      filter.member_of_departments = {
         department: {
           slug: {
             _eq: departmentId,
@@ -190,7 +200,7 @@ export const getListDoctorPreview = async ({
         filter,
       }),
     );
-    return res;
+    return legacyDoctors(res);
   } catch (error) {
     console.log('Err in getAllDoctors: ', error);
   }
@@ -261,10 +271,10 @@ export const getDoctorBySlug = async (slug: string) => {
     // Lấy chi tiết bác sĩ - collection: doctors - key: slug - options: lấy tất cả fields (*), lấy tất cả fields của khoa (department.*)
     const res = await directusClientWithRest.request(
       readItem('doctors', slug, {
-        fields: ['*', 'departments.*'],
+        fields: ['*', 'member_of_departments.*'],
       }),
     );
-    return res;
+    return legacyDoctors(res);
   } catch (error) {
     console.log('Err in getDoctorBySlug: ', error);
   }
@@ -282,17 +292,17 @@ export const fnGetDoctorDetail = async ({
       readItem(collection, slug, {
         fields: [
           '*',
-          'departments.department.slug',
-          'departments.department.title',
-          'departments.department.code',
-          'department_groups.department_groups_slug.title',
-          'department_groups.department_groups_slug.slug',
-          'department_groups.department_groups_slug.code',
-          'department_groups.department_groups_slug.parent_group',
+          'member_of_departments.department.slug',
+          'member_of_departments.department.title',
+          'member_of_departments.department.code',
+          'member_of_institutes.department_groups_slug.title',
+          'member_of_institutes.department_groups_slug.slug',
+          'member_of_institutes.department_groups_slug.code',
+          'member_of_institutes.department_groups_slug.parent_group',
         ],
       }),
     );
-    return res;
+    return legacyDoctors(res);
   } catch (error) {
     console.log('error in get data: ', error);
   }

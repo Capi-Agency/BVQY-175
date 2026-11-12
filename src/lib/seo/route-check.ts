@@ -15,7 +15,7 @@ const NOT_FOUND: RouteCheck = { kind: 'notfound' };
 const SLUG_RE = /^[a-zA-Z0-9-_]+$/;
 const API = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/?$/, '/');
 const TTL_FOUND = 60_000;
-const TTL_MISSING = 30_000;
+const TTL_MISSING = 10_000; // short: an item published again must not stay 404 long
 
 // Detail routes whose slug is the primary key of a collection.
 const KEY_ROUTES: Record<string, string> = {
@@ -43,7 +43,9 @@ async function cms(path: string): Promise<CmsResult> {
     return null;
   }
   if (cache.size > 5000) cache.clear();
-  cache.set(path, { exp: Date.now() + (value.status === 200 ? TTL_FOUND : TTL_MISSING), value });
+  // an empty list (200 + []) is a miss too: keep it short so a just-published item shows up fast
+  const found = value.status === 200 && value.data != null && !(Array.isArray(value.data) && value.data.length === 0);
+  cache.set(path, { exp: Date.now() + (found ? TTL_FOUND : TTL_MISSING), value });
   return value;
 }
 

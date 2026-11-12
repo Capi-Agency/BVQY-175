@@ -23,6 +23,9 @@ export default async function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl;
 
   if (pathname === `/${routing.defaultLocale}` || pathname.startsWith(`/${routing.defaultLocale}/`)) {
+    // Draft mode (Live Preview): unpublished pages/posts are 403 for the public role and would be
+    // answered 404 here; let the page render, it reads the CMS with the preview token.
+    if (req.cookies.has('__prerender_bypass')) return intlMiddleware(req);
     const check = await checkRoute(pathname);
     if (check.kind === 'redirect') return permanentRedirect(check.to + search, req);
     if (check.kind === 'notfound') {
