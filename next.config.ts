@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
       {
+        // local docker stack (http://bv175.localhost)
+        protocol: 'http',
+        hostname: `${process.env.ASSETS_DOMAIN}`,
+        pathname: '/**',
+      },
+      {
         protocol: 'https',
         hostname: 'img.youtube.com',
         pathname: '/**',
