@@ -3,6 +3,14 @@ import { fnGetAllPageSlug } from '../services/page';
 import { directusClientWithRest } from '../lib/directus';
 import { readItems } from '@directus/sdk';
 import { routing } from '../i18n/routing';
+import { pickPrimaryCategory, postCategorySlugs } from '../lib/seo/primary-category';
+
+// Real modification date only; a fake "now" on every URL makes search engines ignore lastmod.
+function lastModifiedOf(...dates: (string | null | undefined)[]): Date | undefined {
+  const d = dates.find(Boolean);
+  const t = d ? new Date(d) : undefined;
+  return t && !Number.isNaN(t.getTime()) ? t : undefined;
+}
 
 // Helper function to get all slugs from a collection
 async function getAllSlugs(collection: string, locale: string = 'vi') {
@@ -66,7 +74,15 @@ async function getAllNewsSlugs(
 
     const res = await directusClientWithRest.request(
       readItems(collection, {
-        fields: ['slug', 'translations.slug', 'translations.languages_code'],
+        fields: [
+          'slug',
+          // date_updated is not readable by the public role; date_published is the best public signal
+          'date_published',
+          'translations.slug',
+          'translations.languages_code',
+          'categories.category.translations.slug',
+          'categories.category.translations.languages_code',
+        ],
         filter,
         deep: {
           translations: {
@@ -78,7 +94,18 @@ async function getAllNewsSlugs(
         limit: -1,
       }),
     );
-    return res.map((item: any) => item.translations?.[0]?.slug).filter(Boolean);
+    return res
+      .filter((item: any) => {
+        // list each post only once: in the sitemap of its primary category (same rule as canonical)
+        if (!categorySlug) return true;
+        const cats = postCategorySlugs(item, locale);
+        return cats.length === 0 || pickPrimaryCategory(cats) === categorySlug;
+      })
+      .map((item: any) => ({
+        slug: item.translations?.[0]?.slug as string,
+        lastModified: lastModifiedOf(item.date_published),
+      }))
+      .filter((x: any) => x.slug);
   } catch (error) {
     console.log(`Error fetching news slugs from ${collection}:`, error);
     return [];
@@ -147,19 +174,21 @@ export default async function sitemap({
 
   if (id === 'pages') {
     const pages = await fnGetAllPageSlug(['vi']);
+    // "/" redirects to "/vi": list the final URL, not a redirect
     const homepage: MetadataRoute.Sitemap[number] = {
-      url: siteUrl,
-      lastModified: new Date(),
+      url: `${siteUrl}/${locale}`,
       changeFrequency: 'daily',
       priority: 1.0,
     };
 
-    const pageItems = pages.map((page: any) => ({
-      url: `${siteUrl}/${page.language}/${page.slug}`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.8,
-    }));
+    const pageItems = pages
+      // trang-chu is the home page content (served at /vi); /vi/trang-chu redirects there
+      .filter((page: any) => page.slug !== 'trang-chu')
+      .map((page: any) => ({
+        url: `${siteUrl}/${page.language}/${page.slug}`,
+        changeFrequency: 'daily' as const,
+        priority: 0.8,
+      }));
 
     return [homepage, ...pageItems];
   }
@@ -168,7 +197,6 @@ export default async function sitemap({
     const newsCategories = await getAllNewsCategories(locale);
     return newsCategories.map((slug: string) => ({
       url: `${siteUrl}/${locale}/bai-viet/${slug}`,
-      lastModified: new Date(),
       changeFrequency: 'daily' as const,
       priority: 0.7,
     }));
@@ -177,9 +205,9 @@ export default async function sitemap({
   if (id && id.startsWith('news-') && id !== 'news-categories') {
     const category = id.replace('news-', '');
     const newsSlugs = await getAllNewsSlugs('posts', locale, category);
-    return newsSlugs.map((slug: string) => ({
+    return newsSlugs.map(({ slug, lastModified }: { slug: string; lastModified?: Date }) => ({
       url: `${siteUrl}/${locale}/bai-viet/${category}/${slug}`,
-      lastModified: new Date(),
+      lastModified,
       changeFrequency: 'weekly' as const,
       priority: 0.6,
     }));
@@ -189,7 +217,6 @@ export default async function sitemap({
     const departmentSlugs = await getAllSlugs('departments', locale);
     return departmentSlugs.map((slug: string) => ({
       url: `${siteUrl}/${locale}/chuyen-khoa/${slug}`,
-      lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     }));
@@ -199,7 +226,6 @@ export default async function sitemap({
     const doctorSlugs = await getAllSlugs('doctors', locale);
     return doctorSlugs.map((slug: string) => ({
       url: `${siteUrl}/${locale}/doi-ngu-bac-si/${slug}`,
-      lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }));
@@ -209,7 +235,6 @@ export default async function sitemap({
     const dependentUnitSlugs = await getAllSlugs('dependent_units', locale);
     return dependentUnitSlugs.map((slug: string) => ({
       url: `${siteUrl}/${locale}/don-vi-truc-thuoc/${slug}`,
-      lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.7,
     }));
@@ -219,7 +244,6 @@ export default async function sitemap({
     const adminDepartmentSlugs = await getAllSlugs('administration_departments', locale);
     return adminDepartmentSlugs.map((slug: string) => ({
       url: `${siteUrl}/${locale}/khoi-co-quan-hanh-chinh/${slug}`,
-      lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }));
@@ -231,7 +255,6 @@ export default async function sitemap({
       .filter((group: any) => group.parent_group === 'trung-tam')
       .map((group: any) => ({
         url: `${siteUrl}/${locale}/trung-tam/${group.slug}`,
-        lastModified: new Date(),
         changeFrequency: 'weekly' as const,
         priority: 0.7,
       }));
@@ -243,7 +266,6 @@ export default async function sitemap({
       .filter((group: any) => group.parent_group === 'vien')
       .map((group: any) => ({
         url: `${siteUrl}/${locale}/vien/${group.slug}`,
-        lastModified: new Date(),
         changeFrequency: 'weekly' as const,
         priority: 0.7,
       }));

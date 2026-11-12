@@ -8,6 +8,7 @@ import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { getLangSlug } from '@/src/i18n/routing';
 import ViewTracker from '@/src/components/ViewTracker';
+import { postCanonicalPath, postCategorySlugs } from '@/src/lib/seo/primary-category';
 
 export const revalidate = 60;
 
@@ -38,7 +39,8 @@ export async function generateMetadata(
 
   const { cate } = await params;
   const siteUrl = process.env.SITE_URL ?? '';
-  const canonical = `${siteUrl}/${locale}/bai-viet/${cate}/${slug}`;
+  // A post is reachable under each of its categories: point every variant to the primary one.
+  const canonical = siteUrl + postCanonicalPath(slug, postCategorySlugs(data, locale), cate, locale);
 
   return {
     title,
