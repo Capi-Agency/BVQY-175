@@ -45,3 +45,22 @@ const directusClient = switching(publicGraphql, previewGraphql);
 const directusClientWithRest = switching(publicRest, previewRest);
 
 export { directusClient, directusClientWithRest };
+
+// Live Preview of a page: Directus reloads the preview right after "Save", before its hook has
+// rewritten pages.raw_content (debounced, after the response). In draft mode the page is built now
+// from its blocks by the CMS endpoint raw-content-preview. undefined = not in draft mode, or the
+// endpoint is unavailable: the caller then reads the stored raw_content as before.
+export async function previewPageRawContent(slug: string): Promise<unknown | undefined> {
+  if (!(await draftEnabled())) return undefined;
+  try {
+    const base = API_URL.replace(/\/?$/, '/');
+    const res = await fetch(`${base}raw-content/page/${encodeURIComponent(slug)}`, {
+      headers: { Authorization: `Bearer ${PREVIEW_TOKEN}` },
+      cache: 'no-store',
+    });
+    if (!res.ok) return undefined;
+    return (await res.json())?.data?.raw_content ?? undefined;
+  } catch {
+    return undefined;
+  }
+}

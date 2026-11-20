@@ -1,10 +1,12 @@
-import { directusClientWithRest } from '@/src/lib/directus';
+import { directusClientWithRest, previewPageRawContent } from '@/src/lib/directus';
 import { readItem, readItems } from '@directus/sdk';
 
 /* ============================
    GET PAGE CONTENT BY SLUG
 ============================ */
 export const fnGetPageBySlug = async (slug: string) => {
+  const preview = await previewPageRawContent(slug); // draft mode only: built from the blocks just saved
+  if (preview !== undefined) return preview;
   try {
     const res = await directusClientWithRest.request(
       readItem('pages', slug, {
