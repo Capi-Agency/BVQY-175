@@ -8,7 +8,8 @@ import PageBuilder from '@/src/page-builder';
 import { fnGetPageBySlug } from '@/src/services/page';
 import { getLangSlug } from '@/src/i18n/routing';
 import ViewTracker from '@/src/components/ViewTracker';
-import { postCanonicalPath, postCategorySlugs } from '@/src/lib/seo/primary-category';
+import { FALLBACK_CATEGORY, postCanonicalPath, postCategorySlugs } from '@/src/lib/seo/primary-category';
+import { metaDescription, metaTitle } from '@/src/lib/seo/description';
 
 export const revalidate = 60;
 
@@ -29,18 +30,18 @@ export async function generateMetadata(
 
   if (!transContent) notFound();
 
-  const title = checkValueNull(transContent?.title, '');
-
-  const description = checkValueNull(transContent?.blurb, '');
+  // seo record (if an editor filled one) -> blurb -> excerpt of the body
+  const seo = data?.seo && typeof data.seo === 'object' ? data.seo : null;
+  const title = metaTitle(seo, checkValueNull(transContent?.title, ''));
+  const description = metaDescription(seo, transContent?.blurb, { plain: transContent?.content_plain, html: transContent?.content });
 
   const imageUrl = transContent?.thumbnail
     ? `${process.env.NEXT_PUBLIC_ASSETS_URL}${transContent.thumbnail}`
     : '/assets/images/open_graph.png';
 
-  const { cate } = await params;
   const siteUrl = process.env.SITE_URL ?? '';
   // A post is reachable under each of its categories: point every variant to the primary one.
-  const canonical = siteUrl + postCanonicalPath(slug, postCategorySlugs(data, locale), cate, locale);
+  const canonical = siteUrl + postCanonicalPath(slug, postCategorySlugs(data, locale), FALLBACK_CATEGORY, locale);
 
   return {
     title,

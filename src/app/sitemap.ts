@@ -3,7 +3,7 @@ import { fnGetAllPageSlug } from '../services/page';
 import { directusClientWithRest } from '../lib/directus';
 import { readItems } from '@directus/sdk';
 import { routing } from '../i18n/routing';
-import { pickPrimaryCategory, postCategorySlugs } from '../lib/seo/primary-category';
+import { FALLBACK_CATEGORY, pickPrimaryCategory, postCategorySlugs } from '../lib/seo/primary-category';
 
 // Real modification date only; a fake "now" on every URL makes search engines ignore lastmod.
 function lastModifiedOf(...dates: (string | null | undefined)[]): Date | undefined {
@@ -11,6 +11,10 @@ function lastModifiedOf(...dates: (string | null | undefined)[]): Date | undefin
   const t = d ? new Date(d) : undefined;
   return t && !Number.isNaN(t.getTime()) ? t : undefined;
 }
+
+// Regenerate hourly: built once at "next build", the sitemap never listed posts published afterwards
+// (local check 2026-11-20: 146 published posts missing).
+export const revalidate = 3600;
 
 // Helper function to get all slugs from a collection
 async function getAllSlugs(collection: string, locale: string = 'vi') {
@@ -61,7 +65,13 @@ async function getAllNewsSlugs(
       },
     };
 
-    if (categorySlug) {
+    if (categorySlug === FALLBACK_CATEGORY) {
+      // the fallback category also lists posts without any category (their canonical URL is there)
+      filter._or = [
+        { categories: { _none: { category: { _nnull: true } } } },
+        { categories: { category: { translations: { languages_code: { _eq: locale }, slug: { _eq: categorySlug } } } } },
+      ];
+    } else if (categorySlug) {
       filter.categories = {
         category: {
           translations: {

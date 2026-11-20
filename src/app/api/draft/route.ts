@@ -6,7 +6,7 @@
 import { draftMode } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { NextResponse } from 'next/server';
-import { postCanonicalPath, postCategorySlugs } from '@/src/lib/seo/primary-category';
+import { FALLBACK_CATEGORY, postCanonicalPath, postCategorySlugs } from '@/src/lib/seo/primary-category';
 import { pagePreviewPath } from '@/src/lib/preview';
 import { secretMatches } from '@/src/lib/secret';
 
@@ -26,7 +26,7 @@ async function postPreviewPath(slug: string) {
   } catch {
     /* fall back to the general category */
   }
-  return postCanonicalPath(slug, categories, 'tin-tong-hop');
+  return postCanonicalPath(slug, categories, FALLBACK_CATEGORY);
 }
 
 export async function GET(req: Request) {

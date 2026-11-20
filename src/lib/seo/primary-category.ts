@@ -10,6 +10,10 @@ export const SEO_LOCALE = 'vi';
 // "tin-tong-hop" + one specific category). Never chosen as primary unless it is the only one.
 export const GENERAL_CATEGORIES = new Set(['tin-tong-hop']);
 
+// Posts without any category (e.g. old journal issues) render under every /bai-viet/<cate>/ URL;
+// their one canonical URL uses this category (sitemap, middleware and post page agree).
+export const FALLBACK_CATEGORY = 'tin-tong-hop';
+
 export function pickPrimaryCategory(categorySlugs: string[]): string | undefined {
   const slugs = categorySlugs.filter(Boolean);
   return slugs.find((s) => !GENERAL_CATEGORIES.has(s)) ?? slugs[0];

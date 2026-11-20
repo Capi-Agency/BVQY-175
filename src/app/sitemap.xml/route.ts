@@ -1,5 +1,7 @@
 import { generateSitemaps } from '../sitemap';
 
+export const revalidate = 3600; // category list changes with the CMS (see ../sitemap.ts)
+
 export async function GET() {
   const sitemaps = await generateSitemaps();
   const siteUrl = process.env.SITE_URL || 'http://localhost:3000';

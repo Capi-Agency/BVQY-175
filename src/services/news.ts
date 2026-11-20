@@ -216,6 +216,8 @@ export const getNewsDetail = async ({
           'translations.*',
           'files.*',
           'documents.*.*',
+          'seo.meta_title',
+          'seo.meta_description',
         ],
       }),
     );

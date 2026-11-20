@@ -6,7 +6,7 @@
 // real 404 / 308 without touching the render tree (UI unchanged).
 //
 // Safety: any CMS/network error => 'ok' (let the page render as before). Never 404 on doubt.
-import { pickPrimaryCategory, SEO_LOCALE } from './primary-category';
+import { FALLBACK_CATEGORY, pickPrimaryCategory, SEO_LOCALE } from './primary-category';
 
 export type RouteCheck = { kind: 'ok' } | { kind: 'notfound' } | { kind: 'redirect'; to: string };
 
@@ -82,7 +82,11 @@ async function checkPost(cate: string, slug: string): Promise<RouteCheck> {
   const cats: string[] = (post.categories ?? [])
     .map((c: any) => (c?.category?.translations ?? []).find((t: any) => t?.languages_code === SEO_LOCALE)?.slug)
     .filter(Boolean);
-  if (cats.length === 0 || cats.includes(cate)) return OK; // valid (non-primary ones get a canonical tag)
+  if (cats.length === 0) {
+    // no category: one URL only, under the fallback category (was: 200 under any word -> duplicates)
+    return cate === FALLBACK_CATEGORY ? OK : { kind: 'redirect', to: `/${SEO_LOCALE}/bai-viet/${FALLBACK_CATEGORY}/${slug}` };
+  }
+  if (cats.includes(cate)) return OK; // valid (non-primary ones get a canonical tag)
   return { kind: 'redirect', to: `/${SEO_LOCALE}/bai-viet/${pickPrimaryCategory(cats)}/${slug}` };
 }
 
