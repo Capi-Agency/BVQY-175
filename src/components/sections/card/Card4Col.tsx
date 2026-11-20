@@ -1,7 +1,7 @@
 'use client';
+import { usePageSearchParams, withSearchParams } from '@/src/utils/with-search-params';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import PaginationPrimary from '../pagination/PaginationPrimary';
-import { useSearchParams } from 'next/navigation';
 import {
   fnGetAdminDepartments,
   getTotalAdminDepartmentCount,
@@ -16,12 +16,12 @@ import { useTranslations } from 'next-intl';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
-export default function Card4Col({ data }: CommonSection) {
+function Card4Col({ data }: CommonSection) {
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
 
   const t = useTranslations('Common');
-  const searchParams = useSearchParams();
+  const searchParams = usePageSearchParams();
 
   const [adminDepartData, setAdminDepartData] = useState<any>([]);
   const [length, setLength] = useState<number>(0);
@@ -140,3 +140,5 @@ export default function Card4Col({ data }: CommonSection) {
     </section>
   );
 }
+
+export default withSearchParams(Card4Col);

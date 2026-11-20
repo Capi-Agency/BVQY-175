@@ -1,4 +1,5 @@
 'use client';
+import { usePageSearchParams, withSearchParams } from '@/src/utils/with-search-params';
 import NextImg from '@/src/components/common/next-img';
 import { Link } from '@/src/i18n/navigation';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
@@ -12,7 +13,7 @@ import clsx from 'clsx';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
@@ -25,7 +26,7 @@ const DepartmentDetailPage = ({
   const containerRef = useRef<any>(null);
   const sidebarRef = useRef<any>(null);
   const { conditions } = useGsapMatchMedia();
-  const searchParams = useSearchParams();
+  const searchParams = usePageSearchParams();
   const router = useRouter();
 
   const [parentGroups, setParentGroups] = useState<any[]>([]);
@@ -327,7 +328,7 @@ const DepartmentDetailPage = ({
   );
 };
 
-export default DepartmentDetailPage;
+export default withSearchParams(DepartmentDetailPage);
 
 const DepartmentGroupSection = ({ pGroup }: { pGroup: any }) => {
   return (

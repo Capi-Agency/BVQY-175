@@ -9,6 +9,14 @@ import { notFound } from 'next/navigation';
 import ViewTracker from '@/src/components/ViewTracker';
 export const revalidate = 300;
 
+// ISR: no page is built ahead, each one is rendered on its first visit and then cached (HTML and
+// RSC), until `revalidate` or /api/revalidate. Without this export Next 15 renders the route on
+// every request (Cache-Control: no-store) and nothing can cache it.
+export function generateStaticParams() {
+  return [];
+}
+
+
 type Props = {
   params: Promise<{ locale: string; slug: string; cate: string }>;
 };

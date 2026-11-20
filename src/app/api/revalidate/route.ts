@@ -3,7 +3,8 @@
 //   body: { type: 'page' | 'menu' | 'post' | 'all' | ..., slug?: string }  or  { items: [...] }
 // Marks the affected routes stale (see src/lib/revalidate.ts); they rebuild on the next visit.
 import { revalidatePath } from 'next/cache';
-import { NextResponse } from 'next/server';
+import { after, NextResponse } from 'next/server';
+import { bumpNginxCache } from '@/src/lib/nginx-cache';
 import { targetsForAll, type RevalidateRequest } from '@/src/lib/revalidate';
 import { bearer, secretMatches } from '@/src/lib/secret';
 
@@ -22,5 +23,11 @@ export async function POST(req: Request) {
   const items: RevalidateRequest[] = Array.isArray(body?.items) ? body.items : [body ?? {}];
   const targets = targetsForAll(items.slice(0, 500));
   for (const t of targets) revalidatePath(t.path, t.type);
+  // then the nginx cache: after the response, once Next has applied the invalidation above
+  // (otherwise nginx could fetch and keep the old page under the new generation)
+  after(async () => {
+    await new Promise((r) => setTimeout(r, 300));
+    await bumpNginxCache('revalidate');
+  });
   return NextResponse.json({ revalidated: targets, now: Date.now() });
 }

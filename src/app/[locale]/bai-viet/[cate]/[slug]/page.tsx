@@ -10,8 +10,18 @@ import { getLangSlug } from '@/src/i18n/routing';
 import ViewTracker from '@/src/components/ViewTracker';
 import { FALLBACK_CATEGORY, postCanonicalPath, postCategorySlugs } from '@/src/lib/seo/primary-category';
 import { metaDescription, metaTitle } from '@/src/lib/seo/description';
+import { setRequestLocale } from 'next-intl/server';
+import type { Locale } from 'next-intl';
 
 export const revalidate = 60;
+
+// ISR: no page is built ahead, each one is rendered on its first visit and then cached (HTML and
+// RSC), until `revalidate` or /api/revalidate. Without this export Next 15 renders the route on
+// every request (Cache-Control: no-store) and nothing can cache it.
+export function generateStaticParams() {
+  return [];
+}
+
 
 type Props = {
   params: Promise<{ locale: string; slug: string; cate: string }>;
@@ -66,6 +76,7 @@ export async function generateMetadata(
 
 const NewsDetailPage = async ({ params }: Props) => {
   const { locale, slug } = await params;
+  setRequestLocale(locale as Locale); // static rendering: next-intl must not read the request headers
   const post = await getNewsDetail({ collection: 'posts', slug, locale });
   const langSlug = await getLangSlug(locale, 'chi-tiet-bai-viet');
 

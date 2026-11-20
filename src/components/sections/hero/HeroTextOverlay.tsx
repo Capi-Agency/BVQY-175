@@ -1,15 +1,16 @@
 'use client';
+import { usePageSearchParams, withSearchParams } from '@/src/utils/with-search-params';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import { CommonSection } from '@/src/types/pageBuilder';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { getAssetUrlById } from '@/src/utils/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import NextImg from '../../common/next-img';
 
-export default function HeroTextOverlay({ data }: CommonSection) {
+function HeroTextOverlay({ data }: CommonSection) {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams = usePageSearchParams();
   const { conditions } = useGsapMatchMedia();
 
   const searchText = searchParams?.get('q') || '';
@@ -100,3 +101,5 @@ export default function HeroTextOverlay({ data }: CommonSection) {
     </section>
   );
 }
+
+export default withSearchParams(HeroTextOverlay);

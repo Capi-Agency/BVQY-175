@@ -1,7 +1,8 @@
 'use client';
+import { usePageSearchParams, withSearchParams } from '@/src/utils/with-search-params';
 import React, { useCallback, useMemo } from 'react';
 import NextImg from '../../common/next-img';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import { getPaginatedPages } from '@/src/utils/pagination';
@@ -13,14 +14,14 @@ type PaginationPrimaryProps = {
   pageName?: string;
 };
 
-export default function PaginationPrimary({
+function PaginationPrimary({
   currentPage,
   totalPage,
   idSection,
   pageName = 'page',
 }: PaginationPrimaryProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams = usePageSearchParams();
   const { conditions } = useGsapMatchMedia();
 
   const pagination = useMemo(
@@ -83,3 +84,5 @@ export default function PaginationPrimary({
     </div>
   );
 }
+
+export default withSearchParams(PaginationPrimary);

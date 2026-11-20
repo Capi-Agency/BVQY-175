@@ -1,6 +1,6 @@
 'use client';
+import { usePageSearchParams, withSearchParams } from '@/src/utils/with-search-params';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import {
   getListDoctorPreview,
   getTotalDoctorCount,
@@ -32,7 +32,7 @@ type SearchListContentProps = {
   cardType?: string;
 };
 
-export default function SearchListContent({
+function SearchListContent({
   collection,
   type,
   limit = 6,
@@ -47,7 +47,7 @@ export default function SearchListContent({
 
   const t = useTranslations('Common');
   const locale = useLocale();
-  const searchParams = useSearchParams();
+  const searchParams = usePageSearchParams();
 
   const [data, setData] = useState<any>([]);
   const [length, setLength] = useState<number>(0);
@@ -270,3 +270,5 @@ export default function SearchListContent({
     </div>
   );
 }
+
+export default withSearchParams(SearchListContent);

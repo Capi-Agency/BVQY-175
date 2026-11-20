@@ -1,9 +1,10 @@
 'use client';
+import { usePageSearchParams, withSearchParams } from '@/src/utils/with-search-params';
 import React, { useEffect, useMemo, useState, useRef } from 'react';
 import NewsCard from './NewsCard';
 import { getListNews, getTotalNewsCount } from '@/src/services/news';
 import { CommonSection } from '@/src/types/pageBuilder';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin';
@@ -13,14 +14,14 @@ import { useLocale, useTranslations } from 'next-intl';
 
 gsap.registerPlugin(useGSAP, ScrollToPlugin, ScrollTrigger);
 
-export default function NewsListCard({ data }: CommonSection) {
+function NewsListCard({ data }: CommonSection) {
   const t = useTranslations('Common');
   const locale = useLocale();
   // Animation
   const containerRef = useRef<any>(null);
   const selector = gsap.utils.selector(containerRef);
 
-  const searchParams = useSearchParams();
+  const searchParams = usePageSearchParams();
   const params = useParams() || {};
 
   const [dataNews, setDataNews] = useState<any>([]);
@@ -166,3 +167,5 @@ export default function NewsListCard({ data }: CommonSection) {
     </section>
   );
 }
+
+export default withSearchParams(NewsListCard);

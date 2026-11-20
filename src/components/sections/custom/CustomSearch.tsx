@@ -1,4 +1,5 @@
 'use client';
+import { usePageSearchParams, withSearchParams } from '@/src/utils/with-search-params';
 import React, {
   useCallback,
   useEffect,
@@ -8,7 +9,7 @@ import React, {
 } from 'react';
 import NextImg from '../../common/next-img';
 import { CommonSection } from '@/src/types/pageBuilder';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import SearchListContent from './SearchListContent';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -16,10 +17,10 @@ import { cn } from '@/src/lib/utils';
 import { debounce } from 'lodash';
 import { useTranslations } from 'next-intl';
 
-export default function CustomSearch({ data }: CommonSection) {
+function CustomSearch({ data }: CommonSection) {
   const inputRef = useRef<HTMLInputElement>(null);
   const t = useTranslations();
-  const searchParams = useSearchParams();
+  const searchParams = usePageSearchParams();
   const router = useRouter();
 
   const subnet = searchParams?.get('subnet');
@@ -240,3 +241,5 @@ export default function CustomSearch({ data }: CommonSection) {
     </section>
   );
 }
+
+export default withSearchParams(CustomSearch);

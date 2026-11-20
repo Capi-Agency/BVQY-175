@@ -1,10 +1,10 @@
 'use client';
+import { usePageSearchParams, withSearchParams } from '@/src/utils/with-search-params';
 import {
   getListMilestone,
   getTotalMilestoneCount,
 } from '@/src/services/milestone';
 import { CommonSection } from '@/src/types/pageBuilder';
-import { useSearchParams } from 'next/navigation';
 import React, { useEffect, useMemo, useState } from 'react';
 import * as Accordion from '@radix-ui/react-accordion';
 import {
@@ -26,10 +26,10 @@ import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
 import { useLocale, useTranslations } from 'next-intl';
 
-export default function Card1Col({ data }: CommonSection) {
+function Card1Col({ data }: CommonSection) {
   const t = useTranslations('Common');
   const locale = useLocale();
-  const searchParams = useSearchParams();
+  const searchParams = usePageSearchParams();
   const { conditions } = useGsapMatchMedia();
 
   const [milestoneData, setMilestoneData] = useState<any>([]);
@@ -230,3 +230,5 @@ export default function Card1Col({ data }: CommonSection) {
     </section>
   );
 }
+
+export default withSearchParams(Card1Col);

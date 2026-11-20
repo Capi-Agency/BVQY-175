@@ -1,4 +1,5 @@
 'use client';
+import { usePageSearchParams, withSearchParams } from '@/src/utils/with-search-params';
 import { CommonSection } from '@/src/types/pageBuilder';
 import React, {
   useCallback,
@@ -13,7 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '../../ui/accordion';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { getListFaq, getTotalFaqCount } from '@/src/services/faq';
 import { handleScrollTo } from '@/src/utils/gsap';
 import { useGsapMatchMedia } from '@/src/providers/GsapMatchMediaProvider';
@@ -22,11 +23,11 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import PaginationPrimary from '../pagination/PaginationPrimary';
 import { useLocale, useTranslations } from 'next-intl';
 
-export default function FaqsOneCol({ data }: CommonSection) {
+function FaqsOneCol({ data }: CommonSection) {
   const t = useTranslations();
   const locale = useLocale();
   const { conditions } = useGsapMatchMedia();
-  const searchParams = useSearchParams();
+  const searchParams = usePageSearchParams();
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const lastSearchRef = useRef<string>('');
@@ -228,3 +229,5 @@ export default function FaqsOneCol({ data }: CommonSection) {
     </section>
   );
 }
+
+export default withSearchParams(FaqsOneCol);

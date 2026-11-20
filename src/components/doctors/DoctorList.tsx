@@ -1,4 +1,5 @@
 'use client';
+import { usePageSearchParams, withSearchParams } from '@/src/utils/with-search-params';
 import NextImg from '@/src/components/common/next-img';
 import ThePagination from '@/src/components/common/the-pagination';
 import { getDoctorsCount, getListDoctors } from '@/src/services/doctors';
@@ -6,7 +7,7 @@ import { getAssetUrlById } from '@/src/utils/image';
 import { getDoctorTitles } from '@/src/utils/render-doctor-title';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, {
   useCallback,
   useEffect,
@@ -23,7 +24,7 @@ import CustomLink from '@/src/components/common/custom-link';
 
 const DoctorList = ({ data }: CommonSection) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const searchParams = usePageSearchParams();
   const { conditions } = useGsapMatchMedia();
 
   const [departmentGroups, setDepartmentGroups] = useState<any[]>([]);
@@ -611,7 +612,7 @@ const DoctorList = ({ data }: CommonSection) => {
   );
 };
 
-export default DoctorList;
+export default withSearchParams(DoctorList);
 
 const DepartmentDropdownItem = ({
   pGroup,
