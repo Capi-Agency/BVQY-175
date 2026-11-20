@@ -2,8 +2,17 @@ import { createDirectus, graphql, rest, staticToken } from '@directus/sdk';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
-const publicGraphql = createDirectus(API_URL).with(graphql());
-const publicRest = createDirectus(API_URL).with(rest());
+// The CMS is read only by the server of this app, with the token of the "Website (chỉ đọc)" policy
+// (CMS migration M21): anonymous visitors can no longer read items, only image files (/assets).
+// Server only: not a NEXT_PUBLIC_ variable. Browser components call the services in src/services
+// through server actions ('use server'), so they run here with the token too.
+const WEBSITE_TOKEN = typeof window === 'undefined' ? process.env.DIRECTUS_WEBSITE_TOKEN : undefined;
+if (typeof window === 'undefined' && !WEBSITE_TOKEN) {
+  console.error('[directus] DIRECTUS_WEBSITE_TOKEN is not set: CMS requests are anonymous and will be refused');
+}
+const base = WEBSITE_TOKEN ? createDirectus(API_URL).with(staticToken(WEBSITE_TOKEN)) : createDirectus(API_URL);
+const publicGraphql = base.with(graphql());
+const publicRest = base.with(rest());
 
 // Draft mode (Directus Live Preview, /api/draft): the same requests are sent with the preview
 // token, which can also read unpublished pages and posts. Server only: the token is not a

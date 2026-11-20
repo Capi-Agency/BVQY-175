@@ -33,7 +33,7 @@ export async function POST(
     `${internalDirectusUrl}/increment-views/${collection}/${slug}`,
     {
       method: 'PATCH',
-      headers: { Authorization: `Bearer ${process.env.DIRECTUS_STATIC_TOKEN}` },
+      headers: { Authorization: `Bearer ${process.env.DIRECTUS_WEBSITE_TOKEN}` },
     }
   );
 

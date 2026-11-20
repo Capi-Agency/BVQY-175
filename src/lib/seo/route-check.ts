@@ -14,6 +14,8 @@ const OK: RouteCheck = { kind: 'ok' };
 const NOT_FOUND: RouteCheck = { kind: 'notfound' };
 const SLUG_RE = /^[a-zA-Z0-9-_]+$/;
 const API = (process.env.NEXT_PUBLIC_API_URL || '').replace(/\/?$/, '/');
+// the token of the website policy (anonymous requests are refused since CMS migration M21)
+const TOKEN = process.env.DIRECTUS_WEBSITE_TOKEN;
 const TTL_FOUND = 60_000;
 const TTL_MISSING = 10_000; // short: an item published again must not stay 404 long
 
@@ -35,7 +37,8 @@ async function cms(path: string): Promise<CmsResult> {
   if (hit && hit.exp > Date.now()) return hit.value;
   let value: CmsResult;
   try {
-    const res = await fetch(API + path, { headers: { accept: 'application/json' }, cache: 'no-store' });
+    if (!TOKEN) return null; // no token: every item would look missing -> never 404, let the page render
+    const res = await fetch(API + path, { headers: { accept: 'application/json', Authorization: `Bearer ${TOKEN}` }, cache: 'no-store' });
     if (res.status >= 500) return null;
     const body = res.status === 200 ? await res.json() : null;
     value = { status: res.status, data: body?.data ?? null };
@@ -49,7 +52,7 @@ async function cms(path: string): Promise<CmsResult> {
   return value;
 }
 
-// Directus answers 403 (public role) for items that do not exist or are not published.
+// Directus answers 403 (website policy) for items that do not exist or are not published.
 const missing = (r: CmsResult) => r !== null && (r.status === 403 || r.status === 404 || (r.status === 200 && r.data == null));
 const enc = encodeURIComponent;
 

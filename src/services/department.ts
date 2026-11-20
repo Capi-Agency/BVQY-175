@@ -1,3 +1,5 @@
+'use server';
+// Server actions: browser components call these on the server of this app (website token).
 import { directusClientWithRest } from '@/src/lib/directus';
 import { readItem, readItems } from '@directus/sdk';
 

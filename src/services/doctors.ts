@@ -1,4 +1,7 @@
+'use server';
+// Server actions: browser components call these on the server of this app (website token).
 import { directusClientWithRest } from '@/src/lib/directus';
+import { safeLimit } from '@/src/utils/safe-limit';
 import { aggregate, readItem, readItems } from '@directus/sdk';
 import { routing } from '../i18n/routing';
 import { Locale } from 'next-intl';
@@ -69,7 +72,7 @@ export const getListDoctors = async ({
           'member_of_departments.department.title',
           'member_of_institutes.department_groups_slug.title',
         ],
-        limit,
+        limit: safeLimit(limit),
         page,
         sort,
         filter,
@@ -195,7 +198,7 @@ export const getListDoctorPreview = async ({
     const res = await directusClientWithRest.request(
       readItems(collection, {
         fields: ['slug', 'avatar', 'full_title', 'full_name', 'specialty'],
-        limit: limit,
+        limit: safeLimit(limit),
         page: page,
         filter,
       }),

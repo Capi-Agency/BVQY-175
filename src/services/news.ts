@@ -1,4 +1,7 @@
+'use server';
+// Server actions: browser components call these on the server of this app (website token).
 import { aggregate, readItem } from '@directus/sdk';
+import { safeLimit } from '@/src/utils/safe-limit';
 import { directusClient, directusClientWithRest } from '@/src/lib/directus';
 import { readItems } from '@directus/sdk';
 import { customEndpoint } from '@directus/sdk';
@@ -69,7 +72,7 @@ export const getListNews = async ({
     const res = await directusClientWithRest.request(
       readItems(collection, {
         page,
-        limit,
+        limit: safeLimit(limit),
         sort: sort ? '-date_published' : 'date_published',
         filter,
         fields: [
@@ -271,7 +274,7 @@ export const fnGetCategoriesNews = async ({
     const res = await directusClientWithRest.request(
       readItems(collection, {
         page: 1,
-        limit,
+        limit: safeLimit(limit),
         filter,
         fields: ['*', 'translations.*'],
         deep: {

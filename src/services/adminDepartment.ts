@@ -1,4 +1,7 @@
+'use server';
+// Server actions: browser components call these on the server of this app (website token).
 import { directusClientWithRest } from '@/src/lib/directus';
+import { safeLimit } from '@/src/utils/safe-limit';
 import { aggregate, readItem, readItems } from '@directus/sdk';
 import { routing } from '../i18n/routing';
 import { Locale } from 'next-intl';
@@ -41,7 +44,7 @@ export const fnGetAdminDepartments = async ({
     const res = await directusClientWithRest.request(
       readItems(collection, {
         page,
-        limit,
+        limit: safeLimit(limit),
         fields: [
           'slug',
           'title',

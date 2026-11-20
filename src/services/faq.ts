@@ -1,4 +1,7 @@
+'use server';
+// Server actions: browser components call these on the server of this app (website token).
 import { aggregate } from '@directus/sdk';
+import { safeLimit } from '@/src/utils/safe-limit';
 import { directusClientWithRest } from '@/src/lib/directus';
 import { readItems } from '@directus/sdk';
 import { routing } from '../i18n/routing';
@@ -48,7 +51,7 @@ export const getListFaq = async ({
     const res = await directusClientWithRest.request(
       readItems(collection, {
         page,
-        limit,
+        limit: safeLimit(limit),
         filter,
         fields: ['*', 'translations.*'],
         deep: {
