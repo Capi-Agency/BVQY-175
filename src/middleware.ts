@@ -3,6 +3,7 @@ import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 import { routing } from './i18n/routing';
 import { checkRoute } from './lib/seo/route-check';
+import { GONE, legacyTarget } from './lib/seo/legacy';
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -34,6 +35,13 @@ export default async function middleware(req: NextRequest) {
     }
     return intlMiddleware(req);
   }
+
+  // Old WordPress URLs: 301 to the new page, or 410 when the content was not carried over.
+  const legacy = legacyTarget(pathname);
+  if (legacy === GONE) {
+    return NextResponse.rewrite(new URL(`/${routing.defaultLocale}/__not-found__`, req.url), { status: 410 });
+  }
+  if (legacy) return NextResponse.redirect(new URL(legacy, PUBLIC_ORIGIN ?? req.url), 301);
 
   // Paths without locale prefix ("/", "/lien-he", "/en"...): next-intl answers 307 (temporary).
   // There is a single locale, so the move is permanent -> 308, keeps link equity.
