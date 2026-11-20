@@ -114,7 +114,8 @@ export default function SearchListContent({
       Component: DepartmentCard,
       getList: fnGetAdminDepartments,
       getCount: getTotalAdminDepartmentCount,
-      getProps: (itemData) => ({ item: itemData, url, type: cardType }),
+      // a group lives under its parent: /vien/<slug> or /trung-tam/<slug> (was always /vien/<slug>)
+      getProps: (itemData) => ({ item: itemData, url: itemData?.parent_group ? `/${itemData.parent_group}` : url, type: cardType }),
     },
     dependent_units: {
       Component: DepartmentCard,
