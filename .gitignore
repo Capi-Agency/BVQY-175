@@ -3,3 +3,5 @@ node_modules
 next-env.d.ts
 .env
 .DS_Store
+# TypeScript incremental build info (Nixpacks mounts a cache at this path: a committed file breaks the build)
+*.tsbuildinfo
