@@ -16,6 +16,27 @@ const CustomLink = React.forwardRef<HTMLAnchorElement, CustomLinkProps>(
     { href = '', children, className = '', asNavigationLink = false, ...props },
     ref,
   ) => {
+    // "#" (menu item without content yet) or "#anchor": plain anchor, no locale prefix
+    // ("#" alone does nothing when clicked instead of jumping to the top of the page)
+    if (href.startsWith('#')) {
+      const Wrap = asNavigationLink ? NavigationMenu.Link : React.Fragment;
+      return (
+        <Wrap {...(asNavigationLink ? { asChild: true } : {})}>
+          <a
+            href={href}
+            className={className}
+            ref={ref}
+            {...props}
+            onClick={(e) => {
+              if (href === '#') e.preventDefault();
+              props.onClick?.(e);
+            }}
+          >
+            {children}
+          </a>
+        </Wrap>
+      );
+    }
     const isExternal = href.startsWith('http');
     const localizedHref = isExternal
       ? href

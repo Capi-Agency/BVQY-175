@@ -1,8 +1,8 @@
 'use server';
 // Server actions: browser components call these on the server of this app (website token).
-import { aggregate, readItem } from '@directus/sdk';
+import { aggregate } from '@directus/sdk';
 import { safeLimit } from '@/src/utils/safe-limit';
-import { directusClient, directusClientWithRest } from '@/src/lib/directus';
+import { directusClient, directusClientWithRest, readItemBySlug } from '@/src/lib/directus';
 import { readItems } from '@directus/sdk';
 import { customEndpoint } from '@directus/sdk';
 import { routing } from '../i18n/routing';
@@ -238,11 +238,9 @@ export const getNewsCategoryDetail = async ({
   slug: string;
 }) => {
   try {
-    const res = await directusClientWithRest.request(
-      readItem(collection, slug, {
+    const res = await readItemBySlug(collection, slug, {
         fields: ['*'],
-      }),
-    );
+      })(directusClientWithRest);
     return res;
   } catch (error) {
     console.log('err in getNewsCategoryDetail: ', error);

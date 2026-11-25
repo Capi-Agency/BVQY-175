@@ -260,9 +260,9 @@ export default async function sitemap({
   }
 
   if (id === 'centers') {
-    const departmentGroups = await getAllEntities('department_groups', ['slug', 'parent_group'], locale);
+    const departmentGroups = await getAllEntities('department_groups', ['slug', 'parent_group.slug'], locale);
     return departmentGroups
-      .filter((group: any) => group.parent_group === 'trung-tam')
+      .filter((group: any) => group.parent_group?.slug === 'trung-tam')
       .map((group: any) => ({
         url: `${siteUrl}/${locale}/trung-tam/${group.slug}`,
         changeFrequency: 'weekly' as const,
@@ -271,9 +271,9 @@ export default async function sitemap({
   }
 
   if (id === 'institutes') {
-    const departmentGroups = await getAllEntities('department_groups', ['slug', 'parent_group'], locale);
+    const departmentGroups = await getAllEntities('department_groups', ['slug', 'parent_group.slug'], locale);
     return departmentGroups
-      .filter((group: any) => group.parent_group === 'vien')
+      .filter((group: any) => group.parent_group?.slug === 'vien')
       .map((group: any) => ({
         url: `${siteUrl}/${locale}/vien/${group.slug}`,
         changeFrequency: 'weekly' as const,

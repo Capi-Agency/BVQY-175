@@ -19,10 +19,10 @@ async function postPreviewPath(slug: string) {
   let categories: string[] = [];
   try {
     const res = await fetch(
-      `${API}items/posts/${encodeURIComponent(slug)}?fields=categories.category.translations.slug,categories.category.translations.languages_code`,
+      `${API}items/posts?limit=1&filter[slug][_eq]=${encodeURIComponent(slug)}&fields=categories.category.translations.slug,categories.category.translations.languages_code`,
       { headers: { Authorization: `Bearer ${process.env.DIRECTUS_PREVIEW_TOKEN}` }, cache: 'no-store' },
     );
-    if (res.ok) categories = postCategorySlugs((await res.json())?.data);
+    if (res.ok) categories = postCategorySlugs((await res.json())?.data?.[0]);
   } catch {
     /* fall back to the general category */
   }

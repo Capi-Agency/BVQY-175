@@ -1,4 +1,4 @@
-import { directusClientWithRest, previewPageRawContent } from '@/src/lib/directus';
+import { directusClientWithRest, previewPageRawContent, readItemBySlug } from '@/src/lib/directus';
 import { readItem, readItems } from '@directus/sdk';
 
 /* ============================
@@ -8,11 +8,9 @@ export const fnGetPageBySlug = async (slug: string) => {
   const preview = await previewPageRawContent(slug); // draft mode only: built from the blocks just saved
   if (preview !== undefined) return preview;
   try {
-    const res = await directusClientWithRest.request(
-      readItem('pages', slug, {
+    const res = await readItemBySlug('pages', slug, {
         fields: ['raw_content'],
-      }),
-    );
+      })(directusClientWithRest);
 
     return res?.raw_content ?? null;
   } catch (error: any) {
@@ -35,11 +33,9 @@ export const fnGetPageBySlug = async (slug: string) => {
 ============================ */
 export const fnGetSchemaBySlug = async (slug: string) => {
   try {
-    const res = await directusClientWithRest.request(
-      readItem('pages', slug, {
+    const res = await readItemBySlug('pages', slug, {
         fields: ['metadata'],
-      }),
-    );
+      })(directusClientWithRest);
 
     return res?.metadata ?? null;
   } catch (error: any) {

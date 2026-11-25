@@ -1,7 +1,7 @@
 'use server';
 // Server actions: browser components call these on the server of this app (website token).
-import { directusClientWithRest } from '@/src/lib/directus';
-import { readItem, readItems } from '@directus/sdk';
+import { directusClientWithRest, readItemBySlug } from '@/src/lib/directus';
+import { readItems } from '@directus/sdk';
 
 export const getAllDepartmentGroups = async (keyword?: string) => {
   const filter: any = {};
@@ -47,7 +47,7 @@ export const getChildDepartments = async (groupSlug: string) => {
         fields: ['title', 'slug', 'code'],
         filter: {
           group: {
-            _eq: groupSlug,
+            slug: { _eq: groupSlug },
           },
         },
       }),
@@ -66,8 +66,7 @@ export const fnGetDepartmentDetail = async ({
   slug: string;
 }) => {
   try {
-    const res = await directusClientWithRest.request(
-      readItem(collection, slug, {
+    const res = await readItemBySlug(collection, slug, {
         fields: [
           '*',
           'description_images.*',
@@ -107,11 +106,11 @@ export const fnGetDepartmentDetail = async ({
                 ],
               },
             },
-            sort: ['sort'],
+            // equal sort values (many are all 1): junction id keeps the order stable
+            sort: ['sort', 'id'],
           },
         },
-      }),
-    );
+      })(directusClientWithRest);
     return res;
   } catch (error) {
     console.log('error in get data: ', error);

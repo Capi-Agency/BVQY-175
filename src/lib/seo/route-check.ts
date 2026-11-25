@@ -19,7 +19,7 @@ const TOKEN = process.env.DIRECTUS_WEBSITE_TOKEN;
 const TTL_FOUND = 60_000;
 const TTL_MISSING = 10_000; // short: an item published again must not stay 404 long
 
-// Detail routes whose slug is the primary key of a collection.
+// Detail routes served by the slug of a collection's item.
 const KEY_ROUTES: Record<string, string> = {
   'chuyen-khoa': 'departments',
   'doi-ngu-bac-si': 'doctors',
@@ -30,7 +30,19 @@ const KEY_ROUTES: Record<string, string> = {
 const GROUP_ROUTES = new Set(['vien', 'trung-tam']);
 
 type CmsResult = { status: number; data: any } | null; // null = transport/server error
+// one item by slug (the primary key is a numeric id since CMS migration M24); a miss = 404-like result
+async function cmsBySlug(collection: string, slug: string, fields: string): Promise<CmsResult> {
+  const r = await cms(`items/${collection}?limit=1&fields=${fields}&filter[slug][_eq]=${encodeURIComponent(slug)}`);
+  if (r === null || r.status !== 200) return r;
+  const item = Array.isArray(r.data) ? r.data[0] : r.data;
+  return item ? { status: 200, data: item } : { status: 404, data: null };
+}
 const cache = new Map<string, { exp: number; value: CmsResult }>();
+// Cache generation of website_nginx (sent as X-Cache-Gen, see BVQY-175-migrated
+// migration/nginx/website-nginx.conf). It changes after every CMS change (/api/revalidate bumps
+// it): the results above are dropped then, so a slug that was renamed, unpublished or deleted is
+// answered 404 on its next visit instead of "found" for up to TTL_FOUND (and that page cached).
+let cacheGen: string | null = null;
 
 async function cms(path: string): Promise<CmsResult> {
   const hit = cache.get(path);
@@ -59,7 +71,7 @@ const enc = encodeURIComponent;
 async function checkPage(slug: string): Promise<RouteCheck> {
   if (slug === 'trang-chu') return { kind: 'redirect', to: `/${SEO_LOCALE}` }; // duplicate of the home page
   if (slug.startsWith('chi-tiet')) return NOT_FOUND; // detail templates, not real pages
-  const r = await cms(`items/pages/${enc(slug)}?fields=slug,language`);
+  const r = await cmsBySlug('pages', slug, 'slug,language');
   if (r === null) return OK;
   if (missing(r)) return NOT_FOUND;
   const lang = r.data?.language?.code ?? r.data?.language;
@@ -94,22 +106,26 @@ async function checkPost(cate: string, slug: string): Promise<RouteCheck> {
 }
 
 async function checkKey(collection: string, slug: string): Promise<RouteCheck> {
-  const r = await cms(`items/${collection}/${enc(slug)}?fields=slug`);
+  const r = await cmsBySlug(collection, slug, 'slug');
   if (r === null) return OK;
   return missing(r) ? NOT_FOUND : OK;
 }
 
 async function checkGroup(route: string, slug: string): Promise<RouteCheck> {
-  const r = await cms(`items/department_groups/${enc(slug)}?fields=slug,parent_group`);
+  const r = await cmsBySlug('department_groups', slug, 'slug,parent_group.slug');
   if (r === null) return OK;
   if (missing(r)) return NOT_FOUND;
-  const parent = r.data?.parent_group;
+  const parent = r.data?.parent_group?.slug;
   if (parent === route) return OK;
   // linked from the site under the other prefix -> send to the right one instead of a duplicate
   return GROUP_ROUTES.has(parent) ? { kind: 'redirect', to: `/${SEO_LOCALE}/${parent}/${slug}` } : NOT_FOUND;
 }
 
-export async function checkRoute(pathname: string): Promise<RouteCheck> {
+export async function checkRoute(pathname: string, gen?: string | null): Promise<RouteCheck> {
+  if (gen && gen !== cacheGen) {
+    cache.clear();
+    cacheGen = gen;
+  }
   const parts = pathname.split('/').filter(Boolean).map((p) => {
     try { return decodeURIComponent(p); } catch { return p; }
   });

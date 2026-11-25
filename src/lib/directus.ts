@@ -1,4 +1,4 @@
-import { createDirectus, graphql, rest, staticToken } from '@directus/sdk';
+import { createDirectus, graphql, readItems, rest, staticToken } from '@directus/sdk';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
@@ -54,6 +54,27 @@ const directusClient = switching(publicGraphql, previewGraphql);
 const directusClientWithRest = switching(publicRest, previewRest);
 
 export { directusClient, directusClientWithRest };
+
+/**
+ * Read one item by its slug. Since CMS migration M24 the primary key of pages, posts, departments,
+ * department_groups, dependent_units, administration_departments, administrative_leaders, doctors,
+ * p_categories and p_tags is a numeric id; slug is a unique field the editors can change.
+ * Same contract as readItem(collection, slug): a missing (or not readable) item throws a 403-like
+ * error, so the callers' error handling (notFound...) is unchanged.
+ */
+export function readItemBySlug(collection: string, slug: string, query: Record<string, any> = {}) {
+  return async (client: any): Promise<any> => {
+    // the collection is dynamic here: the SDK's schema typing cannot apply
+    const read = readItems as (collection: string, query: Record<string, any>) => any;
+    const rows = await client.request(
+      read(collection, { ...query, filter: { slug: { _eq: slug } }, limit: 1 }),
+    );
+    if (!Array.isArray(rows) || rows.length === 0) {
+      throw { errors: [{ message: `${collection} "${slug}" not found`, extensions: { code: 'FORBIDDEN' } }], response: { status: 403 } };
+    }
+    return rows[0];
+  };
+}
 
 // Live Preview of a page: Directus reloads the preview right after "Save", before its hook has
 // rewritten pages.raw_content (debounced, after the response). In draft mode the page is built now

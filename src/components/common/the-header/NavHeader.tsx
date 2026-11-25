@@ -6,6 +6,11 @@ import { useMetadata } from '@/src/providers/MetadataProvider';
 import MegaMenuContent from './MegaMenuContent';
 import CustomLink from '../custom-link';
 
+// 10 items on the bar, always on one line: font, arrow and gaps step down with the screen width
+// (11px at 1280, 12px from 1440, 13px from 1600, 15px from 1920) so the bar fits without wrapping.
+const LABEL = 'whitespace-nowrap text-nowrap py-3 text-[11px] !leading-6 font-bold uppercase text-white 2xl:text-xs 3xl:text-[13px] 4xl:text-[15px]';
+const ARROW = 'relative origin-center duration-200 group-data-[state=open]:-rotate-180 size-3 2xl:size-3.5 3xl:size-4 4xl:size-5';
+
 export default function NavHeader() {
   const metadata = useMetadata();
   const top_navigation = metadata?.top_navigation;
@@ -37,7 +42,7 @@ export default function NavHeader() {
 
   return (
     <NavigationMenu.Root className="relative w-full bg-primary-600 shadow-md">
-      <NavigationMenu.List className="container flex justify-center gap-5 2xl:gap-6 3xl:gap-8 4xl:gap-10">
+      <NavigationMenu.List className="mx-auto flex max-w-[1920px] items-center justify-center gap-0.5 px-1 2xl:gap-1.5 2xl:px-2 3xl:gap-2 4xl:gap-4">
         {top_navigation?.length > 0 &&
           top_navigation?.map((item: any, index: any) => {
             return item?.sub_items ? (
@@ -56,10 +61,10 @@ export default function NavHeader() {
                       }}
                       title={item?.title || ''}
                       asNavigationLink
-                      className="relative flex items-center gap-[2px] whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:gap-1 3xl:text-base"
+                      className={`relative flex items-center gap-px 3xl:gap-0.5 ${LABEL}`}
                     >
                       {item?.title || ''}
-                      <div className="relative size-5 origin-center duration-200 group-data-[state=open]:-rotate-180 3xl:size-6">
+                      <div className={ARROW}>
                         <NextImg
                           src="/assets/icons/arrow_down_white.svg"
                           alt="arrow down icon"
@@ -71,10 +76,10 @@ export default function NavHeader() {
                       ref={(el: any) => {
                         menuItemsRef.current[index] = el;
                       }}
-                      className="relative flex cursor-default items-center gap-[2px] whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:gap-1 3xl:text-base"
+                      className={`relative flex cursor-default items-center gap-px 3xl:gap-0.5 ${LABEL}`}
                     >
                       {item?.title}
-                      <div className="relative size-5 origin-center duration-200 group-data-[state=open]:-rotate-180 3xl:size-6">
+                      <div className={ARROW}>
                         <NextImg
                           src="/assets/icons/arrow_down_white.svg"
                           alt="arrow down icon"
@@ -265,7 +270,7 @@ export default function NavHeader() {
                   href={item?.url || ''}
                   asNavigationLink
                   title={item?.title || ''}
-                  className="relative block whitespace-nowrap text-nowrap py-3 text-sm font-bold uppercase text-white 3xl:text-base"
+                  className={`relative block ${LABEL}`}
                 >
                   {item?.title || ''}
                 </CustomLink>

@@ -115,7 +115,7 @@ function SearchListContent({
       getList: fnGetAdminDepartments,
       getCount: getTotalAdminDepartmentCount,
       // a group lives under its parent: /vien/<slug> or /trung-tam/<slug> (was always /vien/<slug>)
-      getProps: (itemData) => ({ item: itemData, url: itemData?.parent_group ? `/${itemData.parent_group}` : url, type: cardType }),
+      getProps: (itemData) => ({ item: itemData, url: itemData?.parent_group?.slug ? `/${itemData.parent_group.slug}` : url, type: cardType }),
     },
     dependent_units: {
       Component: DepartmentCard,

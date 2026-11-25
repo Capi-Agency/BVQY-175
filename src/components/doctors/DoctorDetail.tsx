@@ -230,7 +230,7 @@ export function getWorkUnits(dataDetail: any) {
     units.push(
       ...dataDetail.department_groups.map(
         ({ department_groups_slug: group }: any) => ({
-          slug: `/${group?.parent_group}/${group?.slug}`,
+          slug: `/${group?.parent_group?.slug}/${group?.slug}`,
           title: group?.code ? `${group?.title} (${group.code})` : group?.title,
         }),
       ),

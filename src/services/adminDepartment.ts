@@ -1,8 +1,8 @@
 'use server';
 // Server actions: browser components call these on the server of this app (website token).
-import { directusClientWithRest } from '@/src/lib/directus';
+import { directusClientWithRest, readItemBySlug } from '@/src/lib/directus';
 import { safeLimit } from '@/src/utils/safe-limit';
-import { aggregate, readItem, readItems } from '@directus/sdk';
+import { aggregate, readItems } from '@directus/sdk';
 import { routing } from '../i18n/routing';
 import { Locale } from 'next-intl';
 
@@ -17,8 +17,9 @@ function unitQuery(collection: string, keyword?: string) {
   if (keyword) {
     and.push({ _or: ['title', 'code', 'description'].map((f) => ({ [f]: { _icontains: keyword } })) });
   }
-  if (collection === 'department_groups') and.push({ parent_group: { _in: GROUPS_WITH_PAGE } });
-  return { filter: and.length ? { _and: and } : {}, extraFields: collection === 'department_groups' ? ['parent_group'] : [] };
+  // parent_group holds the parent's id (M24): filter / read its slug
+  if (collection === 'department_groups') and.push({ parent_group: { slug: { _in: GROUPS_WITH_PAGE } } });
+  return { filter: and.length ? { _and: and } : {}, extraFields: collection === 'department_groups' ? ['parent_group.slug'] : [] };
 }
 
 export const fnGetAdminDepartments = async ({
@@ -95,8 +96,7 @@ export const fnGetAdminDepartmentDetail = async ({
   slug: string;
 }) => {
   try {
-    const res = await directusClientWithRest.request(
-      readItem(collection, slug, {
+    const res = await readItemBySlug(collection, slug, {
         fields: [
           '*',
           'description_images.*',
@@ -111,8 +111,7 @@ export const fnGetAdminDepartmentDetail = async ({
             sort: ['sort'],
           },
         },
-      }),
-    );
+      })(directusClientWithRest);
     return res;
   } catch (error) {
     console.log('error in get GetAdminDepartmentDetail: ', error);

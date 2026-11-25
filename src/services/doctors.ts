@@ -1,8 +1,8 @@
 'use server';
 // Server actions: browser components call these on the server of this app (website token).
-import { directusClientWithRest } from '@/src/lib/directus';
+import { directusClientWithRest, readItemBySlug } from '@/src/lib/directus';
 import { safeLimit } from '@/src/utils/safe-limit';
-import { aggregate, readItem, readItems } from '@directus/sdk';
+import { aggregate, readItems } from '@directus/sdk';
 import { routing } from '../i18n/routing';
 import { Locale } from 'next-intl';
 
@@ -272,11 +272,9 @@ export const getTotalDoctorCount = async ({
 export const getDoctorBySlug = async (slug: string) => {
   try {
     // Lấy chi tiết bác sĩ - collection: doctors - key: slug - options: lấy tất cả fields (*), lấy tất cả fields của khoa (department.*)
-    const res = await directusClientWithRest.request(
-      readItem('doctors', slug, {
+    const res = await readItemBySlug('doctors', slug, {
         fields: ['*', 'member_of_departments.*'],
-      }),
-    );
+      })(directusClientWithRest);
     return legacyDoctors(res);
   } catch (error) {
     console.log('Err in getDoctorBySlug: ', error);
@@ -291,8 +289,7 @@ export const fnGetDoctorDetail = async ({
   slug: string;
 }) => {
   try {
-    const res = await directusClientWithRest.request(
-      readItem(collection, slug, {
+    const res = await readItemBySlug(collection, slug, {
         fields: [
           '*',
           'member_of_departments.department.slug',
@@ -301,10 +298,9 @@ export const fnGetDoctorDetail = async ({
           'member_of_institutes.department_groups_slug.title',
           'member_of_institutes.department_groups_slug.slug',
           'member_of_institutes.department_groups_slug.code',
-          'member_of_institutes.department_groups_slug.parent_group',
+          'member_of_institutes.department_groups_slug.parent_group.slug',
         ],
-      }),
-    );
+      })(directusClientWithRest);
     return legacyDoctors(res);
   } catch (error) {
     console.log('error in get data: ', error);

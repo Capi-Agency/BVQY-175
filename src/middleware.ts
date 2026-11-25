@@ -27,7 +27,7 @@ export default async function middleware(req: NextRequest) {
     // Draft mode (Live Preview): unpublished pages/posts are 403 for the public role and would be
     // answered 404 here; let the page render, it reads the CMS with the preview token.
     if (req.cookies.has('__prerender_bypass')) return intlMiddleware(req);
-    const check = await checkRoute(pathname);
+    const check = await checkRoute(pathname, req.headers.get('x-cache-gen'));
     if (check.kind === 'redirect') return permanentRedirect(check.to + search, req);
     if (check.kind === 'notfound') {
       // Render the regular not-found page, but with a real 404 status (was: 200 + noindex).
