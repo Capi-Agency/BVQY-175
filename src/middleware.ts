@@ -17,8 +17,15 @@ const PUBLIC_ORIGIN = (() => {
   return undefined;
 })();
 
+const isLocalRequest = (req: NextRequest) =>
+  process.env.NODE_ENV !== 'production' ||
+  ['localhost', '127.0.0.1', '0.0.0.0'].includes(req.nextUrl.hostname);
+
+const redirectOrigin = (req: NextRequest) =>
+  isLocalRequest(req) ? req.url : (PUBLIC_ORIGIN ?? req.url);
+
 const permanentRedirect = (path: string, req: NextRequest) =>
-  NextResponse.redirect(new URL(path, PUBLIC_ORIGIN ?? req.url), 308);
+  NextResponse.redirect(new URL(path, redirectOrigin(req)), 308);
 
 export default async function middleware(req: NextRequest) {
   const { pathname, search } = req.nextUrl;
@@ -41,7 +48,7 @@ export default async function middleware(req: NextRequest) {
   if (legacy === GONE) {
     return NextResponse.rewrite(new URL(`/${routing.defaultLocale}/__not-found__`, req.url), { status: 410 });
   }
-  if (legacy) return NextResponse.redirect(new URL(legacy, PUBLIC_ORIGIN ?? req.url), 301);
+  if (legacy) return NextResponse.redirect(new URL(legacy, redirectOrigin(req)), 301);
 
   // Paths without locale prefix ("/", "/lien-he", "/en"...): next-intl answers 307 (temporary).
   // There is a single locale, so the move is permanent -> 308, keeps link equity.

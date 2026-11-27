@@ -23,6 +23,11 @@ const plusJakartaSans = localFont({
       weight: '400 800',
       style: 'normal',
     },
+    {
+      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-VariableFont_wght.woff2',
+      weight: '400 800',
+      style: 'normal',
+    },
   ],
   display: 'swap',
   preload: true,
