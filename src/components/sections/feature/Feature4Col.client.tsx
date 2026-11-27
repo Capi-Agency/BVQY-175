@@ -36,6 +36,7 @@ export default function Feature4ColClient({
                   <NextImg
                     src={getAssetUrlById(item?.cover?.id)}
                     alt="Chuyên khoa image"
+                    sizes="(min-width: 768px) 25vw, 75vw"
                     objectFit="cover"
                     quality={75}
                   />

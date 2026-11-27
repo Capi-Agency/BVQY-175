@@ -26,6 +26,8 @@ export interface DoctorCardProps {
   textSize?: 'sm' | 'md' | 'xl';
   isRounded?: boolean;
   isLink?: boolean;
+  /** `sizes` of the avatar: the displayed width, so a narrow card does not download a 750w photo. */
+  imageSizes?: string;
 }
 
 export default function DoctorCard({
@@ -42,6 +44,7 @@ export default function DoctorCard({
   textSize = 'md',
   isRounded = true,
   isLink = true,
+  imageSizes = '100vw',
 }: DoctorCardProps) {
   const t = useTranslations('Doctor');
 
@@ -118,6 +121,7 @@ export default function DoctorCard({
             objectFit="cover"
             className="z-[2]"
             quality={80}
+            sizes={imageSizes}
           />
 
           {isLogo && (
@@ -126,6 +130,7 @@ export default function DoctorCard({
               alt="doctor card bg image"
               objectFit="cover"
               className="z-[1] origin-center"
+              sizes={imageSizes}
             />
           )}
         </div>

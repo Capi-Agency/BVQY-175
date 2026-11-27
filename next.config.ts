@@ -43,7 +43,8 @@ const nextConfig: NextConfig = {
   experimental: {
     scrollRestoration: true,
     cssChunking: true,
-    inlineCss: true,
+    // No inlineCss: Next 15 puts the CSS both in a <style> and again in the RSC payload
+    // (+250 KB raw HTML on the home page), which cost more than the blocking stylesheet saved.
   },
   compiler: {
     styledComponents: true,

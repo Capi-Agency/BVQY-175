@@ -60,6 +60,7 @@ export default function TeamSlider5ColClient({
                 avatarType="avatar"
                 subTitle="specialty"
                 isHover
+                imageSizes="(min-width: 1280px) 20vw, (min-width: 1024px) 25vw, (min-width: 768px) 30vw, 60vw"
               />
             </SwiperSlide>
           ))}

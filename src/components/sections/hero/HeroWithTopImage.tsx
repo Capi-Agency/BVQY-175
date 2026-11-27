@@ -1,6 +1,6 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { getImageProps } from 'next/image';
 import { preload } from 'react-dom';
 import { getAssetUrlById } from '@/src/utils/image';
@@ -23,6 +23,21 @@ export default function HeroWithTopImage({ data }: CommonSection) {
   const selector = gsap.utils.selector(containerRef);
   const { paginationClass, paginationConfig } = useSwiperPagination();
   const { contextSafe } = useGSAP(() => {}, { scope: containerRef });
+
+  // Slides 2..n are off screen for the first 5 s (autoplay delay), but their lazy images sit
+  // right next to the viewport, so the browser fetched them during page load and they shared
+  // the bandwidth with the LCP image. Their images are rendered once the page has loaded.
+  const [restReady, setRestReady] = useState(false);
+  useEffect(() => {
+    const ready = () => {
+      const idle =
+        window.requestIdleCallback ?? ((cb: () => void) => setTimeout(cb, 200));
+      idle(() => setRestReady(true));
+    };
+    if (document.readyState === 'complete') ready();
+    else window.addEventListener('load', ready, { once: true });
+    return () => window.removeEventListener('load', ready);
+  }, []);
 
   const handleSlideNextTransitionStart = contextSafe(
     (realIndex: number, previousRealIndex: number) => {
@@ -133,7 +148,11 @@ export default function HeroWithTopImage({ data }: CommonSection) {
                       <div
                         className={`slide slide-${index} absolute inset-0 size-full`}
                       >
-                        <SlideContent item={item} isFirst={index === 0} />
+                        <SlideContent
+                          item={item}
+                          isFirst={index === 0}
+                          deferred={index > 0 && !restReady}
+                        />
                       </div>
                     </CustomLink>
                   ) : (
@@ -141,7 +160,11 @@ export default function HeroWithTopImage({ data }: CommonSection) {
                       <div
                         className={`slide slide-${index} absolute inset-0 size-full`}
                       >
-                        <SlideContent item={item} isFirst={index === 0} />
+                        <SlideContent
+                          item={item}
+                          isFirst={index === 0}
+                          deferred={index > 0 && !restReady}
+                        />
                       </div>
                     </div>
                   )}
@@ -186,11 +209,19 @@ export default function HeroWithTopImage({ data }: CommonSection) {
                         href={item?.buttons?.[0]?.url}
                         className="relative block h-full w-full overflow-hidden"
                       >
-                        <SlideContent item={item} isFirst={index === 0} />
+                        <SlideContent
+                          item={item}
+                          isFirst={index === 0}
+                          deferred={index > 0 && !restReady}
+                        />
                       </CustomLink>
                     ) : (
                       <div className="relative h-full w-full overflow-hidden">
-                        <SlideContent item={item} isFirst={index === 0} />
+                        <SlideContent
+                          item={item}
+                          isFirst={index === 0}
+                          deferred={index > 0 && !restReady}
+                        />
                       </div>
                     )}
                   </SwiperSlide>
@@ -251,10 +282,17 @@ export default function HeroWithTopImage({ data }: CommonSection) {
 // One <picture> per slide: below md the portrait crop (`content`), from md the wide `cover`.
 // Before, each slide rendered two <img> (one hidden by CSS); hidden eager images still download,
 // so a phone fetched the desktop cover too, at high priority, next to its own LCP image.
-const SlideContent = ({ item, isFirst }: any) => {
+const SlideContent = ({ item, isFirst, deferred }: any) => {
   const coverSrc = getAssetUrlById(item?.cover?.id);
-  const mobileSrc = item?.content?.id ? getAssetUrlById(item.content.id) : coverSrc;
-  const common = { alt: 'media image', fill: true, sizes: '100vw', quality: 75 } as const;
+  const mobileSrc = item?.content?.id
+    ? getAssetUrlById(item.content.id)
+    : coverSrc;
+  const common = {
+    alt: 'media image',
+    fill: true,
+    sizes: '100vw',
+    quality: 75,
+  } as const;
   const { props: cover } = getImageProps({ ...common, src: coverSrc });
   const { props: mobile } = getImageProps({ ...common, src: mobileSrc });
 
@@ -278,17 +316,25 @@ const SlideContent = ({ item, isFirst }: any) => {
 
   return (
     <>
-      <picture className="absolute inset-0 z-[1] size-full">
-        <source media={`(min-width: ${MD}px)`} srcSet={cover.srcSet} sizes="100vw" />
-        <img
-          {...mobile}
-          alt="media image"
-          className="h-full w-full object-cover object-top"
-          loading={isFirst ? 'eager' : 'lazy'}
-          fetchPriority={isFirst ? 'high' : 'auto'}
-          decoding={isFirst ? 'sync' : 'async'}
-        />
-      </picture>
+      {deferred ? (
+        <div className="absolute inset-0 z-[1] size-full bg-primary-50" />
+      ) : (
+        <picture className="absolute inset-0 z-[1] size-full">
+          <source
+            media={`(min-width: ${MD}px)`}
+            srcSet={cover.srcSet}
+            sizes="100vw"
+          />
+          <img
+            {...mobile}
+            alt="media image"
+            className="h-full w-full object-cover object-top"
+            loading={isFirst ? 'eager' : 'lazy'}
+            fetchPriority={isFirst ? 'high' : 'auto'}
+            decoding={isFirst ? 'sync' : 'async'}
+          />
+        </picture>
+      )}
 
       <div className="absolute left-0 top-1/2 z-[2] w-full -translate-y-1/2">
         <div className="container relative z-[2] space-y-2 text-center xl:space-y-3 4xl:space-y-4">

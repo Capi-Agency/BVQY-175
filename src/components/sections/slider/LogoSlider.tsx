@@ -46,7 +46,11 @@ const LogoSlider = ({ data }: Partial<CommonSection>) => {
             {data?.contents?.map((item: any, index: number) => (
               <SwiperSlide key={index}>
                 <div className="relative aspect-[160/52] w-[160px] lg:w-auto">
-                  <NextImg src={getAssetUrlById(item?.id)} alt="Doctor image" />
+                  <NextImg
+                    src={getAssetUrlById(item?.id)}
+                    alt="Doctor image"
+                    sizes="(min-width: 1024px) 20vw, 160px"
+                  />
                 </div>
               </SwiperSlide>
             ))}
