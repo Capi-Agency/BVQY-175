@@ -1,4 +1,3 @@
-
 import dynamic from 'next/dynamic';
 import {
   CommonSection,
@@ -6,229 +5,160 @@ import {
   SectionMap,
 } from '@/src/types/pageBuilder';
 import { notFound } from 'next/navigation';
+import ClientSection from './client-sections';
+
+const clientSection = (type: string) => {
+  const Section = (props: any) => <ClientSection type={type} {...props} />;
+  Section.displayName = `ClientSection(${type})`;
+  return Section;
+};
 
 const sectionMap: SectionMap = {
   // Home
-  'hero-with-top-big-image': dynamic(() =>
-    import('../components/sections/hero/HeroWithTopImage'),
+  'hero-with-top-big-image': clientSection('hero-with-top-big-image'),
+  'feature-with-image-4-col': dynamic(
+    () => import('../components/sections/feature/FeatureWithImage4Col'),
   ),
-  'feature-with-image-4-col': dynamic(() =>
-    import('../components/sections/feature/FeatureWithImage4Col'),
+  'team-slider-5-col': dynamic(
+    () => import('../components/sections/team/TeamSlider5Col'),
   ),
-  'team-slider-5-col': dynamic(() =>
-    import('../components/sections/team/TeamSlider5Col'),
+  'logo-slider': clientSection('logo-slider'),
+  'posts-3-col': dynamic(
+    () => import('../components/sections/post-grid/Posts3Col'),
   ),
-  'logo-slider': dynamic(() =>
-    import('../components/sections/slider/LogoSlider'),
+  'feature-4-col': dynamic(
+    () => import('../components/sections/feature/Feature4Col'),
   ),
-  'posts-3-col': dynamic(() =>
-    import('../components/sections/post-grid/Posts3Col'),
+  'number-none': dynamic(
+    () => import('../components/sections/number/NumberNone'),
   ),
-  'feature-4-col': dynamic(() =>
-    import('../components/sections/feature/Feature4Col'),
+  'number-grid': dynamic(
+    () => import('../components/sections/number/NumberGrid'),
   ),
-  'number-none': dynamic(() =>
-    import('../components/sections/number/NumberNone'),
-  ),
-  'number-grid': dynamic(() =>
-    import('../components/sections/number/NumberGrid'),
-  ),
-  'gallery-with-text': dynamic(() =>
-    import('../components/sections/gallery/GalleryWithText'),
-  ),
-  'review-split-with-text': dynamic(() =>
-    import('../components/sections/review/ReviewSplitWithText'),
-  ),
+  'gallery-with-text': clientSection('gallery-with-text'),
+  'review-split-with-text': clientSection('review-split-with-text'),
 
   // About us
-  'hero-background-focus-2': dynamic(() =>
-    import('../components/sections/hero/HeroBackgroundFocus2'),
+  'hero-background-focus-2': dynamic(
+    () => import('../components/sections/hero/HeroBackgroundFocus2'),
   ),
-  'info-basic': dynamic(() =>
-    import('../components/sections/information/InfoBasic'),
+  'info-basic': dynamic(
+    () => import('../components/sections/information/InfoBasic'),
   ),
-  'card-2-col': dynamic(() =>
-    import('../components/sections/card/Card2Col'),
+  'card-2-col': clientSection('card-2-col'),
+  'card-slider': clientSection('card-slider'),
+  'info-split-with-features-image': clientSection(
+    'info-split-with-features-image',
   ),
-  'card-slider': dynamic(() =>
-    import('../components/sections/card/CardSlider'),
+  'info-center-block': dynamic(
+    () => import('../components/sections/information/InfoCenterBlock'),
   ),
-  'info-split-with-features-image': dynamic(() =>
-    import('../components/sections/information/InfoWithFeaturesImage'),
-  ),
-  'info-center-block': dynamic(() =>
-    import('../components/sections/information/InfoCenterBlock'),
-  ),
-  'info-basic-r': dynamic(() =>
-    import('../components/sections/information/InfoBasicR'),
-  ),
-  'team-4-col': dynamic(() =>
-    import('../components/sections/team/Team4Col'),
-  ),
-  'card-slider-with-l-r-button': dynamic(() =>
-    import('../components/sections/card/CardSliderWithLeftRightButton'),
-  ),
+  'info-basic-r': clientSection('info-basic-r'),
+  'team-4-col': dynamic(() => import('../components/sections/team/Team4Col')),
+  'card-slider-with-l-r-button': clientSection('card-slider-with-l-r-button'),
 
   // Hospital leader
-  'card-slider-with-blurb': dynamic(() =>
-    import('../components/sections/card/CardSliderWithBlurb'),
-  ),
-  'team-grid': dynamic(() =>
-    import('../components/sections/team/TeamGrid'),
-  ),
-  'gallery-alternate': dynamic(() =>
-    import('../components/sections/gallery/GalleryAlternate'),
-  ),
-  'team-3-col': dynamic(() =>
-    import('../components/sections/team/Team3Col'),
-  ),
+  'card-slider-with-blurb': clientSection('card-slider-with-blurb'),
+  'team-grid': clientSection('team-grid'),
+  'gallery-alternate': clientSection('gallery-alternate'),
+  'team-3-col': dynamic(() => import('../components/sections/team/Team3Col')),
 
   // News
-  'info-news': dynamic(() =>
-    import('../components/sections/news/HotNewsHero'),
-  ),
-  'posts-small-image-3-col': dynamic(() =>
-    import('../components/sections/news/NewsListCard'),
-  ),
+  'info-news': clientSection('info-news'),
+  'posts-small-image-3-col': clientSection('posts-small-image-3-col'),
 
   // News detail
-  'breadcrumb-basic': dynamic(() =>
-    import('../components/sections/breadcrumb/BreadcrumbBasic'),
+  'breadcrumb-basic': clientSection('breadcrumb-basic'),
+
+  'post-detail-with-sidebar-right': clientSection(
+    'post-detail-with-sidebar-right',
   ),
 
-  'post-detail-with-sidebar-right': dynamic(() =>
-    import('../components/sections/news/NewsDetail'),
-  ),
+  'posts-slider': clientSection('posts-slider'),
 
-  'posts-slider': dynamic(() =>
-    import('../components/sections/post-grid/RelatedPost'),
-  ),
-
-  'sidebar-right-basic': dynamic(() =>
-    import('../components/sections/custom/SideBarRightBasic'),
-  ),
+  'sidebar-right-basic': clientSection('sidebar-right-basic'),
 
   // Department detail
-  'hero-with-bottom-big-image': dynamic(() =>
-    import('../components/sections/hero/HeroWithBottomBigImage'),
+  'hero-with-bottom-big-image': dynamic(
+    () => import('../components/sections/hero/HeroWithBottomBigImage'),
   ),
-  'info-with-left-image-top-title': dynamic(() =>
-    import('../components/sections/information/InfoWithLeftImageTopTitle'),
+  'info-with-left-image-top-title': clientSection(
+    'info-with-left-image-top-title',
   ),
-  'info-with-right-image-top-title': dynamic(() =>
-    import('../components/sections/information/InfoWithRightImageTopTitle'),
+  'info-with-right-image-top-title': clientSection(
+    'info-with-right-image-top-title',
   ),
-  'team-slider-4-col': dynamic(() =>
-    import('../components/sections/team/TeamSlider4Col'),
+  'team-slider-4-col': clientSection('team-slider-4-col'),
+  'card-2-col-with-blurb': dynamic(
+    () => import('../components/sections/card/Card2ColWithBlurb'),
   ),
-  'card-2-col-with-blurb': dynamic(() =>
-    import('../components/sections/card/Card2ColWithBlurb'),
+  'number-with-text': dynamic(
+    () => import('../components/sections/number/NumberWithText'),
   ),
-  'number-with-text': dynamic(() =>
-    import('../components/sections/number/NumberWithText'),
-  ),
-  'number-split': dynamic(() =>
-    import('../components/sections/number/NumberSplit'),
-  ),
-  'info-with-right-image': dynamic(() =>
-    import('../components/sections/information/InfoWithRightImage'),
-  ),
-  'info-with-left-image': dynamic(() =>
-    import('../components/sections/information/InfoWithLeftImage'),
-  ),
-  'cta-basic': dynamic(() =>
-    import('../components/sections/cta/CtaBasic'),
-  ),
+  'number-split': clientSection('number-split'),
+  'info-with-right-image': clientSection('info-with-right-image'),
+  'info-with-left-image': clientSection('info-with-left-image'),
+  'cta-basic': clientSection('cta-basic'),
 
   // Doctor detail
-  'post-detail-with-sidebar-left': dynamic(() =>
-    import('../components/doctors/DoctorDetail'),
+  'post-detail-with-sidebar-left': dynamic(
+    () => import('../components/doctors/DoctorDetail'),
   ),
 
   // FAQs
-  'hero-background-focus': dynamic(() =>
-    import('../components/sections/hero/HeroBackgroundsFocus'),
+  'hero-background-focus': dynamic(
+    () => import('../components/sections/hero/HeroBackgroundsFocus'),
   ),
 
-  'faqs-1-col': dynamic(() =>
-    import('../components/sections/faq/FaqsOneCol'),
-  ),
+  'faqs-1-col': clientSection('faqs-1-col'),
 
   // Dành cho người bệnh
-  'content-danh-cho-nguoi-benh': dynamic(() =>
-    import('../components/sections/custom/ContentDanhChoNguoiBenh'),
-  ),
-  'faqs-detail-split': dynamic(() =>
-    import('../components/sections/faq/FaqsDetailSplit'),
-  ),
+  'content-danh-cho-nguoi-benh': clientSection('content-danh-cho-nguoi-benh'),
+  'faqs-detail-split': clientSection('faqs-detail-split'),
 
   // Milestone
-  'card-1-col': dynamic(() =>
-    import('../components/sections/card/Card1Col'),
-  ),
+  'card-1-col': clientSection('card-1-col'),
 
   // Khối cơ quan hành chính
-  'card-4-col': dynamic(() =>
-    import('../components/sections/card/Card4Col'),
-  ),
+  'card-4-col': clientSection('card-4-col'),
 
   // Cơ sở vật chất
-  'gallery-slider-tall': dynamic(() =>
-    import('../components/sections/gallery/GallerySliderTall'),
-  ),
+  'gallery-slider-tall': clientSection('gallery-slider-tall'),
 
   // Search
-  custom: dynamic(() =>
-    import('../components/sections/custom/CustomSearch'),
-  ),
+  custom: clientSection('custom'),
 
   // PDF view
-  'pdf-viewer': dynamic(() =>
-    import('../components/sections/custom/PDFViewer'),
+  'pdf-viewer': dynamic(
+    () => import('../components/sections/custom/PDFViewer'),
   ),
 
-  'fancybox-viewer': dynamic(() =>
-    import('../components/sections/custom/FancyboxViewer'),
-  ),
+  'fancybox-viewer': clientSection('fancybox-viewer'),
 
   // Thanh tich
-  'posts-2-col': dynamic(() =>
-    import('../components/sections/post-grid/Posts2Col'),
-  ),
+  'posts-2-col': clientSection('posts-2-col'),
 
   // Contact
-  'cta-background-image': dynamic(() =>
-    import('../components/sections/cta/CtaBackgroundImage'),
+  'cta-background-image': clientSection('cta-background-image'),
+  'card-3-col': dynamic(() => import('../components/sections/card/Card3Col')),
+  'cta-with-field': dynamic(
+    () => import('../components/sections/cta/CtaWithField'),
   ),
-  'card-3-col': dynamic(() =>
-    import('../components/sections/card/Card3Col'),
-  ),
-  'cta-with-field': dynamic(() =>
-    import('../components/sections/cta/CtaWithField'),
-  ),
-  'embedded-map': dynamic(() =>
-    import('../components/sections/custom/EmbeddedMap'),
+  'embedded-map': dynamic(
+    () => import('../components/sections/custom/EmbeddedMap'),
   ),
 
   // Danh sách bác sĩ
-  'hero-text-overlay': dynamic(() =>
-    import('../components/sections/hero/HeroTextOverlay'),
-  ),
-  'team-split-with-filter': dynamic(() =>
-    import('../components/doctors/DoctorList'),
-  ),
+  'hero-text-overlay': clientSection('hero-text-overlay'),
+  'team-split-with-filter': clientSection('team-split-with-filter'),
 
   // Chuyên khoa
-  'feature-with-image-3-col': dynamic(() =>
-    import('../components/departments/DepartmentListPage'),
-  ),
+  'feature-with-image-3-col': clientSection('feature-with-image-3-col'),
   // Chi tiết khối cơ quan
-  'team-2-col': dynamic(() =>
-    import('../components/sections/team/Team2Col'),
-  ),
+  'team-2-col': clientSection('team-2-col'),
 
-  'custom-full-size': dynamic(() =>
-    import('../components/sections/custom/ContentFullSize'),
+  'custom-full-size': dynamic(
+    () => import('../components/sections/custom/ContentFullSize'),
   ),
 };
 

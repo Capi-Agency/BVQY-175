@@ -14,7 +14,6 @@ import { routing } from '@/src/i18n/routing';
 import Loading from '../loading';
 import localFont from 'next/font/local';
 import LazyToastContainer from '../../components/common/lazy-toast-container';
-import ReCaptchatProvider from '@/src/providers/GoogleRecaptchaProvider';
 import Script from 'next/script';
 
 const plusJakartaSans = localFont({
@@ -175,26 +174,20 @@ export default async function RootLayout({
           closeButton={false}
           className={'z-[99999] text-sm'}
         />
-        <ReCaptchatProvider>
-          <MetadataProvider value={metadata}>
-            <NextIntlClientProvider messages={messages}>
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="light"
-                enableSystem
-              >
-                <GsapMatchMediaProvider>
-                  <TheHeader />
-                  <Suspense fallback={<Loading />}>
-                    <BackToTop />
-                    {children}
-                  </Suspense>
-                  <TheFooter />
-                </GsapMatchMediaProvider>
-              </ThemeProvider>
-            </NextIntlClientProvider>
-          </MetadataProvider>
-        </ReCaptchatProvider>
+        <MetadataProvider value={metadata}>
+          <NextIntlClientProvider messages={messages}>
+            <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+              <GsapMatchMediaProvider>
+                <TheHeader />
+                <Suspense fallback={<Loading />}>
+                  <BackToTop />
+                  {children}
+                </Suspense>
+                <TheFooter />
+              </GsapMatchMediaProvider>
+            </ThemeProvider>
+          </NextIntlClientProvider>
+        </MetadataProvider>
       </body>
     </html>
   );
