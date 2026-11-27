@@ -108,7 +108,7 @@ export default async function RootLayout({
 
         <meta name="format-detection" content="telephone=no" />
         {/* Begin EMC Tracking Code */}
-        <Script id="emc-tracking" strategy="afterInteractive">
+        <Script id="emc-tracking" strategy="lazyOnload">
           {`
             var _govaq = window._govaq || [];
             _govaq.push(['trackPageView']);
@@ -123,6 +123,23 @@ export default async function RootLayout({
             g.async = true;
             g.defer = true;
             g.src = 'https://f-emc.ngsp.gov.vn/embed/gov-tracking.min.js';
+            // The EMC badge is <a href="javascript:void(0)"> (a link to nowhere: "links are not
+            // crawlable") with a 16x13 PNG icon ("low resolution" on high-DPR screens). Same look,
+            // as a span; the icon is kept pixel-sharp. Its CSS targets classes only.
+            g.onload = function () {
+              var a = d.getElementById('btnEMC');
+              if (a && /^javascript:/i.test(a.getAttribute('href') || '')) {
+                var sp = d.createElement('span');
+                for (var i = 0; i < a.attributes.length; i++) {
+                  var at = a.attributes[i];
+                  if (at.name !== 'href') sp.setAttribute(at.name, at.value);
+                }
+                sp.innerHTML = a.innerHTML;
+                a.parentNode.replaceChild(sp, a);
+              }
+              var imgs = d.querySelectorAll('.yhy-append img');
+              for (var j = 0; j < imgs.length; j++) imgs[j].style.imageRendering = 'pixelated';
+            };
             s.parentNode.insertBefore(g, s);
             })();
           `}
@@ -130,8 +147,11 @@ export default async function RootLayout({
         {/* End EMC Tracking Code */}
 
         {/* Google tag (gtag.js) */}
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-RD3PNBM6T2" />
-        <Script id="google-analytics">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-RD3PNBM6T2"
+          strategy="lazyOnload"
+        />
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

@@ -4,7 +4,7 @@ import NextImg from '../next-img';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import { toast } from '@/src/lib/toast';
 import { fnSendContact } from '@/src/services/contact';
 import { useTranslations } from 'next-intl';
 

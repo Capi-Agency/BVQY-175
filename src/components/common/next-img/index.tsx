@@ -38,12 +38,17 @@ const NextImg = ({
     setError(true);
   };
 
-  const imageSrc = error ? srcDefault : (src || srcDefault);
+  const imageSrc = error ? srcDefault : src || srcDefault;
 
-  const containerClass = className ? `${className} h-full w-full object-${objectFit}` : `h-full w-full object-${objectFit}`;
+  const containerClass = className
+    ? `${className} h-full w-full object-${objectFit}`
+    : `h-full w-full object-${objectFit}`;
+
+  const isVector = /\.svg($|\?)/i.test(imageSrc);
 
   return (
     <Image
+      unoptimized={isVector}
       id={id}
       src={imageSrc}
       alt={alt}

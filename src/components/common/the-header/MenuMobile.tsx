@@ -83,7 +83,6 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
                   src="/assets/logo/long_primary_logo.svg"
                   alt="Military hospital logo"
                   loading="eager"
-                  fetchPriority="high"
                 />
               </Link>
             </DialogClose>

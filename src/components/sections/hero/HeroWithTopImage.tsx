@@ -1,7 +1,8 @@
 'use client';
 import { CommonSection } from '@/src/types/pageBuilder';
 import React, { useRef } from 'react';
-import NextImg from '../../common/next-img';
+import { getImageProps } from 'next/image';
+import { preload } from 'react-dom';
 import { getAssetUrlById } from '@/src/utils/image';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -13,6 +14,9 @@ import CustomLink from '../../common/custom-link';
 import useSwiperPagination from '@/src/hooks/useSwiperPagination';
 
 gsap.registerPlugin(useGSAP);
+
+// tailwind `md`
+const MD = 768;
 
 export default function HeroWithTopImage({ data }: CommonSection) {
   const containerRef = useRef<any>(null);
@@ -218,6 +222,8 @@ export default function HeroWithTopImage({ data }: CommonSection) {
                     <img
                       src={getAssetUrlById(button?.icon?.id)}
                       alt="icon"
+                      loading="lazy"
+                      decoding="async"
                       className="size-full"
                     />
                   </div>
@@ -242,33 +248,47 @@ export default function HeroWithTopImage({ data }: CommonSection) {
   );
 }
 
+// One <picture> per slide: below md the portrait crop (`content`), from md the wide `cover`.
+// Before, each slide rendered two <img> (one hidden by CSS); hidden eager images still download,
+// so a phone fetched the desktop cover too, at high priority, next to its own LCP image.
 const SlideContent = ({ item, isFirst }: any) => {
+  const coverSrc = getAssetUrlById(item?.cover?.id);
+  const mobileSrc = item?.content?.id ? getAssetUrlById(item.content.id) : coverSrc;
+  const common = { alt: 'media image', fill: true, sizes: '100vw', quality: 75 } as const;
+  const { props: cover } = getImageProps({ ...common, src: coverSrc });
+  const { props: mobile } = getImageProps({ ...common, src: mobileSrc });
+
+  if (isFirst) {
+    // The LCP image: preload only the variant this viewport will show.
+    preload(mobile.src, {
+      as: 'image',
+      imageSrcSet: mobile.srcSet,
+      imageSizes: '100vw',
+      media: `(max-width: ${MD - 0.02}px)`,
+      fetchPriority: 'high',
+    });
+    preload(cover.src, {
+      as: 'image',
+      imageSrcSet: cover.srcSet,
+      imageSizes: '100vw',
+      media: `(min-width: ${MD}px)`,
+      fetchPriority: 'high',
+    });
+  }
+
   return (
     <>
-      <div className="absolute inset-0 z-[1] hidden size-full md:block">
-        <NextImg
-          src={getAssetUrlById(item?.cover?.id)}
+      <picture className="absolute inset-0 z-[1] size-full">
+        <source media={`(min-width: ${MD}px)`} srcSet={cover.srcSet} sizes="100vw" />
+        <img
+          {...mobile}
           alt="media image"
-          objectFit="cover"
-          className="object-top"
+          className="h-full w-full object-cover object-top"
           loading={isFirst ? 'eager' : 'lazy'}
           fetchPriority={isFirst ? 'high' : 'auto'}
-          priority={isFirst}
-          quality={isFirst ? 75 : 80}
+          decoding={isFirst ? 'sync' : 'async'}
         />
-      </div>
-
-      <div className="absolute inset-0 z-[1] size-full md:hidden">
-        <NextImg
-          src={getAssetUrlById(item?.content?.id)}
-          alt="media image"
-          objectFit="cover"
-          className="object-top"
-          loading={isFirst ? 'eager' : 'lazy'}
-          fetchPriority={isFirst ? 'high' : 'auto'}
-          priority={isFirst}
-        />
-      </div>
+      </picture>
 
       <div className="absolute left-0 top-1/2 z-[2] w-full -translate-y-1/2">
         <div className="container relative z-[2] space-y-2 text-center xl:space-y-3 4xl:space-y-4">

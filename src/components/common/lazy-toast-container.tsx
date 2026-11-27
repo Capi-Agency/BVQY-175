@@ -1,17 +1,27 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ToastContainer, ToastContainerProps } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import type {
+  ToastContainer as ToastContainerType,
+  ToastContainerProps,
+} from 'react-toastify';
+import { onToastifyLoaded, toastContainerMounted } from '@/src/lib/toast';
 
 export default function LazyToastContainer(props: ToastContainerProps) {
-  const [mounted, setMounted] = useState(false);
+  const [Container, setContainer] = useState<typeof ToastContainerType | null>(
+    null,
+  );
+
+  useEffect(
+    () => onToastifyLoaded((m) => setContainer(() => m.ToastContainer)),
+    [],
+  );
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    if (Container) toastContainerMounted();
+  }, [Container]);
 
-  if (!mounted) return null;
+  if (!Container) return null;
 
-  return <ToastContainer {...props} />;
+  return <Container {...props} />;
 }

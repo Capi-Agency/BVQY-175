@@ -7,7 +7,7 @@ import { useMemo, useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import { toast } from '@/src/lib/toast';
 import { fnSendReview } from '@/src/services/contact';
 import { cn } from '@/src/lib/utils';
 import { useTranslations } from 'next-intl';
@@ -233,13 +233,20 @@ export default function ReviewSplitWithText({ data }: CommonSection) {
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col items-stretch justify-center gap-2 lg:gap-3 xl:h-full 2xl:gap-4"
           >
-            <input
-              {...register('website')}
-              type="text"
-              className="sr-only"
-              tabIndex={-1}
-              autoComplete="off"
-            />
+            {/* Honeypot: bots fill it, people never see it. aria-hidden keeps it away from
+                screen readers (who could otherwise fill it and be flagged as spam); the label
+                keeps it a properly labelled control. */}
+            <div aria-hidden="true" className="sr-only">
+              <label>
+                Website
+                <input
+                  {...register('website')}
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </label>
+            </div>
             <div
               className="section-sub-title font-semibold text-primary-600"
               dangerouslySetInnerHTML={{

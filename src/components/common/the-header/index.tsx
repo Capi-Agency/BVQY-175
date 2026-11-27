@@ -41,7 +41,6 @@ export default function TheHeader() {
               src="/assets/logo/long_primary_logo.svg"
               alt="Military hospital logo"
               loading="eager"
-              fetchPriority="high"
             />
           </Link>
 
@@ -63,6 +62,7 @@ export default function TheHeader() {
                       src={getAssetUrlById(file?.directus_files_id)}
                       alt="Military hospital"
                       loading="eager"
+                      sizes="50px"
                     />
                   </div>
                 ))}

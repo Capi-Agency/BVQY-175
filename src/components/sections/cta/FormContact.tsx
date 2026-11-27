@@ -5,7 +5,7 @@ import { useMemo, useState } from 'react';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import { toast } from '@/src/lib/toast';
 import { ContactInfo, fnSendContact } from '@/src/services/contact';
 import { cn } from '@/src/lib/utils';
 import { useTranslations } from 'next-intl';
