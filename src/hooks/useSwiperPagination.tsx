@@ -1,27 +1,25 @@
 "use client"
-import { useEffect, useState } from 'react';
+import { useId, useMemo } from 'react';
 import type { PaginationOptions } from 'swiper/types';
 
+// The class must be known on the first render (server included): components
+// render their slider only once `paginationClass` is set, so a value produced
+// in useEffect left the slider out of the SSR HTML and it popped in after
+// hydration, pushing everything below it down (CLS). useId is stable between
+// server and client; strip the characters React puts in it (":", "«", "»")
+// so it is usable as a CSS class and selector.
 export default function useSwiperPagination() {
-  const [pagination, setPagination] = useState<{
-    paginationClass: string;
-    paginationConfig: PaginationOptions;
-  } | null>(null);
+  const id = useId();
 
-  useEffect(() => {
-    const unique = `swiper-custom-${Math.random().toString(36).substring(2, 9)}`;
+  return useMemo(() => {
+    const unique = `swiper-custom-${id.replace(/[^a-zA-Z0-9_-]/g, '')}`;
     const paginationClass = `swiper-bullets-container ${unique}`;
-    const selector = `.swiper-bullets-container.${unique}`;
     const paginationConfig: PaginationOptions = {
       clickable: true,
       type: 'bullets',
-      el: selector,
+      el: `.swiper-bullets-container.${unique}`,
       bulletElement: 'div',
     };
-    setPagination({ paginationClass, paginationConfig });
-  }, []);
-
-  return {
-    ...pagination,
-  };
+    return { paginationClass, paginationConfig };
+  }, [id]);
 }
