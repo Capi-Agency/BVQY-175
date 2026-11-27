@@ -20,15 +20,18 @@ import { useMetadata } from '@/src/providers/MetadataProvider';
 import { getAssetUrlById } from '@/src/utils/image';
 import CustomLink from '../custom-link';
 import LanguageBtn from './LanguageBtn';
+import MenuButton from './MenuButton';
 import { cn } from '@/src/lib/utils';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/src/i18n/navigation';
 
 type MobileMenuProps = {
   handleSearch: (key: string, value: string) => void;
+  /** LazyMenuMobile mounts this component on the first tap and opens it right away. */
+  defaultOpen?: boolean;
 };
 
-export default function MobileMenu({ handleSearch }: MobileMenuProps) {
+export default function MobileMenu({ handleSearch, defaultOpen }: MobileMenuProps) {
   const metadata = useMetadata();
   const contact_information = metadata?.contact_information;
   const top_navigation = metadata?.top_navigation;
@@ -40,21 +43,12 @@ export default function MobileMenu({ handleSearch }: MobileMenuProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <Dialog>
+    <Dialog defaultOpen={defaultOpen}>
       <DialogTrigger
         asChild
         className="block"
       >
-        <button className="flex items-center justify-center md:h-9 md:w-[52px] md:rounded-[6px] md:bg-primary-600 xl:hidden 2xl:h-10 2xl:w-[60px]">
-          <div className="relative size-6 brightness-0 md:brightness-100 2xl:size-6">
-            <img
-              src="/assets/icons/ham_menu.svg"
-              alt="menu icon"
-              loading="eager"
-              className="size-full"
-            />
-          </div>
-        </button>
+        <MenuButton />
       </DialogTrigger>
 
       <DialogContentMenuMobile onOpenAutoFocus={(e) => e.preventDefault()}>

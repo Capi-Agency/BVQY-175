@@ -1,4 +1,26 @@
-import moment from 'moment';
+// moment (~18 KB gzip in the page bundle) was only used for formatDate / formatDateTime:
+// a small token formatter covers the formats the site uses (DD/MM/YYYY, MMMM D, YYYY, hh:mm:ss).
+const MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+const pad = (n: number) => String(n).padStart(2, '0');
+const formatTokens = (d: Date, fmt: string) => {
+  if (isNaN(d.getTime())) return 'Invalid date';
+  const map: Record<string, string> = {
+    YYYY: String(d.getFullYear()),
+    MMMM: MONTHS[d.getMonth()],
+    MM: pad(d.getMonth() + 1),
+    M: String(d.getMonth() + 1),
+    DD: pad(d.getDate()),
+    D: String(d.getDate()),
+    HH: pad(d.getHours()),
+    hh: pad(d.getHours() % 12 || 12),
+    mm: pad(d.getMinutes()),
+    ss: pad(d.getSeconds()),
+  };
+  return fmt.replace(/YYYY|MMMM|MM|M|DD|D|HH|hh|mm|ss/g, (t) => map[t]);
+};
 
 // Check ký tự đặc biệt
 const containsSpecialCharacter = (str: string) => {
@@ -199,7 +221,7 @@ const toSlug = (str: string) => {
 const formatDate = (num: any, typeFormat = 'DD/MM/YYYY') => {
   const date = new Date(num);
 
-  return moment(date).format(typeFormat);
+  return formatTokens(date, typeFormat);
 };
 
 const formatDateVN = (num: any) => {
@@ -243,7 +265,7 @@ const toHHMMSS = (value: number) => {
  * @param flag true: start 00:00:00, false: end 23:59:59
  */
 const formatDateTime = (_date: any, flag: boolean) => {
-  const dateString = moment(_date).format('YYYY-MM-DD');
+  const dateString = formatTokens(new Date(_date), 'YYYY-MM-DD');
   const _flag = flag ? 'T00:00:00' : 'T23:59:59';
 
   const dateFormat = new Date(dateString + _flag);

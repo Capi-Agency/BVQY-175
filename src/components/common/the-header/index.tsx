@@ -5,7 +5,7 @@ import NextImg from '../next-img';
 import { useMetadata } from '@/src/providers/MetadataProvider';
 import { getAssetUrlById } from '@/src/utils/image';
 import NavHeader from './NavHeader';
-import MobileMenu from './MenuMobile';
+import MobileMenu from './LazyMenuMobile';
 import CustomLink from '../custom-link';
 import SearchHeader from './SearchHeader';
 import LanguageBtn from './LanguageBtn';
