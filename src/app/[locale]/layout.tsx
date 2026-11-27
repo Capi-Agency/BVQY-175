@@ -19,12 +19,8 @@ import Script from 'next/script';
 const plusJakartaSans = localFont({
   src: [
     {
+      // Variable font covering weight 400–800; one file is enough.
       path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-VF-latin.woff2',
-      weight: '400 800',
-      style: 'normal',
-    },
-    {
-      path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-VariableFont_wght.woff2',
       weight: '400 800',
       style: 'normal',
     },
@@ -94,12 +90,10 @@ export default async function RootLayout({
           href="/assets/logo/apple-touch-icon-180x180.png"
         ></link>
 
-        <link rel="dns-prefetch" href="//www.google.com" />
-        <link
-          rel="preconnect"
-          href="//www.google.com"
-          crossOrigin="anonymous"
-        />
+        {/* preconnect to GTM/GA so the analytics scripts start TLS earlier */}
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="//f-emc.ngsp.gov.vn" />
         <meta
           name="msapplication-TileImage"
           content="/assets/logo/logo-icon-270x270.png"
@@ -148,9 +142,9 @@ export default async function RootLayout({
         {/* Google tag (gtag.js) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-RD3PNBM6T2"
-          strategy="lazyOnload"
+          strategy="afterInteractive"
         />
-        <Script id="google-analytics" strategy="lazyOnload">
+        <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

@@ -60,6 +60,7 @@ export default function TeamSlider5ColClient({
                 avatarType="avatar"
                 subTitle="specialty"
                 isHover
+                // slider shows 1.5 cards on mobile (~60vw), 3.3 on tablet, 5 on desktop
                 imageSizes="(min-width: 1280px) 20vw, (min-width: 1024px) 25vw, (min-width: 768px) 30vw, 60vw"
               />
             </SwiperSlide>

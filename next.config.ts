@@ -32,8 +32,10 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
-    minimumCacheTTL: 60 * 60 * 24,
+    minimumCacheTTL: 60 * 60 * 24 * 7, // cache images for 7 days (reduces TTFB on repeat visits)
     dangerouslyAllowSVG: true,
+    // Serve AVIF first (≈20–50 % smaller), WebP as fallback
+    formats: ['image/avif', 'image/webp'],
   },
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
@@ -44,7 +46,9 @@ const nextConfig: NextConfig = {
     scrollRestoration: true,
     cssChunking: true,
     // No inlineCss: Next 15 puts the CSS both in a <style> and again in the RSC payload
-    // (+250 KB raw HTML on the home page), which cost more than the blocking stylesheet saved.
+    // (+250 KB raw HTML on the home page), which costs more than the blocking stylesheet saved.
+    // Tree-shake large packages so fewer bytes end up in the initial JS bundle.
+    optimizePackageImports: ['swiper', 'gsap', '@gsap/react'],
   },
   compiler: {
     styledComponents: true,

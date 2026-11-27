@@ -2,7 +2,6 @@
 import { CommonSection } from '@/src/types/pageBuilder';
 import React, { useEffect, useRef, useState } from 'react';
 import { getImageProps } from 'next/image';
-import { preload } from 'react-dom';
 import { getAssetUrlById } from '@/src/utils/image';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -295,24 +294,6 @@ const SlideContent = ({ item, isFirst, deferred }: any) => {
   } as const;
   const { props: cover } = getImageProps({ ...common, src: coverSrc });
   const { props: mobile } = getImageProps({ ...common, src: mobileSrc });
-
-  if (isFirst) {
-    // The LCP image: preload only the variant this viewport will show.
-    preload(mobile.src, {
-      as: 'image',
-      imageSrcSet: mobile.srcSet,
-      imageSizes: '100vw',
-      media: `(max-width: ${MD - 0.02}px)`,
-      fetchPriority: 'high',
-    });
-    preload(cover.src, {
-      as: 'image',
-      imageSrcSet: cover.srcSet,
-      imageSizes: '100vw',
-      media: `(min-width: ${MD}px)`,
-      fetchPriority: 'high',
-    });
-  }
 
   return (
     <>

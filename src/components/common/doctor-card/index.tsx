@@ -131,6 +131,7 @@ export default function DoctorCard({
               objectFit="cover"
               className="z-[1] origin-center"
               sizes={imageSizes}
+              quality={60}
             />
           )}
         </div>

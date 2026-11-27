@@ -37,6 +37,9 @@ export default function NewsCard({
           src={getAssetUrlById(newTrans?.thumbnail?.id || newTrans?.thumbnail)}
           alt="post cover"
           objectFit="cover"
+          // slider: 1.15 slides on mobile, 2.2 on tablet, 3 on desktop
+          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 45vw, 85vw"
+          quality={75}
         />
       </div>
       <div className="space-y-1">
