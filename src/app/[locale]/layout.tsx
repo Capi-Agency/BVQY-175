@@ -19,7 +19,6 @@ import Script from 'next/script';
 const plusJakartaSans = localFont({
   src: [
     {
-      // Variable font covering weight 400–800; one file is enough.
       path: '../../../public/assets/fonts/Plus-Jakarta/PlusJakartaSans-VF-latin.woff2',
       weight: '400 800',
       style: 'normal',
